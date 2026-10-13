@@ -16,7 +16,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const proj = path.resolve(here, "..");
@@ -44,7 +44,79 @@ const HTML_EXT = /\.html?$/i;
 const SCAN_JS = /\.(js|mjs)$/i;
 const SCAN_CSS = /\.css$/i;
 const SCAN_JSON = /\.(json|webmanifest)$/i;
-const ASSET_EXT = /\.(glb|gltf|png|jpg|jpeg|webp|ktx2|mp3|ogg|wav|json|wasm|data|bin|css|js|mjs|svg|woff2?|ttf|otf|ico|webmanifest|xml|txt|pdf|mp4|webm)$/i;
+const ASSET_EXT = /\.(glb|gltf|png|jpg|jpeg|webp|avif|ktx2|mp3|ogg|wav|json|wasm|data|bin|css|js|mjs|svg|woff2?|ttf|otf|ico|webmanifest|xml|txt|pdf|mp4|webm)$/i;
+
+// ── pinned prettier (module API) for AST-grade literal extraction ────────
+// The hand lexer desynchronizes on regex literals containing quotes, so JS
+// literals come from the babel AST when the pinned prettier is importable,
+// with the lexer as fallback. Same pinned version the derived layers use.
+const PINNED = "3.9.6";
+async function loadPrettier() {
+  const candidates = [
+    process.env.PRETTIER_MJS,
+    path.join(proj, "node_modules", "prettier", "index.mjs"),
+    "D:/repos/mirrors/metropolygonia/node_modules/prettier/index.mjs",
+  ].filter(Boolean);
+  for (const c of candidates) {
+    if (!fs.existsSync(c)) continue;
+    try {
+      const pkg = JSON.parse(fs.readFileSync(path.join(path.dirname(c), "package.json"), "utf8"));
+      if (pkg.version !== PINNED) continue;
+      const mod = (await import(pathToFileURL(c).href)).default;
+      if (mod.version === PINNED) return mod;
+    } catch (e) {
+      if (process.env.CS_DEBUG_PARSE) console.error(`prettier candidate failed (${c}):`, e && e.message);
+      /* try next */
+    }
+  }
+  return null;
+}
+const prettierMod = await loadPrettier();
+console.log(`capture: literal scanner = ${prettierMod ? `babel AST via pinned prettier ${PINNED}` : "lexer fallback (prettier not importable)"}`);
+
+function astLiterals(ast) {
+  const out = [];
+  const seen = new Set();
+  const walk = (v) => {
+    if (!v || typeof v !== "object") return;
+    if (Array.isArray(v)) {
+      for (const x of v) walk(x);
+      return;
+    }
+    if (seen.has(v)) return;
+    seen.add(v);
+    const t = v.type;
+    if (t === "StringLiteral" || t === "DirectiveLiteral") {
+      if (typeof v.value === "string") out.push(v.value);
+      return;
+    }
+    if (t === "TemplateLiteral") {
+      if (!v.expressions || v.expressions.length === 0)
+        out.push((v.quasis || []).map((q) => q.value?.cooked ?? q.value?.raw ?? "").join(""));
+      return;
+    }
+    for (const k of Object.keys(v)) {
+      if (k === "loc" || k === "start" || k === "end" || k === "range" || k === "leadingComments" || k === "trailingComments") continue;
+      walk(v[k]);
+    }
+  };
+  walk(ast);
+  return out;
+}
+
+// returns all plausible asset literals in a JS text (AST first, lexer fallback)
+async function jsAssetLiterals(text) {
+  if (prettierMod) {
+    try {
+      const parsed = await prettierMod.__debug.parse(text, { parser: "babel" });
+      return [...new Set(astLiterals(parsed.ast))].filter(plausible);
+    } catch (e) {
+      if (process.env.CS_DEBUG_PARSE) console.error("ast parse fallback:", e && e.message);
+      /* fall through to the lexer */
+    }
+  }
+  return stringLiterals(text).filter(plausible);
+}
 
 let state = { fetched: {}, unreachable: [], external: {}, candidates404: {} };
 if (fs.existsSync(STATE)) state = JSON.parse(fs.readFileSync(STATE, "utf8"));
@@ -116,6 +188,8 @@ async function fetchOne(url) {
 function scanHtml(buf, pageUrl) {
   const text = buf.toString("utf8");
   const found = [];
+  const inlineScripts = [];
+  found.inlineScripts = inlineScripts;
   for (const m of text.matchAll(/\b(?:src|href|data-src|poster)\s*=\s*["']([^"']+)["']/gi)) {
     const raw = m[1].trim();
     if (!raw || /^(data:|mailto:|tel:|javascript:|#)/i.test(raw)) continue;
@@ -140,7 +214,7 @@ function scanHtml(buf, pageUrl) {
     if (!/\bsrc\s*=/i.test(tag)) {
       const type = (/\btype\s*=\s*["']?([^"'\s>]+)/i.exec(tag)?.[1] ?? "").toLowerCase();
       if (!type || type === "module" || type === "text/javascript" || type === "application/javascript")
-        found.push(...scanJs(text.slice(tagEnd + 1, j), pageUrl, true));
+        inlineScripts.push(text.slice(tagEnd + 1, j));
     }
     p = j + 8;
   }
@@ -233,7 +307,7 @@ function stringLiterals(text) {
   return out;
 }
 
-function scanJs(text, baseUrl, inline) {
+async function scanJs(text, baseUrl, inline) {
   const found = [];
   const push = (spec, kind) => {
     if (spec) found.push({ spec, kind, base: baseUrl, inline });
@@ -250,7 +324,7 @@ function scanJs(text, baseUrl, inline) {
   // new URL("...", ...)
   for (const m of text.matchAll(/\bnew\s+URL\s*\(\s*["']([^"']+)["']/g)) push(m[1], "new-URL");
   // asset-path string literals (i.e. anything ending in a known asset extension)
-  for (const s of stringLiterals(text)) if (plausible(s)) push(s, "asset-literal");
+  for (const s of await jsAssetLiterals(text)) push(s, "asset-literal");
   return found;
 }
 
@@ -322,6 +396,8 @@ function resolveRef({ spec, base }) {
 //   /assets/draco/ + {draco_decoder.js,draco_wasm_wrapper.js,draco_decoder.wasm}
 //     (DRACOLoader.setDecoderPath(`/assets/draco/`) in BoatModel/GoogleTiles/FloatingWorldProp)
 //   /textures/sky/ + tropical_day.jpg (ImageSky `_loadTexture`: a(`/textures/sky/${name}`))
+//   /maplibre/maplibre-gl-worker.mjs (the bundled MapLibre worker, resolved at
+//     runtime from import.meta.url; found via the live network log)
 const SEEDS = [
   "/robots.txt",
   "/sitemap.xml",
@@ -331,6 +407,7 @@ const SEEDS = [
   "/assets/draco/draco_wasm_wrapper.js",
   "/assets/draco/draco_decoder.wasm",
   "/textures/sky/tropical_day.jpg",
+  "/maplibre/maplibre-gl-worker.mjs",
 ];
 for (const s of SEEDS) enqueue(ORIGIN + s, "seed");
 
@@ -349,6 +426,8 @@ if (process.argv.includes("--rescan"))
   for (const k of Object.keys(state.fetched)) enqueue(ORIGIN + k, "rescan");
 
 // ── crawl loop ──────────────────────────────────────────────────────────
+let flagFamilyNeeded = false;
+const countryCodes = new Set();
 let round = 0;
 while (queue.length) {
   round++;
@@ -371,13 +450,27 @@ while (queue.length) {
     if (!got) continue;
     const rel = got.rel;
     let refs = [];
-    if (HTML_EXT.test(rel)) refs = scanHtml(got.buf, url);
-    else if (SCAN_JS.test(rel)) refs = scanJs(got.buf.toString("utf8"), url, false);
+    if (HTML_EXT.test(rel)) {
+      refs = scanHtml(got.buf, url);
+      for (const t of refs.inlineScripts) refs = refs.concat(await scanJs(t, url, true));
+    } else if (SCAN_JS.test(rel)) refs = await scanJs(got.buf.toString("utf8"), url, false);
+    // country-flag family: `/assets/flags/countries` + `${code}.png` is built at
+    // runtime from the countries table (`code:`XX``), so nothing literal points
+    // at the files — collect the table's codes and expand them after the round.
+    if (SCAN_JS.test(rel)) {
+      const text = got.buf.toString("utf8");
+      if (text.includes("flags/countries")) flagFamilyNeeded = true;
+      for (const m of text.matchAll(/code\s*:\s*[`"']([A-Z]{2})[`"']/g)) countryCodes.add(m[1]);
+    }
     else if (SCAN_CSS.test(rel)) refs = scanCss(got.buf.toString("utf8"), url);
     else if (SCAN_JSON.test(rel)) refs = scanJson(got.buf.toString("utf8"), url);
     else if (/\.svg$/i.test(rel)) refs = scanSvg(got.buf.toString("utf8"), url);
-    if (process.argv.includes("--debug-ref") && refs.some((r) => /textures|waternormals/i.test(r.spec)))
-      console.log(`refs of ${rel}:`, JSON.stringify(refs.filter((r) => /textures|waternormals/i.test(r.spec))));
+    const dbgPat = process.env.CS_DEBUG_PATTERN;
+    if (dbgPat && new RegExp(dbgPat, "i").test(rel))
+      console.log(
+        `debug ${rel}: ${refs.length} refs, matching ` +
+          JSON.stringify(refs.filter((r) => new RegExp(dbgPat, "i").test(JSON.stringify(r)))),
+      );
     for (const ref of refs) {
       const resolvedPath = resolveRef(ref);
       if (!resolvedPath) continue;
@@ -397,6 +490,11 @@ while (queue.length) {
       }
     }
   }
+  if (flagFamilyNeeded && countryCodes.size)
+    for (const cc of countryCodes) {
+      const p = `/assets/flags/countries/${cc.toLowerCase()}.png`;
+      if (!state.fetched[p] && !queued.has(p)) enqueue(ORIGIN + p, "flag-family");
+    }
   saveState();
   console.log(`round ${round}: ${batch.length} processed, ${fetchedThisRound} fetched, ${queue.length} queued next`);
   if (queue.length === 0) break;

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-13T00:37:15.660Z",
+  "generated": "2026-10-13T00:47:27.568Z",
   "origin": "https://vibesail.com",
   "files": {
     "index.html": {
@@ -298,6 +298,50 @@
       "bytes": 694,
       "sha256": "5db5ba82eef00d1dee7e86e663098c9427d01183a88d357437daff295aec3e75"
     },
+    "assets/cities/amsterdam_city_thumbnail.webp": {
+      "bytes": 138564,
+      "sha256": "fa3cefbe43e9dcd1690ea20139fbb41c5f63e16de6ab8353e508190a8ec844ec"
+    },
+    "assets/cities/barcelona.jpg": {
+      "bytes": 76219,
+      "sha256": "f6314aff0e041bb9a7920c1b8209bea8af9228b17e1ac15b0d896ae0caaa543d"
+    },
+    "assets/cities/chicago.jpg": {
+      "bytes": 94558,
+      "sha256": "456f221d29173f6ce9ea9cccbcfbf44bbebca022601ab1f0875e203b357571ec"
+    },
+    "assets/cities/hong_kong.jpg": {
+      "bytes": 90978,
+      "sha256": "d3cc54e21db25e4410cfd6889d57a6e07a7e276615f4fd5a93389e6ec7d81b48"
+    },
+    "assets/cities/lisbon.jpg": {
+      "bytes": 107001,
+      "sha256": "addf0424511f32550810e55f1b012bff5816c6bd93b25dac43a2dbd9946f2d63"
+    },
+    "assets/cities/nyc.jpg": {
+      "bytes": 77527,
+      "sha256": "f7861eec3534a5bac12c520cad3e4bb5543b9dee6eda716869ec53b7cd43a09e"
+    },
+    "assets/cities/paris.jpg": {
+      "bytes": 74853,
+      "sha256": "15337364650668e2bac98e9fcf9935b30c4a54207f62c7e5e59c518ad16f8d85"
+    },
+    "assets/cities/sf.jpg": {
+      "bytes": 67421,
+      "sha256": "cfc1b1f110ffeb2e653f8d391cfcc428a4b6e169c4e09bb19585e2a12d50c75c"
+    },
+    "assets/cities/singapore.jpg": {
+      "bytes": 80202,
+      "sha256": "1916694540a9b880e69b547f9c422a3087146bd803ab43fd777b098210006850"
+    },
+    "assets/cities/sydney.jpg": {
+      "bytes": 92325,
+      "sha256": "f3b9be8bb2ff4f7ef5e436b6aa7c6de756d8a8eb0ac3b32904e737c595adede3"
+    },
+    "assets/cities/tuscan_archipelago.jpg": {
+      "bytes": 98959,
+      "sha256": "d5923f40546cafbb6039c273fc48f73688c7e0f1aa6b766d051fd30a4b74a6e4"
+    },
     "assets/console-setup-BNMG1_tD.js": {
       "bytes": 183,
       "sha256": "bcd642500133679f74e35eb50add3b2bd1a70b0b972376ff347be52c0a2e2978"
@@ -353,6 +397,238 @@
     "assets/feedback-t1cbygys.js": {
       "bytes": 8450,
       "sha256": "9b30f2cf15adb1368c11df3c43513fdde7076e92235130e26110940413d45965"
+    },
+    "assets/flags/countries/ae.png": {
+      "bytes": 863,
+      "sha256": "64176d40f415b674fe87c2ecc9fd7616f54c79c0054e5f73326c0856350276da"
+    },
+    "assets/flags/countries/ar.png": {
+      "bytes": 3284,
+      "sha256": "c4009af9ab66b5d1e76b19fabc8f6f230b3c8552ac0dd2e14713e92d00aeab0a"
+    },
+    "assets/flags/countries/at.png": {
+      "bytes": 844,
+      "sha256": "0504c1ff2db86f41c4a3353a60a2e24798b287f026eae5f6538a14c3e9fc5609"
+    },
+    "assets/flags/countries/au.png": {
+      "bytes": 10905,
+      "sha256": "a561e9f0d7a3f8c58f1d383d1fbcfc5a8bc3ff876c1574c663da32207b363c8e"
+    },
+    "assets/flags/countries/be.png": {
+      "bytes": 824,
+      "sha256": "1ce8362ff825e0221f4160d44c73465b3fad659d1989e02b60d216eccb5294a7"
+    },
+    "assets/flags/countries/bg.png": {
+      "bytes": 848,
+      "sha256": "4bdca4c599dc984909349f9dc169d99a2a7b2d75a8fe02a2282bc715487bd0d8"
+    },
+    "assets/flags/countries/br.png": {
+      "bytes": 10708,
+      "sha256": "b180f63a4f947ce6f679dbf1401695171166ae2c7b272df35f1fd95e0d9051f2"
+    },
+    "assets/flags/countries/ca.png": {
+      "bytes": 1929,
+      "sha256": "ef97718ea973794fc78ce49dec01c24f0c87afca86edb5d88bd746cb6d42a7fa"
+    },
+    "assets/flags/countries/ch.png": {
+      "bytes": 851,
+      "sha256": "fabc3eb06944fbf79fa22361e4dbbaef28e0fc5176c8edd39513954a817728e8"
+    },
+    "assets/flags/countries/cl.png": {
+      "bytes": 3145,
+      "sha256": "2f893537a71a2235732df5cbc32e8ca06ecd41f0fcaa354374638c7177378847"
+    },
+    "assets/flags/countries/cn.png": {
+      "bytes": 6312,
+      "sha256": "fa1a16d2449a01c9b595161df979e010030706b5233a9ee625ea7abf8d2d9b7c"
+    },
+    "assets/flags/countries/co.png": {
+      "bytes": 828,
+      "sha256": "15676d41bf0faa762017d9988674aea210f5d57d880d9a3eccaf326f42943e9c"
+    },
+    "assets/flags/countries/cz.png": {
+      "bytes": 1443,
+      "sha256": "feafdcfac73eb45b0e7d39ca6e0af8ee42adec1833c935537aba7b58710fac7f"
+    },
+    "assets/flags/countries/de.png": {
+      "bytes": 842,
+      "sha256": "951de75667542c2e9d478398cbff77e1f30a565caffbe77964f7d01d0c2b4fb5"
+    },
+    "assets/flags/countries/dk.png": {
+      "bytes": 929,
+      "sha256": "812f2e751038f159601bfd7adad6e64fadb8e8d7c78ace77971527846ef78fd9"
+    },
+    "assets/flags/countries/ee.png": {
+      "bytes": 843,
+      "sha256": "66c30a24f68527dcd2486129b51c7b270243bb9dbe1c1c73f1d82489ad0abb66"
+    },
+    "assets/flags/countries/eg.png": {
+      "bytes": 2723,
+      "sha256": "ebbf5c826dbc7f4bb7dbc93711a8b55dadd11ed8950669a9ca369d20df224528"
+    },
+    "assets/flags/countries/es.png": {
+      "bytes": 2724,
+      "sha256": "2fdbc9743a41759ab8b98284a85018576e86dc4004ba3d7e0de48e5c6051e649"
+    },
+    "assets/flags/countries/fi.png": {
+      "bytes": 932,
+      "sha256": "0d465188c98757d04a3b7efb63c000db1590d5e1394534239c019f842fc1941a"
+    },
+    "assets/flags/countries/fr.png": {
+      "bytes": 824,
+      "sha256": "878d6b6d1430dd436394ee1dfdfda8cd28dae90e9a065f486b887400c73f12fa"
+    },
+    "assets/flags/countries/gb.png": {
+      "bytes": 11386,
+      "sha256": "50a5c3492b600694ed1e50971f2b180c7aba1cbee4f985fa3dd16a0af520394b"
+    },
+    "assets/flags/countries/gr.png": {
+      "bytes": 1091,
+      "sha256": "96fa6baf9812d715412a161ea219135c7bbb569615be0b3ec2aa43811a637145"
+    },
+    "assets/flags/countries/hr.png": {
+      "bytes": 4845,
+      "sha256": "804b7759ee0814df8e172c14564193e8b98243a0e6e0870fcb22ec948b1aca0d"
+    },
+    "assets/flags/countries/hu.png": {
+      "bytes": 847,
+      "sha256": "83c9a5455db284f9a0e533e0d890005028ff73349ad6f8eca0267a017d56d9c8"
+    },
+    "assets/flags/countries/id.png": {
+      "bytes": 816,
+      "sha256": "97890fe592deb6c8a496dde90ced94fe7f8ebdf8ca614083bd7c96b66fdbb709"
+    },
+    "assets/flags/countries/ie.png": {
+      "bytes": 826,
+      "sha256": "7fda1f2e4351dd74586cbb41c534ea08e3e8cb69079e9e88beefa37330045912"
+    },
+    "assets/flags/countries/il.png": {
+      "bytes": 6166,
+      "sha256": "9e1271d6c291bbe5c591199701f822c2257eaf430d37c7c0b2c0f25951a6fa80"
+    },
+    "assets/flags/countries/in.png": {
+      "bytes": 6189,
+      "sha256": "ce321cd479221a9e50c142283e59f4a16499952e6d17e4c08cd425f54d4cf17c"
+    },
+    "assets/flags/countries/it.png": {
+      "bytes": 839,
+      "sha256": "87e3b28c203f14f922433f14a826e855db03110952f44c3bc882c646395aa0a8"
+    },
+    "assets/flags/countries/jp.png": {
+      "bytes": 4015,
+      "sha256": "5d363cc80b4aa6352fe689a7f387ddf90ee07b66ab7f08d458e9a5b38875ac8d"
+    },
+    "assets/flags/countries/ke.png": {
+      "bytes": 6354,
+      "sha256": "e074c0e5d8ba296b6df4363b915c04ed14f760bab640ffacfa6a61138d90fe57"
+    },
+    "assets/flags/countries/kr.png": {
+      "bytes": 11549,
+      "sha256": "2c4230774971a74866243f5f3ed53f03f1d38658fc164c5f8fda9c8fb7ea3dc8"
+    },
+    "assets/flags/countries/lt.png": {
+      "bytes": 843,
+      "sha256": "de661f85977e5863fc6ff4694835dc4cc219ce6d35143b21d6bc042deff04939"
+    },
+    "assets/flags/countries/lv.png": {
+      "bytes": 841,
+      "sha256": "3bdb0b68e859920265c8f289d886d3670a0049023a2e4738fad777c2c24ceb40"
+    },
+    "assets/flags/countries/ma.png": {
+      "bytes": 5587,
+      "sha256": "17ff68c99ffe9df8c246378ce85c97533a8aaefb052435d9aaa458298106a3d4"
+    },
+    "assets/flags/countries/mx.png": {
+      "bytes": 3968,
+      "sha256": "3d7b80d17701efebbebdcc5abb2296547042883bf96b18d34a18d4fb8694c090"
+    },
+    "assets/flags/countries/my.png": {
+      "bytes": 6031,
+      "sha256": "379e2a904f8241703e833918c71729db2b0d28ab15e927da4e7968a9fa302e6b"
+    },
+    "assets/flags/countries/ng.png": {
+      "bytes": 822,
+      "sha256": "9c7d8a058edfdc353d7e75eaaf7616a5c2d378e4044055d54b44bcfe5614b19a"
+    },
+    "assets/flags/countries/nl.png": {
+      "bytes": 849,
+      "sha256": "4984d9d41cf9cd943a0bb75f4d1dc7d6d1bcc1f114c978515813394d91b6a231"
+    },
+    "assets/flags/countries/no.png": {
+      "bytes": 1038,
+      "sha256": "161bdf75ab29068abd45c0028f09e1162bb145cd9400a42036e6d826dce21eaa"
+    },
+    "assets/flags/countries/nz.png": {
+      "bytes": 10894,
+      "sha256": "4aec86d8c89758b4526b7c7093ed305aa8be99c3b64f651d6b5354ca1d9f3416"
+    },
+    "assets/flags/countries/pe.png": {
+      "bytes": 8225,
+      "sha256": "5d5b7f99348a2808f82b887144a39ae58bae2e0791099cd89db510e9bf2a2a80"
+    },
+    "assets/flags/countries/ph.png": {
+      "bytes": 5521,
+      "sha256": "d8f1ce35cf2ef5fec3ea943665530b26aa20077f1e6a55dbe75007dc4379cb2a"
+    },
+    "assets/flags/countries/pl.png": {
+      "bytes": 818,
+      "sha256": "a880cd7fe660420f86da827d9ef24b6ace41e8bb568917a6e072600253f3e1b7"
+    },
+    "assets/flags/countries/pt.png": {
+      "bytes": 3737,
+      "sha256": "853a0e1410a7d5921d50b52a8ea622e8a7ae29a9a5e5cc20f9c782ecd69c1c31"
+    },
+    "assets/flags/countries/ro.png": {
+      "bytes": 835,
+      "sha256": "5773a6dcbcb9d576b5c35327a2926b3a70ae401cfce599de1284f98ab6fb99c0"
+    },
+    "assets/flags/countries/ru.png": {
+      "bytes": 845,
+      "sha256": "e3a42b0c9f137b504e5cb3fdfdb676cc660da61edc1ee9c407c775b4a9cff664"
+    },
+    "assets/flags/countries/sa.png": {
+      "bytes": 20346,
+      "sha256": "932241be010b5d53855cdeaf7d59fe65953c6e4cf240ec46234ab1ab9ece739d"
+    },
+    "assets/flags/countries/se.png": {
+      "bytes": 860,
+      "sha256": "99d1129fca218addb051206dd6ab56b81ad44b9e5775163e09c6c9c3da108aae"
+    },
+    "assets/flags/countries/sg.png": {
+      "bytes": 4932,
+      "sha256": "fa98c80e1ade5c21c7eddd5935246afdf4d6a1fcf534a5df08d878e01953e034"
+    },
+    "assets/flags/countries/si.png": {
+      "bytes": 2339,
+      "sha256": "678016a4c4d76a1116ead431fb93959a796b3e170f7576e32ecb3f3e6b845f4d"
+    },
+    "assets/flags/countries/sk.png": {
+      "bytes": 3712,
+      "sha256": "d3928000dd3236442907e4bb9e44a5c6fdac1593504a0c48e6ba038ce3a4707c"
+    },
+    "assets/flags/countries/th.png": {
+      "bytes": 870,
+      "sha256": "c291c7a3dcc168e8c0f2985f187c0317cf824796046d51314f60d5edd0e2b4a9"
+    },
+    "assets/flags/countries/tr.png": {
+      "bytes": 6053,
+      "sha256": "20b4aefa6584864f724e38f691c294ee17c3e3e1bd25bb3192729d144f0dce91"
+    },
+    "assets/flags/countries/ua.png": {
+      "bytes": 822,
+      "sha256": "aff8573bd33831a66e0db1ebbfe10c730349dc7a32bcfb70a12530fd54bcb05b"
+    },
+    "assets/flags/countries/us.png": {
+      "bytes": 7871,
+      "sha256": "54dba7ea759d6f7290243bc6f11987c6e4f94a7fd8d1d143771eb2ee8c6f4a55"
+    },
+    "assets/flags/countries/vn.png": {
+      "bytes": 3661,
+      "sha256": "2eac034aa0b5acae6057033239fdbbd96d77c9453e105b87d8c15761bcd08b2d"
+    },
+    "assets/flags/countries/za.png": {
+      "bytes": 2496,
+      "sha256": "cb7368c102bcd9749f4af399a484f9548aa1cb7cbb14e31ee938343fdccabd8e"
     },
     "assets/flags/pirate.png": {
       "bytes": 20835,
@@ -630,9 +906,21 @@
       "bytes": 7428,
       "sha256": "ad60c66b26562add545450c8979fb23d755916d8fed90b0855d7bb45a5d944c5"
     },
+    "assets/sponsored-locations/columbia-sailing-school.webp": {
+      "bytes": 9446,
+      "sha256": "409b9040b589621e13cdb1a802902734860373f3333cb31c26c71baf4493e362"
+    },
     "assets/sponsored-locations/corfu-sea-school.webp": {
       "bytes": 20780,
       "sha256": "33e209c32af1857318318ef6d584377f11635788fc3b02720afefd38d80be3d8"
+    },
+    "assets/sponsored-locations/hudson-river-community-sailing.webp": {
+      "bytes": 4746,
+      "sha256": "5473fe2d6fd2aeda21670d3a2c015d0c3838c7c82b15d75e5f266b1d642d3cb4"
+    },
+    "assets/sponsored-locations/manhattan-sailing-school.webp": {
+      "bytes": 19322,
+      "sha256": "0ccd53e342a458a8cb64bf67f91bc6ffd86959e3ba4a573956ba6fa75b65ba29"
     },
     "assets/sponsored-locations/offshore-sailing-school.webp": {
       "bytes": 35436,
@@ -1266,6 +1554,14 @@
       "bytes": 834,
       "sha256": "19bde1b699f148644a9b79d66a17bf7e92cdac19d275873421e00d7b29529e58"
     },
+    "maplibre/maplibre-gl-shared.mjs": {
+      "bytes": 489575,
+      "sha256": "34c2cb0330cec92e81c4fa7344e7008451442bbb9cca1da3465db4041a934073"
+    },
+    "maplibre/maplibre-gl-worker.mjs": {
+      "bytes": 18592,
+      "sha256": "b081c9b3d0691d9d85552b5624f2601f69f24ed37573959d279d322e98e4ee2f"
+    },
     "privacy/index.html": {
       "bytes": 9994,
       "sha256": "98de4d4c979043d142d52b5479cc0091a49aa0c0f0c19b4fef72f83dc5710534"
@@ -1321,6 +1617,10 @@
     "sounds/wood-creaking-30692.mp3": {
       "bytes": 484457,
       "sha256": "a360bfb1e5f12c4717201ebe92ffa52dd79f5dedb7e2b55720bc860c961d45f4"
+    },
+    "textures/cloud.avif": {
+      "bytes": 2765,
+      "sha256": "7aabcd463b58ca1a95d58079bd7eb3c26b8d8c03b338ce3bef45643923920998"
     },
     "textures/sky/tropical_day.jpg": {
       "bytes": 822259,
