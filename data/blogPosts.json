@@ -1,0 +1,1148 @@
+{
+  "version": 1,
+  "posts": [
+    {
+      "slug": "changelog-001-playable-sailing-foundation",
+      "type": "changelog",
+      "changelogNumber": 1,
+      "title": "Playable Sailing Foundation",
+      "excerpt": "The first public sailing loop arrived with steer, trim, wind response, and open-water movement.",
+      "publishedAt": "2025-02-26",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-002-heel-and-wind-force-pass",
+      "type": "changelog",
+      "changelogNumber": 2,
+      "title": "Heel and Wind Force Pass",
+      "excerpt": "Boat balance and sail pressure became more readable through heel and wind-force tuning.",
+      "publishedAt": "2025-02-27",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-003-camera-modes-rollout",
+      "type": "changelog",
+      "changelogNumber": 3,
+      "title": "Camera Modes Rollout",
+      "excerpt": "Multiple camera styles landed, including a closer first-person sailing perspective.",
+      "publishedAt": "2025-02-28",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-004-mobile-controls-pass",
+      "type": "changelog",
+      "changelogNumber": 4,
+      "title": "Mobile Controls Pass",
+      "excerpt": "Touch steering and sail trim were improved for reliable mobile sessions.",
+      "publishedAt": "2025-03-01",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-005-audio-atmosphere-v1",
+      "type": "changelog",
+      "changelogNumber": 5,
+      "title": "Audio Atmosphere v1",
+      "excerpt": "Ambient wind and sea sound layers entered the core sailing loop.",
+      "publishedAt": "2025-03-03",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-006-multiplayer-boat-presence",
+      "type": "changelog",
+      "changelogNumber": 6,
+      "title": "Multiplayer Boat Presence",
+      "excerpt": "Sailors can now see other players sharing the same water.",
+      "publishedAt": "2025-03-05",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-007-ai-traffic-foundation",
+      "type": "changelog",
+      "changelogNumber": 7,
+      "title": "AI Traffic Foundation",
+      "excerpt": "AI boats and path recording groundwork expanded world activity.",
+      "publishedAt": "2025-03-07",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-008-player-flag-identity-pass",
+      "type": "changelog",
+      "changelogNumber": 8,
+      "title": "Player Flag Identity Pass",
+      "excerpt": "Flag rendering and identity cues became clearer during races and free sail.",
+      "publishedAt": "2025-03-09",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-009-interactive-tutorial-v1",
+      "type": "changelog",
+      "changelogNumber": 9,
+      "title": "Interactive Tutorial v1",
+      "excerpt": "Guided onboarding launched to help new sailors learn controls and wind basics.",
+      "publishedAt": "2025-03-10",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-010-daily-race-mode-launch",
+      "type": "changelog",
+      "changelogNumber": 10,
+      "title": "Daily Race Mode Launch",
+      "excerpt": "Checkpoint race mode arrived as the first structured competitive activity.",
+      "publishedAt": "2025-03-12",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-011-leaderboard-live",
+      "type": "changelog",
+      "changelogNumber": 11,
+      "title": "Leaderboard Live",
+      "excerpt": "Race results became visible through leaderboard rankings and faster comparison flow.",
+      "publishedAt": "2025-03-14",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-012-tack-and-jibe-dynamics-pass",
+      "type": "changelog",
+      "changelogNumber": 12,
+      "title": "Tack and Jibe Dynamics Pass",
+      "excerpt": "Major sail-handling work improved crossing-wind maneuvers and trim response.",
+      "publishedAt": "2025-03-16",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-013-race-route-guidance-ui",
+      "type": "changelog",
+      "changelogNumber": 13,
+      "title": "Race Route Guidance UI",
+      "excerpt": "Race navigation cues became clearer from start line through checkpoint flow.",
+      "publishedAt": "2025-03-18",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-014-record-submission-hardening",
+      "type": "changelog",
+      "changelogNumber": 14,
+      "title": "Record Submission Hardening",
+      "excerpt": "Race result submission gained stronger validation for cleaner competition.",
+      "publishedAt": "2025-03-20",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-015-world-and-water-architecture-pass",
+      "type": "changelog",
+      "changelogNumber": 15,
+      "title": "World and Water Architecture Pass",
+      "excerpt": "Core world and ocean systems were reorganized for steadier rendering and expansion.",
+      "publishedAt": "2025-03-23",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-016-camera-and-hud-polish",
+      "type": "changelog",
+      "changelogNumber": 16,
+      "title": "Camera and HUD Polish",
+      "excerpt": "Camera behavior and in-race HUD legibility received a focused quality pass.",
+      "publishedAt": "2025-03-30",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-017-wind-indicator-refresh",
+      "type": "changelog",
+      "changelogNumber": 17,
+      "title": "Wind Indicator Refresh",
+      "excerpt": "Wind direction and trim readability were improved in the sailing HUD.",
+      "publishedAt": "2025-04-19",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-018-island-system-rebuild",
+      "type": "changelog",
+      "changelogNumber": 18,
+      "title": "Island System Rebuild",
+      "excerpt": "A major world-content rebuild reshaped island distribution and exploration rhythm.",
+      "publishedAt": "2025-08-04",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-019-far-island-visibility-pass",
+      "type": "changelog",
+      "changelogNumber": 19,
+      "title": "Far-Island Visibility Pass",
+      "excerpt": "Horizon content and visibility tuning made long routes feel larger and more alive.",
+      "publishedAt": "2025-08-07",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-020-island-sponsor-customer-stops",
+      "type": "changelog",
+      "changelogNumber": 20,
+      "title": "Island Sponsor Customer Stops",
+      "excerpt": "Sponsor/customer islands started rolling out, adding branded discovery points across the world.",
+      "publishedAt": "2025-08-08",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-021-performance-monitor-release",
+      "type": "changelog",
+      "changelogNumber": 21,
+      "title": "Performance Monitor Release",
+      "excerpt": "Rendering and frame consistency got a broad optimization pass across major systems.",
+      "publishedAt": "2025-08-09",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-022-boat-tuning-and-customization",
+      "type": "changelog",
+      "changelogNumber": 22,
+      "title": "Boat Tuning and Customization",
+      "excerpt": "Boat feel and look became player-tunable with broader handling and visual controls.",
+      "publishedAt": "2025-08-10",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-023-wave-overhaul-phase-1",
+      "type": "changelog",
+      "changelogNumber": 23,
+      "title": "Wave Overhaul Phase 1",
+      "excerpt": "Ocean motion was reworked for stronger sea-state expression and smoother tiling.",
+      "publishedAt": "2025-08-14",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-024-wave-overhaul-phase-2",
+      "type": "changelog",
+      "changelogNumber": 24,
+      "title": "Wave Overhaul Phase 2",
+      "excerpt": "Follow-up wave fixes improved visual consistency and boat response over swells.",
+      "publishedAt": "2025-08-15",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-025-settings-and-audio-persistence",
+      "type": "changelog",
+      "changelogNumber": 25,
+      "title": "Settings and Audio Persistence",
+      "excerpt": "Player preferences became more durable with stronger settings and audio persistence.",
+      "publishedAt": "2025-08-17",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-026-sail-furling-controls",
+      "type": "changelog",
+      "changelogNumber": 26,
+      "title": "Sail Furling Controls",
+      "excerpt": "Sail furling added a new handling layer for pacing speed and balance in varied wind.",
+      "publishedAt": "2025-08-18",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-027-island-lod-and-dock-structure-pass",
+      "type": "changelog",
+      "changelogNumber": 27,
+      "title": "Island LOD and Dock Structure Pass",
+      "excerpt": "Distance handling and dock structure systems were upgraded for larger world stability.",
+      "publishedAt": "2025-08-25",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-028-logistics-missions-launch",
+      "type": "changelog",
+      "changelogNumber": 28,
+      "title": "Logistics Missions Launch",
+      "excerpt": "Dock-to-dock delivery missions introduced a major non-race progression loop.",
+      "publishedAt": "2025-09-19",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-029-mission-compass-guidance",
+      "type": "changelog",
+      "changelogNumber": 29,
+      "title": "Mission Compass Guidance",
+      "excerpt": "Mission destination guidance became easier to follow with compass integration.",
+      "publishedAt": "2025-09-21",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-030-upgrade-shop-launch",
+      "type": "changelog",
+      "changelogNumber": 30,
+      "title": "Upgrade Shop Launch",
+      "excerpt": "Progression took a big step with coin-powered, long-term boat upgrades.",
+      "publishedAt": "2025-09-25",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-031-upgrade-economy-balance-pass",
+      "type": "changelog",
+      "changelogNumber": 31,
+      "title": "Upgrade Economy Balance Pass",
+      "excerpt": "Upgrade pacing and reward balance were tuned for steadier long-session progression.",
+      "publishedAt": "2025-09-26",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-032-cannon-combat-introduction",
+      "type": "changelog",
+      "changelogNumber": 32,
+      "title": "Cannon Combat Introduction",
+      "excerpt": "Optional ship cannons arrived as a new action lane beside sailing and racing.",
+      "publishedAt": "2025-09-30",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-033-world-loading-and-mobile-stability",
+      "type": "changelog",
+      "changelogNumber": 33,
+      "title": "World Loading and Mobile Stability",
+      "excerpt": "World loading flow and touch interactions were improved for smoother sessions.",
+      "publishedAt": "2025-11-13",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-034-pirate-hunt-mode",
+      "type": "changelog",
+      "changelogNumber": 34,
+      "title": "Pirate Hunt Mode",
+      "excerpt": "Pirate encounters expanded combat into a full hunt-and-reward gameplay loop.",
+      "publishedAt": "2025-11-15",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-035-pirate-reward-economy-link",
+      "type": "changelog",
+      "changelogNumber": 35,
+      "title": "Pirate Reward Economy Link",
+      "excerpt": "Pirate combat rewards were integrated into progression so fights meaningfully pay off.",
+      "publishedAt": "2025-11-16",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-036-cannon-default-safety-pass",
+      "type": "changelog",
+      "changelogNumber": 36,
+      "title": "Cannon Default Safety Pass",
+      "excerpt": "Combat defaults were adjusted so calm sailing starts clean and optional action stays explicit.",
+      "publishedAt": "2026-01-23",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-037-gpu-sail-deformation",
+      "type": "changelog",
+      "changelogNumber": 37,
+      "title": "GPU Sail Deformation",
+      "excerpt": "Sail shape dynamics moved to shaders for better curvature and smoother motion.",
+      "publishedAt": "2026-01-25",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-038-wind-ribbon-visual-effects",
+      "type": "changelog",
+      "changelogNumber": 38,
+      "title": "Wind Ribbon Visual Effects",
+      "excerpt": "Wind rendering switched to ribbon trails for clearer directional reading.",
+      "publishedAt": "2026-01-25",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-039-gpu-island-vegetation-pass",
+      "type": "changelog",
+      "changelogNumber": 39,
+      "title": "GPU Island Vegetation Pass",
+      "excerpt": "Island vegetation shifted toward GPU-friendly rendering for larger-scene stability.",
+      "publishedAt": "2026-01-26",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-040-cloud-instancing-rollout",
+      "type": "changelog",
+      "changelogNumber": 40,
+      "title": "Cloud Instancing Rollout",
+      "excerpt": "Cloud systems moved to instancing and shader motion for better sky performance.",
+      "publishedAt": "2026-01-27",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-041-gerstner-8-wave-ocean",
+      "type": "changelog",
+      "changelogNumber": 41,
+      "title": "Gerstner 8-Wave Ocean",
+      "excerpt": "The ocean moved to an 8-wave Gerstner model for deeper, more dynamic sea motion.",
+      "publishedAt": "2026-01-28",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-042-water-tiling-and-wavelength-fixes",
+      "type": "changelog",
+      "changelogNumber": 42,
+      "title": "Water Tiling and Wavelength Fixes",
+      "excerpt": "Post-launch ocean fixes improved tile continuity and wave-length quality.",
+      "publishedAt": "2026-01-28",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-043-ghost-recording-and-playback",
+      "type": "changelog",
+      "changelogNumber": 43,
+      "title": "Ghost Recording and Playback",
+      "excerpt": "Race ghost recording and playback became a first-class competitive feature.",
+      "publishedAt": "2026-01-28",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-044-countdown-race-starts",
+      "type": "changelog",
+      "changelogNumber": 44,
+      "title": "Countdown Race Starts",
+      "excerpt": "Race starts gained synchronized countdown flow for cleaner and fairer launches.",
+      "publishedAt": "2026-01-28",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-045-ghost-persistence-v2",
+      "type": "changelog",
+      "changelogNumber": 45,
+      "title": "Ghost Persistence v2",
+      "excerpt": "Ghost data storage moved to a compact versioned format for stronger replay reliability.",
+      "publishedAt": "2026-01-29",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-046-ghost-visual-ranking-polish",
+      "type": "changelog",
+      "changelogNumber": 46,
+      "title": "Ghost Visual Ranking Polish",
+      "excerpt": "Ghost colors, visibility, and fade-in behavior were refined for race readability.",
+      "publishedAt": "2026-01-29",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-047-country-flag-manager",
+      "type": "changelog",
+      "changelogNumber": 47,
+      "title": "Country Flag Manager",
+      "excerpt": "Country and flag controls were strengthened for consistent player identity.",
+      "publishedAt": "2026-02-01",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-048-race-tuning-lock-fairness",
+      "type": "changelog",
+      "changelogNumber": 48,
+      "title": "Race Tuning Lock Fairness",
+      "excerpt": "Race sessions now lock tuning-sensitive physics to keep leaderboard competition fair.",
+      "publishedAt": "2026-02-02",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-049-player-profile-page",
+      "type": "changelog",
+      "changelogNumber": 49,
+      "title": "Player Profile Page",
+      "excerpt": "A dedicated profile page launched for identity management and personalization.",
+      "publishedAt": "2026-02-10",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-050-regatta-start-gate",
+      "type": "changelog",
+      "changelogNumber": 50,
+      "title": "Regatta Start Gate",
+      "excerpt": "Race starts switched to an America's Cup-style regatta sequence.",
+      "publishedAt": "2026-02-12",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-051-regatta-ghost-timeline-sync",
+      "type": "changelog",
+      "changelogNumber": 51,
+      "title": "Regatta Ghost Timeline Sync",
+      "excerpt": "Ghost replay timing was aligned with regatta pre-start flow.",
+      "publishedAt": "2026-02-13",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-052-high-sea-mode-launch",
+      "type": "changelog",
+      "changelogNumber": 52,
+      "title": "High Sea Mode Launch",
+      "excerpt": "High-sea mode introduced rougher open-water challenge and harder wave handling.",
+      "publishedAt": "2026-02-17",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-053-ocean-reflection-alignment-fix",
+      "type": "changelog",
+      "changelogNumber": 53,
+      "title": "Ocean Reflection Alignment Fix",
+      "excerpt": "Water reflection alignment and stability were corrected in wide ocean scenes.",
+      "publishedAt": "2026-02-17",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-054-world-map-launch",
+      "type": "changelog",
+      "changelogNumber": 54,
+      "title": "World Map Launch",
+      "excerpt": "A dedicated world map page shipped for clearer route planning.",
+      "publishedAt": "2026-02-18",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-055-leaderboard-page-launch",
+      "type": "changelog",
+      "changelogNumber": 55,
+      "title": "Leaderboard Page Launch",
+      "excerpt": "Leaderboard moved into a dedicated page with stronger standings visibility.",
+      "publishedAt": "2026-02-19",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-056-leaderboard-ux-and-attempts-pass",
+      "type": "changelog",
+      "changelogNumber": 56,
+      "title": "Leaderboard UX and Attempts Pass",
+      "excerpt": "Leaderboard readability improved, and attempt counts added better race context.",
+      "publishedAt": "2026-02-20",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-057-race-start-fairness",
+      "type": "changelog",
+      "changelogNumber": 57,
+      "title": "Race Fairness and Sea Ambience Pass",
+      "excerpt": "Race starts became fairer with warm-up tuning lock, and rare fish encounters added more life during open-water sailing.",
+      "publishedAt": "2026-02-23",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-058-high-sea-ghosts-and-ui-updates",
+      "type": "changelog",
+      "changelogNumber": 58,
+      "title": "High Sea Polish and Ghost Runs",
+      "excerpt": "High Sea handling and failure flow were polished, and ghost runs now replay so players can benchmark attempts in the High Sea alpha at vibesail.com/highsea (not public yet).",
+      "publishedAt": "2026-02-24",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-059-tutorial-ui-and-guided-race",
+      "type": "changelog",
+      "changelogNumber": 59,
+      "title": "Tutorial UI and Guided Daily Race",
+      "excerpt": "The tutorial now feels clearer and smoother, and it ends with a guided daily race so new sailors can learn by doing.",
+      "publishedAt": "2026-02-27",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-060-glb-boat-water-clipping-fix",
+      "type": "changelog",
+      "changelogNumber": 60,
+      "title": "Boat Water Clipping Fix",
+      "excerpt": "Water was appearing inside some boats, and this update removes that issue for cleaner sailing visuals.",
+      "publishedAt": "2026-02-27",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-061-world-map-custom-locations-and-voting",
+      "type": "changelog",
+      "changelogNumber": 61,
+      "title": "World Map Custom Locations and Voting",
+      "excerpt": "The world map now lets you set a custom destination almost anywhere in the world, and location voting is easier and more dependable.",
+      "publishedAt": "2026-02-28",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-062-submit-a-prompt-page",
+      "type": "changelog",
+      "changelogNumber": 62,
+      "title": "Submit a Prompt Page",
+      "excerpt": "You can now use the new Submit a Prompt page to tell us what you want to see next in VibeSail.",
+      "publishedAt": "2026-02-28",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-063-daily-race-replay-spectator-mode",
+      "type": "changelog",
+      "changelogNumber": 63,
+      "title": "Daily Race Replay Spectator Mode",
+      "excerpt": "Daily Race now supports 3D replay viewing so you can spectate runs and learn from better lines.",
+      "publishedAt": "2026-03-05",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-064-boat-shop-launch",
+      "type": "changelog",
+      "changelogNumber": 64,
+      "title": "Boat Shop Launch",
+      "excerpt": "The new Boat Shop is live, letting you browse and switch between available boats directly in-game.",
+      "publishedAt": "2026-03-07",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-065-profile-career-stats-and-replay-access",
+      "type": "changelog",
+      "changelogNumber": 65,
+      "title": "Profile Career Stats and Replay Access",
+      "excerpt": "Profiles now show richer career stats, and leaderboard entries can open 3D daily-race replays in one click.",
+      "publishedAt": "2026-03-09",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-066-podium-collision",
+      "type": "changelog",
+      "changelogNumber": 66,
+      "title": "Podium Collision Racing",
+      "excerpt": "The new race type features an America's Cup-style start, and we've now added collision among the top three competitors for an intense tactical challenge.",
+      "publishedAt": "2026-03-16",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-067-race-collision-fairness",
+      "type": "changelog",
+      "changelogNumber": 67,
+      "title": "Race Collision Fairness",
+      "excerpt": "Race ghost collisions still push boats apart, but they no longer cut your speed when another boat taps you.",
+      "publishedAt": "2026-04-30",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-068-fragile-cargo-mission-flow",
+      "type": "changelog",
+      "changelogNumber": 68,
+      "title": "Fragile Cargo Mission Flow",
+      "excerpt": "Cargo missions now split into standard and fragile contracts, with visible payloads, heel-based drop risk, and a completion recap.",
+      "publishedAt": "2026-06-01",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": []
+    },
+    {
+      "slug": "changelog-069-startup-and-runtime-smoothness",
+      "type": "changelog",
+      "changelogNumber": 69,
+      "title": "Startup and Runtime Smoothness",
+      "excerpt": "VibeSail starts faster and feels steadier after a Codex /goal performance pass.",
+      "publishedAt": "2026-06-11",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "We used Codex /goal to profile the parts of VibeSail that were making startup and frame pacing feel heavier than they needed to."
+        },
+        {
+          "kind": "list",
+          "items": [
+            "The game marks the core world ready earlier, then loads wildlife and extra detail in background slices.",
+            "Island decoration work now runs in budgeted batches instead of one big startup hit.",
+            "Water reflections use an adaptive capture cadence when frames are struggling, then return to full rate when pacing recovers.",
+            "The homepage now defers the 3D background until idle time, so the page becomes usable sooner.",
+            "Geo scenes prioritize the central city tiles before ambient decoration, keeping the visible world sharp first."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "The videos below show the game loading improvement first, then the homepage loading improvement. In measured runs, homepage DOMContentLoaded dropped from about 772ms to about 117ms, and one geo scene load dropped from about 532ms to about 273ms."
+        },
+        {
+          "kind": "x-posts",
+          "items": [
+            "https://x.com/NicolaManzini/status/2065051144645132496",
+            "https://x.com/NicolaManzini/status/2065051146138345559"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "changelog-070-remote-boat-inspector",
+      "type": "changelog",
+      "changelogNumber": 70,
+      "title": "Meet Boats Around You",
+      "excerpt": "Tap a nearby boat to see the sailor, flag, boat, and race story behind it.",
+      "publishedAt": "2026-06-11",
+      "author": "VibeSail Team",
+      "coverImage": "/assets/blog/changelog-070-remote-boat-inspector/cover.webp",
+      "coverAlt": "A VibeSail boat details popup open beside another sailboat on the water.",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "The sea feels better when nearby boats have a story. Now you can click or tap another boat to learn who is sailing beside you."
+        },
+        {
+          "kind": "list",
+          "items": [
+            "See a sailor's name, flag, boat, speed, heading, and distance.",
+            "Guests are still easy to recognize, even without a chosen name.",
+            "Named sailors can show daily-race highlights like races, rank, wins, and podiums.",
+            "Pirates are marked clearly, with a reminder that your cannons can fight back."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "The popup follows the boat as you move the camera, works on mobile, and keeps the focus on sailing instead of menus."
+        }
+      ]
+    },
+    {
+      "slug": "changelog-071-a-bigger-world-to-sail",
+      "type": "changelog",
+      "changelogNumber": 71,
+      "title": "A Bigger World to Sail",
+      "excerpt": "The sea has a fresh layout with more island variety, clearer routes, and more places to discover.",
+      "publishedAt": "2026-06-25",
+      "author": "VibeSail Team",
+      "coverImage": "/assets/blog/changelog-071-a-bigger-world-to-sail/cover.webp",
+      "coverAlt": "A split-screen VibeSail view showing the 3D sailing world beside the top-down island map.",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "The VibeSail world now gives you more space to sail, explore, and choose your own route between islands."
+        },
+        {
+          "kind": "list",
+          "items": [
+            "Islands are spread across a broader sea, so journeys have more open water and better moments of discovery.",
+            "New island types give you more distinct places to discover, recognize, and navigate around while sailing.",
+            "Cargo ships now sail clearer lanes through the world, making the sea feel more alive without crowding the islands."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "changelog-072-daily-mission-routes",
+      "type": "changelog",
+      "changelogNumber": 72,
+      "title": "Daily Mission Routes",
+      "excerpt": "Cargo missions now refresh by local day, balance nearby and outer-island routes, and keep long route trails easier to read.",
+      "publishedAt": "2026-07-02",
+      "author": "VibeSail Team",
+      "coverImage": "/assets/blog/changelog-072-daily-mission-routes/cover.webp",
+      "coverAlt": "A VibeSail cargo mission route trail leading from the player boat toward distant islands.",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "Dock missions now change with the local day, giving each session a fresh set of deliveries while keeping the same calm sailing rhythm."
+        },
+        {
+          "kind": "list",
+          "items": [
+            "Mission offers now mix short ring routes with longer outer-island routes more deliberately.",
+            "Rewards still scale from distance and cargo risk, so fragile and far-away deliveries feel more meaningful.",
+            "Long-distance route trails stay visible near the boat instead of fading out too far from the start.",
+            "The mission board keeps the same simple accept-and-sail flow while feeling less repetitive from day to day."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "changelog-073-race-collisions-removed",
+      "type": "changelog",
+      "changelogNumber": 73,
+      "title": "Race Collisions Removed",
+      "excerpt": "Daily races now keep ghosts as visual replays only, removing blocker collisions from the active race.",
+      "publishedAt": "2026-07-10",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "We removed collision from daily races. Races still use the regatta start and optional ghost boats, but those ghosts are now visual replays instead of solid blockers."
+        },
+        {
+          "kind": "paragraph",
+          "text": "This came directly from player submissions: racers called out boats getting pushed around marks, mark zones being blocked, and top-three ghosts turning into changing obstacles as the leaderboard moved during the day."
+        },
+        {
+          "kind": "paragraph",
+          "text": "This keeps the race cleaner, reduces frustrating contact at the start, and makes leaderboard runs feel more predictable."
+        }
+      ]
+    },
+    {
+      "slug": "changelog-074-cleaner-game-controls",
+      "type": "changelog",
+      "changelogNumber": 74,
+      "title": "Cleaner In-Game Controls",
+      "excerpt": "The in-game control menu now stays compact while sailing and expands when you need every action.",
+      "publishedAt": "2026-07-14",
+      "author": "VibeSail Team",
+      "coverImage": "/assets/blog/changelog-074-cleaner-game-controls/cover.webp",
+      "coverAlt": "VibeSail's expanded in-game control menu over the sailing world.",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "The controls on the right side of the screen now take up less space, leaving more of the sea visible while you sail."
+        },
+        {
+          "kind": "list",
+          "items": [
+            "Keep the menu collapsed for a quieter view of the world.",
+            "Expand it whenever you want labeled access to upgrades, the Boat Shop, settings, cannons, the map, multiplayer, and more.",
+            "The expanded menu scales to fit shorter screens, so every action remains within reach."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "changelog-075-community-feedback-board",
+      "type": "changelog",
+      "changelogNumber": 75,
+      "title": "Community Feedback Board",
+      "excerpt": "Share ideas, report problems, and vote on what sailors want next — plus a clearer place to get in touch.",
+      "publishedAt": "2026-07-18",
+      "author": "VibeSail Team",
+      "coverImage": "/assets/blog/changelog-075-community-feedback-board/cover.webp",
+      "coverAlt": "The VibeSail Feedback community board with public posts, votes, and Top/New sorting.",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "VibeSail now has a public Feedback board where sailors can share ideas, report problems, and help decide what matters most."
+        },
+        {
+          "kind": "list",
+          "items": [
+            "Browse the community board at vibesail.com/feedback.",
+            "Vote once per account on any open request — click again to clear your vote.",
+            "Sort by Top to see what sailors want most, or New for the latest posts.",
+            "Sign in or create an account when you are ready to add your own feedback.",
+            "Requests we have already shipped stay on the board with a Done badge, so progress is easy to spot."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Need something else? The Contact page at vibesail.com/contact gathers our community links and email in one place. Use Feedback for game ideas and bugs, and Contact when you want to reach us directly."
+        }
+      ]
+    },
+    {
+      "slug": "changelog-076-homepage-and-site-refresh",
+      "type": "changelog",
+      "changelogNumber": 76,
+      "title": "A Clearer Way to Set Sail",
+      "excerpt": "The homepage and public pages got a calmer look: easier to read, easier to tap, and quicker to get on the water.",
+      "publishedAt": "2026-07-18",
+      "author": "VibeSail Team",
+      "coverImage": "/assets/blog/changelog-076-homepage-and-site-refresh/cover.webp",
+      "coverAlt": "Side-by-side before and after of the VibeSail homepage, with the new title card and Set Sail actions on the right.",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "We refreshed the homepage and the rest of the public site so the first moment on VibeSail feels clearer and more inviting."
+        },
+        {
+          "kind": "paragraph",
+          "text": "The sailing world is still the star. What changed is how the title, actions, and navigation sit on top of it."
+        },
+        {
+          "kind": "list",
+          "items": [
+            "The homepage title and short description now sit in a simple dark card, so they stay readable over bright skies and busy docks.",
+            "Set Sail leads a tidy stack of actions for the daily race, learning to sail, and the world map, with less clutter and clearer priorities.",
+            "The header is easier to scan, with Profile called out and High Sea listed as Beta High Sea under More.",
+            "Pages like Feedback, Contact, Profile, and the rest of the site share the same calm look, so moving around VibeSail feels more consistent."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Nothing about how you sail changed. This is just a cleaner front door into the same open water."
+        }
+      ]
+    },
+    {
+      "slug": "changelog-077-sign-in-to-log-leaderboard-times",
+      "type": "changelog",
+      "changelogNumber": 77,
+      "title": "Sign In to Log Leaderboard Times",
+      "excerpt": "You can still race as a guest for practice, but official daily-race and High Sea times now need a signed-in account.",
+      "publishedAt": "2026-07-19",
+      "author": "VibeSail Team",
+      "coverImage": null,
+      "coverAlt": "",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "VibeSail’s official leaderboards are now account-based. To log a daily-race or High Sea time, sign in or create an account first."
+        },
+        {
+          "kind": "list",
+          "items": [
+            "Guests can still sail and race for practice — your run just will not be recorded.",
+            "Signed-in sailors submit under their profile name, so the board stays fair and easier to follow.",
+            "Change your official name anytime on your Profile page.",
+            "In multiplayer, only signed-in sailors show a username above their boat."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "If you finish a race while signed out, you will see a clear notice that the time was not recorded, with a quick path to sign in or sign up for the next run."
+        }
+      ]
+    },
+    {
+      "slug": "changelog-078-clearer-transparent-water",
+      "type": "changelog",
+      "changelogNumber": 78,
+      "title": "Clearer, Transparent Water",
+      "excerpt": "The ocean now looks through — transparent water, real refraction, and a visible seabed near shore.",
+      "publishedAt": "2026-07-28",
+      "author": "VibeSail Team",
+      "coverImage": "/assets/blog/changelog-078-clearer-transparent-water/cover.webp",
+      "coverAlt": "Before and after of the VibeSail title screen: milky flat water on the left, clear refractive water with a visible seabed on the right.",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "The big visual change is the water itself. It is no longer a flat milky sheet — you can look through it."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Near islands and shallow shore, the seabed and rocks show under the surface. Light bends through the waves with refraction and clearer reflections, so the sea feels deeper and more alive from the title screen to open water."
+        },
+        {
+          "kind": "list",
+          "items": [
+            "Transparent water with refraction instead of a washed-out surface.",
+            "Seabed and underwater rocks visible when you sail close to land.",
+            "Clearer horizons and richer sun on the water.",
+            "Graphics quality in Settings: Low, Medium, or High — same sailing feel, pick the look that fits your device. High keeps the full water detail."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Head toward an island shoreline and glance down through the water — that visible bottom is the giveaway."
+        }
+      ]
+    },
+    {
+      "slug": "changelog-079-optional-video-ads-for-bonus-coins",
+      "type": "changelog",
+      "changelogNumber": 79,
+      "title": "Optional Video Ads for Bonus Coins",
+      "excerpt": "After a Daily Race or cargo mission, you may soon watch a short optional video to double your coins. It will start appearing over the next few days.",
+      "publishedAt": "2026-08-18",
+      "author": "VibeSail Team",
+      "coverImage": "/assets/blog/changelog-079-optional-video-ads-for-bonus-coins/cover.webp",
+      "coverAlt": "Race Complete panel with +$100 and a Watch an ad to double button marked AD.",
+      "content": [
+        {
+          "kind": "paragraph",
+          "text": "When you finish a Daily Race or a cargo mission, you may see a Watch Ad button to double the coins you just earned."
+        },
+        {
+          "kind": "list",
+          "items": [
+            "This is optional. Skip it and you keep the normal reward.",
+            "Ads never play while you are sailing. They only appear after you finish.",
+            "High Sea is unchanged."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Video ads will start appearing over the next few days as they become available. If you do not see the button yet, that is expected."
+        }
+      ]
+    }
+  ]
+}

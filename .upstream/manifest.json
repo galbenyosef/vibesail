@@ -1,0 +1,1346 @@
+{
+  "generated": "2026-10-13T00:37:15.660Z",
+  "origin": "https://vibesail.com",
+  "files": {
+    "index.html": {
+      "bytes": 20956,
+      "sha256": "84a1194818cca35362a1d828e20ffa692fa58741611d9985838953f25e316e1a"
+    },
+    "2025recap/index.html": {
+      "bytes": 22080,
+      "sha256": "15e359ee9bf6878c7a474ae284eab81edc49e325ce8a83c2fb58aec35739b13c"
+    },
+    "advertise/index.html": {
+      "bytes": 29280,
+      "sha256": "e6fda1490375f93a49d23bf3d0fbccb79f86e2fcd567ceafcab93493994be89a"
+    },
+    "assets/2025recap-5CI3Tc6z.css": {
+      "bytes": 13274,
+      "sha256": "fd4581f194253946628ee4b2c46f4772a5255bc0d13c3bb8cc84385f96ebf5ab"
+    },
+    "assets/2025recap-DlJ5wxnz.js": {
+      "bytes": 1511,
+      "sha256": "e4b84b792e34dfea5e97697749a60c16ca213d1d57858b519b850042e5aad797"
+    },
+    "assets/Advertisement-D60LkU06.js": {
+      "bytes": 7066,
+      "sha256": "eeff306a0e01abd9decc441bb4e2ea7d2aa6ffa5836edc702a4423ce86d30fd8"
+    },
+    "assets/Bearing-Bz8gc2k9.js": {
+      "bytes": 407,
+      "sha256": "edda775a7fec8ef974e12c9e90c9001520facd69e73cf2305e03e7eb9a5b60c9"
+    },
+    "assets/Birds-DHEcQo9w.js": {
+      "bytes": 21265,
+      "sha256": "654e433760548531b3202018a7aa7883b0a55180f7a05de0e9bf6aec715fd37d"
+    },
+    "assets/Blimp-CsqFvrq-.js": {
+      "bytes": 10080,
+      "sha256": "df9acbde99c4c914e6bb11398a1ac2e21eb96a1b22cd2c6982fe603964328c20"
+    },
+    "assets/BoatModel-Cf2RVdWT.js": {
+      "bytes": 104518,
+      "sha256": "36ecb0009f12e1890195bce1f4bb3adc902f0206dd39e65ad979ebf028a38383"
+    },
+    "assets/BoatShop-SaUBreAv.js": {
+      "bytes": 16485,
+      "sha256": "5e32d36145095c001603116ff1ebd9db097c746b7014d911af934c39046f9243"
+    },
+    "assets/BoatVisualizerPanel-C8Vrfq5S.js": {
+      "bytes": 41485,
+      "sha256": "d347f59973daf0c5a11dfce3042aac7a9c6a888ea69ecb5abe737121097153b9"
+    },
+    "assets/CannonSystem-8nVBpQ-O.js": {
+      "bytes": 11027,
+      "sha256": "1efe657e8c25fb0ca9d86094002e21af8418a98fdfb5bf48633fc4014b21c0bb"
+    },
+    "assets/CargoShip-DSMEqWta.js": {
+      "bytes": 10704,
+      "sha256": "eaa9521e2d7ca6e4970c4945bacc2bf3dc26fed38f28264cb2421c16d46348de"
+    },
+    "assets/DRACOLoader-XlKGmd74.js": {
+      "bytes": 6470,
+      "sha256": "ac2f8010fa955596e8619744895403e87ada06f8226eee41914652933879d07e"
+    },
+    "assets/DataModels-DjmBwyzI.js": {
+      "bytes": 37934,
+      "sha256": "2c47d559666ac50bfc773c91c60666545403018b80ae14e3dd84c74b23a83005"
+    },
+    "assets/FloatingWorldProp--a8_muYf.js": {
+      "bytes": 17681,
+      "sha256": "87ce7982a497f99f1d850800155a9f49ef372d5ee903bdf56b8d25aa16d06b60"
+    },
+    "assets/GLTFLoader-C2oC7w8g.js": {
+      "bytes": 44495,
+      "sha256": "39660a3bf3601de52a64d676d7768de45a46b59333e7d056fe2ba800c33fcc67"
+    },
+    "assets/Game-CrsSKcAK.js": {
+      "bytes": 624401,
+      "sha256": "123566b428b4b2029a159885c221358dc3f05090ad68776c5d997cecbed4696c"
+    },
+    "assets/GeoMath-B_Iby49-.js": {
+      "bytes": 1293,
+      "sha256": "bde73dbcfd5d3e4f1e37f45b637f2c8c6641b68ee6e7f6a106b03b4296579bd1"
+    },
+    "assets/GeometryGuards-BGRyriw5.js": {
+      "bytes": 618,
+      "sha256": "efe47f78a573f0cc4f2bbbbbdaaf452c173fd4f6e17d7995a986b3db0adb5740"
+    },
+    "assets/GhostReplayModel-B8EqTWpz.js": {
+      "bytes": 21721,
+      "sha256": "0cd3e26418fb5def6a7ca788f122730075640e5c82409eeb8c04140d4d4a53c8"
+    },
+    "assets/GoogleTilesLoader-Ba1pGT7V.js": {
+      "bytes": 88006,
+      "sha256": "957e0de75d05bc46fbf3410a92f147157def074369bf57ad82d40078814b8c85"
+    },
+    "assets/H5GamesAds-cgmFpTvU.js": {
+      "bytes": 5431,
+      "sha256": "675d281a632f912f33f00091670362ad538b4f6f7056d21ecf17a8f745173fb7"
+    },
+    "assets/HighSeaModeManager-BEvC6iXw.js": {
+      "bytes": 42903,
+      "sha256": "471d4fdf4b38b18d032a940e8fda29c6a4c54f6fea5b1cc5f63382e013b70bfe"
+    },
+    "assets/IslandGenerator-DZNI3CSt.js": {
+      "bytes": 49545,
+      "sha256": "37a58d425b64c9bd9358da3bbfd99878b46d4f90d171aa87dbe89bc06580d63d"
+    },
+    "assets/KeyboardManager-DVLZ3teY.js": {
+      "bytes": 3093,
+      "sha256": "9ede344f83175a1e114b3c1047c741be841162b3b6907c3c5062069f32e8bd08"
+    },
+    "assets/LocalCache-DHomYmcY.js": {
+      "bytes": 540,
+      "sha256": "dff61827eeccae6e6fa56cb281adb1e5b0ab33da1422324a22b91ddce036a17f"
+    },
+    "assets/LogisticsManager-DugCgbD8.js": {
+      "bytes": 16845,
+      "sha256": "e4a64402c4df438c3eff96cafd6f41306c75a494ff4521e2bd0cccdeabe8b148"
+    },
+    "assets/LogisticsUI-DWG9W15h.js": {
+      "bytes": 15384,
+      "sha256": "57cd082b97871702ce549cf7fed422086a4531893115efeef3240446e79a7b2d"
+    },
+    "assets/MTLLoader-Dw3w9IRM.js": {
+      "bytes": 12741,
+      "sha256": "6926b5f42bc945499cc6b84f585d6cccf5d91e32f5eeb17b3f918be3ff73493b"
+    },
+    "assets/MultiplayerManager-CgzUu3MG.js": {
+      "bytes": 12063,
+      "sha256": "95d219a727881f7112789dd373bfbf17061e9000dad757bc93a54ba24ea39ba2"
+    },
+    "assets/OneSignalPushNotifications-C5QrvXEE.js": {
+      "bytes": 8176,
+      "sha256": "8a6cdab5e92fe62adf5f999b3ceba2e10f184104aa0bd8483a076f29a8aef794"
+    },
+    "assets/PerformanceMonitor-CwOrhyRP.js": {
+      "bytes": 5525,
+      "sha256": "f37ea035ad0ca3a8f93b42a1c64a90728e4addfc6d9054ae1ad28c453807c767"
+    },
+    "assets/PirateHuntManager-B5ipnDt7.js": {
+      "bytes": 4215,
+      "sha256": "68cbef06afd6d938514d0e63598e23f225d892619f742ff6e049bb68bc52a624"
+    },
+    "assets/PlayerNameStorage-Q3p2umqg.js": {
+      "bytes": 1362,
+      "sha256": "a2862a8732ce07417e5db839db46246b8a9fde16884c77b3b98b75242bb1eafa"
+    },
+    "assets/Portal-DAOSX3nf.js": {
+      "bytes": 4652,
+      "sha256": "46ea527794c220a3e0b3cec488e83608a3ba0b2db28b568193af2b59002b9a1d"
+    },
+    "assets/PostHogCapture-DUxqoMcu.js": {
+      "bytes": 1413,
+      "sha256": "66cd96918a18ab9c878572619baf764f22163ec1b2ac45e65a5d95276109449e"
+    },
+    "assets/RaceConfig-BiFwKzq8.js": {
+      "bytes": 3595,
+      "sha256": "6fd9c3ecff8bef2132cb4eeeea1c2eacd4c34edf2984e6f8dc6595afad47b98c"
+    },
+    "assets/RenderOrder-CTE7PEm0.js": {
+      "bytes": 136,
+      "sha256": "fae7ed85fcf8947833d56dc1473ac3c1113e90b0688dd7b8b480687668921ae4"
+    },
+    "assets/RuntimeEnvironment-BAaLbeCv.js": {
+      "bytes": 2126,
+      "sha256": "64fe6f491a6d842a16473dce5d4327275e8286fea23a3af7d492366a239afe3c"
+    },
+    "assets/SailorProfileLinks-CkEgGITb.js": {
+      "bytes": 519,
+      "sha256": "8b8a149c002b76efd07794036f00bc3dd659f53d2e8b8f3f292eb48088d4212a"
+    },
+    "assets/SeaCreatures-C5ijwC34.js": {
+      "bytes": 6454,
+      "sha256": "3b5b4d03e74264039b9af31cf8db99bbd97fbd422cab5220ee49eb06b181396f"
+    },
+    "assets/SettingsMenu-DL9R7A1C.js": {
+      "bytes": 22944,
+      "sha256": "217057802dc7c001b8e8aef4b97052d0d7e88f382be6bbf3bfdf94b636cb5391"
+    },
+    "assets/SharedTextureLoader-BkelxMVX.js": {
+      "bytes": 324,
+      "sha256": "ac60234e5d0f47dd3a9682384b616ed0bed87d79e0c292a1b8a4154ade6d787a"
+    },
+    "assets/TargetColumn-DnYYEURe.js": {
+      "bytes": 688,
+      "sha256": "014e373034dbf9f9637941ffeef1adec3d2087d9b8c2090cd6f6d280381515be"
+    },
+    "assets/TrackGenerator-CFnrWNiH.js": {
+      "bytes": 3367,
+      "sha256": "219385274df611c0e0b653e91a600339c0f96e67ec084a9c9b2c474f8a3a518d"
+    },
+    "assets/TutorialManager-iD72X4OM.js": {
+      "bytes": 31185,
+      "sha256": "4da8786675ef3cd8e8f2105ed8d26cf5cd12d3316b61242d83a3e923ed66a814"
+    },
+    "assets/VectorUtils-ZPUW1jx-.js": {
+      "bytes": 472,
+      "sha256": "8dcb90f8aae532feed40fcb67b4aa2a0535781c89b4410afee3294e4986a459c"
+    },
+    "assets/WorldAdPopupManager-WzG-fNUY.js": {
+      "bytes": 5298,
+      "sha256": "2d7ee318dceb342f235d7b286f03a4846edcb7d628d79f9bde1854304a43cdd0"
+    },
+    "assets/WorldDefinitionBuilder-CjRtTnhK.js": {
+      "bytes": 18994,
+      "sha256": "8e1e79ed07a5bfbb53347bc3eb1ace624d1b6f93f3f97404e4ae2ee5e590f05b"
+    },
+    "assets/WorldInteractionEvents-L1ARfoSs.js": {
+      "bytes": 250,
+      "sha256": "894a6fb5e487146edda56353c5b95edbe65b8becac0f0d2f5b7975355949742d"
+    },
+    "assets/WorldSignAsset-yHPgCsa-.js": {
+      "bytes": 57,
+      "sha256": "cf91470f8ef1f9d29e95aa6ff46c9d325caf39268ab8b1350fe4da2924f33973"
+    },
+    "assets/Yacht-OEQr2DjX.js": {
+      "bytes": 2114,
+      "sha256": "294bfaeaacba1639d8ead1e6ed40f5385977122c8c8b4efab8891b4a8da90065"
+    },
+    "assets/advertise--T9pWmIF.css": {
+      "bytes": 24301,
+      "sha256": "0adf301f2ef3846d0552278c78062ebc771eaf3df4e1907773bbc215724943c2"
+    },
+    "assets/advertise-BI8u_-IP.js": {
+      "bytes": 13827,
+      "sha256": "69dc6ae0db67f536f0e6bad4e4300d5b0db80dcb768820646b4df2fb779565bd"
+    },
+    "assets/advertise-world-map.png": {
+      "bytes": 304432,
+      "sha256": "5eccda3d8ca88a2093f821201134a187e67ebfc56982eff0abae9eaa48076919"
+    },
+    "assets/advertisement.png": {
+      "bytes": 915273,
+      "sha256": "3924dfcd0e76809a90727438a7114c70ac14973b59f6dfb78853f8074f8bb56b"
+    },
+    "assets/authClient-roTt0Fs9.js": {
+      "bytes": 88590,
+      "sha256": "7027354d0c90b1f76cf0dc69461e04c3d7a0f0ca6f216cc5e565a629a73c9363"
+    },
+    "assets/auto-CBo2XcXh.js": {
+      "bytes": 203109,
+      "sha256": "b9e900d252de891af65e56925095fa50787ee64af9a7ba3d2219a75211515997"
+    },
+    "assets/blog-B5K8Rp_D.css": {
+      "bytes": 19376,
+      "sha256": "e6a0a27b19b1411e3a30b63e794e19b1c35c56060c2567e756028aec3e8a2a1b"
+    },
+    "assets/blog-DCA7h2-z.js": {
+      "bytes": 3588,
+      "sha256": "99a694b0d49762eb03eee57949d8da540836545690517ad1d81f09df297c9519"
+    },
+    "assets/blog-post-M_rmHwEs.js": {
+      "bytes": 6115,
+      "sha256": "52a74c1be527c27d1a2b3db42ea95f763463f35f646d43916a670fb3cd439f3f"
+    },
+    "assets/blog/changelog-070-remote-boat-inspector/cover.webp": {
+      "bytes": 77556,
+      "sha256": "d1c131687ead0b827dd0d27075ed9e2e91bb6860bf929a87a838921532671126"
+    },
+    "assets/blog/changelog-071-a-bigger-world-to-sail/cover.webp": {
+      "bytes": 54154,
+      "sha256": "58133df2745592d2b9a047e7d29f09a7da26cd4068bec1321116bbba01948930"
+    },
+    "assets/blog/changelog-072-daily-mission-routes/cover.webp": {
+      "bytes": 117996,
+      "sha256": "9c93badc50abf259a31f37e4be08fe0ecda2987e6b075ca28324cf587d6d0140"
+    },
+    "assets/blog/changelog-074-cleaner-game-controls/cover.webp": {
+      "bytes": 31958,
+      "sha256": "9b3705b0bd2de13f1e82b6a683d78fffad24da1df509dbb603dad8a9a8ce5ce9"
+    },
+    "assets/blog/changelog-075-community-feedback-board/cover.webp": {
+      "bytes": 37200,
+      "sha256": "56e8e471ac24f3afafabc3aa4eb57593217371d0608ada00347c29848f604346"
+    },
+    "assets/blog/changelog-076-homepage-and-site-refresh/cover.webp": {
+      "bytes": 72628,
+      "sha256": "a84dead913fd3cd8a9eb97cca100224d4684ffc9344d8c532d363e7b9510f2a4"
+    },
+    "assets/blog/changelog-078-clearer-transparent-water/cover.webp": {
+      "bytes": 69270,
+      "sha256": "797cfd0eb13f9835cd5d40c523bf47dab16fbe3de3741b44f373860b06bc5b83"
+    },
+    "assets/blog/changelog-079-optional-video-ads-for-bonus-coins/cover.webp": {
+      "bytes": 14862,
+      "sha256": "a9326e7fd05529865eed748f33a39a6f92cb7ccdecaf5f2792c30bcf095010d6"
+    },
+    "assets/blogPosts-BqnGg-S6.js": {
+      "bytes": 5289,
+      "sha256": "d01ac965bae867b470f91602a98cae25d292b0c1599184d5376227d2dd743477"
+    },
+    "assets/cargoShipDefinitions-DOR3sdqr.js": {
+      "bytes": 2694,
+      "sha256": "cf68a4d38a372004cc742ef8a6fd653970951f4012348dd9e1c7f52123151398"
+    },
+    "assets/chunk-QTnfLwEv.js": {
+      "bytes": 694,
+      "sha256": "5db5ba82eef00d1dee7e86e663098c9427d01183a88d357437daff295aec3e75"
+    },
+    "assets/console-setup-BNMG1_tD.js": {
+      "bytes": 183,
+      "sha256": "bcd642500133679f74e35eb50add3b2bd1a70b0b972376ff347be52c0a2e2978"
+    },
+    "assets/contact-BXsOhA2a.js": {
+      "bytes": 1138,
+      "sha256": "4c326a4d1acbdd728d6162e53548a3b4df22611fe025bc19aaa2433726b9b5c3"
+    },
+    "assets/contact-CuMqdxhS.css": {
+      "bytes": 1588,
+      "sha256": "f59f7cb8b678e800f629fa186961ff87a966792f6bb2cbcbddf91d10a8004302"
+    },
+    "assets/countries-DfpOqyPC.js": {
+      "bytes": 1631,
+      "sha256": "89e8256e069dc58839a9313c8459ede4c1bf3aecac0c1b3144b312e808875443"
+    },
+    "assets/daily-race-replay-CGY4aTnI.css": {
+      "bytes": 7674,
+      "sha256": "9b59c8e5cdcc6fdc2bfa9b6692ec114aaee06ebb7484b34b91c534ef1c6f67d9"
+    },
+    "assets/daily-race-replay-DM0sgZc-.js": {
+      "bytes": 15006,
+      "sha256": "6fd885ffa455010835f7f8cb8ca1e441b0dc32040d1325fdabce3012c1f07946"
+    },
+    "assets/defineProperty-BbfpZ9Tg.js": {
+      "bytes": 707,
+      "sha256": "c2ae68c1ad7462e777ccd4e1e3f84b3bc07ab81458f0dd0ea042a9e1b4d23afb"
+    },
+    "assets/displayFormat-DSwSTivx.js": {
+      "bytes": 1223,
+      "sha256": "777c63b7f37654f047a81ac085b46461c786eab7ebf4199c0a41e71e02d08bc7"
+    },
+    "assets/draco/draco_decoder.js": {
+      "bytes": 719410,
+      "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04"
+    },
+    "assets/draco/draco_decoder.wasm": {
+      "bytes": 285747,
+      "sha256": "c55a594e8ffd18426d36b27fea9618af3df5e173640a3e56d46f09d76f0574f2"
+    },
+    "assets/draco/draco_wasm_wrapper.js": {
+      "bytes": 58763,
+      "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8"
+    },
+    "assets/emailSoftAsk-CIzvlYXI.js": {
+      "bytes": 1000,
+      "sha256": "f6667b90d5a649044791c079d4569c26193b12529105949b32d23a310aa37fd7"
+    },
+    "assets/feedback-D0_FhlOi.css": {
+      "bytes": 5416,
+      "sha256": "ed4f99bc18aa0b5e029616af22f4346148033ceaa54680955b3d261fbc632970"
+    },
+    "assets/feedback-t1cbygys.js": {
+      "bytes": 8450,
+      "sha256": "9b30f2cf15adb1368c11df3c43513fdde7076e92235130e26110940413d45965"
+    },
+    "assets/flags/pirate.png": {
+      "bytes": 20835,
+      "sha256": "5f0d7544356802c5148331d3582506734118a2491b7eaf409cb6528ca069c21c"
+    },
+    "assets/flags/unknown.png": {
+      "bytes": 3603,
+      "sha256": "87584e79ea493ddcd843faef9cf2d488ce111daae60562e3dd83fdd967495e13"
+    },
+    "assets/fraunces-latin-500-normal-BTR4KCeb.woff": {
+      "bytes": 22460,
+      "sha256": "3f090b71356567fa4f75f0beeff74d38196a8b0f99bf089cce4954910442bfbf"
+    },
+    "assets/fraunces-latin-500-normal-DnGCNyPD.woff2": {
+      "bytes": 18000,
+      "sha256": "7975c1ef7caf89d0606dd985d35abe31a619c19262cf13f5a05938cc68fb27b2"
+    },
+    "assets/fraunces-latin-600-normal-BFCDtZfi.woff2": {
+      "bytes": 18096,
+      "sha256": "3a1de7711d147bad4422825045f87597fd77cca72e7c96d3b0a81735d00dda82"
+    },
+    "assets/fraunces-latin-600-normal-DL5QCzvS.woff": {
+      "bytes": 22512,
+      "sha256": "d78e988f844f474ce9b1cc10c72501add6c5056763bfe83ff2a8e2fcb6708ad0"
+    },
+    "assets/fraunces-latin-700-normal-CEOla-zY.woff2": {
+      "bytes": 18212,
+      "sha256": "c38570d224b830056e69484bb9e768e1d3fa7ba4755c8891a3c6d366194d2ff3"
+    },
+    "assets/fraunces-latin-700-normal-DTjk5d1Q.woff": {
+      "bytes": 22516,
+      "sha256": "1f9b0930f7a5e2b6aaba0df15f21bcdebebfcaff4b704daf3619589da69fd2a4"
+    },
+    "assets/fraunces-latin-ext-500-normal-BMcFk1Xs.woff": {
+      "bytes": 22432,
+      "sha256": "95db3f274e7f338f57bee9307fe021cd650973844ea17eb6c82f19598217a239"
+    },
+    "assets/fraunces-latin-ext-500-normal-Z5DV8IzT.woff2": {
+      "bytes": 17296,
+      "sha256": "f9c30d1f05fcd9ae07306235bd415a57f63d615c25a3f810670e24a9dc5a48bd"
+    },
+    "assets/fraunces-latin-ext-600-normal-B0Dy4lqi.woff": {
+      "bytes": 22364,
+      "sha256": "7fce30e29ffbe3d6703a4bc2ab7dd832f50f979fc8a7efdc738d5e8023f0489a"
+    },
+    "assets/fraunces-latin-ext-600-normal-BtzmzP0X.woff2": {
+      "bytes": 17336,
+      "sha256": "69e09c7910e64d829e051f023af4c38a2e74b61d9e9439502f56edd7154b117c"
+    },
+    "assets/fraunces-latin-ext-700-normal-CanUGppC.woff2": {
+      "bytes": 17664,
+      "sha256": "162b7b2654ef849ce146e1297bdd5694b971f730cd5f1749a954f24109ca11c4"
+    },
+    "assets/fraunces-latin-ext-700-normal-DuBstVeD.woff": {
+      "bytes": 22608,
+      "sha256": "c65dc36a4d3b776bc43b13833bb9d9a388aba00ffe41f4c87b8130750f3acbdd"
+    },
+    "assets/fraunces-vietnamese-500-normal-B-KbxExq.woff": {
+      "bytes": 7920,
+      "sha256": "5ee4a9481f45f350fdca8ab14cb7408da827c5cdad7d70a6df4b005406044f5a"
+    },
+    "assets/fraunces-vietnamese-500-normal-GOH_-EGq.woff2": {
+      "bytes": 6168,
+      "sha256": "dd4ba63e4b6c7ae6912351c6d1c81728fa588fc3a562e0abba4426d3f6d31e73"
+    },
+    "assets/fraunces-vietnamese-600-normal-BjlAJixd.woff2": {
+      "bytes": 6284,
+      "sha256": "aa26bf964850ffd04079bdb40292c391c9c0498405fa9abaf865c46d66918112"
+    },
+    "assets/fraunces-vietnamese-600-normal-DlAl5EAR.woff": {
+      "bytes": 7932,
+      "sha256": "73fb7bb330dd90e4f3ace99686ce820db5ddff1020c81dda09c97eb2351865df"
+    },
+    "assets/fraunces-vietnamese-700-normal-DH94m5DZ.woff2": {
+      "bytes": 6348,
+      "sha256": "973cd0edbf7f8735f98a5b0426e4a7d08f87b3ba225c447fb8b723062f32012b"
+    },
+    "assets/fraunces-vietnamese-700-normal-DxawQjq2.woff": {
+      "bytes": 7996,
+      "sha256": "9a8d6c3bab24e64a8a53bfeaaad8036d8995d4a0731c175c7c55ee3d12090002"
+    },
+    "assets/game-DaugXgrE.js": {
+      "bytes": 25013,
+      "sha256": "95c33c64f8df56ecd4611f5f95bba748844e63e6c7e0457daeb1b805fc9573df"
+    },
+    "assets/game-DnL7bd1B.css": {
+      "bytes": 853,
+      "sha256": "5e9c1dcebd49e787d794f673010bc7f791202295c7068eb136db63738e73e6c4"
+    },
+    "assets/game-TtaQJEzj.css": {
+      "bytes": 79491,
+      "sha256": "6025105ffb1d85cb4e919b712c4fa094a91d0d288c0eb1d55dd06df767215299"
+    },
+    "assets/header-C8hfIurP.css": {
+      "bytes": 14598,
+      "sha256": "605e49615d538da4ca72745c63ad5d013e68c4513f24e75ee5521525a7405717"
+    },
+    "assets/icons/vibesail-icon-192.png": {
+      "bytes": 19134,
+      "sha256": "2ab25d5695b3c23105d0a901c3ed37a4cc6bbac22b593097d3b6285b7ce32070"
+    },
+    "assets/icons/vibesail-icon-512.png": {
+      "bytes": 72882,
+      "sha256": "9f2ebb1da742bdf29565e7e47bf51e8b4e709ec255b74e831708e2dc8ef21f0e"
+    },
+    "assets/init-CC0aACO2.js": {
+      "bytes": 4599,
+      "sha256": "e5cad7bc796f615ad1017450271ba27c1dca525fa12b5febc4d5b00846eb7e38"
+    },
+    "assets/installability-D42GZDjn.js": {
+      "bytes": 751,
+      "sha256": "8ea36aaef7f269375ffd29da678a8ff268b37588bb0367441eab96d2078a857d"
+    },
+    "assets/leaderboard-DToF7Del.js": {
+      "bytes": 16739,
+      "sha256": "dd3ba24afdf99f553e642839200f7b690989e26f7c78f9d8be1802685674a4ac"
+    },
+    "assets/leaderboard-h5aFNhxu.css": {
+      "bytes": 17551,
+      "sha256": "dc7065893c0810dd8265af822ff5e4c9837534615ba72f3c3f460ee265eaee01"
+    },
+    "assets/main-BHhWfJLs.css": {
+      "bytes": 17139,
+      "sha256": "91b2558a1786f32f3a2e13882a2ea887ae2857d96403db7a73ec825201606f16"
+    },
+    "assets/main-DT7pZ34g.js": {
+      "bytes": 8317,
+      "sha256": "119e8eb854b82c0d018708baf4cbadba3cea7e953a138c9acab4734b4116b8be"
+    },
+    "assets/models/boat_models/venice/model_lowpoly_optimized.glb": {
+      "bytes": 576220,
+      "sha256": "d5362fd0ee85480b96d485a75e852037bc52be803d6a54f6140972d6bb8189eb"
+    },
+    "assets/models/cargo_ships/low_poly_cargo_ship.glb": {
+      "bytes": 1076808,
+      "sha256": "e6c33a04403ee3d99a3f1407c2642281956d29260a2ef564e3553aa1a86e716e"
+    },
+    "assets/models/landmarks/starship_upper.glb": {
+      "bytes": 1298852,
+      "sha256": "567fd0669632637c9402732416be7b138a044c36224dc451fc176de9d35b17e4"
+    },
+    "assets/modulepreload-polyfill-Dezn_h7o.js": {
+      "bytes": 698,
+      "sha256": "785597bca2e7dd97a652a20a197c077079e635a5663433448e0e1d9fd8c98a64"
+    },
+    "assets/portalDefinitions-CAxa3Tbw.js": {
+      "bytes": 97,
+      "sha256": "7a11fc46018f42c14d66c4e5cdad82c1974b6333f98001dfd3af4c43034f9ad5"
+    },
+    "assets/posthogAuth-6WDf5lnM.js": {
+      "bytes": 1102,
+      "sha256": "6f58ae0c08438aeb71810a4bc2e553a109a9c2d7687d015135b25bbc13cd9028"
+    },
+    "assets/preload-helper-CYTkKql0.js": {
+      "bytes": 3638,
+      "sha256": "268fe37b22d61c9d5a2dc9b4a4c185e6de16a6437e636d309963b682dbfd384b"
+    },
+    "assets/privacy-CSHWULkw.css": {
+      "bytes": 699,
+      "sha256": "6d813613924714637c689f637fe7cbd33ad93a7caf759e38d6a3d13bf63078ac"
+    },
+    "assets/profileClient-Ce6d7RD4.js": {
+      "bytes": 4457,
+      "sha256": "77e36c04ce662d7608332f2ad2649c9be8c35e14fcf14a2820eccd39c9111a5e"
+    },
+    "assets/race-Cw13y8lA.js": {
+      "bytes": 9130,
+      "sha256": "06597ae5b51d31072bce8118776e6cfd398705149e8e68d14d7a3420c678316d"
+    },
+    "assets/race-DABjEupn.css": {
+      "bytes": 15057,
+      "sha256": "c42d431d99bca863d17d5a1c042ed70c0792f460dd1de6e6142c6f850a8bbba9"
+    },
+    "assets/recap2025_bg.png": {
+      "bytes": 864735,
+      "sha256": "c5afe8bc35c30c4a0fb7d6cdcbbb710d28b450c90e8e5cd6ff590432de05cee7"
+    },
+    "assets/recap2025_trophy.png": {
+      "bytes": 592192,
+      "sha256": "dd0c198766c00f98ea368db0cf9ca014c8b72ef39881b3a299fef5603bf13aa3"
+    },
+    "assets/routeContext-D1HYUwP9.js": {
+      "bytes": 18616,
+      "sha256": "00250580a5fd18ee7967f3202a96ee6a5849d644b4608771398e4c5a6bd3c43a"
+    },
+    "assets/scripts/site-header.js": {
+      "bytes": 15080,
+      "sha256": "d67fe42ca09398f6e58855ea853cef15b6bcca61b8e4b74ffb00b1497b39c166"
+    },
+    "assets/signConfigs-BxvGsz9k.js": {
+      "bytes": 12383,
+      "sha256": "f2787921e841e49e1ced16435bb89c257f8e9474c8365456327aad70f96f00c7"
+    },
+    "assets/site-page-BCzZjifA.css": {
+      "bytes": 8435,
+      "sha256": "24aa6900a1895da18c827f9722b77458225539c630c33b1fe373d4ca642842dc"
+    },
+    "assets/sora-latin-400-normal-CRt88UEn.woff2": {
+      "bytes": 14724,
+      "sha256": "98141d7eaa6e9ee35e0827d279018cd33c3e59c6650541ec7de1c692efd93942"
+    },
+    "assets/sora-latin-400-normal-OW7qkl5a.woff": {
+      "bytes": 18540,
+      "sha256": "1f37dad58662a5d5aba86a5bb8127e56726bebb0d7c17bf842634bcb2692eaca"
+    },
+    "assets/sora-latin-500-normal-01eiPEn0.woff2": {
+      "bytes": 15056,
+      "sha256": "edd010ebf2f4940b52d8b98296a499c0a783d838e427fa301c67f80959c1f441"
+    },
+    "assets/sora-latin-500-normal-w58xtEt9.woff": {
+      "bytes": 18880,
+      "sha256": "bfa5c3aaceedffef41964862403f9924631aee1107f6bf7ea4f875bb8a71c554"
+    },
+    "assets/sora-latin-600-normal-1_7fyUAY.woff": {
+      "bytes": 18856,
+      "sha256": "0f54f64e7e937c760a41c40d4a8402eb3f5d93021b603fd1bab937f86dc53c42"
+    },
+    "assets/sora-latin-600-normal-Cdg4DaK0.woff2": {
+      "bytes": 15000,
+      "sha256": "fa9ab76f30510ad92153c6d6d72d0508884b85e9f0148abdfa963231b2a4845a"
+    },
+    "assets/sora-latin-700-normal-9waGdLWo.woff2": {
+      "bytes": 15128,
+      "sha256": "c3337a673c9bbbfe433091d3831714dd9a257951f16f41eb3fc650ec593cfac2"
+    },
+    "assets/sora-latin-700-normal-BKPfQAnC.woff": {
+      "bytes": 18860,
+      "sha256": "04a29da140ba5c977a4acdd6065d2673c74d65547324f37b4c97736f4a31fd05"
+    },
+    "assets/sora-latin-800-normal-2tKLL3qT.woff2": {
+      "bytes": 14864,
+      "sha256": "b3058cd014993defb5c446d9ccdeba7f994c4b7f0ff2b50b2b213944af0f176e"
+    },
+    "assets/sora-latin-800-normal-c3Huklug.woff": {
+      "bytes": 18596,
+      "sha256": "0ca07cd14c5741c712465747fba809b6075b092a5d269031a9337704cd05a2c4"
+    },
+    "assets/sora-latin-ext-400-normal-BmhJC382.woff": {
+      "bytes": 9672,
+      "sha256": "a04bdd5aebe003363f11159b94739f5924db41880698ea8542ad2d1742619dd7"
+    },
+    "assets/sora-latin-ext-400-normal-Twk1CgKs.woff2": {
+      "bytes": 7340,
+      "sha256": "959432bc9e83bb9471e25d5f256ac1190bf5422043f25a97ff69dcf8d6b73463"
+    },
+    "assets/sora-latin-ext-500-normal-B5KKQIFO.woff2": {
+      "bytes": 7476,
+      "sha256": "0685d4dea03a9d6b26479cf5018cfcce9521278f946bba7935983f973539d75e"
+    },
+    "assets/sora-latin-ext-500-normal-DwxUJRqY.woff": {
+      "bytes": 9756,
+      "sha256": "ff90eb01428950d8d26e7b4d0384ab3a6691aaf721ff7f67940d959db7b9ca1f"
+    },
+    "assets/sora-latin-ext-600-normal-Cue1zdhl.woff2": {
+      "bytes": 7536,
+      "sha256": "2c17a94fef4242d1c33ffcc9bb43c7eb93ad88db53409c1067ac23cc914523e2"
+    },
+    "assets/sora-latin-ext-600-normal-DLOJK0Ta.woff": {
+      "bytes": 9820,
+      "sha256": "b9acb1ebf7dc1bc83c46fa5a17204aa649f337e4c3bda9bcba5a6cf087ca6874"
+    },
+    "assets/sora-latin-ext-700-normal-DM0oy5s8.woff2": {
+      "bytes": 7448,
+      "sha256": "d4d06da761976749e6f33a3640ae610301491d65bc3f1c56faa2489b520a7ac7"
+    },
+    "assets/sora-latin-ext-700-normal-Oc7uZIYt.woff": {
+      "bytes": 9804,
+      "sha256": "b77876320abbf04549265e0b298fba9a15928a8a374f37d0a6af9cd9e2ff18e6"
+    },
+    "assets/sora-latin-ext-800-normal-BvAfeed7.woff": {
+      "bytes": 9760,
+      "sha256": "e001ac72d6ff9d32634134d9ec3d6cb5b2ce5be24e48f01ac80546ede96f115e"
+    },
+    "assets/sora-latin-ext-800-normal-YDFYE6t9.woff2": {
+      "bytes": 7428,
+      "sha256": "ad60c66b26562add545450c8979fb23d755916d8fed90b0855d7bb45a5d944c5"
+    },
+    "assets/sponsored-locations/corfu-sea-school.webp": {
+      "bytes": 20780,
+      "sha256": "33e209c32af1857318318ef6d584377f11635788fc3b02720afefd38d80be3d8"
+    },
+    "assets/sponsored-locations/offshore-sailing-school.webp": {
+      "bytes": 35436,
+      "sha256": "c4f4f18264529fa03690388b69505a1e725ced8b2650e1cdc7e626dc8e3f802d"
+    },
+    "assets/sponsored-locations/spacex-starship-flight-13.webp": {
+      "bytes": 63040,
+      "sha256": "c16fd4799eeff10bae192a720d4b0f040ec2f97b274053b2b42839bafb58e641"
+    },
+    "assets/sponsored-locations/spacex-x.png": {
+      "bytes": 1166,
+      "sha256": "eb06e056d7e7807e6483f55fe10bfc71a517854c446a9a2e50e54cbe04d637ed"
+    },
+    "assets/sponsored-locations/the-sailing-academy.webp": {
+      "bytes": 32460,
+      "sha256": "4839e9610ac0cf4e365ee82c0c243ee45f371898975ed756b7b02d3551f44a59"
+    },
+    "assets/three.module-BgyKfsEV.js": {
+      "bytes": 598168,
+      "sha256": "46374bfcf5a29b021a7538934692088ae3fd10d3a70540d00e023f0957a13d34"
+    },
+    "assets/thumbnail.webp": {
+      "bytes": 53478,
+      "sha256": "c7f7ddf78f4d68c241b879f2abf09655993eb8f7881e4e7666ed52baff948e16"
+    },
+    "assets/world-B9kkcg8l.css": {
+      "bytes": 118262,
+      "sha256": "e0882adf3e6fc30296cf0639514dbff27564594b6d0b9d78d0fe5da12d2f0688"
+    },
+    "assets/world-DPn3WgXw.js": {
+      "bytes": 1133617,
+      "sha256": "5ee0a4845ad37f6dbeba2532dc15c69a16dc549d7a45374ba7ea122f80c477e0"
+    },
+    "assets/world-signs/aisuitup.webp": {
+      "bytes": 6828,
+      "sha256": "eabedb16d3948d05776fceb056258fa99a50671563458dcdeec71262f78fc142"
+    },
+    "assets/world-signs/aleria.webp": {
+      "bytes": 5526,
+      "sha256": "6c3d53d30ce92b19e6e72b127cf0ce5d2c76d48295c2b6e9904e18c57f0f3fb0"
+    },
+    "assets/world-signs/atlantic.webp": {
+      "bytes": 5244,
+      "sha256": "95f9a1cf426d4f40515ac995630a859ba8342bfc450442711ffd0f9fa7831442"
+    },
+    "assets/world-signs/bird.webp": {
+      "bytes": 5234,
+      "sha256": "b98775ba54654c92d425dbd4afe4f8a06eba9b6e4cf4641e5a009e614b06a826"
+    },
+    "assets/world-signs/chatling.webp": {
+      "bytes": 7008,
+      "sha256": "777716fc3204be84a33fe2775332b481cb0b80ab69198bcb7156b730527fcc26"
+    },
+    "assets/world-signs/coingecko.webp": {
+      "bytes": 8310,
+      "sha256": "61c2efcab4ea1e9e09d01624becedd0764b9acfe611db09d4e31ebb7256be4b4"
+    },
+    "assets/world-signs/compai.webp": {
+      "bytes": 5096,
+      "sha256": "35728ef7bfd6ec18b0a60c6fbaea3063d3979464035c71eb070b2d52a95f1e66"
+    },
+    "assets/world-signs/dotenvx.webp": {
+      "bytes": 6362,
+      "sha256": "39422a1fea39a6a4e560159a676e27f5f1687fef516459eb7927319fd6915ca0"
+    },
+    "assets/world-signs/ferrysimulator.webp": {
+      "bytes": 39082,
+      "sha256": "743e475ce4de5bc48b4d779ed0b1436e98c4c6645485c611fb471b63cf4a2174"
+    },
+    "assets/world-signs/founderstack.webp": {
+      "bytes": 11042,
+      "sha256": "53217b263a05283a6592d2d8f0b9c34a78e6fc954a7990f83d1bb3873e9324f9"
+    },
+    "assets/world-signs/founderstack_inside.webp": {
+      "bytes": 26570,
+      "sha256": "397730c480ad46d4b16be4d3bc55fc924c66e1581e9db20bf8f6dd14fe2dc898"
+    },
+    "assets/world-signs/guapa.webp": {
+      "bytes": 5104,
+      "sha256": "0eece379ae9b8257224f7b00cdb48c73018b344ffeccd4a92f1f37a7610836ba"
+    },
+    "assets/world-signs/interviewmonkey.webp": {
+      "bytes": 7802,
+      "sha256": "44227567b27abb48b4366d98c64729e69e266a82c93e3fabe2ef705918fa8745"
+    },
+    "assets/world-signs/kichan.webp": {
+      "bytes": 5744,
+      "sha256": "a7f81df0a5f3fc49b0fd7f12d9932e22ff289e8b50d3043d333824a066166d50"
+    },
+    "assets/world-signs/leftcurvecletus.webp": {
+      "bytes": 10012,
+      "sha256": "6745ac856b33ed98dc4e801e7d675e5e3fee1bf477cf65852eb882498a7f30a3"
+    },
+    "assets/world-signs/localrent.webp": {
+      "bytes": 8088,
+      "sha256": "fd02950ace536448b6305c868b4a1c734735660187c18a07124a7d51c49efefa"
+    },
+    "assets/world-signs/makeethereumgreatagain.webp": {
+      "bytes": 11394,
+      "sha256": "3257536fc2de43b3aa1c67d0851f473dfb4d0468451f16f723972d19e636d63c"
+    },
+    "assets/world-signs/marineverse.webp": {
+      "bytes": 6782,
+      "sha256": "a1c51aa88ddc93253441a42acab9bc3b78b813eb805b413dd29de9cb19cd98bf"
+    },
+    "assets/world-signs/marketingideas.webp": {
+      "bytes": 11074,
+      "sha256": "22a4f6740e547975d918c649474ff0ed59da29afc860a60d902b9b2e5f948f35"
+    },
+    "assets/world-signs/matresswizzard.webp": {
+      "bytes": 7724,
+      "sha256": "f62aabcd6ffbe4ccb4f2c48fa6c4510ee0c2033c0ef40af3df90dcce699305a2"
+    },
+    "assets/world-signs/mrscraper.webp": {
+      "bytes": 7326,
+      "sha256": "327c60cee0e32eee9b364f4a33392e581fdc35d1dd678216063c84043198e472"
+    },
+    "assets/world-signs/mugbottle.webp": {
+      "bytes": 6724,
+      "sha256": "a916e31e18e02aa0e836cad9c20956f74bf3d5261925807a449fc03e30dce099"
+    },
+    "assets/world-signs/netent.webp": {
+      "bytes": 5978,
+      "sha256": "0d2b799282596e96e4f13dddde71ef7a56d1394dd3ef1dd0df95676ec360c9f9"
+    },
+    "assets/world-signs/nichetools.webp": {
+      "bytes": 11788,
+      "sha256": "f6d93ae25c724a7fb8860582b17e93fe96903dbe3a7a4c40cdb62f81509be5bc"
+    },
+    "assets/world-signs/rabbitholes.webp": {
+      "bytes": 5190,
+      "sha256": "b3a935eb28d4b673d80d4c5f78482981dc1a3543dc14455a3b83f3dc4b4fd2cd"
+    },
+    "assets/world-signs/scripture.webp": {
+      "bytes": 4718,
+      "sha256": "00f183f37aac8f626a7f8177e39eaf7bb1f5597355fc79db409285d14226d670"
+    },
+    "assets/world-signs/softgen.webp": {
+      "bytes": 5256,
+      "sha256": "14ef4c5fec74fffeb3c00cd02b0bfdca3ebf970f7b34bc6de7b14bd8b9d55b8f"
+    },
+    "assets/world-signs/threejseval.webp": {
+      "bytes": 14714,
+      "sha256": "155e9ef391b5414ab7fbaf97bd2f9f11195d6b31f96af88d8a1b54207bd8f41d"
+    },
+    "assets/world-signs/vibesail.webp": {
+      "bytes": 7460,
+      "sha256": "9b727a90336eddc40e8064ca5c271e3191fd288729fd1c2ed4c895ad0a89348f"
+    },
+    "assets/world-signs/vibetapper.webp": {
+      "bytes": 13676,
+      "sha256": "a309d46f4e5aefc984c74867751b183069c2c1bba15e43ddd72b144350b8f339"
+    },
+    "assets/world-signs/wakingdigital.webp": {
+      "bytes": 4606,
+      "sha256": "a538c120564b588ad5ceb45c4e7fbab59606b677e9a039faf6ecccff276a24f6"
+    },
+    "blog/index.html": {
+      "bytes": 7032,
+      "sha256": "2ffb0649b8a7cd3828782fd7f20ce8bf6e7db52b252126e04005a1a5efe4ca26"
+    },
+    "blog/changelog-001-playable-sailing-foundation/index.html": {
+      "bytes": 7922,
+      "sha256": "516f4dcec738ad7ef94ad9f9acbf1a269fb7f1bef4cbde4aa918c1cc8ff8b349"
+    },
+    "blog/changelog-002-heel-and-wind-force-pass/index.html": {
+      "bytes": 7990,
+      "sha256": "f81fb931b419d2cce16211d5189d9929773d71f0d8958a839a7c839af46aa691"
+    },
+    "blog/changelog-003-camera-modes-rollout/index.html": {
+      "bytes": 7932,
+      "sha256": "bd034cfb39420b47c5f9fddbfa2bb855d70c65fac7a0fbe430792ca4c288a989"
+    },
+    "blog/changelog-004-mobile-controls-pass/index.html": {
+      "bytes": 7863,
+      "sha256": "87b172cee0b8d31facacf0d099f87411f20f007d38c2a1d4514a15b00a5f6a13"
+    },
+    "blog/changelog-005-audio-atmosphere-v1/index.html": {
+      "bytes": 7939,
+      "sha256": "ac2bb29b0c91b6bcab80f71c562511ed9e5a52fbb4e11bc7a9769a561abd89c7"
+    },
+    "blog/changelog-006-multiplayer-boat-presence/index.html": {
+      "bytes": 7942,
+      "sha256": "236853d03b921cca39bf78fe074ad7fc2f4d588cba5d939ea5e3c576550e1fed"
+    },
+    "blog/changelog-007-ai-traffic-foundation/index.html": {
+      "bytes": 7960,
+      "sha256": "8d7a17ee5e6cdd4da23dba26f286215abe074964f3af893a6a703b23eecd1ff2"
+    },
+    "blog/changelog-008-player-flag-identity-pass/index.html": {
+      "bytes": 7928,
+      "sha256": "45379470eb4e5c57d0549bd4daa41ecb771a573360f69ee78979c6d109ce6932"
+    },
+    "blog/changelog-009-interactive-tutorial-v1/index.html": {
+      "bytes": 7934,
+      "sha256": "bd77b0c2989ee696fa8e8a7986def690fe9c42027aa93e972c4e7f94ce5e63fe"
+    },
+    "blog/changelog-010-daily-race-mode-launch/index.html": {
+      "bytes": 7890,
+      "sha256": "42a1d33bcb846aace73fb67051df5e807b0a57ca702301f5d13901b47d86c90e"
+    },
+    "blog/changelog-011-leaderboard-live/index.html": {
+      "bytes": 7912,
+      "sha256": "ba1d8be2abec73dda8f1cce75af3cb17f0a4e4e5d51f9b936d6fb5e80d29edd0"
+    },
+    "blog/changelog-012-tack-and-jibe-dynamics-pass/index.html": {
+      "bytes": 7938,
+      "sha256": "3c0ceaf47c56f96708d2b667fecc6b7130d42b2d848f72c2025a9f0287a9dd93"
+    },
+    "blog/changelog-013-race-route-guidance-ui/index.html": {
+      "bytes": 7930,
+      "sha256": "833cd7598994e6c2371b04c5e592aba451408c719f4d8d8e9733ec7485928745"
+    },
+    "blog/changelog-014-record-submission-hardening/index.html": {
+      "bytes": 7962,
+      "sha256": "a0b37fe7bd0da11edfb42d6389bc107dc959ba2b5b83acdd80b6931fed5b15dc"
+    },
+    "blog/changelog-015-world-and-water-architecture-pass/index.html": {
+      "bytes": 8041,
+      "sha256": "3b2f36859fa964b84b9196eabae28f025f7029cab9b549c7a22acca62c5ebf85"
+    },
+    "blog/changelog-016-camera-and-hud-polish/index.html": {
+      "bytes": 7919,
+      "sha256": "ed3ac787ec6824289e14463f39564cd407d8ec68ae7a9e5a573f74d9c70b7e25"
+    },
+    "blog/changelog-017-wind-indicator-refresh/index.html": {
+      "bytes": 7871,
+      "sha256": "5c2a20d616f70f3895fa6e6c73c004b9f3308d0a284da0348e63e330d14650b7"
+    },
+    "blog/changelog-018-island-system-rebuild/index.html": {
+      "bytes": 7940,
+      "sha256": "3dc7f45584ad1f35d1eba36b56b0a4c4856b3b606863ec905937c3609e7fab55"
+    },
+    "blog/changelog-019-far-island-visibility-pass/index.html": {
+      "bytes": 7984,
+      "sha256": "e176f8d69a4909d877821d1058571330aded6bdbced85d8f8b379c4efeeec6f5"
+    },
+    "blog/changelog-020-island-sponsor-customer-stops/index.html": {
+      "bytes": 8079,
+      "sha256": "ae2db47ed78ab6bac59d04974f047b887499f480c35cfd6f27762588a40d0170"
+    },
+    "blog/changelog-021-performance-monitor-release/index.html": {
+      "bytes": 8013,
+      "sha256": "f9aed3c5b74470fa1663721c0da75141d5fed12960041bfcafe827fc402b70ef"
+    },
+    "blog/changelog-022-boat-tuning-and-customization/index.html": {
+      "bytes": 8010,
+      "sha256": "ad475f1b343d018c1809e3abe84acfe77efeeee0bee4f524135008edd07a5fc5"
+    },
+    "blog/changelog-023-wave-overhaul-phase-1/index.html": {
+      "bytes": 7935,
+      "sha256": "fd74ede20ac2e62d5dc4f38ba179bab90c5d02c7863344d0f776ff2f1faf4b71"
+    },
+    "blog/changelog-024-wave-overhaul-phase-2/index.html": {
+      "bytes": 7932,
+      "sha256": "0dcf57c3f8e31e20a428dfd6bbcadebfde0c1d70c73855414bb0ff1caeab8297"
+    },
+    "blog/changelog-025-settings-and-audio-persistence/index.html": {
+      "bytes": 8011,
+      "sha256": "a9cdf396c4f82d8df9323bc3555d5bc333698ef29a33fed229dd0bf9cc9e21a9"
+    },
+    "blog/changelog-026-sail-furling-controls/index.html": {
+      "bytes": 7983,
+      "sha256": "55b3f10bbd9476feffbe3ff091c8f7d33965b0b3a002d335200815797ea2b1ec"
+    },
+    "blog/changelog-027-island-lod-and-dock-structure-pass/index.html": {
+      "bytes": 8061,
+      "sha256": "05a6390a3f9b0c60c150000f858e6231b4bd9ccd2a37f8198038a755fae58dd9"
+    },
+    "blog/changelog-028-logistics-missions-launch/index.html": {
+      "bytes": 7966,
+      "sha256": "1b66c0f5b068f9b749077b2c4b95d0f4dd37786c19df2a6691ae8908e01bebad"
+    },
+    "blog/changelog-029-mission-compass-guidance/index.html": {
+      "bytes": 7940,
+      "sha256": "e20ccbe9eb8ff5b7d2a6ce0d920c1539037f3d2c1cdb67112f63db0b6ce28686"
+    },
+    "blog/changelog-030-upgrade-shop-launch/index.html": {
+      "bytes": 7881,
+      "sha256": "48ce72b59c6085b9295e86fdebde13cd30b7f9f3635bd819d2944d849224acb5"
+    },
+    "blog/changelog-031-upgrade-economy-balance-pass/index.html": {
+      "bytes": 7999,
+      "sha256": "783d4cb58ade0acc883711e44458f96dd81e8a82f1bf05062f3332b407e096b4"
+    },
+    "blog/changelog-032-cannon-combat-introduction/index.html": {
+      "bytes": 7987,
+      "sha256": "8c194a755bf052bab5c87ffddbf647714ee9208ce2d0767c32e09474cbb6e144"
+    },
+    "blog/changelog-033-world-loading-and-mobile-stability/index.html": {
+      "bytes": 8015,
+      "sha256": "32df0c4284c38251d565f1f0d4ff95bb638aec0d70abd40ebd0a1293152edf74"
+    },
+    "blog/changelog-034-pirate-hunt-mode/index.html": {
+      "bytes": 7897,
+      "sha256": "34a3b170f9c00a752955cfd43e9ee01c48cb4da12f8196ade41737ff91b808b6"
+    },
+    "blog/changelog-035-pirate-reward-economy-link/index.html": {
+      "bytes": 7991,
+      "sha256": "8dc540e27ff9c8ffe9d43e4f7f0b9e1f7822fe917d15930e592bbec347e8d9c6"
+    },
+    "blog/changelog-036-cannon-default-safety-pass/index.html": {
+      "bytes": 8038,
+      "sha256": "2913e38e1693b31532bac1cb23dcc4008c7da18afd3400c787430b64ebe83e83"
+    },
+    "blog/changelog-037-gpu-sail-deformation/index.html": {
+      "bytes": 7922,
+      "sha256": "679bd77c5ae05b60466de1400c129bdb4cf4d438c1fb18813801d5b179b49a80"
+    },
+    "blog/changelog-038-wind-ribbon-visual-effects/index.html": {
+      "bytes": 7933,
+      "sha256": "e183ec9143da6569e5544d59536996c8d43a6a80e111c8bec8b0d1a4409f65e3"
+    },
+    "blog/changelog-039-gpu-island-vegetation-pass/index.html": {
+      "bytes": 7991,
+      "sha256": "d4654cc1a0070535dd2c6bdf29bbc2c52a5db3f5c33c3d0cf7d44b3fb1727e81"
+    },
+    "blog/changelog-040-cloud-instancing-rollout/index.html": {
+      "bytes": 7949,
+      "sha256": "8e15af95333a7e2f5420584ad9f7a0a49d389bae1cf99374f3a056181b8e9bd4"
+    },
+    "blog/changelog-041-gerstner-8-wave-ocean/index.html": {
+      "bytes": 7950,
+      "sha256": "72da11fb7c43f14dd8456a48e162a3accb3279e7d04420b5a5b3dd0d0526e52f"
+    },
+    "blog/changelog-042-water-tiling-and-wavelength-fixes/index.html": {
+      "bytes": 7995,
+      "sha256": "9d0fa7358545a7e148c4aeacd9a4f5e48f4e59e5f3b40673f076cb66b770ee3f"
+    },
+    "blog/changelog-043-ghost-recording-and-playback/index.html": {
+      "bytes": 7975,
+      "sha256": "88c56d8c879159c4746a2bdf95738f63bfefeae13149e2cef0a5629a104b2fb5"
+    },
+    "blog/changelog-044-countdown-race-starts/index.html": {
+      "bytes": 7927,
+      "sha256": "00acd336762bb56498f1a975521069c0302de642feb1f475e315b2bd60198e02"
+    },
+    "blog/changelog-045-ghost-persistence-v2/index.html": {
+      "bytes": 7959,
+      "sha256": "91a58b01d8b237543ced97865dc52938c9932b0f254e6bb8b2af27affbf91896"
+    },
+    "blog/changelog-046-ghost-visual-ranking-polish/index.html": {
+      "bytes": 7969,
+      "sha256": "b5ee5b40a453e40d729368d00badaffe112a90bdb5b2bb73a8ecb3275dbf488c"
+    },
+    "blog/changelog-047-country-flag-manager/index.html": {
+      "bytes": 7907,
+      "sha256": "9c7bbe8cbd41471ba04277b73d969599376379e6097c23daba8f28f458df78d3"
+    },
+    "blog/changelog-048-race-tuning-lock-fairness/index.html": {
+      "bytes": 7971,
+      "sha256": "baf8cb65a2b356a015f38d3707e5b3f8c162cfd9e13fb39a7cbb9175afc92abc"
+    },
+    "blog/changelog-049-player-profile-page/index.html": {
+      "bytes": 7897,
+      "sha256": "94dcf5383ee67b759414fd61f272fe17333d05727353c7e4246ab7d773300034"
+    },
+    "blog/changelog-050-regatta-start-gate/index.html": {
+      "bytes": 7953,
+      "sha256": "7ac4f9070056804eb21ab5e4fd03dab8d2ce129892b7d4e21a92a21acbe9c91b"
+    },
+    "blog/changelog-051-regatta-ghost-timeline-sync/index.html": {
+      "bytes": 7973,
+      "sha256": "76f22e7210d78b0297f912c7431438c280ba263f0c4933cdc037dce06d83d771"
+    },
+    "blog/changelog-052-high-sea-mode-launch/index.html": {
+      "bytes": 7938,
+      "sha256": "ee8c679c28ed7ba49ccf62bf12886e0ce9617e0773a9f286fb41460b4d38ba61"
+    },
+    "blog/changelog-053-ocean-reflection-alignment-fix/index.html": {
+      "bytes": 7966,
+      "sha256": "2cfd1746194357d1cacc41c58e314cf3b6b9b4259e6034bd3fd8741034e8b928"
+    },
+    "blog/changelog-054-world-map-launch/index.html": {
+      "bytes": 7925,
+      "sha256": "86935706101c969b125c1be44e871566c9222a08a2d1199669e7a1ef5cf82b93"
+    },
+    "blog/changelog-055-leaderboard-page-launch/index.html": {
+      "bytes": 7924,
+      "sha256": "fa5f539fe83c60b45bebead032af8ea67c14cc2bf7573841a42e64c7eef7fa9e"
+    },
+    "blog/changelog-056-leaderboard-ux-and-attempts-pass/index.html": {
+      "bytes": 8020,
+      "sha256": "a48c11fbe0d743134f3f3f7de89fc823df4f18c40d456bacddfe4d68f2e6d132"
+    },
+    "blog/changelog-057-race-start-fairness/index.html": {
+      "bytes": 8124,
+      "sha256": "c2ab47f7b64394b0943908c22b8ee9c4312ab96ea3b0fc04f546e9f48c23d15a"
+    },
+    "blog/changelog-058-high-sea-ghosts-and-ui-updates/index.html": {
+      "bytes": 8128,
+      "sha256": "7d4c10fabf57e3d73729cfdf600738dfb8b72ad05aebf56f242c07315c93b9f7"
+    },
+    "blog/changelog-059-tutorial-ui-and-guided-race/index.html": {
+      "bytes": 8109,
+      "sha256": "277a8b2240382e1b2dec99518f8056e0d28c2a5c395f3431de35ec6857a96395"
+    },
+    "blog/changelog-060-glb-boat-water-clipping-fix/index.html": {
+      "bytes": 8109,
+      "sha256": "e5617f6bdf9573af56ec5a0fc06c044295251cd5dcae82a4520264cf7f3df856"
+    },
+    "blog/changelog-061-world-map-custom-locations-and-voting/index.html": {
+      "bytes": 8107,
+      "sha256": "6720914070b260c9f25654581be185d464f409f6b9ad0c46a25c71f3cd8598a0"
+    },
+    "blog/changelog-062-submit-a-prompt-page/index.html": {
+      "bytes": 8037,
+      "sha256": "4642cdd2838bbac9c7751556fed70e35b866bd52832d8d40296f870b9525e447"
+    },
+    "blog/changelog-063-daily-race-replay-spectator-mode/index.html": {
+      "bytes": 8068,
+      "sha256": "50f82f23e6a4691f92b4071acbef85ee24bc0863acce36c3ba2a762e6b235374"
+    },
+    "blog/changelog-064-boat-shop-launch/index.html": {
+      "bytes": 8023,
+      "sha256": "e9162408afa4159233a4afe9a3e9e41ba36e264721ba85dec86f5af1d6663842"
+    },
+    "blog/changelog-065-profile-career-stats-and-replay-access/index.html": {
+      "bytes": 8079,
+      "sha256": "7a51676fe247c94217337b3e3dae7cbd7af5a832222f4cbf7f43e2a3e155373c"
+    },
+    "blog/changelog-066-podium-collision/index.html": {
+      "bytes": 8140,
+      "sha256": "eb5ffa7bb8b7afef02b1b3b99bd22463ca7117107c409a8957efc672065e707d"
+    },
+    "blog/changelog-067-race-collision-fairness/index.html": {
+      "bytes": 7980,
+      "sha256": "6b23a643057177e4fedf547ff9abb4eacbc4d19760013f7f25f4b0c209a5ca42"
+    },
+    "blog/changelog-068-fragile-cargo-mission-flow/index.html": {
+      "bytes": 8020,
+      "sha256": "d2359877c33408a36f7049bbe56aa4a96244b2dc872a097569fb602ac08dd872"
+    },
+    "blog/changelog-069-startup-and-runtime-smoothness/index.html": {
+      "bytes": 9663,
+      "sha256": "df1fcbc9b8d99723572b3f03e438b7823414a5fc967ae5358909f6b45ef1ebf4"
+    },
+    "blog/changelog-070-remote-boat-inspector/index.html": {
+      "bytes": 8903,
+      "sha256": "a1f88f7b5573ff429a38f3578ae96f36c62c150c57940887301f996a1c6b5cb9"
+    },
+    "blog/changelog-071-a-bigger-world-to-sail/index.html": {
+      "bytes": 8892,
+      "sha256": "4286e6e06c8512051a8857d1861061579e9e8de15b7dac1df59a68340ace216a"
+    },
+    "blog/changelog-072-daily-mission-routes/index.html": {
+      "bytes": 8914,
+      "sha256": "f6cc6854688aa890d5035d416b7b00572207fcf0fe6fa002fc48779d20fc67f1"
+    },
+    "blog/changelog-073-race-collisions-removed/index.html": {
+      "bytes": 8595,
+      "sha256": "3f751e822d6c51777f65b6b9d87d249f573f3af5bd1d7b534b15eec0f9fafe5d"
+    },
+    "blog/changelog-074-cleaner-game-controls/index.html": {
+      "bytes": 8831,
+      "sha256": "5a3121f54f2950cd020c30cbb9a8629926f735f890f5c08e26827d6c2890baf7"
+    },
+    "blog/changelog-075-community-feedback-board/index.html": {
+      "bytes": 9179,
+      "sha256": "96b67feb6e78ed2392c4da43982e8d8e711b9a2d35ffb31dcb7edbf04cf98af4"
+    },
+    "blog/changelog-076-homepage-and-site-refresh/index.html": {
+      "bytes": 9420,
+      "sha256": "f6a16ef69ede41780a87e0c37fff2ca9b8e73dca09b60f4da126a59cf35c608a"
+    },
+    "blog/changelog-077-sign-in-to-log-leaderboard-times/index.html": {
+      "bytes": 8792,
+      "sha256": "705a103b76c836c3d6503b80b9f27678235f1023bdd8bda5c8c2c07f6d3c8496"
+    },
+    "blog/changelog-078-clearer-transparent-water/index.html": {
+      "bytes": 9426,
+      "sha256": "599f48afc646f6232794b587c994c98139b4acb0feec26fa075412e22fce3b6b"
+    },
+    "blog/changelog-079-optional-video-ads-for-bonus-coins/index.html": {
+      "bytes": 8951,
+      "sha256": "687f1e002cfea6da4d997586f669e31a31d23bdf0d68c395f326aad77aaf43bf"
+    },
+    "changelog/index.html": {
+      "bytes": 6872,
+      "sha256": "b048ae013c816ebdd86a68f6a98f39b58f35dad4460ecb245954a4fde15b989e"
+    },
+    "contact/index.html": {
+      "bytes": 6524,
+      "sha256": "9321c30009cbfd400ea764a8c57cf03c15d7cf253e4f5d72138fc6c18de3ef70"
+    },
+    "daily-race/index.html": {
+      "bytes": 8830,
+      "sha256": "e65a15721c058227cfd7e0d1136cd18cfb9e0e84d23aeab3ed3cf6afb0e26ecb"
+    },
+    "daily-race-replay/index.html": {
+      "bytes": 8221,
+      "sha256": "9f7d300e818cf4664bb9b458fef7bb10386ead333e00c84b49fd9f1cae15f675"
+    },
+    "data/blogPosts.json": {
+      "bytes": 43798,
+      "sha256": "f770e0ae1b77b8d72ef9f66a70ffe59987b30475d92f2eeb58265053308171e2"
+    },
+    "favicon.ico": {
+      "bytes": 37257,
+      "sha256": "d72c2ebc18bcb2f6afbec3068e676d61edd8665a24f8fcadf693f9796a30f468"
+    },
+    "feedback/index.html": {
+      "bytes": 9430,
+      "sha256": "b0c4861671228dc581b9c936380a85facbf96289923bf3d77074cf8750ce51bd"
+    },
+    "game/index.html": {
+      "bytes": 8929,
+      "sha256": "fb8ecaa58f03f27fdbc1fade1762f0693546a4bdebf8f0584c46ec809fc84271"
+    },
+    "highsea/index.html": {
+      "bytes": 8834,
+      "sha256": "8c4a06784fac12bb091ecc7d3ea5f2dfef08d7f152637dd745068dd6431e57ab"
+    },
+    "i18n/ar.json": {
+      "bytes": 18211,
+      "sha256": "82721da1c2b658e5701f6b0b425d6c96525a65024d16697ec93fdb1e74b307aa"
+    },
+    "i18n/config.json": {
+      "bytes": 678,
+      "sha256": "1f4db1a3b2d93404ef68818cbabc3e4dca7b7b32108e478d6c38f56b494d7827"
+    },
+    "i18n/de.json": {
+      "bytes": 14806,
+      "sha256": "f1fba4bf3cc8c2c91429507eb287ee528f8461808c1f0c056bff74f8747cf84f"
+    },
+    "i18n/en.json": {
+      "bytes": 13967,
+      "sha256": "6a996e808583c12e5c855023658c04427ec84ffea3823afaa23478506087c784"
+    },
+    "i18n/es.json": {
+      "bytes": 14857,
+      "sha256": "5efe1e8cbc58c0efc0fd01a5c317f60b8db5a98c29a46ab8697dc395927006db"
+    },
+    "i18n/fr.json": {
+      "bytes": 15530,
+      "sha256": "c57bcd31670c9f1f7539b2c35ff89c25be0c7f730684944e8bbf4c683b4ea795"
+    },
+    "i18n/hi.json": {
+      "bytes": 24532,
+      "sha256": "300d40c3d987c905ee99680c971266c40a2b63a8c078a257cd43406b233fcb84"
+    },
+    "i18n/id.json": {
+      "bytes": 14366,
+      "sha256": "b43383d6bf6061d673aaab0f663c984a92dad02cd5f6d3b4947e5a9d4a13841d"
+    },
+    "i18n/it.json": {
+      "bytes": 14566,
+      "sha256": "1d6ff58a915f6b432575d07eb511d663b203dd0477b91e03d957fb9479bc2606"
+    },
+    "i18n/ja.json": {
+      "bytes": 17313,
+      "sha256": "4cf59c0ec1d8d5b3f2f53a36620f1e5a5f0ad5eada9741dd42e7bd8fa9730483"
+    },
+    "i18n/ko.json": {
+      "bytes": 15824,
+      "sha256": "4718256deb7a3dcbf674d18824c86abdcb13b2b950bc9786b76adac26c8985de"
+    },
+    "i18n/nl.json": {
+      "bytes": 14207,
+      "sha256": "1c1265e4eb7493a5d0401e8f28e7be384eefa7ce4a196873d63edf791f93d758"
+    },
+    "i18n/pt.json": {
+      "bytes": 14649,
+      "sha256": "9aea61317da2b9e85c63965a337c5f69a10d3a4fdf02436a5caf6fbc447d3fea"
+    },
+    "i18n/ru.json": {
+      "bytes": 20400,
+      "sha256": "f505e838b73a1dad5066eff935dd5a913ea5ae03ac57ea74785df5352a361c25"
+    },
+    "i18n/zh.json": {
+      "bytes": 13530,
+      "sha256": "724d9352e0c2a15fea2f71fb2dec226e0d6aaea65edfde81cb89c5d14188eb4b"
+    },
+    "lang/ar/index.html": {
+      "bytes": 21902,
+      "sha256": "54e846f63055fe05d106f5600f00a2295a52520853cc9da44135ced7d44d245e"
+    },
+    "lang/de/index.html": {
+      "bytes": 19680,
+      "sha256": "930190ddaee0c9c85d76b0adbe277fe97629cdfe2718b7c36c4789b184d2bd0b"
+    },
+    "lang/es/index.html": {
+      "bytes": 19751,
+      "sha256": "61eeb6bedebdfdb6f2f67a434925c776ed0f0fdf7bddc4e06bb1fc1c675e32c6"
+    },
+    "lang/fr/index.html": {
+      "bytes": 20532,
+      "sha256": "d8c7b41beb000aa29b65f5bffa51ce89f05d14a16c236fd3b772ce9aa3914c2e"
+    },
+    "lang/hi/index.html": {
+      "bytes": 26328,
+      "sha256": "c19abe271a654f4042c5c523c4626ffaf372deb4c889cfea2e3ff03d681f7bdd"
+    },
+    "lang/id/index.html": {
+      "bytes": 19683,
+      "sha256": "e1184f53a38d193806a789c5498a7a82104525be0e60d33333920c0364db21f7"
+    },
+    "lang/it/index.html": {
+      "bytes": 19750,
+      "sha256": "b0d2b917d18b8f09bd31071ab3abc67df7cf37e1b4ebcb45e3cc8d28d2897e7f"
+    },
+    "lang/ja/index.html": {
+      "bytes": 22187,
+      "sha256": "c6e7adb95568f13f72d75ffae47caa08e3433bd639f9c8a1355d28908bdbe858"
+    },
+    "lang/ko/index.html": {
+      "bytes": 20895,
+      "sha256": "1c2bcead644c7b4f9ea20dc211f926641337affa11c0ade6d2418cc36af820e9"
+    },
+    "lang/nl/index.html": {
+      "bytes": 19356,
+      "sha256": "6e82d9b678ab9e614fbaeb22c95ac762494bd489e29409e84956aa87512eb824"
+    },
+    "lang/pt/index.html": {
+      "bytes": 19667,
+      "sha256": "205c893694bb0297de6e52b141da4964324e984e6e5191ddf1faa6c8cb3109da"
+    },
+    "lang/ru/index.html": {
+      "bytes": 23412,
+      "sha256": "ef694867a566201591b09b3b86e12257feaf9b432458abe0a05f9273ab703d4e"
+    },
+    "lang/zh/index.html": {
+      "bytes": 19318,
+      "sha256": "25f82cb867d85ca3dac9850dc1d67e40730ee3be2934789f5b5011ac40cc0bed"
+    },
+    "leaderboard/index.html": {
+      "bytes": 15544,
+      "sha256": "ec8df84f1ad4605a5547792f02573fc4f3b93b3569722da1cc708406ad6db378"
+    },
+    "manifest.webmanifest": {
+      "bytes": 834,
+      "sha256": "19bde1b699f148644a9b79d66a17bf7e92cdac19d275873421e00d7b29529e58"
+    },
+    "privacy/index.html": {
+      "bytes": 9994,
+      "sha256": "98de4d4c979043d142d52b5479cc0091a49aa0c0f0c19b4fef72f83dc5710534"
+    },
+    "pwa-worker.js": {
+      "bytes": 435,
+      "sha256": "8263d26297363ebd583e1dc7e7d992e5b7e18ad15e8a8e1828c90798375530af"
+    },
+    "race/index.html": {
+      "bytes": 18889,
+      "sha256": "60e5f56b504fcbb5bc8810dc697a7baddb16dc3c19c016511647d705f83fb893"
+    },
+    "robots.txt": {
+      "bytes": 132,
+      "sha256": "3b1ad22923088eee939baee5787156a4a972b5e6c54322862cb5d87ed60761d4"
+    },
+    "sitemap.xml": {
+      "bytes": 22539,
+      "sha256": "2e746b8a45bd705b7c1419661676d89b39f381d7a0b9ab4f94e26791d24b87f1"
+    },
+    "sounds/boat_waves-6099.mp3": {
+      "bytes": 242041,
+      "sha256": "e9d303b8a1709f83543ed5d2fa3b1f5134377b22b87a8e862191a3f94168fab3"
+    },
+    "sounds/explosion-fx-425453.mp3": {
+      "bytes": 92928,
+      "sha256": "d4db690c21fb0330e72ab0218c9d8ec71a6d44fe7b459fd4f05541f6f0c2b569"
+    },
+    "sounds/grab-clothes-foley-308655.mp3": {
+      "bytes": 105216,
+      "sha256": "eb3930f96732221aa8b0d1e4b10b2f9af04253c32a651e46c2b5c9c5091b138a"
+    },
+    "sounds/happy-relaxing-loop-275536.mp3": {
+      "bytes": 879429,
+      "sha256": "e43f1a7f5a2c37c578a5a66370435b7b143b1e1b644781c0573669c4b2bee493"
+    },
+    "sounds/hit-tree-02-266307.mp3": {
+      "bytes": 19968,
+      "sha256": "1be3dc3e208cb4fc6f35cf68beae34cbe84c5f1faccede216d09294f43ecdcc4"
+    },
+    "sounds/powerful-cannon-shot-352459.mp3": {
+      "bytes": 61440,
+      "sha256": "798dfa1a4e6dff4d07ef87cfed7cafef0c35e730be2b2d4783e97e4589ed137c"
+    },
+    "sounds/saildeploy-99393.mp3": {
+      "bytes": 103680,
+      "sha256": "083b4c3d5ef6ba0167199ec9d74d0a02d98753231f5208f064d36fb54cef40f8"
+    },
+    "sounds/winter-wind-305577.mp3": {
+      "bytes": 211739,
+      "sha256": "3f75d8ea6e1f76e8642ec22bf7c2d15da2ef516a67985be8ed0adf6f8724643e"
+    },
+    "sounds/wood-creaking-30692.mp3": {
+      "bytes": 484457,
+      "sha256": "a360bfb1e5f12c4717201ebe92ffa52dd79f5dedb7e2b55720bc860c961d45f4"
+    },
+    "textures/sky/tropical_day.jpg": {
+      "bytes": 822259,
+      "sha256": "21ecb25eef975940eb816fd5745f6065ec5f550c661e2a9533b442a98a45c99b"
+    },
+    "textures/waternormals.jpg": {
+      "bytes": 248813,
+      "sha256": "add9912b158a4fe9c12421745babe68c44c8af75631ac4837236cb2a03bc373f"
+    },
+    "tutorial/index.html": {
+      "bytes": 9249,
+      "sha256": "6cc2c7521f37efca58a7b8a095143418ea372ac5301ba2593a3a11cdbf5bdeb2"
+    },
+    "version.json": {
+      "bytes": 56,
+      "sha256": "cbbf6f30684a620735df0d4fc024c7a577995940269ef83b103c8f6d8f49329f"
+    },
+    "world/index.html": {
+      "bytes": 6824,
+      "sha256": "845106f5c2d239ae09e1f8772de82fb37f661fae5297b2b5ebb16b9577ede707"
+    }
+  }
+}

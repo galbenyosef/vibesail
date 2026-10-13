@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Online Sailing Race Game &amp; Regatta | VibeSail</title>
+    <meta name="description" content="Free online sailing race and regatta game. Play the daily course or High Sea now; world routes and live heats open as they are ready. No download.">
+    <link rel="canonical" href="https://vibesail.com/race">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Online Sailing Race Game &amp; Regatta | VibeSail">
+    <meta property="og:description" content="Free online sailing race and regatta game. Play the daily course or High Sea now; world routes and live heats open as they are ready. No download.">
+    <meta property="og:url" content="https://vibesail.com/race">
+    <meta property="og:image" content="https://vibesail.com/assets/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Online Sailing Race Game &amp; Regatta | VibeSail">
+    <meta name="twitter:description" content="Free online sailing race and regatta game. Play the daily course or High Sea now; world routes and live heats open as they are ready. No download.">
+    <meta name="twitter:image" content="https://vibesail.com/assets/thumbnail.png">
+
+    <script>
+        (function () {
+            try {
+                var lang = (localStorage.getItem('vibesail.language') || 'en').toLowerCase();
+                if (lang && lang !== 'en') {
+                    document.documentElement.classList.add('i18n-pending');
+                }
+            } catch (_) { }
+        })();
+    </script>
+
+    <script src="/assets/scripts/site-header.js"></script>
+  <script type="module" crossorigin src="/assets/race-Cw13y8lA.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-Dezn_h7o.js">
+  <link rel="modulepreload" crossorigin href="/assets/RuntimeEnvironment-BAaLbeCv.js">
+  <link rel="modulepreload" crossorigin href="/assets/RaceConfig-BiFwKzq8.js">
+  <link rel="modulepreload" crossorigin href="/assets/TrackGenerator-CFnrWNiH.js">
+  <link rel="modulepreload" crossorigin href="/assets/routeContext-D1HYUwP9.js">
+  <link rel="modulepreload" crossorigin href="/assets/Bearing-Bz8gc2k9.js">
+  <link rel="stylesheet" crossorigin href="/assets/race-DABjEupn.css">
+  <link rel="stylesheet" crossorigin href="/assets/header-C8hfIurP.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0b5cff">
+
+    <!-- Analytics scripts are deferred until idle; no preconnect needed -->
+
+</head>
+
+<body class="site-shell races-shell">
+    <div id="races-page">
+        <script>window.VibeSailHeader.render('race');</script>
+
+        <main class="races-main" aria-label="Race hub">
+            <header class="races-hero">
+                <p class="races-eyebrow">Race Hub</p>
+                <h1 class="races-title">Online sailing race</h1>
+                <p class="races-subtitle">
+                    A free sailing race and regatta game in the browser. Play today’s daily course, sail High Sea, and open world or live heats when they are ready.
+                </p>
+            </header>
+
+            <div class="races-tabs" role="tablist" aria-label="Race categories">
+                <button type="button" class="races-tab" role="tab" id="tab-race" data-tab="race" aria-controls="panel-race" aria-selected="true">Race</button>
+                <button type="button" class="races-tab" role="tab" id="tab-world" data-tab="world" aria-controls="panel-world" aria-selected="false">World</button>
+                <button type="button" class="races-tab" role="tab" id="tab-high-sea" data-tab="high-sea" aria-controls="panel-high-sea" aria-selected="false">High Sea</button>
+                <button type="button" class="races-tab" role="tab" id="tab-live" data-tab="live" aria-controls="panel-live" aria-selected="false">Live</button>
+            </div>
+
+            <section class="races-tab-panel" role="tabpanel" id="panel-race" data-tab-panel="race" aria-labelledby="tab-race">
+                <article class="races-panel races-panel-featured">
+                    <div class="races-panel-copy">
+                        <p class="races-panel-kicker">Islands · Today</p>
+                        <h2 class="races-panel-title">Daily Race</h2>
+                        <p class="races-panel-body">
+                            A new shared course every day. Race the same buoys as everyone else
+                            and chase the ghosts ahead of you. Sign in to record your time on
+                            the leaderboard.
+                        </p>
+                        <dl class="races-meta">
+                            <div>
+                                <dt>Course date</dt>
+                                <dd id="daily-course-date">Loading…</dd>
+                            </div>
+                            <div>
+                                <dt>Buoys</dt>
+                                <dd id="daily-course-buoys">—</dd>
+                            </div>
+                            <div>
+                                <dt>Runs today</dt>
+                                <dd id="daily-course-runs">—</dd>
+                            </div>
+                        </dl>
+                        <div class="races-panel-actions">
+                            <a class="races-cta races-cta-primary" href="/daily-race">Start Daily Race</a>
+                            <a class="races-cta races-cta-ghost" href="/leaderboard">Standings</a>
+                            <a class="races-cta races-cta-ghost" id="daily-replay-link" href="/daily-race-replay">Watch replay</a>
+                        </div>
+                    </div>
+                    <div class="races-course-panel" aria-label="Today’s course map">
+                        <p class="races-course-label">Course of the day</p>
+                        <div class="races-course-map" id="daily-course-map">
+                            <canvas id="daily-course-canvas" width="640" height="420"></canvas>
+                            <p class="races-course-status" id="daily-course-status">Drawing today’s track…</p>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="races-section-head">
+                    <div class="races-section-title-row">
+                        <h2 class="races-section-label">Island courses</h2>
+                        <span class="races-trial-badge">Coming soon</span>
+                    </div>
+                    <p class="races-section-hint">
+                        Fixed island courses with bronze, silver, and gold medals. Coming soon.
+                    </p>
+                </div>
+
+                <div class="races-campaign-grid" id="time-trials-grid">
+                    <article class="races-trial-card races-trial-card-soon" data-trial-id="big-iron" aria-disabled="true">
+                        <div class="races-trial-art" aria-hidden="true">
+                            <span class="races-trial-art-label">01</span>
+                        </div>
+                        <div class="races-trial-body">
+                            <div class="races-trial-heading">
+                                <h3 class="races-trial-title">Big Iron</h3>
+                                <span class="races-trial-badge">Coming soon</span>
+                            </div>
+                            <p class="races-trial-desc">A long island course built for clean lines and medal times.</p>
+                            <div class="races-trial-stats">
+                                <div>
+                                    <span class="races-trial-stat-label">Your best</span>
+                                    <strong class="races-trial-best" data-trial-best>—</strong>
+                                </div>
+                                <div class="races-trial-medals" aria-label="Medals">
+                                    <span class="races-medal races-medal-bronze" title="Bronze" data-medal="bronze" aria-label="Bronze locked"></span>
+                                    <span class="races-medal races-medal-silver" title="Silver" data-medal="silver" aria-label="Silver locked"></span>
+                                    <span class="races-medal races-medal-gold" title="Gold" data-medal="gold" aria-label="Gold locked"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="races-trial-card races-trial-card-soon" data-trial-id="island-star" aria-disabled="true">
+                        <div class="races-trial-art" aria-hidden="true">
+                            <span class="races-trial-art-label">02</span>
+                        </div>
+                        <div class="races-trial-body">
+                            <div class="races-trial-heading">
+                                <h3 class="races-trial-title">Island Star</h3>
+                                <span class="races-trial-badge">Coming soon</span>
+                            </div>
+                            <p class="races-trial-desc">A star-shaped circuit around the islands — tight turns, steady pace.</p>
+                            <div class="races-trial-stats">
+                                <div>
+                                    <span class="races-trial-stat-label">Your best</span>
+                                    <strong class="races-trial-best" data-trial-best>—</strong>
+                                </div>
+                                <div class="races-trial-medals" aria-label="Medals">
+                                    <span class="races-medal races-medal-bronze" title="Bronze" data-medal="bronze" aria-label="Bronze locked"></span>
+                                    <span class="races-medal races-medal-silver" title="Silver" data-medal="silver" aria-label="Silver locked"></span>
+                                    <span class="races-medal races-medal-gold" title="Gold" data-medal="gold" aria-label="Gold locked"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="races-tab-panel" role="tabpanel" id="panel-world" data-tab-panel="world" aria-labelledby="tab-world" hidden>
+                <article class="races-panel races-panel-featured races-panel-featured-single">
+                    <div class="races-panel-copy">
+                        <p class="races-panel-kicker">Real harbors</p>
+                        <h2 class="races-panel-title">World Daily</h2>
+                        <p class="races-panel-body">
+                            Race longer courses through real harbors. A rotating daily challenge
+                            with live weather is coming — explore the courses below first.
+                        </p>
+                        <div class="races-panel-actions">
+                            <span class="races-cta races-cta-disabled" aria-disabled="true">Coming soon</span>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="races-section-head">
+                    <h2 class="races-section-label">World courses</h2>
+                    <p class="races-section-hint">
+                        Landmark harbor courses with longer legs and tougher conditions.
+                    </p>
+                </div>
+
+                <div class="races-campaign-grid" id="world-courses-grid">
+                    <!-- Filled by worldRaceCourses.js -->
+                </div>
+            </section>
+
+            <section class="races-tab-panel" role="tabpanel" id="panel-high-sea" data-tab-panel="high-sea" aria-labelledby="tab-high-sea" hidden>
+                <article class="races-panel races-panel-featured races-panel-featured-single">
+                    <div class="races-panel-copy">
+                        <p class="races-panel-kicker">Open ocean · Beta</p>
+                        <h2 class="races-panel-title">High Sea</h2>
+                        <p class="races-panel-body">
+                            Leave the islands behind. Sail as far as you can before you sink or
+                            capsize — ranked by distance and time. This is a beta build and still
+                            unpolished.
+                        </p>
+                        <div class="races-panel-actions">
+                            <a class="races-cta races-cta-primary" href="/highsea">Enter High Sea</a>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="races-tab-panel" role="tabpanel" id="panel-live" data-tab-panel="live" aria-labelledby="tab-live" hidden>
+                <div class="races-section-head">
+                    <h2 class="races-section-label">Live</h2>
+                    <p class="races-section-hint">
+                        Race against other sailors online, or start a private lobby with friends.
+                        Coming soon.
+                    </p>
+                </div>
+                <div class="races-panel-grid">
+                    <article class="races-panel races-panel-soon" aria-disabled="true">
+                        <p class="races-panel-kicker">Coming soon</p>
+                        <h3 class="races-panel-title">Multiplayer racing</h3>
+                        <p class="races-panel-body">Live heats with other boats on the water at the same time.</p>
+                        <span class="races-panel-cta">Coming soon</span>
+                    </article>
+                    <article class="races-panel races-panel-soon" aria-disabled="true">
+                        <p class="races-panel-kicker">Coming soon</p>
+                        <h3 class="races-panel-title">Party lobby</h3>
+                        <p class="races-panel-body">Invite friends, choose a course, and race together.</p>
+                        <span class="races-panel-cta">Coming soon</span>
+                    </article>
+                </div>
+            </section>
+
+            <section class="races-seo" aria-labelledby="races-regatta-heading">
+                <h2 id="races-regatta-heading" class="races-panel-title">Sailing race game and online regatta</h2>
+                <p class="races-subtitle">
+                    The race hub for VibeSail: a regatta game you play in the browser, with no download.
+                    The daily race is the shared course: the same buoys for every boat, ghosts of faster runs, and a leaderboard when you sign in.
+                    High Sea is an open-ocean run you can enter now.
+                    World harbor courses and live heats are listed here and marked while they are still on the way.
+                </p>
+                <p class="races-seo-links">
+                    <a href="/daily-race">Start the daily race</a>
+                    <a href="/leaderboard">Daily race standings</a>
+                    <a href="/highsea">Enter High Sea</a>
+                    <a href="/">Play the sailing simulator</a>
+                </p>
+            </section>
+        </main>
+    </div>
+
+
+    <!-- All analytics deferred until idle or 5s after load -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        (function(){
+            function loadAnalytics(){
+                if(window.__analyticsLoaded)return;
+                window.__analyticsLoaded=true;
+                gtag('js', new Date());
+                gtag('config', 'G-CQ7NQJ8CHX');
+                var g=document.createElement('script');g.async=true;
+                g.src='https://www.googletagmanager.com/gtag/js?id=G-CQ7NQJ8CHX';
+                document.head.appendChild(g);
+                var s=document.createElement('script');s.async=true;
+                s.src='https://simple.vibesail.com/latest.js';
+                s.dataset.collectDnt='true';
+                s.onerror=function(){this.onerror=null;this.src='https://scripts.simpleanalyticscdn.com/latest.js';};
+                document.head.appendChild(s);
+                var a=document.createElement('script');a.async=true;
+                a.src='https://analytics.ahrefs.com/analytics.js';
+                a.dataset.key='/Aj7gMpdyzFnZH3EIv88xA';
+                document.head.appendChild(a);
+                if(typeof window.__vibesailLoadPostHogSdk==='function') window.__vibesailLoadPostHogSdk();
+            }
+            if(typeof requestIdleCallback==='function'){
+                requestIdleCallback(loadAnalytics,{timeout:5000});
+            } else {
+                setTimeout(loadAnalytics,5000);
+            }
+        })();
+    </script>
+
+
+    <!-- PostHog (deferred with other analytics until idle) -->
+    <script>
+        (function () {
+            var posthogConfig = {
+                apiKey: "phc_QpnLTX0cSBjRoazL8i0oLC7R6AaimXfBnYjkuJ7kx5D",
+                apiHost: "https://us.i.posthog.com"
+            };
+            var posthogReadyEventName = "vibesail:posthog-ready";
+
+            var initPostHog = function () {
+                if (!window.posthog || typeof window.posthog.init !== 'function') return;
+                if (window.__vibesailPostHogInitialized) return;
+                window.__vibesailPostHogInitialized = true;
+                window.posthog.init(posthogConfig.apiKey, {
+                    api_host: posthogConfig.apiHost,
+                    capture_pageview: false,
+                    capture_pageleave: false,
+                    autocapture: false,
+                    persistence: 'localStorage+cookie'
+                });
+                window.dispatchEvent(new CustomEvent(posthogReadyEventName));
+            };
+
+            window.__vibesailInitPostHog = initPostHog;
+
+            // PostHog SDK script is loaded by the shared deferred analytics loader.
+            // Register a helper so external code can trigger an eager load if needed.
+            window.__vibesailLoadPostHogSdk = function () {
+                if (window.__vibesailPostHogSdkLoaded) return;
+                window.__vibesailPostHogSdkLoaded = true;
+                var p = document.createElement('script'); p.async = true;
+                p.src = "https://us-assets.i.posthog.com/static/array.js";
+                p.onload = function () { window.__vibesailInitPostHog && window.__vibesailInitPostHog(); };
+                document.head.appendChild(p);
+            };
+        })();
+    </script>
+
+</body>
+
+</html>

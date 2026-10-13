@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sailing Game Changelog | VibeSail</title>
+    <meta name="description" content="Track every VibeSail gameplay update, fix, and release note in the official changelog for this free browser sailing game.">
+    <link rel="canonical" href="https://vibesail.com/changelog">
+    <meta name="robots" content="index,follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sailing Game Changelog | VibeSail">
+    <meta property="og:description" content="Track every VibeSail gameplay update, fix, and release note in the official changelog for this free browser sailing game.">
+    <meta property="og:url" content="https://vibesail.com/changelog">
+    <meta property="og:image" content="https://vibesail.com/assets/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sailing Game Changelog | VibeSail">
+    <meta name="twitter:description" content="Track every VibeSail gameplay update, fix, and release note in the official changelog for this free browser sailing game.">
+    <meta name="twitter:image" content="https://vibesail.com/assets/thumbnail.png">
+
+    <script src="/assets/scripts/site-header.js"></script>
+  <script type="module" crossorigin src="/assets/modulepreload-polyfill-Dezn_h7o.js"></script>
+  <script type="module" crossorigin src="/assets/blogPosts-BqnGg-S6.js"></script>
+  <script type="module" crossorigin src="/assets/blog-DCA7h2-z.js"></script>
+  <script type="module" crossorigin src="/assets/preload-helper-CYTkKql0.js"></script>
+  <script type="module" crossorigin src="/assets/init-CC0aACO2.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/blog-B5K8Rp_D.css">
+  <link rel="stylesheet" crossorigin href="/assets/header-C8hfIurP.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0b5cff">
+
+    <!-- Analytics scripts are deferred until idle; no preconnect needed -->
+
+</head>
+
+<body class="blog-shell" data-blog-view="changelog">
+    <script>window.VibeSailHeader.render('changelog');</script>
+
+    <main class="blog-page">
+        <section class="blog-panel blog-hero">
+            <h1 id="blog-title">Sailing game changelog</h1>
+            <p id="blog-subtitle">Release notes, fixes, and gameplay upgrades in reverse chronological order.</p>
+        </section>
+
+        <section id="blog-updates-panel" class="blog-panel blog-updates" hidden>
+            <h2>New since your last visit</h2>
+            <p id="blog-updates-subtitle"></p>
+            <ul id="blog-updates-list"></ul>
+            <button id="blog-mark-read" type="button" class="blog-mark-read">Mark updates as read</button>
+        </section>
+
+        <section id="blog-filter-wrap" class="blog-panel">
+            <div id="blog-filter-controls" class="blog-filter-wrap"></div>
+        </section>
+
+        <section class="blog-panel blog-feed">
+            <p id="blog-feed-state" class="blog-feed-state">Loading posts...</p>
+            <p class="blog-feed-state">
+                <a href="/blog/changelog-001-playable-sailing-foundation/" class="blog-inline-link">Start with the changelog archive</a>
+            </p>
+            <div id="blog-post-list"></div>
+            <p id="blog-empty" class="blog-empty" hidden>No changelog entries yet.</p>
+        </section>
+    </main>
+
+
+    <!-- All analytics deferred until idle or 5s after load -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        (function(){
+            function loadAnalytics(){
+                if(window.__analyticsLoaded)return;
+                window.__analyticsLoaded=true;
+                gtag('js', new Date());
+                gtag('config', 'G-CQ7NQJ8CHX');
+                var g=document.createElement('script');g.async=true;
+                g.src='https://www.googletagmanager.com/gtag/js?id=G-CQ7NQJ8CHX';
+                document.head.appendChild(g);
+                var s=document.createElement('script');s.async=true;
+                s.src='https://simple.vibesail.com/latest.js';
+                s.dataset.collectDnt='true';
+                s.onerror=function(){this.onerror=null;this.src='https://scripts.simpleanalyticscdn.com/latest.js';};
+                document.head.appendChild(s);
+                var a=document.createElement('script');a.async=true;
+                a.src='https://analytics.ahrefs.com/analytics.js';
+                a.dataset.key='/Aj7gMpdyzFnZH3EIv88xA';
+                document.head.appendChild(a);
+                if(typeof window.__vibesailLoadPostHogSdk==='function') window.__vibesailLoadPostHogSdk();
+            }
+            if(typeof requestIdleCallback==='function'){
+                requestIdleCallback(loadAnalytics,{timeout:5000});
+            } else {
+                setTimeout(loadAnalytics,5000);
+            }
+        })();
+    </script>
+
+
+    <!-- PostHog (deferred with other analytics until idle) -->
+    <script>
+        (function () {
+            var posthogConfig = {
+                apiKey: "phc_QpnLTX0cSBjRoazL8i0oLC7R6AaimXfBnYjkuJ7kx5D",
+                apiHost: "https://us.i.posthog.com"
+            };
+            var posthogReadyEventName = "vibesail:posthog-ready";
+
+            var initPostHog = function () {
+                if (!window.posthog || typeof window.posthog.init !== 'function') return;
+                if (window.__vibesailPostHogInitialized) return;
+                window.__vibesailPostHogInitialized = true;
+                window.posthog.init(posthogConfig.apiKey, {
+                    api_host: posthogConfig.apiHost,
+                    capture_pageview: false,
+                    capture_pageleave: false,
+                    autocapture: false,
+                    persistence: 'localStorage+cookie'
+                });
+                window.dispatchEvent(new CustomEvent(posthogReadyEventName));
+            };
+
+            window.__vibesailInitPostHog = initPostHog;
+
+            // PostHog SDK script is loaded by the shared deferred analytics loader.
+            // Register a helper so external code can trigger an eager load if needed.
+            window.__vibesailLoadPostHogSdk = function () {
+                if (window.__vibesailPostHogSdkLoaded) return;
+                window.__vibesailPostHogSdkLoaded = true;
+                var p = document.createElement('script'); p.async = true;
+                p.src = "https://us-assets.i.posthog.com/static/array.js";
+                p.onload = function () { window.__vibesailInitPostHog && window.__vibesailInitPostHog(); };
+                document.head.appendChild(p);
+            };
+        })();
+    </script>
+
+</body>
+
+</html>

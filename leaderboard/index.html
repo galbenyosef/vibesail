@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Race Dashboard | VibeSail</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta name="description" content="Track daily VibeSail race standings, replay top sailing runs, and compare checkpoint performance to improve your route and climb the leaderboard.">
+    <link rel="canonical" href="https://vibesail.com/leaderboard">
+
+    <!-- Styles -->
+    <script src="/assets/scripts/site-header.js"></script>
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="VibeSail Daily Race Dashboard">
+    <meta property="og:description" content="Track today's top VibeSail runs, replay complete race lines, compare checkpoint performance, and study faster routes on the daily leaderboard dashboard.">
+    <meta property="og:url" content="https://vibesail.com/leaderboard">
+    <meta property="og:image" content="https://vibesail.com/assets/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VibeSail Daily Race Dashboard">
+    <meta name="twitter:description" content="Track today's top VibeSail runs, replay complete race lines, compare checkpoint performance, and study faster routes on the daily leaderboard dashboard.">
+    <meta name="twitter:image" content="https://vibesail.com/assets/thumbnail.png">
+
+    <script>
+        (function () {
+            try {
+                var lang = (localStorage.getItem('vibesail.language') || 'en').toLowerCase();
+                if (lang && lang !== 'en') {
+                    document.documentElement.classList.add('i18n-pending');
+                }
+            } catch (_) { }
+        })();
+    </script>
+  <script type="module" crossorigin src="/assets/leaderboard-DToF7Del.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-Dezn_h7o.js">
+  <link rel="modulepreload" crossorigin href="/assets/preload-helper-CYTkKql0.js">
+  <link rel="modulepreload" crossorigin href="/assets/init-CC0aACO2.js">
+  <link rel="modulepreload" crossorigin href="/assets/displayFormat-DSwSTivx.js">
+  <link rel="modulepreload" crossorigin href="/assets/GhostReplayModel-B8EqTWpz.js">
+  <link rel="modulepreload" crossorigin href="/assets/RuntimeEnvironment-BAaLbeCv.js">
+  <link rel="modulepreload" crossorigin href="/assets/RaceConfig-BiFwKzq8.js">
+  <link rel="modulepreload" crossorigin href="/assets/TrackGenerator-CFnrWNiH.js">
+  <link rel="modulepreload" crossorigin href="/assets/countries-DfpOqyPC.js">
+  <link rel="modulepreload" crossorigin href="/assets/SailorProfileLinks-CkEgGITb.js">
+  <link rel="modulepreload" crossorigin href="/assets/defineProperty-BbfpZ9Tg.js">
+  <link rel="modulepreload" crossorigin href="/assets/auto-CBo2XcXh.js">
+  <link rel="stylesheet" crossorigin href="/assets/leaderboard-h5aFNhxu.css">
+  <link rel="stylesheet" crossorigin href="/assets/header-C8hfIurP.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0b5cff">
+
+    <!-- Analytics scripts are deferred until idle; no preconnect needed -->
+
+</head>
+
+<body class="public-site-shell">
+    <!-- Background Layer -->
+    <div class="deep-sea-bg"></div>
+
+    <script>window.VibeSailHeader.render('leaderboard');</script>
+
+    <div class="dashboard-container">
+
+        <header class="page-header">
+            <h1>Race Dashboard</h1>
+            <p class="page-cta-row">
+                <a class="page-daily-race-cta" href="https://vibesail.com/daily-race">Join Daily Race</a>
+                <a class="page-advertise-cta" href="/advertise">Advertise Here</a>
+            </p>
+        </header>
+
+        <section class="daily-race-section" aria-labelledby="daily-race-title">
+            <div class="section-title-row daily-race-title-row">
+                <div>
+                    <p class="section-eyebrow">Daily Race</p>
+                    <h2 id="daily-race-title">Replay and Top 20</h2>
+                    <p id="daily-race-summary" class="championship-summary">Loading selected day...</p>
+                </div>
+                <div class="date-navigation">
+                    <button id="btn-prev-date" class="date-nav-btn" aria-label="Previous Day">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="date-display-container">
+                        <span id="current-date-display" class="subtitle">Loading...</span>
+                    </div>
+                    <button id="btn-next-date" class="date-nav-btn" aria-label="Next Day" disabled>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+
+                <!-- Replay Map Section -->
+                <div class="card chart-card glass-panel">
+                    <div class="card-header">
+                        <h2>Live Replay</h2>
+                        <div class="replay-controls">
+                            <a id="btn-watch-3d" href="/daily-race-replay" target="_blank" class="control-btn" style="text-decoration: none;">Watch in 3D</a>
+                            <button id="btn-play-pause" class="control-btn">▶ Play</button>
+                            <input type="range" id="replay-slider" min="0" max="100" value="0">
+                            <span id="replay-time">00:00</span>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="replay-container">
+                        <canvas id="replayCanvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- Standings Sidebar -->
+                <div class="card standings-card glass-panel">
+                    <div class="card-header">
+                        <h2 id="standings-title">Top 20</h2>
+                    </div>
+                    <div class="table-container">
+                        <table id="standings-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Sailor</th>
+                                    <th>Time</th>
+                                    <th>Attempts</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- JS Injection -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="card glass-panel championship-section">
+            <div class="section-title-row championship-title-row">
+                <div>
+                    <h2>Championship Standings</h2>
+                    <p id="championship-summary" class="championship-summary">Loading championship standings as of today...</p>
+                </div>
+                <div class="stats-range-controls" id="championship-range-controls" aria-label="Championship range"></div>
+            </div>
+
+            <div class="championship-grid">
+                <div class="table-panel">
+                    <h3>Players Top 40</h3>
+                    <div class="table-container championship-table-container">
+                        <table id="championship-players-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Sailor</th>
+                                    <th>Pts</th>
+                                    <th>Wins</th>
+                                    <th>Podiums</th>
+                                    <th>Races</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="table-panel">
+                    <h3>Nations Top 40</h3>
+                    <div class="table-container championship-table-container">
+                        <table id="championship-nations-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nation</th>
+                                    <th>Pts</th>
+                                    <th>Wins</th>
+                                    <th>Sailors</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card glass-panel activity-section">
+            <div class="section-title-row activity-title-row">
+                <div>
+                    <h2>Daily Race Activity</h2>
+                    <p id="stats-summary" class="championship-summary">Loading year-to-date daily race activity...</p>
+                </div>
+                <div class="stats-range-controls" id="stats-range-controls" aria-label="Stats range"></div>
+            </div>
+
+            <div class="stats-card-grid" aria-label="Activity summary">
+                <article class="stats-card">
+                    <p class="stats-card-label">Race Submissions</p>
+                    <div class="stats-card-value" id="stat-race-submissions">0</div>
+                </article>
+                <article class="stats-card">
+                    <p class="stats-card-label">Unique Racers</p>
+                    <div class="stats-card-value" id="stat-unique-racers">0</div>
+                </article>
+                <article class="stats-card">
+                    <p class="stats-card-label">Countries</p>
+                    <div class="stats-card-value" id="stat-countries">0</div>
+                </article>
+                <article class="stats-card">
+                    <p class="stats-card-label">High Sea Runs</p>
+                    <div class="stats-card-value" id="stat-highsea-runs">0</div>
+                </article>
+                <article class="stats-card">
+                    <p class="stats-card-label">Active Days</p>
+                    <div class="stats-card-value" id="stat-active-days">0</div>
+                </article>
+            </div>
+
+            <div class="activity-grid">
+                <div class="activity-chart-panel">
+                    <h3 id="stats-activity-chart-title">YTD Daily Race Submissions and Unique Racers</h3>
+                    <div class="activity-chart-wrap">
+                        <canvas id="stats-activity-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="activity-chart-panel country-activity-panel">
+                    <h3>Countries Racing</h3>
+                    <div class="table-container stats-country-table-container">
+                        <table id="stats-countries-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Country</th>
+                                    <th>Sailors</th>
+                                    <th>Races</th>
+                                    <th>High Sea</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="dashboard-footer">
+            <p>&copy; 2026 VibeSail. Daily Races reset at 00:00 UTC.</p>
+        </footer>
+
+    </div>
+
+
+
+    <!-- All analytics deferred until idle or 5s after load -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        (function(){
+            function loadAnalytics(){
+                if(window.__analyticsLoaded)return;
+                window.__analyticsLoaded=true;
+                gtag('js', new Date());
+                gtag('config', 'G-CQ7NQJ8CHX');
+                var g=document.createElement('script');g.async=true;
+                g.src='https://www.googletagmanager.com/gtag/js?id=G-CQ7NQJ8CHX';
+                document.head.appendChild(g);
+                var s=document.createElement('script');s.async=true;
+                s.src='https://simple.vibesail.com/latest.js';
+                s.dataset.collectDnt='true';
+                s.onerror=function(){this.onerror=null;this.src='https://scripts.simpleanalyticscdn.com/latest.js';};
+                document.head.appendChild(s);
+                var a=document.createElement('script');a.async=true;
+                a.src='https://analytics.ahrefs.com/analytics.js';
+                a.dataset.key='/Aj7gMpdyzFnZH3EIv88xA';
+                document.head.appendChild(a);
+                if(typeof window.__vibesailLoadPostHogSdk==='function') window.__vibesailLoadPostHogSdk();
+            }
+            if(typeof requestIdleCallback==='function'){
+                requestIdleCallback(loadAnalytics,{timeout:5000});
+            } else {
+                setTimeout(loadAnalytics,5000);
+            }
+        })();
+    </script>
+
+
+    <!-- PostHog (deferred with other analytics until idle) -->
+    <script>
+        (function () {
+            var posthogConfig = {
+                apiKey: "phc_QpnLTX0cSBjRoazL8i0oLC7R6AaimXfBnYjkuJ7kx5D",
+                apiHost: "https://us.i.posthog.com"
+            };
+            var posthogReadyEventName = "vibesail:posthog-ready";
+
+            var initPostHog = function () {
+                if (!window.posthog || typeof window.posthog.init !== 'function') return;
+                if (window.__vibesailPostHogInitialized) return;
+                window.__vibesailPostHogInitialized = true;
+                window.posthog.init(posthogConfig.apiKey, {
+                    api_host: posthogConfig.apiHost,
+                    capture_pageview: false,
+                    capture_pageleave: false,
+                    autocapture: false,
+                    persistence: 'localStorage+cookie'
+                });
+                window.dispatchEvent(new CustomEvent(posthogReadyEventName));
+            };
+
+            window.__vibesailInitPostHog = initPostHog;
+
+            // PostHog SDK script is loaded by the shared deferred analytics loader.
+            // Register a helper so external code can trigger an eager load if needed.
+            window.__vibesailLoadPostHogSdk = function () {
+                if (window.__vibesailPostHogSdkLoaded) return;
+                window.__vibesailPostHogSdkLoaded = true;
+                var p = document.createElement('script'); p.async = true;
+                p.src = "https://us-assets.i.posthog.com/static/array.js";
+                p.onload = function () { window.__vibesailInitPostHog && window.__vibesailInitPostHog(); };
+                document.head.appendChild(p);
+            };
+        })();
+    </script>
+
+</body>
+
+</html>

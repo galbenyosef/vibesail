@@ -1,0 +1,875 @@
+{
+  "start": "https://vibesail.com/",
+  "origin": "https://vibesail.com",
+  "gated": false,
+  "sessionRenewal": "none",
+  "requests": 486,
+  "fetched": 335,
+  "bytes": 16932436,
+  "paths": [
+    "2025recap/index.html",
+    "advertise/index.html",
+    "assets/2025recap-5CI3Tc6z.css",
+    "assets/2025recap-DlJ5wxnz.js",
+    "assets/Advertisement-D60LkU06.js",
+    "assets/Bearing-Bz8gc2k9.js",
+    "assets/Birds-DHEcQo9w.js",
+    "assets/Blimp-CsqFvrq-.js",
+    "assets/BoatModel-Cf2RVdWT.js",
+    "assets/BoatShop-SaUBreAv.js",
+    "assets/BoatVisualizerPanel-C8Vrfq5S.js",
+    "assets/CannonSystem-8nVBpQ-O.js",
+    "assets/CargoShip-DSMEqWta.js",
+    "assets/DRACOLoader-XlKGmd74.js",
+    "assets/DataModels-DjmBwyzI.js",
+    "assets/FloatingWorldProp--a8_muYf.js",
+    "assets/GLTFLoader-C2oC7w8g.js",
+    "assets/Game-CrsSKcAK.js",
+    "assets/GeoMath-B_Iby49-.js",
+    "assets/GeometryGuards-BGRyriw5.js",
+    "assets/GhostReplayModel-B8EqTWpz.js",
+    "assets/GoogleTilesLoader-Ba1pGT7V.js",
+    "assets/H5GamesAds-cgmFpTvU.js",
+    "assets/HighSeaModeManager-BEvC6iXw.js",
+    "assets/IslandGenerator-DZNI3CSt.js",
+    "assets/KeyboardManager-DVLZ3teY.js",
+    "assets/LocalCache-DHomYmcY.js",
+    "assets/LogisticsManager-DugCgbD8.js",
+    "assets/LogisticsUI-DWG9W15h.js",
+    "assets/MTLLoader-Dw3w9IRM.js",
+    "assets/MultiplayerManager-CgzUu3MG.js",
+    "assets/OneSignalPushNotifications-C5QrvXEE.js",
+    "assets/PerformanceMonitor-CwOrhyRP.js",
+    "assets/PirateHuntManager-B5ipnDt7.js",
+    "assets/PlayerNameStorage-Q3p2umqg.js",
+    "assets/Portal-DAOSX3nf.js",
+    "assets/PostHogCapture-DUxqoMcu.js",
+    "assets/RaceConfig-BiFwKzq8.js",
+    "assets/RenderOrder-CTE7PEm0.js",
+    "assets/RuntimeEnvironment-BAaLbeCv.js",
+    "assets/SailorProfileLinks-CkEgGITb.js",
+    "assets/SeaCreatures-C5ijwC34.js",
+    "assets/SettingsMenu-DL9R7A1C.js",
+    "assets/SharedTextureLoader-BkelxMVX.js",
+    "assets/TargetColumn-DnYYEURe.js",
+    "assets/TrackGenerator-CFnrWNiH.js",
+    "assets/TutorialManager-iD72X4OM.js",
+    "assets/VectorUtils-ZPUW1jx-.js",
+    "assets/WorldAdPopupManager-WzG-fNUY.js",
+    "assets/WorldDefinitionBuilder-CjRtTnhK.js",
+    "assets/WorldInteractionEvents-L1ARfoSs.js",
+    "assets/WorldSignAsset-yHPgCsa-.js",
+    "assets/Yacht-OEQr2DjX.js",
+    "assets/advertise--T9pWmIF.css",
+    "assets/advertise-BI8u_-IP.js",
+    "assets/advertise-world-map.png",
+    "assets/advertisement.png",
+    "assets/authClient-roTt0Fs9.js",
+    "assets/auto-CBo2XcXh.js",
+    "assets/blog-B5K8Rp_D.css",
+    "assets/blog-DCA7h2-z.js",
+    "assets/blog-post-M_rmHwEs.js",
+    "assets/blog/changelog-070-remote-boat-inspector/cover.webp",
+    "assets/blog/changelog-071-a-bigger-world-to-sail/cover.webp",
+    "assets/blog/changelog-072-daily-mission-routes/cover.webp",
+    "assets/blog/changelog-074-cleaner-game-controls/cover.webp",
+    "assets/blog/changelog-075-community-feedback-board/cover.webp",
+    "assets/blog/changelog-076-homepage-and-site-refresh/cover.webp",
+    "assets/blog/changelog-078-clearer-transparent-water/cover.webp",
+    "assets/blog/changelog-079-optional-video-ads-for-bonus-coins/cover.webp",
+    "assets/blogPosts-BqnGg-S6.js",
+    "assets/cargoShipDefinitions-DOR3sdqr.js",
+    "assets/chunk-QTnfLwEv.js",
+    "assets/console-setup-BNMG1_tD.js",
+    "assets/contact-BXsOhA2a.js",
+    "assets/contact-CuMqdxhS.css",
+    "assets/countries-DfpOqyPC.js",
+    "assets/daily-race-replay-CGY4aTnI.css",
+    "assets/daily-race-replay-DM0sgZc-.js",
+    "assets/defineProperty-BbfpZ9Tg.js",
+    "assets/displayFormat-DSwSTivx.js",
+    "assets/draco/draco_decoder.js",
+    "assets/draco/draco_decoder.wasm",
+    "assets/draco/draco_wasm_wrapper.js",
+    "assets/emailSoftAsk-CIzvlYXI.js",
+    "assets/feedback-D0_FhlOi.css",
+    "assets/feedback-t1cbygys.js",
+    "assets/flags/pirate.png",
+    "assets/flags/unknown.png",
+    "assets/fraunces-latin-500-normal-BTR4KCeb.woff",
+    "assets/fraunces-latin-500-normal-DnGCNyPD.woff2",
+    "assets/fraunces-latin-600-normal-BFCDtZfi.woff2",
+    "assets/fraunces-latin-600-normal-DL5QCzvS.woff",
+    "assets/fraunces-latin-700-normal-CEOla-zY.woff2",
+    "assets/fraunces-latin-700-normal-DTjk5d1Q.woff",
+    "assets/fraunces-latin-ext-500-normal-BMcFk1Xs.woff",
+    "assets/fraunces-latin-ext-500-normal-Z5DV8IzT.woff2",
+    "assets/fraunces-latin-ext-600-normal-B0Dy4lqi.woff",
+    "assets/fraunces-latin-ext-600-normal-BtzmzP0X.woff2",
+    "assets/fraunces-latin-ext-700-normal-CanUGppC.woff2",
+    "assets/fraunces-latin-ext-700-normal-DuBstVeD.woff",
+    "assets/fraunces-vietnamese-500-normal-B-KbxExq.woff",
+    "assets/fraunces-vietnamese-500-normal-GOH_-EGq.woff2",
+    "assets/fraunces-vietnamese-600-normal-BjlAJixd.woff2",
+    "assets/fraunces-vietnamese-600-normal-DlAl5EAR.woff",
+    "assets/fraunces-vietnamese-700-normal-DH94m5DZ.woff2",
+    "assets/fraunces-vietnamese-700-normal-DxawQjq2.woff",
+    "assets/game-DaugXgrE.js",
+    "assets/game-DnL7bd1B.css",
+    "assets/game-TtaQJEzj.css",
+    "assets/header-C8hfIurP.css",
+    "assets/icons/vibesail-icon-192.png",
+    "assets/icons/vibesail-icon-512.png",
+    "assets/init-CC0aACO2.js",
+    "assets/installability-D42GZDjn.js",
+    "assets/leaderboard-DToF7Del.js",
+    "assets/leaderboard-h5aFNhxu.css",
+    "assets/main-BHhWfJLs.css",
+    "assets/main-DT7pZ34g.js",
+    "assets/models/boat_models/venice/model_lowpoly_optimized.glb",
+    "assets/models/cargo_ships/low_poly_cargo_ship.glb",
+    "assets/models/landmarks/starship_upper.glb",
+    "assets/modulepreload-polyfill-Dezn_h7o.js",
+    "assets/portalDefinitions-CAxa3Tbw.js",
+    "assets/posthogAuth-6WDf5lnM.js",
+    "assets/preload-helper-CYTkKql0.js",
+    "assets/privacy-CSHWULkw.css",
+    "assets/profileClient-Ce6d7RD4.js",
+    "assets/race-Cw13y8lA.js",
+    "assets/race-DABjEupn.css",
+    "assets/recap2025_bg.png",
+    "assets/recap2025_trophy.png",
+    "assets/routeContext-D1HYUwP9.js",
+    "assets/scripts/site-header.js",
+    "assets/signConfigs-BxvGsz9k.js",
+    "assets/site-page-BCzZjifA.css",
+    "assets/sora-latin-400-normal-CRt88UEn.woff2",
+    "assets/sora-latin-400-normal-OW7qkl5a.woff",
+    "assets/sora-latin-500-normal-01eiPEn0.woff2",
+    "assets/sora-latin-500-normal-w58xtEt9.woff",
+    "assets/sora-latin-600-normal-1_7fyUAY.woff",
+    "assets/sora-latin-600-normal-Cdg4DaK0.woff2",
+    "assets/sora-latin-700-normal-9waGdLWo.woff2",
+    "assets/sora-latin-700-normal-BKPfQAnC.woff",
+    "assets/sora-latin-800-normal-2tKLL3qT.woff2",
+    "assets/sora-latin-800-normal-c3Huklug.woff",
+    "assets/sora-latin-ext-400-normal-BmhJC382.woff",
+    "assets/sora-latin-ext-400-normal-Twk1CgKs.woff2",
+    "assets/sora-latin-ext-500-normal-B5KKQIFO.woff2",
+    "assets/sora-latin-ext-500-normal-DwxUJRqY.woff",
+    "assets/sora-latin-ext-600-normal-Cue1zdhl.woff2",
+    "assets/sora-latin-ext-600-normal-DLOJK0Ta.woff",
+    "assets/sora-latin-ext-700-normal-DM0oy5s8.woff2",
+    "assets/sora-latin-ext-700-normal-Oc7uZIYt.woff",
+    "assets/sora-latin-ext-800-normal-BvAfeed7.woff",
+    "assets/sora-latin-ext-800-normal-YDFYE6t9.woff2",
+    "assets/sponsored-locations/corfu-sea-school.webp",
+    "assets/sponsored-locations/offshore-sailing-school.webp",
+    "assets/sponsored-locations/spacex-starship-flight-13.webp",
+    "assets/sponsored-locations/spacex-x.png",
+    "assets/sponsored-locations/the-sailing-academy.webp",
+    "assets/three.module-BgyKfsEV.js",
+    "assets/thumbnail.webp",
+    "assets/world-B9kkcg8l.css",
+    "assets/world-DPn3WgXw.js",
+    "assets/world-signs/aisuitup.webp",
+    "assets/world-signs/aleria.webp",
+    "assets/world-signs/atlantic.webp",
+    "assets/world-signs/bird.webp",
+    "assets/world-signs/chatling.webp",
+    "assets/world-signs/coingecko.webp",
+    "assets/world-signs/compai.webp",
+    "assets/world-signs/dotenvx.webp",
+    "assets/world-signs/ferrysimulator.webp",
+    "assets/world-signs/founderstack.webp",
+    "assets/world-signs/founderstack_inside.webp",
+    "assets/world-signs/guapa.webp",
+    "assets/world-signs/interviewmonkey.webp",
+    "assets/world-signs/kichan.webp",
+    "assets/world-signs/leftcurvecletus.webp",
+    "assets/world-signs/localrent.webp",
+    "assets/world-signs/makeethereumgreatagain.webp",
+    "assets/world-signs/marineverse.webp",
+    "assets/world-signs/marketingideas.webp",
+    "assets/world-signs/matresswizzard.webp",
+    "assets/world-signs/mrscraper.webp",
+    "assets/world-signs/mugbottle.webp",
+    "assets/world-signs/netent.webp",
+    "assets/world-signs/nichetools.webp",
+    "assets/world-signs/rabbitholes.webp",
+    "assets/world-signs/scripture.webp",
+    "assets/world-signs/softgen.webp",
+    "assets/world-signs/threejseval.webp",
+    "assets/world-signs/vibesail.webp",
+    "assets/world-signs/vibetapper.webp",
+    "assets/world-signs/wakingdigital.webp",
+    "blog/changelog-001-playable-sailing-foundation/index.html",
+    "blog/changelog-002-heel-and-wind-force-pass/index.html",
+    "blog/changelog-003-camera-modes-rollout/index.html",
+    "blog/changelog-004-mobile-controls-pass/index.html",
+    "blog/changelog-005-audio-atmosphere-v1/index.html",
+    "blog/changelog-006-multiplayer-boat-presence/index.html",
+    "blog/changelog-007-ai-traffic-foundation/index.html",
+    "blog/changelog-008-player-flag-identity-pass/index.html",
+    "blog/changelog-009-interactive-tutorial-v1/index.html",
+    "blog/changelog-010-daily-race-mode-launch/index.html",
+    "blog/changelog-011-leaderboard-live/index.html",
+    "blog/changelog-012-tack-and-jibe-dynamics-pass/index.html",
+    "blog/changelog-013-race-route-guidance-ui/index.html",
+    "blog/changelog-014-record-submission-hardening/index.html",
+    "blog/changelog-015-world-and-water-architecture-pass/index.html",
+    "blog/changelog-016-camera-and-hud-polish/index.html",
+    "blog/changelog-017-wind-indicator-refresh/index.html",
+    "blog/changelog-018-island-system-rebuild/index.html",
+    "blog/changelog-019-far-island-visibility-pass/index.html",
+    "blog/changelog-020-island-sponsor-customer-stops/index.html",
+    "blog/changelog-021-performance-monitor-release/index.html",
+    "blog/changelog-022-boat-tuning-and-customization/index.html",
+    "blog/changelog-023-wave-overhaul-phase-1/index.html",
+    "blog/changelog-024-wave-overhaul-phase-2/index.html",
+    "blog/changelog-025-settings-and-audio-persistence/index.html",
+    "blog/changelog-026-sail-furling-controls/index.html",
+    "blog/changelog-027-island-lod-and-dock-structure-pass/index.html",
+    "blog/changelog-028-logistics-missions-launch/index.html",
+    "blog/changelog-029-mission-compass-guidance/index.html",
+    "blog/changelog-030-upgrade-shop-launch/index.html",
+    "blog/changelog-031-upgrade-economy-balance-pass/index.html",
+    "blog/changelog-032-cannon-combat-introduction/index.html",
+    "blog/changelog-033-world-loading-and-mobile-stability/index.html",
+    "blog/changelog-034-pirate-hunt-mode/index.html",
+    "blog/changelog-035-pirate-reward-economy-link/index.html",
+    "blog/changelog-036-cannon-default-safety-pass/index.html",
+    "blog/changelog-037-gpu-sail-deformation/index.html",
+    "blog/changelog-038-wind-ribbon-visual-effects/index.html",
+    "blog/changelog-039-gpu-island-vegetation-pass/index.html",
+    "blog/changelog-040-cloud-instancing-rollout/index.html",
+    "blog/changelog-041-gerstner-8-wave-ocean/index.html",
+    "blog/changelog-042-water-tiling-and-wavelength-fixes/index.html",
+    "blog/changelog-043-ghost-recording-and-playback/index.html",
+    "blog/changelog-044-countdown-race-starts/index.html",
+    "blog/changelog-045-ghost-persistence-v2/index.html",
+    "blog/changelog-046-ghost-visual-ranking-polish/index.html",
+    "blog/changelog-047-country-flag-manager/index.html",
+    "blog/changelog-048-race-tuning-lock-fairness/index.html",
+    "blog/changelog-049-player-profile-page/index.html",
+    "blog/changelog-050-regatta-start-gate/index.html",
+    "blog/changelog-051-regatta-ghost-timeline-sync/index.html",
+    "blog/changelog-052-high-sea-mode-launch/index.html",
+    "blog/changelog-053-ocean-reflection-alignment-fix/index.html",
+    "blog/changelog-054-world-map-launch/index.html",
+    "blog/changelog-055-leaderboard-page-launch/index.html",
+    "blog/changelog-056-leaderboard-ux-and-attempts-pass/index.html",
+    "blog/changelog-057-race-start-fairness/index.html",
+    "blog/changelog-058-high-sea-ghosts-and-ui-updates/index.html",
+    "blog/changelog-059-tutorial-ui-and-guided-race/index.html",
+    "blog/changelog-060-glb-boat-water-clipping-fix/index.html",
+    "blog/changelog-061-world-map-custom-locations-and-voting/index.html",
+    "blog/changelog-062-submit-a-prompt-page/index.html",
+    "blog/changelog-063-daily-race-replay-spectator-mode/index.html",
+    "blog/changelog-064-boat-shop-launch/index.html",
+    "blog/changelog-065-profile-career-stats-and-replay-access/index.html",
+    "blog/changelog-066-podium-collision/index.html",
+    "blog/changelog-067-race-collision-fairness/index.html",
+    "blog/changelog-068-fragile-cargo-mission-flow/index.html",
+    "blog/changelog-069-startup-and-runtime-smoothness/index.html",
+    "blog/changelog-070-remote-boat-inspector/index.html",
+    "blog/changelog-071-a-bigger-world-to-sail/index.html",
+    "blog/changelog-072-daily-mission-routes/index.html",
+    "blog/changelog-073-race-collisions-removed/index.html",
+    "blog/changelog-074-cleaner-game-controls/index.html",
+    "blog/changelog-075-community-feedback-board/index.html",
+    "blog/changelog-076-homepage-and-site-refresh/index.html",
+    "blog/changelog-077-sign-in-to-log-leaderboard-times/index.html",
+    "blog/changelog-078-clearer-transparent-water/index.html",
+    "blog/changelog-079-optional-video-ads-for-bonus-coins/index.html",
+    "blog/index.html",
+    "changelog/index.html",
+    "contact/index.html",
+    "daily-race-replay/index.html",
+    "daily-race/index.html",
+    "data/blogPosts.json",
+    "favicon.ico",
+    "feedback/index.html",
+    "game/index.html",
+    "highsea/index.html",
+    "i18n/ar.json",
+    "i18n/config.json",
+    "i18n/de.json",
+    "i18n/en.json",
+    "i18n/es.json",
+    "i18n/fr.json",
+    "i18n/hi.json",
+    "i18n/id.json",
+    "i18n/it.json",
+    "i18n/ja.json",
+    "i18n/ko.json",
+    "i18n/nl.json",
+    "i18n/pt.json",
+    "i18n/ru.json",
+    "i18n/zh.json",
+    "index.html",
+    "lang/ar/index.html",
+    "lang/de/index.html",
+    "lang/es/index.html",
+    "lang/fr/index.html",
+    "lang/hi/index.html",
+    "lang/id/index.html",
+    "lang/it/index.html",
+    "lang/ja/index.html",
+    "lang/ko/index.html",
+    "lang/nl/index.html",
+    "lang/pt/index.html",
+    "lang/ru/index.html",
+    "lang/zh/index.html",
+    "leaderboard/index.html",
+    "manifest.webmanifest",
+    "privacy/index.html",
+    "pwa-worker.js",
+    "race/index.html",
+    "robots.txt",
+    "sitemap.xml",
+    "sounds/boat_waves-6099.mp3",
+    "sounds/explosion-fx-425453.mp3",
+    "sounds/grab-clothes-foley-308655.mp3",
+    "sounds/happy-relaxing-loop-275536.mp3",
+    "sounds/hit-tree-02-266307.mp3",
+    "sounds/powerful-cannon-shot-352459.mp3",
+    "sounds/saildeploy-99393.mp3",
+    "sounds/winter-wind-305577.mp3",
+    "sounds/wood-creaking-30692.mp3",
+    "textures/sky/tropical_day.jpg",
+    "textures/waternormals.jpg",
+    "tutorial/index.html",
+    "version.json",
+    "world/index.html"
+  ],
+  "unresolved": [],
+  "unreachable": [
+    {
+      "status": 404,
+      "path": "/assets/assets/Game-CrsSKcAK.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/defineProperty-BbfpZ9Tg.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/chunk-QTnfLwEv.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/preload-helper-CYTkKql0.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/GhostReplayModel-B8EqTWpz.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/KeyboardManager-DVLZ3teY.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/DataModels-DjmBwyzI.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/BoatModel-Cf2RVdWT.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/routeContext-D1HYUwP9.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/RenderOrder-CTE7PEm0.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/GeometryGuards-BGRyriw5.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/three.module-BgyKfsEV.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/SharedTextureLoader-BkelxMVX.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/DRACOLoader-XlKGmd74.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/GLTFLoader-C2oC7w8g.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/MTLLoader-Dw3w9IRM.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/PlayerNameStorage-Q3p2umqg.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/VectorUtils-ZPUW1jx-.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/RaceConfig-BiFwKzq8.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/RuntimeEnvironment-BAaLbeCv.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/TrackGenerator-CFnrWNiH.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/countries-DfpOqyPC.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/WorldDefinitionBuilder-CjRtTnhK.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Bearing-Bz8gc2k9.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/cargoShipDefinitions-DOR3sdqr.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/signConfigs-BxvGsz9k.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/GeoMath-B_Iby49-.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/H5GamesAds-cgmFpTvU.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/OneSignalPushNotifications-C5QrvXEE.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/PostHogCapture-DUxqoMcu.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/LocalCache-DHomYmcY.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/SailorProfileLinks-CkEgGITb.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/.css",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/.css",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/profileClient-Ce6d7RD4.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/authClient-roTt0Fs9.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/GoogleTilesLoader-Ba1pGT7V.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Advertisement-D60LkU06.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/WorldAdPopupManager-WzG-fNUY.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/WorldInteractionEvents-L1ARfoSs.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/IslandGenerator-DZNI3CSt.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Yacht-OEQr2DjX.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Blimp-CsqFvrq-.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/WorldSignAsset-yHPgCsa-.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/CargoShip-DSMEqWta.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/FloatingWorldProp--a8_muYf.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Portal-DAOSX3nf.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/portalDefinitions-CAxa3Tbw.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Birds-DHEcQo9w.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/SeaCreatures-C5ijwC34.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/BoatShop-SaUBreAv.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/SettingsMenu-DL9R7A1C.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/HighSeaModeManager-BEvC6iXw.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/CannonSystem-8nVBpQ-O.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/TutorialManager-iD72X4OM.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/LogisticsManager-DugCgbD8.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/LogisticsUI-DWG9W15h.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/TargetColumn-DnYYEURe.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/MultiplayerManager-CgzUu3MG.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/PirateHuntManager-B5ipnDt7.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/BoatVisualizerPanel-C8Vrfq5S.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/leaflet.css",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/leaflet.css",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/draco_decoder.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/draco_decoder.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/draco_wasm_wrapper.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/draco_wasm_wrapper.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/draco_decoder.wasm",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/draco_decoder.wasm",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/.glb",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/.glb",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/pwa-worker.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/tropical_day.jpg",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/tropical_day.jpg",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/geo/positano-hd/mesh.glb",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/geo/positano-hd/mesh.glb",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/marker-icon.png",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/marker-icon.png",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/marker-icon-2x.png",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/marker-icon-2x.png",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/marker-shadow.png",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/marker-shadow.png",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/path.gltf",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/path.gltf",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/path.glb",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/path.glb",
+      "probes": 1
+    }
+  ],
+  "external": [
+    {
+      "host": "analytics.ahrefs.com",
+      "examples": [
+        "https://analytics.ahrefs.com/analytics.js"
+      ]
+    },
+    {
+      "host": "buy.stripe.com",
+      "examples": [
+        "https://buy.stripe.com/3cI9AS9lXgRObGe5GS5Rm06",
+        "https://buy.stripe.com/cNieVcdCdcBydOm3yK5Rm07",
+        "https://buy.stripe.com/fZu14m1TvgRO25E2uG5Rm08",
+        "https://buy.stripe.com/eVqeVc1Tv0SQ9y65GS5Rm09",
+        "https://buy.stripe.com/5kQcN4gOpeJGaCa0my5Rm0a"
+      ]
+    },
+    {
+      "host": "challenges.cloudflare.com",
+      "examples": [
+        "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+      ]
+    },
+    {
+      "host": "dashboard.simpleanalytics.com",
+      "examples": [
+        "https://dashboard.simpleanalytics.com/vibesail.com"
+      ]
+    },
+    {
+      "host": "fonts.googleapis.com",
+      "examples": [
+        "https://fonts.googleapis.com/",
+        "https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap"
+      ]
+    },
+    {
+      "host": "fonts.gstatic.com",
+      "examples": [
+        "https://fonts.gstatic.com/"
+      ]
+    },
+    {
+      "host": "policies.google.com",
+      "examples": [
+        "https://policies.google.com/technologies/ads"
+      ]
+    },
+    {
+      "host": "scripts.simpleanalyticscdn.com",
+      "examples": [
+        "https://scripts.simpleanalyticscdn.com/latest.js",
+        "https://scripts.simpleanalyticscdn.com/embed.js"
+      ]
+    },
+    {
+      "host": "simple.vibesail.com",
+      "examples": [
+        "https://simple.vibesail.com/latest.js"
+      ]
+    },
+    {
+      "host": "us-assets.i.posthog.com",
+      "examples": [
+        "https://us-assets.i.posthog.com/static/array.js"
+      ]
+    },
+    {
+      "host": "www.googletagmanager.com",
+      "examples": [
+        "https://www.googletagmanager.com/gtag/js?id=G-CQ7NQJ8CHX"
+      ]
+    },
+    {
+      "host": "www.instagram.com",
+      "examples": [
+        "https://www.instagram.com/vibesailgame/"
+      ]
+    },
+    {
+      "host": "www.threads.com",
+      "examples": [
+        "https://www.threads.com/@vibesailgame"
+      ]
+    },
+    {
+      "host": "x.com",
+      "examples": [
+        "https://x.com/polbaladas",
+        "https://x.com/kolpakov_tri",
+        "https://x.com/gvrizzo",
+        "https://x.com/jman",
+        "https://x.com/i/communities/1899916294415409599"
+      ]
+    }
+  ]
+}

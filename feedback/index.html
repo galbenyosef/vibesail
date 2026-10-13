@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | VibeSail</title>
+    <meta name="description" content="Share ideas, vote on feature requests, and report bugs on the public feedback board for VibeSail's free browser sailing game.">
+    <link rel="canonical" href="https://vibesail.com/feedback">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Feedback | VibeSail">
+    <meta property="og:description" content="Share ideas, vote on feature requests, and report bugs on the public feedback board for VibeSail's free browser sailing game.">
+    <meta property="og:url" content="https://vibesail.com/feedback">
+    <meta property="og:image" content="https://vibesail.com/assets/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script src="/assets/scripts/site-header.js"></script>
+    <script id="cloudflare-turnstile-script" src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+  <script type="module" crossorigin src="/assets/feedback-t1cbygys.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-Dezn_h7o.js">
+  <link rel="modulepreload" crossorigin href="/assets/authClient-roTt0Fs9.js">
+  <link rel="modulepreload" crossorigin href="/assets/chunk-QTnfLwEv.js">
+  <link rel="modulepreload" crossorigin href="/assets/RuntimeEnvironment-BAaLbeCv.js">
+  <link rel="modulepreload" crossorigin href="/assets/PlayerNameStorage-Q3p2umqg.js">
+  <link rel="modulepreload" crossorigin href="/assets/profileClient-Ce6d7RD4.js">
+  <link rel="modulepreload" crossorigin href="/assets/preload-helper-CYTkKql0.js">
+  <link rel="modulepreload" crossorigin href="/assets/init-CC0aACO2.js">
+  <link rel="stylesheet" crossorigin href="/assets/feedback-D0_FhlOi.css">
+  <link rel="stylesheet" crossorigin href="/assets/header-C8hfIurP.css">
+  <link rel="stylesheet" crossorigin href="/assets/site-page-BCzZjifA.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0b5cff">
+
+    <!-- Analytics scripts are deferred until idle; no preconnect needed -->
+
+</head>
+
+<body class="site-shell">
+    <div class="site-page-bg site-page-bg-gradient"></div>
+    <div class="site-page-bg site-page-bg-grid"></div>
+
+    <script>window.VibeSailHeader.render('feedback');</script>
+
+    <main class="site-page-shell feedback-page">
+        <header class="feedback-hero">
+            <p class="site-page-kicker">Community board</p>
+            <h1 class="site-page-title">Feedback</h1>
+            <p class="site-page-intro">Share an idea or report a problem. Everything posted here is public, so other sailors can vote on what matters most.</p>
+        </header>
+
+        <section class="site-page-panel feedback-compose is-collapsed" aria-labelledby="compose-toggle">
+            <p id="compose-status" class="feedback-status" aria-live="polite"></p>
+            <button id="compose-toggle" class="primary-button compose-toggle" type="button" disabled>
+                Checking sign-in…
+            </button>
+
+            <div id="feedback-compose-panel" class="feedback-compose-panel" hidden>
+                <div class="feedback-compose-header">
+                    <h2 id="new-feedback-title">Post feedback</h2>
+                    <button id="compose-cancel" class="compose-cancel" type="button">Cancel</button>
+                </div>
+
+                <form id="feedback-form" class="feedback-form" novalidate>
+                    <label for="title-input">Title</label>
+                    <input id="title-input" name="title" type="text" minlength="3" maxlength="120" placeholder="A short summary" required>
+
+                    <label for="message-input">Details</label>
+                    <textarea id="message-input" name="message" rows="6" minlength="10" maxlength="4000" placeholder="Explain the idea or problem…" required></textarea>
+
+                    <p id="profile-name-notice" class="feedback-help" hidden></p>
+                    <input id="name-input" name="display_name" type="hidden" value="">
+
+                    <div id="turnstile-container" class="turnstile-wrap" hidden></div>
+                    <p id="turnstile-help" class="feedback-help" hidden>Protected by Cloudflare Turnstile.</p>
+                    <div id="submit-status" class="feedback-status" aria-live="polite"></div>
+                    <button id="submit-button" class="primary-button" type="submit">Post feedback</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="site-page-panel feedback-board" aria-labelledby="community-feedback-title">
+            <div class="feedback-board-header">
+                <div>
+                    <h2 id="community-feedback-title">Community feedback</h2>
+                    <p>Vote once per account. Click an active vote again to remove it.</p>
+                </div>
+                <div class="feedback-board-controls">
+                    <div class="sort-control" role="group" aria-label="Filter feedback">
+                        <button type="button" class="sort-button active" data-status="open">Open</button>
+                        <button type="button" class="sort-button" data-status="done">Done</button>
+                        <button type="button" class="sort-button" data-status="all">All</button>
+                    </div>
+                    <div class="sort-control" role="group" aria-label="Sort feedback">
+                        <button type="button" class="sort-button active" data-sort="top">Top</button>
+                        <button type="button" class="sort-button" data-sort="new">New</button>
+                    </div>
+                </div>
+            </div>
+            <div id="board-status" class="board-status" aria-live="polite">Loading feedback…</div>
+            <div id="feedback-list" class="feedback-list"></div>
+        </section>
+    </main>
+
+
+    <!-- All analytics deferred until idle or 5s after load -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        (function(){
+            function loadAnalytics(){
+                if(window.__analyticsLoaded)return;
+                window.__analyticsLoaded=true;
+                gtag('js', new Date());
+                gtag('config', 'G-CQ7NQJ8CHX');
+                var g=document.createElement('script');g.async=true;
+                g.src='https://www.googletagmanager.com/gtag/js?id=G-CQ7NQJ8CHX';
+                document.head.appendChild(g);
+                var s=document.createElement('script');s.async=true;
+                s.src='https://simple.vibesail.com/latest.js';
+                s.dataset.collectDnt='true';
+                s.onerror=function(){this.onerror=null;this.src='https://scripts.simpleanalyticscdn.com/latest.js';};
+                document.head.appendChild(s);
+                var a=document.createElement('script');a.async=true;
+                a.src='https://analytics.ahrefs.com/analytics.js';
+                a.dataset.key='/Aj7gMpdyzFnZH3EIv88xA';
+                document.head.appendChild(a);
+                if(typeof window.__vibesailLoadPostHogSdk==='function') window.__vibesailLoadPostHogSdk();
+            }
+            if(typeof requestIdleCallback==='function'){
+                requestIdleCallback(loadAnalytics,{timeout:5000});
+            } else {
+                setTimeout(loadAnalytics,5000);
+            }
+        })();
+    </script>
+
+
+    <!-- PostHog (deferred with other analytics until idle) -->
+    <script>
+        (function () {
+            var posthogConfig = {
+                apiKey: "phc_QpnLTX0cSBjRoazL8i0oLC7R6AaimXfBnYjkuJ7kx5D",
+                apiHost: "https://us.i.posthog.com"
+            };
+            var posthogReadyEventName = "vibesail:posthog-ready";
+
+            var initPostHog = function () {
+                if (!window.posthog || typeof window.posthog.init !== 'function') return;
+                if (window.__vibesailPostHogInitialized) return;
+                window.__vibesailPostHogInitialized = true;
+                window.posthog.init(posthogConfig.apiKey, {
+                    api_host: posthogConfig.apiHost,
+                    capture_pageview: false,
+                    capture_pageleave: false,
+                    autocapture: false,
+                    persistence: 'localStorage+cookie'
+                });
+                window.dispatchEvent(new CustomEvent(posthogReadyEventName));
+            };
+
+            window.__vibesailInitPostHog = initPostHog;
+
+            // PostHog SDK script is loaded by the shared deferred analytics loader.
+            // Register a helper so external code can trigger an eager load if needed.
+            window.__vibesailLoadPostHogSdk = function () {
+                if (window.__vibesailPostHogSdkLoaded) return;
+                window.__vibesailPostHogSdkLoaded = true;
+                var p = document.createElement('script'); p.async = true;
+                p.src = "https://us-assets.i.posthog.com/static/array.js";
+                p.onload = function () { window.__vibesailInitPostHog && window.__vibesailInitPostHog(); };
+                document.head.appendChild(p);
+            };
+        })();
+    </script>
+
+</body>
+
+</html>
