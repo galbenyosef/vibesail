@@ -197,5 +197,5 @@ files to `legacy/<date>/` first, re-cutting the manifest, and re-deriving
 <!-- cols: cls=classification · ver=verify 0 problems · upd=drift probe · man=manifest · rdbl=readable re-derived · src=reversed src · boot=boot test · top=offline-mirror topic · tag=backup tag · staged=staged not committed -->
 | # | repo | cls | ver | upd | man | rdbl | src | boot | top | tag | staged |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 303 | vibesail | mirror | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — | — |
+| 304 | vibesail | mirror | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — | — |
 <!-- mirror-status:end -->
