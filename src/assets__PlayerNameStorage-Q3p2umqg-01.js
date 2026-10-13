@@ -1,0 +1,76 @@
+// assets__PlayerNameStorage-Q3p2umqg 01 — localstorage
+// Lines 1-74 of readable/assets__PlayerNameStorage-Q3p2umqg.pretty.js (statement-aligned).
+var e = `Display name contains invalid characters. Use only letters, numbers, and basic punctuation.`,
+  t = `Display name must be at least 3 characters.`,
+  n = `Display name cannot be a reserved anonymous name.`,
+  r = /^[\w\s.,!?-]+$/,
+  i = /^anonymous-\d{6}$/i;
+function a(e) {
+  return typeof e == `string` ? e.trim() : ``;
+}
+function o(e) {
+  if (typeof e != `string`) return ``;
+  let t = e.trim().replace(/\s+/g, ` `);
+  return t
+    ? (t.length > 20 && (t = t.slice(0, 20)),
+      t.startsWith(`@`) && (t = t.slice(1).trim()),
+      t)
+    : ``;
+}
+function s(e) {
+  let t = String(e || ``).toLowerCase();
+  return t === `anonymous` || i.test(t);
+}
+function c(e) {
+  let t = o(e);
+  return t ? t.replace(/[^\w\s.,!?-]/g, ``).trim() : ``;
+}
+function l(e) {
+  let t = o(e);
+  return !t || !r.test(t) ? `` : t;
+}
+function u(e) {
+  return s(c(e));
+}
+function d(e) {
+  let t = a(e);
+  return u(t) ? `` : t;
+}
+function f(e) {
+  return a(e) ? p(e) === null : !1;
+}
+function p(r) {
+  if (!a(r)) return null;
+  let i = l(r);
+  return i ? (s(i) ? n : i.length < 3 ? t : null) : e;
+}
+function m(e) {
+  try {
+    return typeof localStorage > `u` ||
+      typeof localStorage.getItem != `function`
+      ? null
+      : localStorage.getItem(e);
+  } catch {
+    return null;
+  }
+}
+function h(e, t) {
+  try {
+    return typeof localStorage > `u` ||
+      typeof localStorage.setItem != `function`
+      ? !1
+      : (localStorage.setItem(e, t), !0);
+  } catch {
+    return !1;
+  }
+}
+function g(e) {
+  try {
+    return typeof localStorage > `u` ||
+      typeof localStorage.removeItem != `function`
+      ? !1
+      : (localStorage.removeItem(e), !0);
+  } catch {
+    return !1;
+  }
+}

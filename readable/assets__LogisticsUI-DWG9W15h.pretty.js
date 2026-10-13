@@ -1,0 +1,615 @@
+import { b as e, g as t } from "./Game-CrsSKcAK.js";
+import { t as n } from "./KeyboardManager-DVLZ3teY.js";
+import { a as r } from "./GeoMath-B_Iby49-.js";
+var i = `logistics-docking-banner`,
+  a = `logistics-active-mission-banner`,
+  o = `logistics-mission-modal`,
+  s = `logistics-completion-modal`,
+  c = `logistics-payload-dropped-toast`,
+  l = `logistics-heel-gauge`,
+  u = `ui-banner-stack-top`,
+  d = 50,
+  f = 0.5,
+  p = 180 / Math.PI,
+  m = Object.freeze({
+    standard: Object.freeze({
+      id: `standard`,
+      label: `Standard Cargo`,
+      summary: `Regular cargo`,
+      detail: `Half payout, secured load`,
+    }),
+    fragile: Object.freeze({
+      id: `fragile`,
+      label: `Fragile Cargo`,
+      summary: `High risk`,
+      detail: `Full payout, aborts on heavy heel`,
+    }),
+  });
+function h(e, t, n, r = ``) {
+  let i = e.createElement(t);
+  return (n && (i.className = n), r && (i.textContent = r), i);
+}
+function g(e) {
+  let t = Number(e);
+  return Number.isFinite(t) ? String(Math.round(t)) : `0`;
+}
+function _(e = {}) {
+  let t = String(e.contractType || ``).toLowerCase(),
+    n = e.payload?.droppable ? `fragile` : `standard`,
+    r = m[m[t] ? t : n] || m.standard,
+    i = Number.isFinite(e.payload?.heelDropDegrees)
+      ? e.payload.heelDropDegrees
+      : 18;
+  return {
+    ...r,
+    label: e.contractLabel || r.label,
+    detail: e.payload?.droppable
+      ? `Full payout, aborts over ${i}° heel`
+      : e.contractSummary || r.detail,
+  };
+}
+var v = class {
+  constructor(t, n, r = {}) {
+    ((this.logisticsManager = t),
+      (this.app = n),
+      (this.overlaySystem = r.overlaySystem || e()),
+      (this.callbacks = { onDockRequested: null, onUndockRequested: null }),
+      (this.isModalOpen = !1),
+      (this._activeMission = null),
+      (this._missionProgress = null),
+      (this._lastDockingMessage = ``),
+      (this._mobileListener = null),
+      (this._keyboardListener = null),
+      (this._managerListeners = null),
+      (this._heelGauge = null),
+      (this._heelGaugeFill = null),
+      (this._heelGaugeMarker = null),
+      (this._heelGaugeValue = null),
+      (this._heelGaugeLimit = null),
+      (this._heelGaugeDangerFill = null),
+      (this._completionModalOpen = !1),
+      (this._currentMissionModalMissions = null),
+      (this._pendingMissionModalMissions = null),
+      this._bindEvents(),
+      this._setupMobileEventHandlers());
+  }
+  _bindEvents() {
+    let e = (e) => this._updateDockingUI(e),
+      t = (e) => this._updateMissionUI(e),
+      n = (e) => this._updateMissionProgress(e),
+      r = (e) => this.showCompletionModal(e),
+      i = (e) => this.showPayloadDroppedNotification(e);
+    ((this._managerListeners = {
+      onDockingChanged: e,
+      onMissionChanged: t,
+      onMissionProgress: n,
+      onMissionCompleted: r,
+      onPayloadDropped: i,
+    }),
+      this.logisticsManager.on(`docking:changed`, e),
+      this.logisticsManager.on(`mission:changed`, t),
+      this.logisticsManager.on(`mission:progress`, n),
+      this.logisticsManager.on(`mission:completed`, r),
+      this.logisticsManager.on(`mission:payload_dropped`, i));
+  }
+  _setupMobileEventHandlers() {
+    ((this._keyboardListener = (e) => {
+      e === `dock` || e === `dock_restart`
+        ? this._handleDockKeyPress()
+        : e === `undock` && this._handleUndockKeyPress();
+    }),
+      n.addActionListener(this._keyboardListener));
+  }
+  _updateDockingUI(e) {
+    if (e?.isDocked || e?.locked || !e?.inside) {
+      (this.overlaySystem.hideBanner(i), (this._lastDockingMessage = ``));
+      return;
+    }
+    let t = e.canDock
+      ? r.t(`logistics.press_r_or_click_dock`) ||
+        `Press R or click Dock to dock`
+      : r.t(`logistics.slow_down_to_dock`) || `Slow down to dock`;
+    t &&
+      ((this._lastDockingMessage = t),
+      this.overlaySystem.showBanner({
+        id: i,
+        message: t,
+        tone: e.canDock ? `info` : `warning`,
+      }));
+  }
+  _updateMissionUI(e) {
+    ((this._activeMission = e?.current || null),
+      this._activeMission
+        ? this._renderMissionBanner()
+        : ((this._missionProgress = null),
+          this.overlaySystem.hideBanner(a),
+          this._hideHeelGauge()));
+  }
+  _updateMissionProgress(e) {
+    ((this._missionProgress = e || null),
+      this._activeMission &&
+        (this._renderMissionBanner(), this._renderHeelGauge()));
+  }
+  _renderMissionBanner() {
+    if (!this._activeMission) {
+      (this.overlaySystem.hideBanner(a), this._hideHeelGauge());
+      return;
+    }
+    let e = this._activeMission.name || r.t(`logistics.mission`) || `Mission`,
+      t = this._activeMission.distance || `—`;
+    if (Number.isFinite(this._missionProgress?.distanceMeters)) {
+      let e = this._missionProgress.distanceMeters / 1e3;
+      t =
+        e >= 0.1
+          ? `${e.toFixed(2)} km`
+          : `${Math.round(this._missionProgress.distanceMeters)} m`;
+    }
+    let n = Number.isFinite(this._missionProgress?.finalReward)
+        ? this._missionProgress.finalReward
+        : Number.isFinite(this._missionProgress?.reward)
+          ? this._missionProgress.reward
+          : this._activeMission.reward,
+      i = n == null ? `—` : String(n),
+      o =
+        this._activeMission.contractLabel ||
+        this._activeMission.contractType ||
+        ``,
+      s = this._missionProgress?.payload || this._activeMission.payload || null,
+      c = s?.droppable
+        ? `Mission aborts over ${s.heelDropDegrees || 18}° heel`
+        : ``,
+      l = [
+        `${r.t(`logistics.distance`) || `Distance`}: ${t}`,
+        `${r.t(`logistics.reward`) || `Reward`}: ${i}`,
+      ];
+    (o && l.push(o), c && l.push(c));
+    let u = `${e}\n${l.join(`  •  `)}`;
+    this.overlaySystem.showBanner({
+      id: a,
+      message: u,
+      tone: `info`,
+      actionLabel: r.t(`logistics.abort`) || `Abort`,
+      onAction: () => this._onMissionAbort(),
+    });
+  }
+  _shouldShowHeelGauge(e = this._missionProgress) {
+    let t = e?.payload || this._activeMission?.payload || null;
+    return (
+      !!this._activeMission && t?.droppable === !0 && e?.payloadDropped !== !0
+    );
+  }
+  _ensureHeelGauge() {
+    let e =
+      this.overlaySystem?.documentRef ||
+      (typeof document < `u` ? document : null);
+    if (!e?.body) return null;
+    let t = e.getElementById(l),
+      n = e.getElementById(u);
+    if (
+      (n ||
+        ((n = e.createElement(`div`)),
+        (n.id = u),
+        (n.className = `ui-banner-stack ui-banner-stack-top`),
+        e.body.appendChild(n)),
+      t)
+    )
+      t.parentElement !== n && n.appendChild(t);
+    else {
+      ((t = e.createElement(`div`)),
+        (t.id = l),
+        (t.className = `logistics-heel-gauge is-visible`),
+        (t.dataset.tone = `info`));
+      let r = h(e, `div`, `logistics-heel-gauge-header`);
+      (r.appendChild(
+        h(e, `span`, `logistics-heel-gauge-title`, `Cargo stability`),
+      ),
+        r.appendChild(h(e, `span`, `logistics-heel-gauge-value`, `Heel 0°`)));
+      let i = h(e, `div`, `logistics-heel-gauge-track`);
+      (i.appendChild(h(e, `span`, `logistics-heel-gauge-center`)),
+        i.appendChild(h(e, `span`, `logistics-heel-gauge-fill`)),
+        i.appendChild(h(e, `span`, `logistics-heel-gauge-marker`)));
+      let a = h(e, `div`, `logistics-heel-gauge-footer`);
+      (a.appendChild(h(e, `span`, ``, `Safe`)),
+        a.appendChild(
+          h(e, `span`, `logistics-heel-gauge-limit`, `Drop at 18°`),
+        ));
+      let o = h(e, `div`, `logistics-heel-gauge-danger`);
+      (o.appendChild(h(e, `span`, `logistics-heel-gauge-danger-fill`)),
+        t.appendChild(r),
+        t.appendChild(i),
+        t.appendChild(a),
+        t.appendChild(o),
+        n.appendChild(t));
+    }
+    return (
+      (this._heelGauge = t),
+      (this._heelGaugeFill = t.querySelector(`.logistics-heel-gauge-fill`)),
+      (this._heelGaugeMarker = t.querySelector(`.logistics-heel-gauge-marker`)),
+      (this._heelGaugeValue = t.querySelector(`.logistics-heel-gauge-value`)),
+      (this._heelGaugeLimit = t.querySelector(`.logistics-heel-gauge-limit`)),
+      (this._heelGaugeDangerFill = t.querySelector(
+        `.logistics-heel-gauge-danger-fill`,
+      )),
+      t
+    );
+  }
+  _renderHeelGauge(e = this._missionProgress) {
+    if (!this._shouldShowHeelGauge(e)) {
+      this._hideHeelGauge();
+      return;
+    }
+    let t = this._ensureHeelGauge();
+    if (!t) return;
+    let n = e?.payload || this._activeMission?.payload || {},
+      r = Math.max(
+        1,
+        Number(e?.heelThresholdDegrees ?? n.heelDropDegrees) || 18,
+      ),
+      i = this._resolveSignedHeelDegrees(e),
+      a = Math.abs(i),
+      o = Math.min(1, a / r),
+      s = Math.max(-1, Math.min(1, i / r)),
+      c = a < f,
+      l = c ? d : Math.round(d - s * d),
+      u = Math.min(d, l),
+      p = Math.abs(l - d),
+      m = Math.max(0.1, Number(e?.heelDropSeconds ?? n.heelDropSeconds) || 1),
+      h = Math.max(0, Number(e?.overHeelSeconds) || 0),
+      g = Math.min(1, h / m),
+      _ = o >= 1 ? `danger` : o >= 0.72 ? `warning` : `info`,
+      v = c ? `center` : i > 0 ? `left` : `right`;
+    ((t.dataset.tone = _),
+      (t.dataset.side = v),
+      t.classList.toggle(`is-over-threshold`, o >= 1),
+      this._heelGaugeValue &&
+        (this._heelGaugeValue.textContent = `Heel ${Math.round(a)}°`),
+      this._heelGaugeLimit &&
+        (this._heelGaugeLimit.textContent = `Drop at ${Math.round(r)}°`),
+      this._heelGaugeFill &&
+        ((this._heelGaugeFill.style.left = `${u}%`),
+        (this._heelGaugeFill.style.width = `${p}%`)),
+      this._heelGaugeMarker && (this._heelGaugeMarker.style.left = `${l}%`),
+      this._heelGaugeDangerFill &&
+        (this._heelGaugeDangerFill.style.width = `${Math.round(g * 100)}%`));
+  }
+  _resolveSignedHeelDegrees(e = this._missionProgress) {
+    let t = Number(e?.heelSignedDegrees);
+    if (Number.isFinite(t)) return t;
+    let n = Number(this.app?.boat?.getHeelAngle?.());
+    if (Number.isFinite(n)) return n * p;
+    let r = Number(e?.heelDegrees);
+    return Number.isFinite(r) ? r : 0;
+  }
+  _hideHeelGauge() {
+    let e =
+        this.overlaySystem?.documentRef ||
+        (typeof document < `u` ? document : null),
+      t = this._heelGauge || e?.getElementById?.(l);
+    (t && t.remove(),
+      (this._heelGauge = null),
+      (this._heelGaugeFill = null),
+      (this._heelGaugeMarker = null),
+      (this._heelGaugeValue = null),
+      (this._heelGaugeLimit = null),
+      (this._heelGaugeDangerFill = null));
+  }
+  showMissionModal(e = null) {
+    if (this._completionModalOpen) {
+      this._pendingMissionModalMissions = e;
+      return;
+    }
+    this._showMissionModalNow(e);
+  }
+  _showMissionModalNow(e = null) {
+    let t =
+      this.overlaySystem?.documentRef ||
+      (typeof document < `u` ? document : null);
+    if (!t?.body) return;
+    let n = e || [
+      {
+        id: `m1`,
+        name: `Deliver Tools`,
+        destination: `East Outpost`,
+        distance: `1.2 km`,
+        reward: `120`,
+      },
+      {
+        id: `m2`,
+        name: `Food Supplies`,
+        destination: `Harbor North`,
+        distance: `2.8 km`,
+        reward: `180`,
+      },
+      {
+        id: `m3`,
+        name: `Spare Sails`,
+        destination: `Southern Dock`,
+        distance: `3.5 km`,
+        reward: `230`,
+      },
+    ];
+    this._currentMissionModalMissions = n;
+    let i = t.createElement(`div`);
+    ((i.className = `logistics-mission-list`),
+      n.forEach((e, n) => {
+        let a = _(e),
+          o = t.createElement(`div`);
+        ((o.className = `logistics-mission-item logistics-mission-item-${a.id}`),
+          (o.dataset.contractType = a.id));
+        let s = t.createElement(`div`);
+        ((s.className = `logistics-mission-type logistics-mission-type-${a.id}`),
+          s.setAttribute(`aria-label`, a.label));
+        let c = t.createElement(`span`);
+        ((c.className = `logistics-contract-logo logistics-contract-logo-${a.id}`),
+          c.setAttribute(`aria-hidden`, `true`),
+          a.id === `fragile`
+            ? (c.appendChild(
+                h(
+                  t,
+                  `span`,
+                  `logistics-contract-crack logistics-contract-crack-top`,
+                ),
+              ),
+              c.appendChild(
+                h(
+                  t,
+                  `span`,
+                  `logistics-contract-crack logistics-contract-crack-bottom`,
+                ),
+              ))
+            : (c.appendChild(
+                h(
+                  t,
+                  `span`,
+                  `logistics-contract-crate-line logistics-contract-crate-line-horizontal`,
+                ),
+              ),
+              c.appendChild(
+                h(
+                  t,
+                  `span`,
+                  `logistics-contract-crate-line logistics-contract-crate-line-vertical`,
+                ),
+              )));
+        let l = t.createElement(`span`);
+        ((l.className = `logistics-mission-type-label`),
+          (l.textContent = a.label),
+          s.appendChild(c),
+          s.appendChild(l));
+        let u = t.createElement(`div`);
+        u.className = `logistics-mission-info`;
+        let d = t.createElement(`div`);
+        ((d.className = `logistics-mission-name`),
+          (d.textContent = e.name || `Mission ${n + 1}`));
+        let f = t.createElement(`div`);
+        ((f.className = `logistics-mission-meta`),
+          [
+            `${r.t(`logistics.destination`) || `Destination`}: ${e.destination || r.t(`logistics.unknown`) || `Unknown`}`,
+            `${r.t(`logistics.distance`) || `Distance`}: ${e.distance || `—`}`,
+            `${r.t(`logistics.reward`) || `Reward`}: ${e.reward || `—`}`,
+          ].forEach((e) => {
+            f.appendChild(h(t, `span`, `logistics-mission-meta-item`, e));
+          }));
+        let p = t.createElement(`div`);
+        ((p.className = `logistics-mission-contract-line`),
+          p.appendChild(
+            h(t, `span`, `logistics-mission-contract-summary`, a.summary),
+          ),
+          p.appendChild(
+            h(t, `span`, `logistics-mission-contract-detail`, a.detail),
+          ),
+          u.appendChild(d),
+          u.appendChild(f),
+          u.appendChild(p));
+        let m = t.createElement(`button`);
+        ((m.type = `button`),
+          (m.className = `logistics-btn logistics-btn-accept`),
+          (m.textContent = r.t(`logistics.accept`) || `Accept`),
+          m.addEventListener(`click`, () => this._onMissionAccept(e)),
+          o.appendChild(s),
+          o.appendChild(u),
+          o.appendChild(m),
+          i.appendChild(o));
+      }),
+      this.overlaySystem.showModal({
+        id: o,
+        title: r.t(`logistics.available_missions`) || `Available Missions`,
+        description:
+          r.t(`logistics.pick_one`) ||
+          `Pick one cargo run or close this window to stay docked.`,
+        content: i,
+        showCloseButton: !1,
+        dismissOnBackdrop: !1,
+        panelClassName: `logistics-mission-modal-panel`,
+        actions: [
+          {
+            label: r.t(`logistics.close`) || `Close`,
+            tone: `info`,
+            closeOnClick: !1,
+            onClick: () => this._onMissionModalClose(),
+          },
+        ],
+      }),
+      (this.isModalOpen = !0));
+  }
+  hideMissionModal() {
+    (this.overlaySystem.closeModal(o),
+      (this.isModalOpen = !1),
+      (this._currentMissionModalMissions = null));
+  }
+  showCompletionModal({ mission: e, reward: n } = {}) {
+    let i =
+      this.overlaySystem?.documentRef ||
+      (typeof document < `u` ? document : null);
+    if (!i?.body) return;
+    (this._pendingMissionModalMissions === null &&
+      this._currentMissionModalMissions &&
+      (this._pendingMissionModalMissions = this._currentMissionModalMissions),
+      this.hideMissionModal(),
+      (this._completionModalOpen = !0));
+    let a = e?.name || r.t(`logistics.mission`) || `Mission`,
+      o = g(n),
+      c = e?.contractLabel || e?.contractType || `Cargo`,
+      l = e?.destination || r.t(`logistics.unknown`) || `Unknown`,
+      u = e?.distance || `—`,
+      d = h(i, `div`, `logistics-completion-recap`),
+      f = h(i, `div`, `logistics-completion-reward`);
+    (f.appendChild(
+      h(i, `div`, `logistics-completion-reward-label`, `Received reward`),
+    ),
+      f.appendChild(h(i, `div`, `logistics-completion-reward-value`, `+$${o}`)),
+      d.appendChild(f));
+    let p = h(i, `div`, `logistics-completion-rows`);
+    ([
+      [`Mission`, a],
+      [`Cargo`, c],
+      [`Destination`, l],
+      [`Distance`, u],
+    ].forEach(([e, t]) => {
+      let n = h(i, `div`, `logistics-completion-row`);
+      (n.appendChild(h(i, `span`, `logistics-completion-row-label`, e)),
+        n.appendChild(h(i, `span`, `logistics-completion-row-value`, t)),
+        p.appendChild(n));
+    }),
+      d.appendChild(p),
+      this.overlaySystem.showModal({
+        id: s,
+        title: `Mission Complete`,
+        description: `Cargo delivered successfully.`,
+        content: d,
+        showCloseButton: !1,
+        dismissOnBackdrop: !1,
+        panelClassName: `logistics-completion-modal-panel`,
+        actions: [
+          {
+            label: `Confirm`,
+            tone: `success`,
+            closeOnClick: !1,
+            onClick: () => this._onCompletionConfirm(),
+          },
+        ],
+      }));
+    let m = Number(n) || 0,
+      _ = !1;
+    t({
+      rewardAmount: m,
+      placement: `double-mission-coins`,
+      wrapId: `double-mission-reward-wrap`,
+      rewardSelector: `.logistics-completion-reward`,
+      completionKey: `mission:${new Date().toISOString().slice(0, 10)}:${e?.id || e?.name || `mission`}:double-coins`,
+      onDoubleReward: () => {
+        if (_) return 0;
+        let e = Number(this.logisticsManager?.addReward?.(m)) || 0;
+        return (e > 0 && (_ = !0), e);
+      },
+    });
+  }
+  showSuccessNotification(e) {
+    this.showCompletionModal(e);
+  }
+  showPayloadDroppedNotification() {
+    (this._hideHeelGauge(),
+      this.overlaySystem.showToast({
+        id: c,
+        message: `Payload dropped. Mission aborted.`,
+        tone: `warning`,
+        durationMs: 4200,
+      }));
+  }
+  _handleDockKeyPress() {
+    this.logisticsManager.getDockingStatus().canDock &&
+      this.callbacks.onDockRequested &&
+      this.callbacks.onDockRequested();
+  }
+  _handleUndockKeyPress() {
+    this.callbacks.onUndockRequested && this.callbacks.onUndockRequested();
+  }
+  _onMissionAccept(e) {
+    if (
+      (this.hideMissionModal(),
+      this.logisticsManager.setActiveMission(e),
+      e && e.targetPosition)
+    )
+      this.logisticsManager.setTargetPosition(e.targetPosition);
+    else {
+      let e = this.app?.boat?.getPosition?.();
+      if (e) {
+        let t = this.logisticsManager.chooseDeterministicDestination(e);
+        t && this.logisticsManager.setTargetPosition(t);
+      }
+    }
+    this.callbacks.onUndockRequested && this.callbacks.onUndockRequested();
+  }
+  _onMissionModalClose() {
+    (this.hideMissionModal(),
+      this.callbacks.onUndockRequested && this.callbacks.onUndockRequested());
+  }
+  _onMissionAbort() {
+    this.logisticsManager.clearMission();
+  }
+  _onCompletionConfirm() {
+    (this.overlaySystem.closeModal(s), (this._completionModalOpen = !1));
+    let e = this._consumePendingDockMissions();
+    e.length > 0 && this._showMissionModalNow(e);
+  }
+  _consumePendingDockMissions() {
+    if (this._pendingMissionModalMissions !== null) {
+      let e = this._pendingMissionModalMissions;
+      return (
+        (this._pendingMissionModalMissions = null),
+        Array.isArray(e) ? e : []
+      );
+    }
+    try {
+      let e = this.app?.boat?.getPosition?.(),
+        t = e ? this.logisticsManager?.getMissionsForDockNear?.(e) : [];
+      return Array.isArray(t) ? t : [];
+    } catch {
+      return [];
+    }
+  }
+  onDockRequested(e) {
+    this.callbacks.onDockRequested = e;
+  }
+  onUndockRequested(e) {
+    this.callbacks.onUndockRequested = e;
+  }
+  dispose() {
+    (this._managerListeners &&
+      typeof this.logisticsManager?.off == `function` &&
+      (this.logisticsManager.off(
+        `docking:changed`,
+        this._managerListeners.onDockingChanged,
+      ),
+      this.logisticsManager.off(
+        `mission:changed`,
+        this._managerListeners.onMissionChanged,
+      ),
+      this.logisticsManager.off(
+        `mission:progress`,
+        this._managerListeners.onMissionProgress,
+      ),
+      this.logisticsManager.off(
+        `mission:completed`,
+        this._managerListeners.onMissionCompleted,
+      ),
+      this.logisticsManager.off(
+        `mission:payload_dropped`,
+        this._managerListeners.onPayloadDropped,
+      )),
+      (this._managerListeners = null),
+      this._keyboardListener &&
+        (n.removeActionListener(this._keyboardListener),
+        (this._keyboardListener = null)),
+      this.hideMissionModal(),
+      this.overlaySystem.closeModal(s),
+      (this._completionModalOpen = !1),
+      (this._pendingMissionModalMissions = null),
+      this._hideHeelGauge(),
+      this.overlaySystem.hideBanner(i),
+      this.overlaySystem.hideBanner(a),
+      this.overlaySystem.dismissToast(c),
+      (this.callbacks = {}));
+  }
+};
+export { v as default };

@@ -1,0 +1,1 @@
+window.VibeSailHeader.render("leaderboard");
