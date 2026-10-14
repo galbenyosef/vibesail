@@ -1,0 +1,431 @@
+const __vite__mapDeps = (
+  i,
+  m = __vite__mapDeps,
+  d = m.f ||
+    (m.f = [
+      "assets/Game-CrsSKcAK.js",
+      "assets/defineProperty-BbfpZ9Tg.js",
+      "assets/chunk-QTnfLwEv.js",
+      "assets/preload-helper-CYTkKql0.js",
+      "assets/GhostReplayModel-B8EqTWpz.js",
+      "assets/KeyboardManager-DVLZ3teY.js",
+      "assets/DataModels-DjmBwyzI.js",
+      "assets/BoatModel-Cf2RVdWT.js",
+      "assets/routeContext-D1HYUwP9.js",
+      "assets/RenderOrder-CTE7PEm0.js",
+      "assets/GeometryGuards-BGRyriw5.js",
+      "assets/three.module-BgyKfsEV.js",
+      "assets/SharedTextureLoader-BkelxMVX.js",
+      "assets/DRACOLoader-XlKGmd74.js",
+      "assets/GLTFLoader-C2oC7w8g.js",
+      "assets/MTLLoader-Dw3w9IRM.js",
+      "assets/PlayerNameStorage-Q3p2umqg.js",
+      "assets/VectorUtils-ZPUW1jx-.js",
+      "assets/RaceConfig-BiFwKzq8.js",
+      "assets/RuntimeEnvironment-BAaLbeCv.js",
+      "assets/TrackGenerator-CFnrWNiH.js",
+      "assets/countries-DfpOqyPC.js",
+      "assets/WorldDefinitionBuilder-CjRtTnhK.js",
+      "assets/Bearing-Bz8gc2k9.js",
+      "assets/cargoShipDefinitions-DOR3sdqr.js",
+      "assets/signConfigs-BxvGsz9k.js",
+      "assets/GeoMath-B_Iby49-.js",
+      "assets/H5GamesAds-cgmFpTvU.js",
+      "assets/OneSignalPushNotifications-C5QrvXEE.js",
+      "assets/PostHogCapture-DUxqoMcu.js",
+      "assets/LocalCache-DHomYmcY.js",
+      "assets/SailorProfileLinks-CkEgGITb.js",
+    ]),
+) => i.map((i) => d[i]);
+import "./modulepreload-polyfill-Dezn_h7o.js";
+/* empty css               */ import { t as e } from "./preload-helper-CYTkKql0.js";
+import "./init-CC0aACO2.js";
+/* empty css             */ import "./console-setup-BNMG1_tD.js";
+import {
+  c as t,
+  m as n,
+  o as r,
+  r as i,
+  u as a,
+} from "./routeContext-D1HYUwP9.js";
+import { n as o, r as s } from "./PostHogCapture-DUxqoMcu.js";
+import {
+  a as c,
+  c as l,
+  d as u,
+  i as d,
+  o as f,
+  s as p,
+  u as m,
+} from "./blogPosts-BqnGg-S6.js";
+import { t as h } from "./installability-D42GZDjn.js";
+import { n as g, r as _, t as v } from "./authClient-roTt0Fs9.js";
+import {
+  a as y,
+  i as b,
+  n as x,
+  r as S,
+  t as C,
+} from "./emailSoftAsk-CIzvlYXI.js";
+import { i as w, u as T } from "./profileClient-Ce6d7RD4.js";
+var E = 450;
+function D(e) {
+  return Object.fromEntries(
+    Object.entries(e).filter(([, e]) => e != null && e !== ``),
+  );
+}
+function O(e) {
+  try {
+    return e.referrer ? new URL(e.referrer).hostname : void 0;
+  } catch {
+    return;
+  }
+}
+function k(e) {
+  let t = e.documentElement?.lang;
+  return typeof t == `string` && t.trim() ? t.trim().toLowerCase() : `en`;
+}
+function A(e) {
+  return (
+    (e.location?.pathname || ``).match(/\/world\/([^/]+)\/?/i)?.[1] || void 0
+  );
+}
+function j(e, t) {
+  let n = e.getAttribute(`href`) || `/game`;
+  try {
+    let e = new URL(n, t.location.href);
+    return `${e.pathname}${e.search}${e.hash}`;
+  } catch {
+    return n;
+  }
+}
+function M(e, t) {
+  if (
+    !e ||
+    e.defaultPrevented ||
+    (e.button && e.button !== 0) ||
+    e.metaKey ||
+    e.ctrlKey ||
+    e.shiftKey ||
+    e.altKey
+  )
+    return !1;
+  let n = String(t.getAttribute(`target`) || ``)
+    .trim()
+    .toLowerCase();
+  return !n || n === `_self`;
+}
+function N({
+  documentRef: e = document,
+  windowRef: t = window,
+  capture: n = o,
+  captureAndFlush: r = s,
+} = {}) {
+  let i = A(t),
+    a = D({
+      locale: k(e),
+      path: t.location?.pathname || `/`,
+      place: i,
+      is_city_page: !!i,
+      referrer_host: O(e),
+    });
+  n(`homepage_viewed`, a);
+  let c = e.getElementById(`landing-play-button`);
+  if (!c) return () => {};
+  let l = (e) => {
+    let i = j(c, t),
+      o = D({
+        ...a,
+        href: i,
+        cta_label: String(c.textContent || ``)
+          .trim()
+          .slice(0, 80),
+      });
+    if (!M(e, c)) {
+      n(`homepage_play_clicked`, o);
+      return;
+    }
+    (e.preventDefault(),
+      r(`homepage_play_clicked`, o, { windowRef: t, timeoutMs: E }).finally(
+        () => {
+          t?.location && (t.location.href = i);
+        },
+      ));
+  };
+  return (
+    c.addEventListener(`click`, l),
+    () => c.removeEventListener(`click`, l)
+  );
+}
+function P(e) {
+  let t = new Date(`${e}T00:00:00Z`);
+  return new Intl.DateTimeFormat(`en-US`, {
+    year: `numeric`,
+    month: `short`,
+    day: `numeric`,
+    timeZone: `UTC`,
+  }).format(t);
+}
+async function F() {
+  let e = document.getElementById(`landing-page`);
+  if (e)
+    try {
+      let t = await p(),
+        n = f(t);
+      if (!n) return;
+      let r = l();
+      if (!r) {
+        u(n);
+        return;
+      }
+      let i = c(t, r).slice(0, 3);
+      if (!i.length) return;
+      let a = document.createElement(`aside`);
+      ((a.className = `site-whats-new`), a.setAttribute(`aria-live`, `polite`));
+      let o = document.createElement(`button`);
+      ((o.type = `button`),
+        (o.className = `site-whats-new-dismiss`),
+        (o.textContent = `Dismiss`),
+        o.setAttribute(`aria-label`, `Dismiss changelog updates`),
+        o.addEventListener(`click`, () => {
+          (u(n), a.remove());
+        }));
+      let s = document.createElement(`div`);
+      s.className = `site-whats-new-header`;
+      let h = document.createElement(`h2`);
+      ((h.textContent = `New since your last visit`),
+        s.appendChild(h),
+        s.appendChild(o),
+        a.appendChild(s));
+      let g = document.createElement(`ul`);
+      (i.forEach((e) => {
+        let t = document.createElement(`li`),
+          n = document.createElement(`a`);
+        ((n.href = `/blog/${encodeURIComponent(e.slug)}/`),
+          (n.textContent = d(e)),
+          n.addEventListener(`click`, () => {
+            let t = m(e);
+            t && u(t);
+          }));
+        let r = document.createElement(`span`);
+        ((r.textContent = P(e.publishedAt)),
+          t.appendChild(n),
+          t.appendChild(r),
+          g.appendChild(t));
+      }),
+        a.appendChild(g));
+      let _ = document.createElement(`div`);
+      _.className = `site-whats-new-actions`;
+      let v = document.createElement(`a`);
+      ((v.href = `/changelog`),
+        (v.textContent = `Open changelog`),
+        (v.className = `site-whats-new-link`),
+        v.addEventListener(`click`, () => {
+          u(n);
+        }),
+        _.appendChild(v),
+        a.appendChild(_),
+        e.appendChild(a));
+    } catch {}
+}
+var I = 1200,
+  L = 680,
+  R = { x: -470, z: -235 },
+  z = 0.2;
+function B(e) {
+  let r = t(e);
+  return r.scene !== i.GEO || !r.place
+    ? null
+    : n[r.place]?.backgroundCamera || null;
+}
+function V() {
+  let e = Math.atan2(R.z, R.x) + z;
+  return { startX: Math.cos(e) * L, startZ: Math.sin(e) * L };
+}
+function H({ container: e, location: t }) {
+  let n = B(t) || V();
+  return {
+    mode: `background`,
+    enableUI: !1,
+    enableControls: !1,
+    enableMultiplayer: !0,
+    enableLocalBoat: !1,
+    enableLandingOverlay: !1,
+    container: e,
+    backgroundCameraRadius: n.radius,
+    backgroundCameraHeight: n.height,
+    backgroundCameraSpeed: n.speed,
+    backgroundCameraMode: n.mode,
+    backgroundCameraStartX: n.startX,
+    backgroundCameraStartZ: n.startZ,
+    backgroundCameraDirection: n.direction,
+    backgroundCameraTarget: n.target,
+  };
+}
+function U(e, t) {
+  if (typeof t.requestIdleCallback == `function`) {
+    t.requestIdleCallback(
+      () => {
+        e();
+      },
+      { timeout: I },
+    );
+    return;
+  }
+  t.setTimeout(() => {
+    e();
+  }, 0);
+}
+function W({ windowRef: t = window, documentRef: n = document } = {}) {
+  let r = n.getElementById(`game-root`) || n.body;
+  (t.addEventListener(
+    `worldFullyLoaded`,
+    () => {
+      r.classList.add(`world-loaded`);
+    },
+    { once: !0 },
+  ),
+    U(async () => {
+      let { default: n } = await e(
+        async () => {
+          let { default: e } = await import(`./Game-CrsSKcAK.js`).then(
+            (e) => e.n,
+          );
+          return { default: e };
+        },
+        __vite__mapDeps([
+          0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+          20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+        ]),
+      );
+      t.sail = new n(H({ container: r, location: t.location }));
+    }, t));
+}
+function G(e = {}) {
+  let t = e.documentRef || document,
+    n = t.getElementById(`email-updates-soft-ask`);
+  if (!n || !t.getElementById(`landing-page`)) return () => {};
+  let r = t.getElementById(`email-updates-soft-ask-yes`),
+    i = t.getElementById(`email-updates-soft-ask-no`),
+    a = t.getElementById(`email-updates-soft-ask-later`),
+    o = t.getElementById(`email-updates-soft-ask-status`),
+    s = t.getElementById(`email-updates-soft-ask-copy`),
+    c = n.querySelector(`.email-updates-soft-ask-dialog`),
+    l = e.getAuthSession || g,
+    u = e.fetchEmailUpdates || w,
+    d = e.setEmailUpdatesEnabled || T,
+    f = e.onAuthStateChange || _,
+    p = e.storage || window.localStorage,
+    m = e.now || (() => Date.now()),
+    h = 0,
+    E = !1,
+    D = !1;
+  function O(e, t = ``) {
+    o &&
+      ((o.textContent = e || ``),
+      t ? (o.dataset.tone = t) : delete o.dataset.tone);
+  }
+  function k(e) {
+    (r && (r.disabled = e), i && (i.disabled = e), a && (a.disabled = e));
+  }
+  function A() {
+    ((D = !1),
+      (n.hidden = !0),
+      O(``),
+      k(!1),
+      c && c.removeAttribute(`aria-busy`));
+  }
+  function j(e) {
+    ((D = !0), C(s, e, t), (n.hidden = !1), O(``), k(!1));
+    try {
+      r?.focus?.({ preventScroll: !0 });
+    } catch {
+      r?.focus?.();
+    }
+  }
+  async function M(e) {
+    let t = ++h,
+      n = String(e?.access_token || ``).trim();
+    if (!n) {
+      A();
+      return;
+    }
+    if (S({ nowMs: m(), storage: p })) {
+      A();
+      return;
+    }
+    try {
+      let e = await u(n);
+      if (t !== h) return;
+      b(e, { nowMs: m(), storage: p }) ? j(e?.status) : A();
+    } catch {
+      if (t !== h) return;
+      A();
+    }
+  }
+  async function N(e) {
+    if (E || !D) return;
+    if (e === `later`) {
+      (y({ nowMs: m(), storage: p }), A());
+      return;
+    }
+    let t = String((await l())?.access_token || ``).trim();
+    if (!t) {
+      A();
+      return;
+    }
+    let n = e === `yes`;
+    ((E = !0),
+      k(!0),
+      c && c.setAttribute(`aria-busy`, `true`),
+      O(n ? `Enabling...` : `Saving...`));
+    try {
+      (await d(n, t), x(p), A());
+    } catch (e) {
+      (O(v(e, `Could not save email preference.`), `error`),
+        k(!1),
+        c && c.removeAttribute(`aria-busy`));
+    } finally {
+      E = !1;
+    }
+  }
+  function P(e) {
+    !D || e.key !== `Escape` || (e.preventDefault(), N(`later`));
+  }
+  (r?.addEventListener(`click`, () => {
+    N(`yes`);
+  }),
+    i?.addEventListener(`click`, () => {
+      N(`no`);
+    }),
+    a?.addEventListener(`click`, () => {
+      N(`later`);
+    }),
+    t.addEventListener(`keydown`, P));
+  let F = f((e, t) => {
+    M(t);
+  });
+  return (
+    l().then((e) => M(e)),
+    () => {
+      ((h += 1), F?.(), t.removeEventListener(`keydown`, P), A());
+    }
+  );
+}
+var K = () => {
+    let e = t(window.location);
+    return e.scene === i.GEO && e.place ? r(e.place) : a.GAME;
+  },
+  q = () => {
+    let e = document.getElementById(`landing-play-button`);
+    e && e.setAttribute(`href`, K());
+  };
+document.addEventListener(`DOMContentLoaded`, async () => {
+  (q(), N(), F(), h(), G());
+  try {
+    window.i18nReady &&
+      typeof window.i18nReady.then == `function` &&
+      (await window.i18nReady);
+  } catch {}
+  W();
+});
