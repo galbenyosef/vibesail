@@ -25,7 +25,7 @@ var l = e({
     syncAuthenticatedProfilePreferences: () => j,
     writeLocalProfile: () => h,
   }),
-  u = Object.freeze({
+  PROFILE_FIELD_KEYS = Object.freeze({
     displayName: `playerName`,
     countryCode: `playerCountry`,
     preferredLanguage: `vibesail.language`,
@@ -41,7 +41,7 @@ function d(e) {
   }
 }
 function f() {
-  d(u.displayName);
+  d(PROFILE_FIELD_KEYS.displayName);
 }
 function p(e) {
   let t = String(e || ``)
@@ -54,20 +54,20 @@ function m() {
     f(),
     {
       displayName: null,
-      countryCode: p(c(u.countryCode)),
+      countryCode: p(c(PROFILE_FIELD_KEYS.countryCode)),
       preferredLanguage:
-        (c(u.preferredLanguage) || ``).trim().toLowerCase() || null,
+        (c(PROFILE_FIELD_KEYS.preferredLanguage) || ``).trim().toLowerCase() || null,
     }
   );
 }
 function h(e = {}) {
   if (Object.prototype.hasOwnProperty.call(e, `countryCode`)) {
     let t = p(e.countryCode);
-    t ? s(u.countryCode, t) : d(u.countryCode);
+    t ? s(PROFILE_FIELD_KEYS.countryCode, t) : d(PROFILE_FIELD_KEYS.countryCode);
   }
   if (Object.prototype.hasOwnProperty.call(e, `preferredLanguage`)) {
     let t = (e.preferredLanguage || ``).trim().toLowerCase() || null;
-    t ? s(u.preferredLanguage, t) : d(u.preferredLanguage);
+    t ? s(PROFILE_FIELD_KEYS.preferredLanguage, t) : d(PROFILE_FIELD_KEYS.preferredLanguage);
   }
   return m();
 }

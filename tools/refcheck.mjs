@@ -66,18 +66,24 @@ const isPrototypeName = (node, parent) => {
     parent.label === node
   )
     return true;
-  if (
-    parent.type === "ImportSpecifier" ||
-    parent.type === "ImportDefaultSpecifier" ||
-    parent.type === "ImportNamespaceSpecifier"
-  )
-    return true;
-  if (parent.type === "ExportSpecifier") return true;
+  if (parent.type === "ExportSpecifier") {
+    // `export { local as Public }`: the LOCAL is a reference to our binding and
+    // must keep resolving (renaming it orphans the module's public API — the
+    // table itself is pristine readable text); the alias is the public name.
+    if (parent.exported === node) return;
+  }
+  if (parent.type === "ImportSpecifier" || parent.type === "ImportDefaultSpecifier" || parent.type === "ImportNamespaceSpecifier")
+    return;
   return false;
 };
 
+// Populated by the most recent unboundNames() call: character offsets of each
+// unbound occurrence (diagnostics for verify-rename).
+export let unboundPositions = new Map();
+
 /** Names referenced but bound nowhere in `code`, and a binding trace. */
 export async function unboundNames(code) {
+  unboundPositions = new Map();
   const ast = await parseProgram(code);
 
   const out = new Map(); // name -> count
@@ -203,11 +209,13 @@ export async function unboundNames(code) {
         return;
       }
       case "ClassMethod":
-      case "ClassPrivateMethod": {
-        // Babel keeps the class body's methods as ClassMethod nodes; their own
-        // parameters/locals form a function scope and an outer binding used in
-        // the body must be seen here (skipping the body is how a rename that
-        // renamed a declaration but left a method's use behind passes a gate).
+      case "ClassPrivateMethod":
+      case "ObjectMethod": {
+        // Babel spells methods as ClassMethod (class bodies) and ObjectMethod
+        // (object literals). Both own a function scope: a parameter named like
+        // a module-level binding SHADOWS it, so leaving ObjectMethod unhandled
+        // made `{ async init(e) { … e … } }` read as a reference to the module
+        // `e` — phantom drift appears after any rename of that module binding.
         const s = push(true);
         if (node.computed) walk(node.key, node);
         for (const p of node.params) pat(p);
@@ -230,6 +238,9 @@ export async function unboundNames(code) {
         trace.push(scope ? scope.id : 0);
         if (scope || GLOBALS.has(node.name)) return;
         out.set(node.name, (out.get(node.name) || 0) + 1);
+        // diagnostic: where the unbound occurrence sits (character offset)
+        if (!unboundPositions.has(node.name)) unboundPositions.set(node.name, []);
+        unboundPositions.get(node.name).push(node.start);
         return;
       }
       case "ImportDeclaration":

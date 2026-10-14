@@ -1,6 +1,6 @@
 // Game 47 — track
 // Lines 22676-23505 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var yd = class {
+var AnalyticsClient = class {
     constructor(e = {}) {
       ((this.capture = typeof e.capture == `function` ? e.capture : vd),
         (this.logger = e.logger || console),
@@ -827,6 +827,6 @@ var yd = class {
       this.endSession({ reason: `dispose` });
     }
   },
-  bd = `sail_client_playtime_v1`,
-  xd = 10 * 365 * 24 * 60 * 60 * 1e3,
+  PLAYTIME_STORAGE_KEY = `sail_client_playtime_v1`,
+  PLAYTIME_TTL_MS = 10 * 365 * 24 * 60 * 60 * 1e3,
   Sd = 30;

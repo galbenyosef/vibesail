@@ -61,10 +61,33 @@ for (const file of files) {
 
   const same = out === body && aligned;
   // A slice cut from the middle of a chunk does not parse on its own, but the
-  // whole reconstructed program does: substitute this slice's committed body
-  // into its range and compare unbound names / binding resolution against the
+  // whole reconstructed program does: substitute EVERY committed slice body of
+  // this chunk into its range (a chunk-wide rename pass touches several slices,
+  // and substituting only this one would report the others' renamed references
+  // as unbound) and compare unbound names / binding resolution against the
   // untouched chunk. Any rename that orphaned a sibling call shows up here.
-  const reconstructed = fullText.slice(0, sliceStart) + body + (body.endsWith("\n") ? "" : "\n") + fullText.slice(rangeEnd);
+  const chunkSecs = spec.sections
+    .filter((x) => !x.wholeFile && !x.skipped && x.sourceFile === sec.sourceFile)
+    .sort((a, b) => a.startLine - b.startLine);
+  const prefix = new Array(lines.length + 1).fill(0);
+  for (let i = 0; i < lines.length; i++) prefix[i + 1] = prefix[i] + lines[i].length + 1;
+  let cursor = 0;
+  let reconstructed = "";
+  for (const x of chunkSecs) {
+    const start = prefix[x.startLine - 1];
+    const end = start + rangeText(prettyFor, x).length;
+    let piece = fullText.slice(start, end);
+    const px = path.join(proj, "src", x.file);
+    if (fs.existsSync(px)) {
+      const xb = stripCommentLines(stripHeader(fs.readFileSync(px, "utf8").replace(/\r\n/g, "\n")).split("\n"))
+        .join("\n")
+        .replace(/[\n\s]+$/, "");
+      piece = xb + "\n";
+    }
+    reconstructed += fullText.slice(cursor, start) + piece;
+    cursor = end;
+  }
+  reconstructed += fullText.slice(cursor);
   const drift = await refDrift(reconstructed, fullText);
   const refsOk = !drift;
   const rebound = await bindingDrift(reconstructed, fullText);

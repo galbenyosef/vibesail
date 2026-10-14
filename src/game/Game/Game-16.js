@@ -8,7 +8,7 @@ function Zr(e, t, n, r = globalThis.localStorage) {
   let o = Jr(a, n),
     s = { trials: {} };
   try {
-    let e = r.getItem(Yr);
+    let e = r.getItem(TRIAL_PROGRESS_STORAGE_KEY);
     if (e) {
       let t = JSON.parse(e);
       t?.trials &&
@@ -19,11 +19,11 @@ function Zr(e, t, n, r = globalThis.localStorage) {
   let c = s.trials[i] || {},
     l = Number.isFinite(Number(c.bestMs)) ? Number(c.bestMs) : null,
     u = l == null ? a : Math.min(l, a),
-    d = Xr[c.medal] ?? -1,
-    f = (Xr[o] ?? -1) >= d ? o || c.medal || null : c.medal;
+    d = TRIAL_MEDALS[c.medal] ?? -1,
+    f = (TRIAL_MEDALS[o] ?? -1) >= d ? o || c.medal || null : c.medal;
   s.trials[i] = { bestMs: u, medal: f || null };
   try {
-    r.setItem(Yr, JSON.stringify(s));
+    r.setItem(TRIAL_PROGRESS_STORAGE_KEY, JSON.stringify(s));
   } catch {}
   return s.trials[i];
 }

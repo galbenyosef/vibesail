@@ -1,11 +1,11 @@
 // Game 31 — createelement
 // Lines 16667-17014 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var Bo = class {
+var LookdevPanel = class {
   constructor(e = {}) {
-    (Fo(),
+    (ensureLookdevPanelStyles(),
       (this.title = e.title || `Sea Lookdev`),
       (this.subtitle = e.subtitle || `collapsible folders · side panel`),
-      (this.storageKey = e.storageKey || Mo),
+      (this.storageKey = e.storageKey || LOOKDEV_OPEN_FOLDERS_KEY),
       (this.onClose = e.onClose || null),
       (this.sections = []),
       (this._openMap = {}),
@@ -22,7 +22,7 @@ var Bo = class {
       (this._openMap[e.id] === void 0 &&
         (this._openMap[e.id] =
           e.open === !0 || e.id === `look` || e.id === `waves`),
-        !e.title && Po[e.id] && (e.title = Po[e.id]));
+        !e.title && LOOKDEV_FOLDER_LABELS[e.id] && (e.title = LOOKDEV_FOLDER_LABELS[e.id]));
     ((this.sections = t), this._built && this._render());
   }
   show() {
@@ -122,7 +122,7 @@ var Bo = class {
               <span class="sea-lookdev__folder-badge"></span>
             `),
         (a.querySelector(`.sea-lookdev__folder-title`).textContent =
-          t.title || Po[t.id] || t.id));
+          t.title || LOOKDEV_FOLDER_LABELS[t.id] || t.id));
       let o = a.querySelector(`.sea-lookdev__folder-badge`);
       (t.enabled
         ? (o.textContent = i === !1 ? `off` : `on`)
@@ -318,7 +318,7 @@ function Uo(e, t) {
     (t.localGeo.positionY = n?.positionY ?? 0),
     Ho(e, t));
 }
-var Wo = Object.freeze({
+var REFRACTION_DEBUG_LEVELS = Object.freeze({
     Off: 0,
     Path: 1,
     Fresnel: 2,
@@ -327,7 +327,7 @@ var Wo = Object.freeze({
     ViewFade: 5,
     FloorBleed: 6,
   }),
-  Go = new Set([
+  COLOR_PARAM_KEYS = new Set([
     `sunColor`,
     `waterColor`,
     `shallowColor`,

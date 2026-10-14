@@ -58,11 +58,11 @@
 // app chunk's final `export {…}` table (the bindings live in the earlier slices).
 //
 // The identifier rename campaign (PLAN §5) is a SEPARATE deterministic step on
-// top of this pristine tree: tools/apply-all-names.mjs applies the reviewed
+// top of this pristine tree: tools/apply-names.mjs --all applies the reviewed
 // rules in tools/names.json (per-slice scope rules), tools/recover-scoped-map.mjs
 // records the achieved rename-map.json, and tools/verify-rename.mjs /
 // tools/check-chunk.mjs are the gates. A rebuild is
-//   node tools/derive.mjs && node tools/apply-all-names.mjs && node tools/audit.js
+//   node tools/derive.mjs && node tools/apply-names.mjs --all && node tools/audit.js
 // usage:   node tools/derive.mjs
 import fs from "node:fs";
 import path from "node:path";
@@ -916,7 +916,7 @@ async function main() {
       "whole) with an exact 2-line provenance header. Every slice parses standalone under " +
       "`node --input-type=module --check -` and round-trips byte-exact to its recorded readable line " +
       "range (through the rename map for renamed slices — see rename-map.json, applied by " +
-      "tools/apply-all-names.mjs). Non-standalone parts are skipped sections, indexed but never sliced: " +
+      "tools/apply-names.mjs --all). Non-standalone parts are skipped sections, indexed but never sliced: " +
       "every app chunk's final `export { local as Public }` table — a standalone table slice would be an " +
       "early-error export of undeclared names, and the table text must stay pristine, so its LOCAL names " +
       "are excluded from the rename campaign (a documented structural limit; internals and scoped names " +
@@ -938,7 +938,7 @@ async function main() {
       "prettified. Identifier names in src/ slices are the bundle's own minified names except where the " +
       "reviewed rename layer (tools/names.json → rename-map.json) has superseded them — semantic names on " +
       "app code only, never on vendor bytes. Capture bytes are untouched by everything above; re-cut with " +
-      "`node tools/derive.mjs && node tools/apply-all-names.mjs` after any capture refresh. " +
+      "`node tools/derive.mjs && node tools/apply-names.mjs --all` after any capture refresh. " +
       "`node tools/audit.js` is the gate.",
     renderOptions: {
       _default:
@@ -958,7 +958,7 @@ async function main() {
     },
     renameMap: {
       file: "rename-map.json",
-      appliedBy: "tools/apply-all-names.mjs",
+      appliedBy: "tools/apply-names.mjs --all",
       rules: "tools/names.json",
       gates: "tools/verify-rename.mjs, tools/check-chunk.mjs",
       note: "Per-slice semantic rename records (word-boundary `files` + token-index `scoped`). src/ slice bodies reproduce their readable range with the map applied; unchanged slices are byte-exact.",

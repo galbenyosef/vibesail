@@ -1,7 +1,7 @@
 // Game 32 — isfinite
 // Lines 17015-17074 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
 function Ko(e, t) {
-  return typeof t == `number` && Go.has(e) && Number.isFinite(t)
+  return typeof t == `number` && COLOR_PARAM_KEYS.has(e) && Number.isFinite(t)
     ? `#${(t >>> 0).toString(16).padStart(6, `0`)}`
     : typeof t == `number` && Number.isFinite(t)
       ? Math.round(t * 1e6) / 1e6

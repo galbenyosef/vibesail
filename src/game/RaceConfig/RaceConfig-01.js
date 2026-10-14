@@ -7,11 +7,11 @@ function t(e = new Date()) {
     ? ``
     : `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, `0`)}-${String(t.getDate()).padStart(2, `0`)}`;
 }
-var n = /^\d{4}-\d{2}-\d{2}$/;
+var DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 function r(e) {
   if (typeof e != `string`) return !1;
   let t = e.trim();
-  if (!n.test(t)) return !1;
+  if (!DATE_ONLY_PATTERN.test(t)) return !1;
   let [r, i, a] = t.split(`-`),
     o = Number.parseInt(r, 10),
     s = Number.parseInt(i, 10),

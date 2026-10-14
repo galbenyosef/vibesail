@@ -164,7 +164,7 @@ var ue = (function () {
   })(),
   de = 3,
   fe = 0.35,
-  pe = class {
+  SailMesh = class {
     constructor(e = {}) {
       ((this.width = e.width),
         (this.height = e.height),

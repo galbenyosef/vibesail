@@ -1,6 +1,6 @@
 // Game 14 — documentref
 // Lines 5933-6296 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var Cr = class {
+var NotificationCenter = class {
     constructor(e = {}) {
       ((this.documentRef =
         e.documentRef ?? (typeof document < `u` ? document : null)),

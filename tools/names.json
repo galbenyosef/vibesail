@@ -1,0 +1,887 @@
+{
+  "chunks": {
+    "readable/assets/main-DT7pZ34g.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "B": "resolveBackgroundCamera",
+          "V": "defaultBackgroundCamera",
+          "H": "buildBackgroundGameOptions",
+          "U": "whenIdle",
+          "W": "mountBackgroundGame",
+          "E": "ANALYTICS_FLUSH_TIMEOUT_MS",
+          "D": "compactProperties",
+          "O": "referrerHostname",
+          "k": "documentLanguage",
+          "A": "worldCitySlug",
+          "j": "resolveHref",
+          "M": "isPlainLeftClick",
+          "N": "initHomepagePlayTracking",
+          "P": "formatShortDate",
+          "F": "renderWhatsNewAside",
+          "I": "IDLE_CALLBACK_TIMEOUT_MS",
+          "L": "BACKGROUND_CAMERA_RADIUS",
+          "R": "BACKGROUND_CAMERA_ANCHOR",
+          "z": "BACKGROUND_CAMERA_ANGLE"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "G": "initEmailSoftAskPrompt",
+          "K": "currentPlayHref",
+          "q": "syncPlayButtonHref"
+        }
+      }
+    ],
+    "readable/assets/contact-BXsOhA2a.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "e": "emailLinkEl",
+          "t": "copyButtonEl",
+          "n": "statusEl",
+          "r": "buildContactEmail",
+          "i": "copyToClipboard"
+        }
+      }
+    ],
+    "readable/assets/game-DaugXgrE.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "D": "DEFAULT_LANDING_SPAWN",
+          "O": "VISIT_WEBSITE_LABEL",
+          "k": "readVersionState",
+          "A": "writeVersionState",
+          "se": "fetchBuildVersion",
+          "ce": "toCommitSha",
+          "j": "RACE_SCENE_TYPES",
+          "P": "supportsVersionProbe"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "z": "EVENT_LOCATION_AD_LINK_CLICKED",
+          "B": "EVENT_GEO_ACCESS_GATE_ACTION",
+          "V": "EVENT_GEO_AUTH_GATE",
+          "K": "BUILD_INFO",
+          "q": "BUILD_VERSION_STORAGE_KEY",
+          "J": "VERSION_MANIFEST_URL",
+          "Me": "VERSION_POLL_INTERVAL_MS",
+          "Y": "UPDATE_NOTICE_STORAGE_KEY",
+          "X": "STALE_ASSET_RELOAD_STORAGE_KEY",
+          "Ne": "STALE_ASSET_RELOAD_MS",
+          "Pe": "UPDATE_NOTICE_TITLE",
+          "Fe": "RELOAD_REQUIRED_TITLE",
+          "qe": "H5ADS_PROVIDER_STORAGE_VALUE",
+          "Je": "H5ADS_PROVIDER_GOOGLE",
+          "Ye": "H5ADS_REWARD_MIN_MS",
+          "Xe": "H5ADS_REWARD_MAX_MS",
+          "Q": "H5ADS_PREVIEW_OVERLAY_ID",
+          "Ze": "H5ADS_PREVIEW_REWARD_WRAP_ID",
+          "Qe": "H5ADS_READY_EVENTS",
+          "$e": "H5ADS_PREVIEW_TRUTHY_VALUES"
+        }
+      }
+    ],
+    "readable/assets/Game-CrsSKcAK.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "Vt": "SKY_NOISE_GLSL",
+          "Ht": "SKY_ATMOSPHERE_GLSL",
+          "Ut": "SkyDome",
+          "Wt": "WindTrails",
+          "Zt": "CloudLayer",
+          "Qt": "CloudSystem"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "B": "SCENE_TYPES",
+          "en": "DEFAULT_WORLD_DEFINITION",
+          "V": "sceneLocationContext",
+          "nn": "hasPlaceHeight"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "sn": "activeWorldDefinition",
+          "cn": "isGeoScene",
+          "ln": "getSceneType",
+          "un": "getScenePlace",
+          "dn": "geoPlaceInfo",
+          "fn": "isGeoPlacePending",
+          "pn": "DEFAULT_WATER_PARAMS",
+          "mn": "WATER_LOOK_PRESETS",
+          "hn": "WATER_PARAMS_BY_SCENE",
+          "gn": "SUN_ANGLES_BY_SCENE",
+          "_n": "CAMERA_SETTINGS_BY_SCENE"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "yn": "SkyTextureLoader",
+          "xn": "EFFECT_SECTIONS",
+          "Sn": "EFFECT_TOGGLE_IDS",
+          "Cn": "DEFAULT_EFFECT_STATE"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Tn": "GRAPHICS_QUALITY_STORAGE_KEY",
+          "On": "currentQualityKey",
+          "kn": "QUALITY_PRESETS"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "zn": "SeabedRocks",
+          "Bn": "WaterSurface",
+          "Vn": "WaveModel",
+          "Hn": "TWO_PI",
+          "Wn": "FLOAT_EPSILON",
+          "Gn": "GerstnerWaves",
+          "Kn": "SKY_MODELS",
+          "qn": "SKY_MODEL_IDS",
+          "Jn": "SKY_PRESETS",
+          "Yn": "SKY_CONTROL_SECTIONS"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "sr": "GeoModelAsset",
+          "cr": "GEO_API_BASE",
+          "lr": "GEO_LOCATION_PRESETS"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "dr": "GeoModelRegistry",
+          "fr": "WorldBuilder"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "pr": "CountryService",
+          "hr": "RaceOverlayBase",
+          "gr": "RaceTimerOverlay",
+          "_r": "RaceCountdownOverlay"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Cr": "NotificationCenter"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Er": "RACE_LEADERBOARD_MODAL_ID",
+          "Dr": "ADVERTISE_ROUTE",
+          "Or": "RaceLeaderboardModal",
+          "kr": "MOBILE_USER_AGENT_PATTERN",
+          "Pr": "TRIAL_BOAT_IDS",
+          "Yr": "TRIAL_PROGRESS_STORAGE_KEY",
+          "Xr": "TRIAL_MEDALS"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "ei": "RACE_ROUTE",
+          "ti": "DAILY_RACE_ROUTE",
+          "ii": "RACE_COMPLETE_MODAL_ID",
+          "ai": "RACE_INCOMPLETE_MODAL_ID",
+          "ui": "RaceCompletionModal",
+          "di": "RACE_START_COUNTDOWN_ID",
+          "fi": "RaceStartCountdown",
+          "pi": "RaceHud",
+          "mi": "SUBMISSION_ERROR_KINDS"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "xi": "RaceHudFacade",
+          "Ti": "GHOST_COUNT_STORAGE_KEY"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Ni": "WGS84_SEMI_MAJOR_M",
+          "Pi": "WGS84_ECCENTRICITY_SQ",
+          "Bi": "GeoProjection",
+          "Hi": "GeoCourseBuilder"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Ji": "RaceCheckpointTracker"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Qi": "RaceFlowManager",
+          "$i": "FreeSailFlow",
+          "ea": "RegattaFlow",
+          "aa": "MapOverlay"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "sa": "HudButtonFactory",
+          "ca": "SVG_NAMESPACE",
+          "la": "SvgIcon",
+          "da": "MissionStatusText",
+          "fa": "PhysicsTuningPanel",
+          "pa": "TUNING_SCHEMA",
+          "ma": "BoatUpgradeStore"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "La": "RemoteBoatInspector",
+          "Ra": "GameUi",
+          "Ka": "TouchControls",
+          "qa": "GameAudio",
+          "eo": "TWO_PI_RAD"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Ao": "CameraController",
+          "jo": "SEA_LOOKDEV_STYLES_ID",
+          "Mo": "LOOKDEV_OPEN_FOLDERS_KEY",
+          "No": "LOOKDEV_FOLDER_IDS",
+          "Po": "LOOKDEV_FOLDER_LABELS"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Fo": "ensureLookdevPanelStyles"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Bo": "LookdevPanel"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Wo": "REFRACTION_DEBUG_LEVELS",
+          "Go": "COLOR_PARAM_KEYS",
+          "Zo": "LookdevController",
+          "$o": "AUDIO_PREFS_TTL_MS",
+          "es": "AUDIO_PREFS_STORAGE_KEY"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "ns": "saveAudioPreferences",
+          "rs": "gameRuntime"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Vc": "COLLISION_RESPONSE_CONFIG",
+          "Uc": "COLLISION_DEBUG_COLORS",
+          "Wc": "CollisionManager",
+          "Gc": "YEAR_MS",
+          "qc": "DEFAULT_BOAT_PRESET_ID",
+          "Jc": "BOAT_STORE_CATALOG",
+          "Yc": "BoatCatalogIndex"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Xc": "BoatCatalog"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "tl": "BoatInventory",
+          "nl": "GameplayLoadoutQueue",
+          "rl": "BoatShopController",
+          "il": "BoatShopPresenter",
+          "al": "MINIMAP_ZOOM_CONFIG",
+          "ol": "WorldMapController"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Eu": "ANALYTICS_HOST_ALLOWLIST"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "yd": "AnalyticsClient",
+          "bd": "PLAYTIME_STORAGE_KEY",
+          "xd": "PLAYTIME_TTL_MS"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "wd": "CoinBalance",
+          "Td": "BALANCE_STORAGE_KEY"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Yd": "REPLAY_DEFAULTS"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Zd": "RaceReplay",
+          "Qd": "PROMPT_TUTORIAL_STORAGE_KEY"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "nf": "GRAPHICS_STRUGGLE_DECLINED_KEY",
+          "rf": "GRAPHICS_STRUGGLE_BANNER_ID",
+          "af": "QUALITY_LABEL_KEYS",
+          "of": "QUALITY_LABELS",
+          "hf": "FrameRateMonitor",
+          "gf": "CameraIntroDirector",
+          "vf": "DEFAULT_SESSION_OPTIONS",
+          "wf": "TUTORIAL_PROMPT_MODAL_ID",
+          "Af": "normalizeSessionOptions"
+        }
+      }
+    ],
+    "readable/assets/BoatModel-Cf2RVdWT.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "pe": "SailMesh"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "he": "SailRig",
+          "ge": "SailTextures",
+          "Ce": "ForceVectorDebug",
+          "we": "FLAG_COUNTRY_BASE_PATH",
+          "P": "FLAG_UNKNOWN_PATH",
+          "F": "FLAG_PIRATE_PATH",
+          "Te": "COUNTRY_CODE_ALIASES"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "R": "boatTextureSets",
+          "z": "pendingHullReload",
+          "De": "WATER_BLOCKER_NAME_PATTERN"
+        }
+      }
+    ],
+    "readable/assets/DataModels-DjmBwyzI.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "h": "TWO_PI",
+          "g": "UP_VECTOR",
+          "_": "BoatPhysics",
+          "x": "BoatControls",
+          "S": "WaterlineTracker"
+        }
+      }
+    ],
+    "readable/assets/GhostReplayModel-B8EqTWpz.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "S": "VENICE_PRESET",
+          "C": "TRIANGLE_PRESET",
+          "w": "ARROW_PRESET",
+          "T": "LAYLA_MODELS_DIR",
+          "E": "LAYLA_BASE_TRANSFORM",
+          "te": "LAYLA_VARIANTS",
+          "D": "LAYLA_PRESET",
+          "O": "MIRIA_MODELS_DIR",
+          "k": "MIRIA_BASE_TRANSFORM",
+          "A": "MIRIA_VARIANTS",
+          "j": "MIRIA_PRESET",
+          "M": "MEME_MODELS_DIR",
+          "N": "MEME_BASE_TRANSFORM",
+          "P": "MEME_VARIANTS",
+          "ne": "MEME_PRESET",
+          "F": "METAL_MODELS_DIR",
+          "I": "METAL_BASE_TRANSFORM",
+          "L": "METAL_VARIANTS",
+          "R": "METAL_PRESET",
+          "z": "DEFAULT_BOAT_PRESET_ID"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "Y": "ghostReplayCache"
+        }
+      }
+    ],
+    "readable/assets/BoatShop-SaUBreAv.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "v": "BoatPreview",
+          "y": "BOAT_SHOP_MODAL_ID"
+        }
+      }
+    ],
+    "readable/assets/Blimp-CsqFvrq-.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "_": "BLIMP_POPUP_CONTENT",
+          "v": "BLIMP_POPUP_ID"
+        }
+      }
+    ],
+    "readable/assets/Birds-DHEcQo9w.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "d": "BIRD_PALETTE_LIGHT",
+          "f": "BIRD_PALETTE_DARK",
+          "p": "BIRD_MODES",
+          "g": "BirdFlock"
+        }
+      }
+    ],
+    "readable/assets/CargoShip-DSMEqWta.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "v": "TWO_PI",
+          "w": "DEFAULT_CARGO_CONFIG",
+          "T": "CARGO_MODEL_TEXTURE_KEYS"
+        }
+      }
+    ],
+    "readable/assets/FloatingWorldProp--a8_muYf.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "h": "FLOATING_PROP_DEFAULTS",
+          "_": "FLOATING_PROP_SIZE_STEPS"
+        }
+      },
+      {
+        "scope": null,
+        "renames": {
+          "D": "COLLISION_FOOTPRINT_DEFAULTS"
+        }
+      }
+    ],
+    "readable/assets/BoatVisualizerPanel-C8Vrfq5S.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "i": "PANEL_ID",
+          "a": "PANEL_MODES"
+        }
+      }
+    ],
+    "readable/assets/RaceConfig-BiFwKzq8.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "n": "DATE_ONLY_PATTERN"
+        }
+      }
+    ],
+    "readable/assets/GeoMath-B_Iby49-.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "a": "EARTH_RADIUS_M"
+        }
+      }
+    ],
+    "readable/assets/blogPosts-BqnGg-S6.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "e": "DATE_PATTERN",
+          "t": "CHANGELOG_SLUG_PATTERN",
+          "n": "X_HOST_PATTERN",
+          "r": "X_STATUS_PATH_PATTERN",
+          "i": "COVER_ASSET_PATH_PATTERN",
+          "p": "POST_KINDS",
+          "m": "LAST_SEEN_SEQUENCE_KEY",
+          "h": "LAST_SEEN_DATE_KEY",
+          "g": "LAST_SEEN_SLUG_KEY"
+        }
+      }
+    ],
+    "readable/assets/KeyboardManager-DVLZ3teY.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "r": "NAVIGATION_KEYS"
+        }
+      }
+    ],
+    "readable/assets/emailSoftAsk-CIzvlYXI.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "e": "SNOOZE_UNTIL_STORAGE_KEY",
+          "t": "SNOOZE_WINDOW_MS",
+          "n": "PROMPT_TEXT",
+          "r": "PROMPT_TEXT_REPEAT"
+        }
+      }
+    ],
+    "readable/assets/leaderboard-DToF7Del.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "h": "chartLib",
+          "g": "SERIES_COLORS",
+          "d": "RANGE_OPTIONS",
+          "w": "championshipRange",
+          "T": "dailyRaceStatsRange",
+          "A": "replayCanvasEl",
+          "j": "replayCtx",
+          "M": "replaySliderEl",
+          "ne": "watch3dButtonEl",
+          "N": "playPauseButtonEl",
+          "P": "replayTimeEl",
+          "F": "currentDateDisplayEl",
+          "re": "prevDateButtonEl",
+          "I": "nextDateButtonEl",
+          "L": "dailyRaceSummaryEl",
+          "R": "championshipSummaryEl",
+          "ie": "championshipRangeControlsEl",
+          "z": "championshipPlayersTbody",
+          "B": "championshipNationsTbody",
+          "V": "statsSummaryEl",
+          "ae": "statsRangeControlsEl",
+          "oe": "statsActivityChartEl",
+          "H": "statsActivityChartTitleEl",
+          "U": "statsCountriesTbody",
+          "W": "statElements",
+          "se": "countryNameByCode",
+          "x": "dailyRaceRows",
+          "S": "championshipRows"
+        }
+      }
+    ],
+    "readable/assets/race-Cw13y8lA.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "c": "TRIAL_TIER_IDS",
+          "l": "TRIAL_PROGRESS_STORAGE_KEY",
+          "_": "NYC_HARBOR_POINT",
+          "v": "LIBERTY_ISLAND_POINT",
+          "y": "SYDNEY_HARBOR_POINT",
+          "b": "WORLD_COURSE_DEFINITIONS",
+          "T": "RACE_TAB_KEYS",
+          "E": "dailyCourseDateEl",
+          "D": "dailyCourseBuoysEl",
+          "O": "dailyCourseRunsEl",
+          "k": "dailyCourseStatusEl",
+          "A": "dailyReplayLinkEl",
+          "j": "dailyCourseMapEl",
+          "M": "dailyCourseCanvasEl",
+          "N": "dailyCourseCtx",
+          "P": "raceTabButtons",
+          "F": "tabPanels",
+          "I": "worldCoursesGridEl",
+          "L": "timeTrialsGridEl",
+          "X": "resizeTimer"
+        }
+      }
+    ],
+    "readable/assets/advertise-BI8u_-IP.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "S": "SIMPLE_ANALYTICS_STATS_URL",
+          "C": "STATS_FETCH_TIMEOUT_MS",
+          "K": "ALLOWLISTED_SPONSOR_IDS",
+          "Z": "PLACEMENT_KIND_BY_STORAGE_KEY"
+        }
+      }
+    ],
+    "readable/assets/daily-race-replay-DM0sgZc-.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "n": "DATE_PATTERN",
+          "r": "CAMERA_MODES",
+          "i": "FIRST_PERSON_CAMERA_IDS",
+          "D": "TERMINAL_RUN_STATUSES",
+          "j": "MODE_STORAGE_KEY"
+        }
+      }
+    ],
+    "readable/assets/HighSeaModeManager-BEvC6iXw.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "x": "HOLD_COURSE_HINT",
+          "S": "HIGH_SEA_BUOY_POPUP_ID",
+          "C": "HIGH_SEA_WARNING_BANNER_ID",
+          "w": "HIGH_SEA_FAILURE_MODAL_ID",
+          "T": "HIGH_SEA_CHALLENGE_VERSION",
+          "j": "HIGH_SEA_VISUAL_STYLE",
+          "M": "HIGH_SEA_TUNING_PARAM_KEYS",
+          "N": "HIGH_SEA_TUNING_FLAG_KEYS",
+          "P": "HIGH_SEA_CHALLENGE_CONFIG"
+        }
+      }
+    ],
+    "readable/assets/IslandGenerator-DZNI3CSt.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "O": "PerlinNoise",
+          "L": "CASTLE_CONFIG",
+          "R": "VOLCANO_CONFIG",
+          "q": "DEFAULT_TERRAIN_PROFILE",
+          "me": "TERRAIN_PROFILES",
+          "ge": "IslandTerrain",
+          "J": "DOCK_CONFIG",
+          "_e": "Dock",
+          "Y": "TREE_CONFIG",
+          "X": "HUT_CONFIG",
+          "Q": "HUT_PALETTES",
+          "$": "HUT_PLACEMENT_CONFIG"
+        }
+      }
+    ],
+    "readable/assets/LogisticsManager-DugCgbD8.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "d": "CARGO_TYPES",
+          "m": "YEAR_MS",
+          "p": "MissionGenerator"
+        }
+      }
+    ],
+    "readable/assets/LogisticsUI-DWG9W15h.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "i": "DOCKING_BANNER_ID",
+          "a": "ACTIVE_MISSION_BANNER_ID",
+          "o": "MISSION_MODAL_ID",
+          "s": "COMPLETION_MODAL_ID",
+          "c": "PAYLOAD_DROPPED_TOAST_ID",
+          "l": "HEEL_GAUGE_ID",
+          "u": "BANNER_STACK_TOP_ID",
+          "p": "RAD_TO_DEG",
+          "m": "CARGO_DISPLAY_CONFIG"
+        }
+      }
+    ],
+    "readable/assets/MultiplayerManager-CgzUu3MG.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "f": "SEND_FAILED_EVENT"
+        }
+      }
+    ],
+    "readable/assets/OneSignalPushNotifications-C5QrvXEE.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "n": "ONESIGNAL_SDK_URL",
+          "r": "ONESIGNAL_SCRIPT_ID",
+          "i": "SDK_LOAD_TIMEOUT_MS",
+          "a": "DAILY_RACE_REMINDER_TAG",
+          "s": "EXTERNAL_USER_ID_STORAGE_KEY",
+          "_": "PushNotificationClient"
+        }
+      }
+    ],
+    "readable/assets/PirateHuntManager-B5ipnDt7.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "c": "BurstEffect"
+        }
+      }
+    ],
+    "readable/assets/SeaCreatures-C5ijwC34.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "o": "SEA_CREATURE_CONFIG"
+        }
+      }
+    ],
+    "readable/assets/TutorialManager-iD72X4OM.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "u": "STEP_RACE_RULES",
+          "d": "STEP_RACE_RUN",
+          "f": "STEP_RACE_SUBMISSION",
+          "p": "RACE_STEP_IDS",
+          "m": "RACE_RULES_STEP_IDS",
+          "h": "CONTROL_HINT_SVGS"
+        }
+      }
+    ],
+    "readable/assets/routeContext-D1HYUwP9.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "e": "ASSET_BASE_PLACEHOLDER",
+          "t": "applyAssetBase",
+          "u": "WORLD_STOP_DEFINITIONS",
+          "m": "WORLD_STOPS",
+          "h": "VISIBLE_WORLD_STOPS",
+          "g": "worldStopsById",
+          "_": "worldStopsByPlace",
+          "P": "WORLD_PLACE_ID",
+          "M": "WORLD_PLACE_IDS",
+          "N": "worldStopsByPlaceKey",
+          "I": "SURFACE_DEFAULTS"
+        }
+      }
+    ],
+    "readable/assets/profileClient-Ce6d7RD4.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "u": "PROFILE_FIELD_KEYS"
+        }
+      }
+    ],
+    "readable/assets/PlayerNameStorage-Q3p2umqg.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "t": "NAME_TOO_SHORT_MESSAGE",
+          "n": "RESERVED_NAME_MESSAGE",
+          "r": "DISPLAY_NAME_PATTERN",
+          "i": "ANONYMOUS_NAME_PATTERN"
+        }
+      }
+    ],
+    "readable/assets/posthogAuth-6WDf5lnM.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "i": "DISTINCT_ID_STORAGE_KEY"
+        }
+      }
+    ],
+    "readable/assets/installability-D42GZDjn.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "e": "INSTALL_PROMPT_GUARD_SYMBOL",
+          "t": "SERVICE_WORKER_PATH"
+        }
+      }
+    ],
+    "readable/assets/preload-helper-CYTkKql0.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "e": "DEFAULT_SUPPORTED_LANGUAGES",
+          "s": "MODULEPRELOAD_LINK_REL"
+        }
+      }
+    ],
+    "readable/assets/H5GamesAds-cgmFpTvU.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "t": "ADS_SCRIPT_URL",
+          "n": "REWARD_STATE_STORAGE_KEY",
+          "i": "ALLOWED_ADS_HOSTS",
+          "a": "REWARD_TERMINAL_STATES",
+          "o": "FALSE_LIKE_VALUES"
+        }
+      }
+    ],
+    "readable/assets/SharedTextureLoader-BkelxMVX.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "n": "textureCache"
+        }
+      }
+    ],
+    "readable/assets/WorldAdPopupManager-WzG-fNUY.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "n": "POPUP_STYLES"
+        }
+      }
+    ],
+    "readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "Bn": "BYTES_PER_MB",
+          "Vn": "deviceMemoryGB",
+          "Hn": "resolveTileCacheProfile",
+          "Q": "dracoLoader",
+          "Wn": "SESSION_TTL_DAYS",
+          "Gn": "TILES_SESSION_STORAGE_KEY",
+          "Kn": "SESSION_REFRESH_MS",
+          "qn": "TILE_CALIBRATION_KEYS",
+          "$": "TILE_FAILURE_MODES",
+          "Jn": "getDracoLoader",
+          "Yn": "isEditableTarget"
+        }
+      }
+    ],
+    "readable/assets/init-CC0aACO2.pretty.js": [
+      {
+        "scope": null,
+        "renames": {
+          "r": "renderLanguageSelector",
+          "l": "initI18n"
+        }
+      }
+    ]
+  },
+  "note": "Reviewed rename rules per chunk (sourceFile). scope:null = the chunk top level; applied chunk-wide so a name referenced from a sibling slice is renamed everywhere. Generated/curated during the 2026-10-14 campaign."
+}

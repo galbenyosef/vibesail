@@ -1,8 +1,8 @@
 // DataModels 02 — math
 // Lines 18-1440 of readable/assets/DataModels-DjmBwyzI.pretty.js (statement-aligned).
-var h = Math.PI * 2,
-  g = new a(0, 1, 0),
-  _ = class {
+var TWO_PI = Math.PI * 2,
+  UP_VECTOR = new a(0, 1, 0),
+  BoatPhysics = class {
     constructor(e, t = {}) {
       ((this.world = e),
         (this.isRemoteBoat = t.isRemoteBoat || !1),
@@ -227,7 +227,7 @@ var h = Math.PI * 2,
         let e = Math.exp(-(y - v) * 2);
         b = Math.sin(2 * v) * Math.exp((-(v - _) * (v - _)) / 0.2) * e;
       }
-      let x = p.cross(i, g).normalize();
+      let x = p.cross(i, UP_VECTOR).normalize();
       l.y < 0 && x.negate();
       let S = o * b * t * f,
         C = p.scale(x, S),
@@ -328,7 +328,7 @@ var h = Math.PI * 2,
         return;
       }
       let t = this.calculateApparentWind(),
-        n = t.direction.clone().applyAxisAngle(g, -this.rotation.y),
+        n = t.direction.clone().applyAxisAngle(UP_VECTOR, -this.rotation.y),
         r = Math.atan2(-n.x, -n.z),
         i = this.sheetLimit,
         o = Math.abs(r),
@@ -370,7 +370,7 @@ var h = Math.PI * 2,
           ).y,
         ) * Math.min(1, m * t.speed * 0.15);
       let _ = Math.abs(this.sailAngle - r),
-        v = Math.min(_, h - _);
+        v = Math.min(_, TWO_PI - _);
       ((this.visualLuffing = Math.max(0, 1 - v * 6)),
         (this.visualLuffing *=
           (0.5 + 0.5 * Math.random()) * Math.min(1, t.speed * 0.2)));
@@ -488,8 +488,8 @@ var h = Math.PI * 2,
         (this.rotation.z = this.heelAngle + this.waveRollAngle));
     }
     _normalizeYaw() {
-      ((this.rotation.y = this.rotation.y % h),
-        this.rotation.y < 0 && (this.rotation.y += h));
+      ((this.rotation.y = this.rotation.y % TWO_PI),
+        this.rotation.y < 0 && (this.rotation.y += TWO_PI));
     }
     _updateBuoyancyVertical(e) {
       try {
@@ -702,7 +702,7 @@ var h = Math.PI * 2,
   v = 0.008,
   y = 0.025,
   b = 0.015,
-  x = class {
+  BoatControls = class {
     constructor(e, t = !1) {
       ((this.dynamics = e),
         (this.isRemoteBoat = t),
@@ -833,7 +833,7 @@ var h = Math.PI * 2,
         e.furl !== void 0 && (this.furlLocked = e.furl));
     }
   },
-  S = class {
+  WaterlineTracker = class {
     constructor(e, n, i = {}) {
       ((this.scene = e),
         (this.world = n),
@@ -1067,9 +1067,9 @@ var h = Math.PI * 2,
   C = class {
     constructor(e, t, n = {}) {
       ((this.isRemoteBoat = n.isRemoteBoat || !1),
-        (this.dynamics = new _(t, n)),
+        (this.dynamics = new BoatPhysics(t, n)),
         (this.model = new f(e, n)),
-        (this.controls = new x(this.dynamics, this.isRemoteBoat)),
+        (this.controls = new BoatControls(this.dynamics, this.isRemoteBoat)),
         (this.scene = e),
         (this.world = t),
         (this.sailsFurledTarget = !!(
@@ -1080,7 +1080,7 @@ var h = Math.PI * 2,
         (this._sailFurlRequestId = 0),
         n.isGhost
           ? (this.wake = null)
-          : (this.wake = new S(e, t, {
+          : (this.wake = new WaterlineTracker(e, t, {
               maxSegments: 44,
               segmentSpacing: 2,
               baseWidth: 2,

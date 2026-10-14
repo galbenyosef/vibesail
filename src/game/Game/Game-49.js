@@ -78,7 +78,7 @@ function Kd({ timing: e, standings: t = [], elapsedSeconds: n = 0 }) {
 }
 var qd = 1,
   Jd = 100,
-  Yd = Object.freeze({
+  REPLAY_DEFAULTS = Object.freeze({
     autoPlay: !0,
     ghostLoadTimeoutMs: 2e4,
     raceStartTimeoutMs: 15e4,
@@ -95,9 +95,9 @@ var qd = 1,
     orbitCameraHeight: 24,
     orbitAngularSpeed: 0.22,
   });
-function Xd(e, t = Yd.replayGhostLimit) {
+function Xd(e, t = REPLAY_DEFAULTS.replayGhostLimit) {
   let n = Number.parseInt(e, 10),
     r = Number.parseInt(t, 10),
-    i = Number.isFinite(n) ? n : Number.isFinite(r) ? r : Yd.replayGhostLimit;
+    i = Number.isFinite(n) ? n : Number.isFinite(r) ? r : REPLAY_DEFAULTS.replayGhostLimit;
   return Math.min(Jd, Math.max(qd, i));
 }

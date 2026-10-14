@@ -120,11 +120,11 @@ function Oe(e) {
         n = a.getAttribute(`href`),
         r = { action: `sponsor_location_clicked`, destination_path: n };
       if (!U(e)) {
-        f(B, r);
+        f(EVENT_GEO_ACCESS_GATE_ACTION, r);
         return;
       }
       (e.preventDefault(),
-        p(B, r, { windowRef: t }).finally(() => {
+        p(EVENT_GEO_ACCESS_GATE_ACTION, r, { windowRef: t }).finally(() => {
           !n || !t?.location || (t.location.href = n);
         }));
     }),
@@ -191,17 +191,17 @@ function ke({
   );
 }
 Object.freeze({ name: `VibeSail`, commitSha: `local` });
-var K = Object.freeze({ name: `VibeSail`, commitSha: `b9b41e090270` });
-function Ae(e = K) {
+var BUILD_INFO = Object.freeze({ name: `VibeSail`, commitSha: `b9b41e090270` });
+function Ae(e = BUILD_INFO) {
   return String(e?.commitSha || ``).trim() || `local`;
 }
-var q = `vibesail-build-version`;
-function je({ documentRef: e = document, buildInfo: t = K } = {}) {
-  if (!e?.body || e.getElementById(q)) return null;
+var BUILD_VERSION_STORAGE_KEY = `vibesail-build-version`;
+function je({ documentRef: e = document, buildInfo: t = BUILD_INFO } = {}) {
+  if (!e?.body || e.getElementById(BUILD_VERSION_STORAGE_KEY)) return null;
   let n = Ae(t),
     r = e.createElement(`div`);
   return (
-    (r.id = q),
+    (r.id = BUILD_VERSION_STORAGE_KEY),
     (r.className = `build-version-badge`),
     (r.textContent = n),
     (r.title = n),
@@ -210,13 +210,13 @@ function je({ documentRef: e = document, buildInfo: t = K } = {}) {
     r
   );
 }
-var J = `/version.json`,
-  Me = 60 * 1e3,
-  Y = `vibesail-version-update-notice`,
-  X = `vibesail-stale-asset-reload-at`,
-  Ne = 15e3,
-  Pe = `New version available`,
-  Fe = `Reload required`;
+var VERSION_MANIFEST_URL = `/version.json`,
+  VERSION_POLL_INTERVAL_MS = 60 * 1e3,
+  UPDATE_NOTICE_STORAGE_KEY = `vibesail-version-update-notice`,
+  STALE_ASSET_RELOAD_STORAGE_KEY = `vibesail-stale-asset-reload-at`,
+  STALE_ASSET_RELOAD_MS = 15e3,
+  UPDATE_NOTICE_TITLE = `New version available`,
+  RELOAD_REQUIRED_TITLE = `Reload required`;
 function Z(e) {
   return String(e?.commitSha || ``).trim();
 }
@@ -227,7 +227,7 @@ function Ie(e = window) {
     return null;
   }
 }
-function Le(e, t = K) {
+function Le(e, t = BUILD_INFO) {
   let n = Z(e),
     r = Z(t);
   return !!(n && r && n !== r);
@@ -238,7 +238,7 @@ function Re(e = window) {
 function ze(e, t) {
   if (!e) return !1;
   try {
-    return (e.setItem(X, String(t)), !0);
+    return (e.setItem(STALE_ASSET_RELOAD_STORAGE_KEY, String(t)), !0);
   } catch {
     return !1;
   }
@@ -246,21 +246,21 @@ function ze(e, t) {
 function Be(e, t) {
   if (!e) return !1;
   try {
-    let n = Number(e.getItem(X));
-    return Number.isFinite(n) && n > 0 && t - n < Ne;
+    let n = Number(e.getItem(STALE_ASSET_RELOAD_STORAGE_KEY));
+    return Number.isFinite(n) && n > 0 && t - n < STALE_ASSET_RELOAD_MS;
   } catch {
     return !1;
   }
 }
-function Ve({ documentRef: e, windowRef: t, message: n = Pe }) {
+function Ve({ documentRef: e, windowRef: t, message: n = UPDATE_NOTICE_TITLE }) {
   if (!e?.body) return null;
-  let r = e.getElementById(Y);
+  let r = e.getElementById(UPDATE_NOTICE_STORAGE_KEY);
   if (r) {
     let e = r.querySelector(`.version-update-notice-message`);
     return (e && (e.textContent = n), r);
   }
   let i = e.createElement(`div`);
-  ((i.id = Y), (i.className = `version-update-notice`));
+  ((i.id = UPDATE_NOTICE_STORAGE_KEY), (i.className = `version-update-notice`));
   let a = e.createElement(`span`);
   ((a.className = `version-update-notice-message`),
     (a.textContent = n),
@@ -276,7 +276,7 @@ function Ve({ documentRef: e, windowRef: t, message: n = Pe }) {
     i
   );
 }
-async function He({ fetchImpl: e = fetch, versionUrl: t = J } = {}) {
+async function He({ fetchImpl: e = fetch, versionUrl: t = VERSION_MANIFEST_URL } = {}) {
   if (typeof e != `function`) return null;
   try {
     let n = await e(t, { cache: `no-store` });
@@ -286,36 +286,36 @@ async function He({ fetchImpl: e = fetch, versionUrl: t = J } = {}) {
   }
 }
 async function Ue({
-  currentBuildInfo: e = K,
+  currentBuildInfo: e = BUILD_INFO,
   documentRef: t = document,
   fetchImpl: n = fetch,
-  versionUrl: r = J,
+  versionUrl: r = VERSION_MANIFEST_URL,
   windowRef: i = window,
 } = {}) {
   let a = await He({ fetchImpl: n, versionUrl: r });
   return !a || !Le(a, e) ? null : Ve({ documentRef: t, windowRef: i });
 }
 async function We({
-  currentBuildInfo: e = K,
+  currentBuildInfo: e = BUILD_INFO,
   documentRef: t = document,
   fetchImpl: n = fetch,
   nowMs: r = Date.now(),
   sessionStorageRef: i = Ie(),
-  versionUrl: a = J,
+  versionUrl: a = VERSION_MANIFEST_URL,
   windowRef: o = window,
 } = {}) {
   if (!Be(i, r)) {
     let t = await He({ fetchImpl: n, versionUrl: a });
     if (t && Le(t, e) && ze(i, r)) return (Re(o), `reloaded`);
   }
-  return Ve({ documentRef: t, windowRef: o, message: Fe });
+  return Ve({ documentRef: t, windowRef: o, message: RELOAD_REQUIRED_TITLE });
 }
 function Ge({
-  currentBuildInfo: e = K,
+  currentBuildInfo: e = BUILD_INFO,
   documentRef: t = document,
   enabled: n = !0,
   fetchImpl: r = fetch,
-  versionUrl: i = J,
+  versionUrl: i = VERSION_MANIFEST_URL,
   windowRef: a = window,
 } = {}) {
   if (!n || typeof a?.addEventListener != `function`) return () => {};

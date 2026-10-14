@@ -1,9 +1,9 @@
 // Game 50 — state
 // Lines 23930-24940 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var Zd = class {
+var RaceReplay = class {
     constructor(e, t = {}) {
       ((this.app = e),
-        (this._baseOptions = { ...Yd, ...t }),
+        (this._baseOptions = { ...REPLAY_DEFAULTS, ...t }),
         (this.options = { ...this._baseOptions }),
         (this.state = Hd()),
         (this._playerBoatParked = !1),
@@ -478,7 +478,7 @@ var Zd = class {
           (this._spectatorPresentationApplied = !0)));
     }
     _normalizeCameraMode() {
-      let e = String(this.options?.cameraMode || Yd.cameraMode).toLowerCase();
+      let e = String(this.options?.cameraMode || REPLAY_DEFAULTS.cameraMode).toLowerCase();
       return e === `orbit`
         ? `orbit`
         : e === `front` ||
@@ -489,12 +489,12 @@ var Zd = class {
           : `chase`;
     }
     _resolveReplayGhostLimit() {
-      return Xd(this.options?.replayGhostLimit, Yd.replayGhostLimit);
+      return Xd(this.options?.replayGhostLimit, REPLAY_DEFAULTS.replayGhostLimit);
     }
     _resolveLeaderboardLimit() {
       return Math.max(
         1,
-        Nd(this.options?.leaderboardLimit, Yd.leaderboardLimit),
+        Nd(this.options?.leaderboardLimit, REPLAY_DEFAULTS.leaderboardLimit),
       );
     }
     _clampElapsedSeconds(e) {
@@ -760,13 +760,13 @@ var Zd = class {
       let r = Q(this.app?.world?.getHeightAt?.(e.x, e.z), e.y),
         i = Math.max(
           8,
-          Q(this.options.followCameraDistance, Yd.followCameraDistance),
+          Q(this.options.followCameraDistance, REPLAY_DEFAULTS.followCameraDistance),
         ),
         a = Math.max(
           4,
-          Q(this.options.followCameraHeight, Yd.followCameraHeight),
+          Q(this.options.followCameraHeight, REPLAY_DEFAULTS.followCameraHeight),
         ),
-        o = Math.max(0, Q(this.options.lookAtHeight, Yd.lookAtHeight)),
+        o = Math.max(0, Q(this.options.lookAtHeight, REPLAY_DEFAULTS.lookAtHeight)),
         s = e.x - i * 0.25,
         c = r + a,
         l = e.z - i;
@@ -783,16 +783,16 @@ var Zd = class {
       )
         return;
       let i = Q(this.app?.world?.getHeightAt?.(e.x, e.z), e.y),
-        a = Math.max(0, Q(this.options.lookAtHeight, Yd.lookAtHeight)),
+        a = Math.max(0, Q(this.options.lookAtHeight, REPLAY_DEFAULTS.lookAtHeight)),
         o = Math.max(
           8,
-          Q(this.options.orbitCameraRadius, Yd.orbitCameraRadius),
+          Q(this.options.orbitCameraRadius, REPLAY_DEFAULTS.orbitCameraRadius),
         ),
         s = Math.max(
           4,
-          Q(this.options.orbitCameraHeight, Yd.orbitCameraHeight),
+          Q(this.options.orbitCameraHeight, REPLAY_DEFAULTS.orbitCameraHeight),
         ),
-        c = n * Q(this.options.orbitAngularSpeed, Yd.orbitAngularSpeed),
+        c = n * Q(this.options.orbitAngularSpeed, REPLAY_DEFAULTS.orbitAngularSpeed),
         l = e.x + Math.cos(c) * o,
         u = i + s,
         d = e.z + Math.sin(c) * o;
@@ -990,7 +990,7 @@ var Zd = class {
           0,
           Q(
             this.options.postAllFinishedHoldSeconds,
-            Yd.postAllFinishedHoldSeconds,
+            REPLAY_DEFAULTS.postAllFinishedHoldSeconds,
           ),
         ),
         s = Number.isFinite(this.state.allGhostsFinishedAtSeconds)
@@ -1010,4 +1010,4 @@ var Zd = class {
       }
     }
   },
-  Qd = `vibesail.promptForTutorial`;
+  PROMPT_TUTORIAL_STORAGE_KEY = `vibesail.promptForTutorial`;

@@ -50,15 +50,30 @@ External at runtime (never captured, never backfilled — documented gaps):
 ## Layout
 
 - `.upstream/manifest.json` — sha256 for every captured file
-- `readable/` — prettified derived layer (pinned prettier 3.9.6): 87 JS/MJS
-  pretties, 15 CSS pretties and 339 inline-block twins
-- `src/` + `split-spec.json` — statement-aligned slices of the app chunks
-  (224 slices) with the recorded derivation spec
+- `readable/` — prettified derived layer (pinned prettier 3.9.6), now mirroring the
+  **served path structure**: 87 JS pretties (`readable/assets/*.pretty.js`,
+  `readable/maplibre/*.pretty.js`, `readable/pwa-worker.pretty.js`), 15 CSS pretties and
+  339 inline-block twins under their page directory (`readable/<page>/…-inline-N.pretty.js`)
+- `src/` + `split-spec.json` — a **real tree** of 177 statement-aligned slices across
+  74 app chunks: `src/routes/<route>/` (HTML-evidenced page entries: home, game, race,
+  leaderboard, blog, blog-post, daily-race-replay, 2025recap, advertise, contact,
+  feedback), `src/game/<Name>/` (41 modules reachable from three.js/Game: Game,
+  BoatModel, DataModels, IslandGenerator, tutorials/managers, …), `src/site/<Name>/`
+  (21 shared-shell modules: routeContext, authClient, profileClient, blogPosts, …),
+  `src/pwa/`. `<Name>` is the Vite chunk basename with the content hash stripped (the
+  real module name the build chose)
+- `rename-map.json` — the recorded semantic rename layer (per-slice word-boundary +
+  token-index maps), applied by `tools/apply-all-names.mjs` from `tools/names.json`
 - `tools/capture.mjs` — capture crawler (sitemap seeds → closure to fixpoint)
 - `tools/derive.mjs` — rebuild `readable/` + `src/` + `split-spec.json`
+- `tools/apply-names.mjs` — apply the reviewed rename rules (per slice or chunk-wide)
+- `tools/recover-scoped-map.mjs` — record `rename-map.json` by token alignment
+- `tools/verify-rename.mjs` / `tools/check-chunk.mjs` — the rename gates
 - `tools/update.mjs` — read-only drift probe against the live site
 - `tools/verify.mjs` — re-hash the capture against the manifest
 - `tools/audit.js` — integrity gate for the derived layers (`AUDIT PASS`)
+- `legacy/2026-10-14/` — the superseded flat derived layers (224 slices, `__`-flattened
+  readable names, split-spec, derive v1)
 - `_mirror-report.json` — capture record (paths, 404s, external hosts)
 - `docs/` — boot + gameplay evidence screenshots
 
@@ -112,6 +127,15 @@ leaderboard and geo-model features call the external backends above.
 ```
 node tools/verify.mjs     # re-hash the capture against the manifest
 node tools/audit.js       # derived-layer integrity gate (AUDIT PASS)
+node tools/verify-rename.mjs <slice> [...]   # rename reproduces + references + bindings
+node tools/check-chunk.mjs                   # cross-slice resolution, all chunks
+```
+
+A full rebuild is deterministic and byte-identical (verified 2026-10-14: two
+consecutive rebuilds, 621 files, 0 differences):
+
+```
+node tools/derive.mjs && node tools/apply-names.mjs --all && node tools/recover-scoped-map.mjs --from-names
 ```
 
 ## Updating from upstream
@@ -127,6 +151,10 @@ files to `legacy/<date>/` first, re-cutting the manifest, and re-deriving
 `readable/` + `src/` with `node tools/derive.mjs`.
 
 ### 2026-10-13 capture + readable/src derivation
+
+(Historical: the flat derived layers described in this subsection were superseded
+by the 2026-10-14 real-tree pass below; they live unchanged under
+`legacy/2026-10-14/`.)
 
 - **Capture** — `tools/capture.mjs` seeded from `/sitemap.xml` (108 pages) +
   `robots.txt`/`manifest.webmanifest`/`favicon.ico`, then iterated the closure
@@ -174,8 +202,78 @@ files to `legacy/<date>/` first, re-cutting the manifest, and re-deriving
   *trip-planner* project with no homepage, not this game — and otherwise only
   directory listings pointing at vibesail.com. No upstream repo to fork, so
   the mirror stands.
-- Identifier names in `src/` are the bundle's own minified names — the rename
-  campaign (PLAN §5) remains an open task.
+- Identifier names in `src/` are the bundle's own minified names except where the
+  reviewed rename layer supersedes them — the campaign ran 2026-10-14 (see below).
+
+### 2026-10-14 real-tree pass + identifier rename campaign
+
+User direction (2026-10-14): keep reversing toward the real project shape — real
+subdirectories, true module boundaries, semantic names. Done in three commits
+(structure, rename campaign, docs), capture bytes untouched:
+
+- **readable/ mirrors the served paths**: `assets/X-HASH.pretty.js`,
+  `maplibre/*.pretty.js`, `pwa-worker.pretty.js`; inline twins live in their page
+  directory (`readable/lang/de/index-inline-1.pretty.js`). The old `__`-flattened
+  layer supersedes into `legacy/2026-10-14/`.
+- **src/ is a real tree** (177 slices across 74 app chunks, was 224 flat
+  `assets__*` names): `src/routes/<route>/` for the HTML-evidenced page entries,
+  `src/game/<Name>/` for modules reachable from three.module/Game (41),
+  `src/site/<Name>/` for the shared shell (21), `src/pwa/`. `<Name>` = chunk
+  basename with the Vite content hash stripped. The area rule is recorded in
+  `split-spec.json` (`layout`, with the shared-shell exception list) and was
+  computed from the chunk import graph + `__vite__mapDeps`/asset-literal edges,
+  not guessed.
+- **Vendor re-classification, content-guarded**: the Chart.js v4 `auto` bundle
+  (`assets/auto-*`), the Rollup ESM-interop runtime (`chunk-QTnfLwEv`), the
+  @babel/runtime helper chunk (`defineProperty`) and the Vite modulepreload
+  polyfill move from sliced-app to wholeFile vendor (they were being sliced as
+  app code); the Google 3d-tiles-renderer chunk is split at its true module seam —
+  lines 1..seam (vendor band) wholeFile, the `GoogleTilesLoader` wrapper sliced as
+  app code. Still wholeFile, as recorded: three.js + its loaders, the Draco
+  decoder pair, the MapLibre worker/shared modules, the Leaflet+MapLibre world
+  chunk and every stylesheet.
+- **Identifier rename campaign (PLAN §5), run with the fleet's engine family**:
+  `tools/names.json` (reviewed rules, 42 chunks / 79 rule groups / 403 names) →
+  `tools/apply-names.mjs` (splices identifier tokens through the real scope chain;
+  chunk-wide passes so a name referenced from a sibling slice is renamed
+  everywhere) → `tools/recover-scoped-map.mjs` (records `rename-map.json`, 132
+  slices; 379 index-pinned occurrences + 463 word-boundary applications) →
+  `tools/verify-rename.mjs` / `tools/check-chunk.mjs` (gates). 842 recorded rename
+  occurrences total. Named examples: Game → `WorldBuilder`, `GerstnerWaves`,
+  `CameraController`, `RaceReplay`, `HudButtonFactory`, `CoinBalance`,
+  `CollisionManager`, `RemoteBoatInspector`, `NotificationCenter`; route shell →
+  `mountBackgroundGame`, `initEmailSoftAskPrompt`, `resolveBackgroundCamera`;
+  leaderboard → `replayCanvasEl`, `SERIES_COLORS`, `championshipPlayersTbody`;
+  Birds → `BirdFlock`, `BIRD_PALETTE_LIGHT`; BoatModel → `SailMesh`, `SailRig`;
+  routeContext → `WORLD_STOP_DEFINITIONS`, `SURFACE_DEFAULTS`.
+  - Gates (verbatim): `node tools/verify.mjs` → `410 files checked, 0 problems`;
+    `node tools/audit.js` → `AUDIT PASS — 604 spec sections (177/177 src↔pretty
+    round-trips byte-exact, 132 through the recorded rename map, 441/441 pretty
+    sources tiled contiguously, 177/177 src slices + 426/426 readable/*.pretty.js
+    parse standalone …, 441/441 pretties re-render byte-exact …, capture manifest
+    free of derived layers)`; `tools/verify-rename.mjs` on all 132 renamed slices →
+    `reproduces slice: YES` / `references ok: YES` / `bindings ok: YES`;
+    `tools/check-chunk.mjs` → `cross-slice calls resolve: YES` for all 74 chunks;
+    serve probe — `/`, `/game`, `/world`, `/race`, `/leaderboard`, `/tutorial`,
+    `/lang/de/`, the game chunk, the Draco decoder, the MapLibre worker, the sky
+    texture, the venice boat model and the Chart.js chunk all HTTP 200, listener
+    killed, port 3210 closed (`netstat`). Rebuild reproducibility: two consecutive
+    derive+apply+recover runs, 621 files, 0 differences.
+  - **What remains (honest gaps)**: the campaign's reachable set excludes names
+    the module's OWN final `export { local as Public }` table references — that
+    table is pristine readable text (a standalone slice of it is an early-error
+    export of undeclared names), so exported locals keep their minified spelling;
+    small single-export modules (`Bearing`, `GeoMath`, `VectorUtils`, the data
+    tables) therefore keep the bundle's names entirely. Function-scoped
+    renames (params/locals/class members) were authored for the named chunks
+    above but not exhaustively for every helper body; the remaining minified
+    spellings are evidence-backed decisions, not oversights, and the gates are
+    re-runnable as more names are reviewed.
+  - Two tool defects were found by the gates and fixed while doing it: the
+    reference walker did not model Babel `ObjectMethod` scopes (phantom drift on
+    `{ async init(e) { … } }`-style shadowing), and `verify-rename` substituted
+    only its own slice into the chunk reconstruction (chunk-wide renames looked
+    orphaned). Both fixes are in `tools/refcheck.mjs` / `tools/verify-rename.mjs`.
 
 ## Mirror conventions
 
@@ -185,7 +283,14 @@ files to `legacy/<date>/` first, re-cutting the manifest, and re-deriving
   loaders, `assets/draco/`, `maplibre/`, the world chunk, fonts) stay byte-exact
   as served; `readable/` and `src/` never rewrite vendor bytes.
 - **Readable layer** — `readable/` is derived (prettified) and never shipped to
-  a browser; it exists so the bundle can actually be read.
+  a browser; it exists so the bundle can actually be read, and it mirrors the
+  served path structure.
+- **Rename layer** — `src/` slices carry semantic names only where the reviewed
+  record (`tools/names.json` → `rename-map.json`) proves the substitution: the
+  slice still round-trips to its readable range through the map, and the
+  reference/binding gates run over the whole reconstructed chunk. Vendor bytes
+  are never renamed; an app chunk's final `export {…}` table stays pristine, so
+  its exported locals keep the bundle's spelling.
 - **Provenance** — `.upstream/manifest.json` records sha256 for each captured
   artifact, and `tools/verify.mjs` re-checks it.
 - **Drift** — `tools/update.mjs` is read-only: it reports what changed upstream

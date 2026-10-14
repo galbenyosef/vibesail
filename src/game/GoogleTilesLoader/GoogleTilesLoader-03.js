@@ -10,7 +10,7 @@ var Xn = class {
       (this.minimapRenderer = null),
       (this.sessionKey = null),
       (this.tilesetUrl = null),
-      (this.tileCacheProfile = Hn()),
+      (this.tileCacheProfile = resolveTileCacheProfile()),
       (this._loggedTileFailureModes = new Set()),
       (this._sessionRecoveryAttempted = !1),
       (this._sessionRecoveryPromise = null),
@@ -43,14 +43,14 @@ var Xn = class {
   _clearCachedRootSession(e = this._resolveSessionStorage()) {
     if (e)
       try {
-        e.removeItem(Gn);
+        e.removeItem(TILES_SESSION_STORAGE_KEY);
       } catch {}
   }
   _loadCachedRootSession() {
     let e = this._resolveSessionStorage();
     if (!e) return null;
     try {
-      let t = e.getItem(Gn);
+      let t = e.getItem(TILES_SESSION_STORAGE_KEY);
       if (!t) return null;
       let n = JSON.parse(t);
       return n &&
@@ -78,29 +78,29 @@ var Xn = class {
     )
       try {
         n.setItem(
-          Gn,
+          TILES_SESSION_STORAGE_KEY,
           JSON.stringify({
             version: 1,
             apiKey: this.apiKey,
             tilesetUrl: C.googleMaps.tilesetUrl,
             sessionKey: e,
             sessionData: t,
-            expiresAtMs: Date.now() + Kn,
+            expiresAtMs: Date.now() + SESSION_REFRESH_MS,
           }),
         );
       } catch {}
   }
   _classifyTileFailureMode(e) {
-    if (this._resolveOnlineState() === !1) return $.OFFLINE;
+    if (this._resolveOnlineState() === !1) return TILE_FAILURE_MODES.OFFLINE;
     try {
       let t = new URL(String(e || ``), window.location.href);
       return t.hostname.includes(`googleapis.com`)
         ? t.searchParams.has(`session`)
-          ? $.GOOGLE_TILE_REQUEST_WITH_SESSION_FAILED
-          : $.GOOGLE_TILE_REQUEST_WITHOUT_SESSION_FAILED
-        : $.NON_GOOGLE_TILE_REQUEST;
+          ? TILE_FAILURE_MODES.GOOGLE_TILE_REQUEST_WITH_SESSION_FAILED
+          : TILE_FAILURE_MODES.GOOGLE_TILE_REQUEST_WITHOUT_SESSION_FAILED
+        : TILE_FAILURE_MODES.NON_GOOGLE_TILE_REQUEST;
     } catch {
-      return $.UNKNOWN;
+      return TILE_FAILURE_MODES.UNKNOWN;
     }
   }
   async _fetchRootSessionData(e, t = null) {
@@ -195,9 +195,9 @@ var Xn = class {
     t &&
       (t.onError = (e) => {
         let t = this._classifyTileFailureMode(e);
-        t !== $.NON_GOOGLE_TILE_REQUEST &&
+        t !== TILE_FAILURE_MODES.NON_GOOGLE_TILE_REQUEST &&
           (this._logTileFailure(t, e),
-          t === $.GOOGLE_TILE_REQUEST_WITH_SESSION_FAILED &&
+          t === TILE_FAILURE_MODES.GOOGLE_TILE_REQUEST_WITH_SESSION_FAILED &&
             this._recoverFromSessionScopedTileFailure(e));
       });
   }
@@ -209,7 +209,7 @@ var Xn = class {
     return e.altKey ? 0.1 : t;
   }
   _shouldIgnoreCalibrationKeydown(e) {
-    return Yn(e.target);
+    return isEditableTarget(e.target);
   }
   _adjustTileHeightFromKey(e, t) {
     return !this.tiles || !this.correction
@@ -221,8 +221,8 @@ var Xn = class {
   _adjustHiddenTileHeight(e) {
     let t = 0;
     return (
-      e.code === qn.UP && (t = 1),
-      e.code === qn.DOWN && (t = -1),
+      e.code === TILE_CALIBRATION_KEYS.UP && (t = 1),
+      e.code === TILE_CALIBRATION_KEYS.DOWN && (t = -1),
       t === 0 ? !1 : this._adjustTileHeightFromKey(e, t)
     );
   }
@@ -284,7 +284,7 @@ var Xn = class {
   configureGltfDracoSupport(e) {
     if (!e?.manager) return;
     let t = new ae(e.manager);
-    (t.setDRACOLoader(Jn()),
+    (t.setDRACOLoader(getDracoLoader()),
       e.manager.addHandler(/\.(gltf|glb)(?:$|[?#])/i, t));
   }
   async init() {
@@ -329,7 +329,7 @@ var Xn = class {
         }),
         this.tiles.setCamera(this.camera),
         this.tiles.setResolutionFromRenderer(this.camera, this.renderer),
-        this.tiles.group.layers.set(Wn),
+        this.tiles.group.layers.set(SESSION_TTL_DAYS),
         this.scene.add(this.tiles.group),
         this.alignTileset(this.tiles),
         window.dispatchEvent(new CustomEvent(`googleTilesReady`)));
@@ -345,7 +345,7 @@ var Xn = class {
           this.unregisterMinimapView(this.minimapCamera),
         (this.minimapCamera = e),
         (this.minimapRenderer = t),
-        this.minimapCamera?.layers?.enable?.(Wn),
+        this.minimapCamera?.layers?.enable?.(SESSION_TTL_DAYS),
         console.info(
           `[GoogleTilesLoader] Minimap camera registered on shared geo tiles`,
         ),
@@ -358,13 +358,13 @@ var Xn = class {
       this.tiles.deleteCamera(e),
       e?.layers &&
         typeof e.layers.disable == `function` &&
-        e.layers.disable(Wn),
+        e.layers.disable(SESSION_TTL_DAYS),
       e === this.minimapCamera &&
         ((this.minimapCamera = null), (this.minimapRenderer = null)));
   }
   updateMinimapView(e = this.minimapCamera, t = this.minimapRenderer) {
     if (!this.tiles || !e || !t) return !1;
-    e.layers?.enable?.(Wn);
+    e.layers?.enable?.(SESSION_TTL_DAYS);
     let n =
       typeof this.tiles.hasCamera == `function` ? this.tiles.hasCamera(e) : !1;
     return (

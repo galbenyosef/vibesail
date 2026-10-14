@@ -1,10 +1,10 @@
 // PlayerNameStorage 01 — localstorage
 // Lines 1-74 of readable/assets/PlayerNameStorage-Q3p2umqg.pretty.js (statement-aligned).
 var e = `Display name contains invalid characters. Use only letters, numbers, and basic punctuation.`,
-  t = `Display name must be at least 3 characters.`,
-  n = `Display name cannot be a reserved anonymous name.`,
-  r = /^[\w\s.,!?-]+$/,
-  i = /^anonymous-\d{6}$/i;
+  NAME_TOO_SHORT_MESSAGE = `Display name must be at least 3 characters.`,
+  RESERVED_NAME_MESSAGE = `Display name cannot be a reserved anonymous name.`,
+  DISPLAY_NAME_PATTERN = /^[\w\s.,!?-]+$/,
+  ANONYMOUS_NAME_PATTERN = /^anonymous-\d{6}$/i;
 function a(e) {
   return typeof e == `string` ? e.trim() : ``;
 }
@@ -19,7 +19,7 @@ function o(e) {
 }
 function s(e) {
   let t = String(e || ``).toLowerCase();
-  return t === `anonymous` || i.test(t);
+  return t === `anonymous` || ANONYMOUS_NAME_PATTERN.test(t);
 }
 function c(e) {
   let t = o(e);
@@ -27,7 +27,7 @@ function c(e) {
 }
 function l(e) {
   let t = o(e);
-  return !t || !r.test(t) ? `` : t;
+  return !t || !DISPLAY_NAME_PATTERN.test(t) ? `` : t;
 }
 function u(e) {
   return s(c(e));
@@ -42,7 +42,7 @@ function f(e) {
 function p(r) {
   if (!a(r)) return null;
   let i = l(r);
-  return i ? (s(i) ? n : i.length < 3 ? t : null) : e;
+  return i ? (s(i) ? RESERVED_NAME_MESSAGE : i.length < 3 ? NAME_TOO_SHORT_MESSAGE : null) : e;
 }
 function m(e) {
   try {

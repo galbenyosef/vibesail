@@ -1,6 +1,6 @@
 // Game 29 — camera
 // Lines 15902-16425 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var Ao = class {
+var CameraController = class {
     constructor(e, t, n, r = {}) {
       ((this.scene = e),
         (this.boat = t),
@@ -484,9 +484,9 @@ var Ao = class {
       return this.camera;
     }
   },
-  jo = `sea-lookdev-panel-styles-v2`,
-  Mo = `seaLookdev.openFolders`,
-  No = Object.freeze([
+  SEA_LOOKDEV_STYLES_ID = `sea-lookdev-panel-styles-v2`,
+  LOOKDEV_OPEN_FOLDERS_KEY = `seaLookdev.openFolders`,
+  LOOKDEV_FOLDER_IDS = Object.freeze([
     `look`,
     `sun`,
     `lights`,
@@ -505,7 +505,7 @@ var Ao = class {
     `underwater`,
     `scene`,
   ]),
-  Po = Object.freeze({
+  LOOKDEV_FOLDER_LABELS = Object.freeze({
     look: `Look`,
     sun: `Sun`,
     lights: `Scene Lights`,

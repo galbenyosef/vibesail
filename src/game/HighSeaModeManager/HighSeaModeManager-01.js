@@ -18,18 +18,18 @@ var _ = 3.2,
   v = 0.25,
   y = 1e-4,
   b = r.degToRad(30),
-  x = `Hold course through the swell.`,
-  S = `high-sea-buoy-popup`,
-  C = `high-sea-warning-banner`,
-  w = `high-sea-failure-modal`,
-  T = `highsea_v1`,
+  HOLD_COURSE_HINT = `Hold course through the swell.`,
+  HIGH_SEA_BUOY_POPUP_ID = `high-sea-buoy-popup`,
+  HIGH_SEA_WARNING_BANNER_ID = `high-sea-warning-banner`,
+  HIGH_SEA_FAILURE_MODAL_ID = `high-sea-failure-modal`,
+  HIGH_SEA_CHALLENGE_VERSION = `highsea_v1`,
   E = 1,
   D = 10,
   O = 1600,
   k = 1,
   A = 2,
-  j = Object.freeze({ thickness: 0.08, glow: 1, trailLengthScale: 1 }),
-  M = Object.freeze([
+  HIGH_SEA_VISUAL_STYLE = Object.freeze({ thickness: 0.08, glow: 1, trailLengthScale: 1 }),
+  HIGH_SEA_TUNING_PARAM_KEYS = Object.freeze([
     `maxWaveRoll`,
     `maxWavePitch`,
     `wavePitchResponseRate`,
@@ -45,9 +45,9 @@ var _ = 3.2,
     `verticalFollowUpMultiplier`,
     `maxVerticalAcceleration`,
   ]),
-  N = Object.freeze([`allowUnclampedWaveRoll`]),
-  P = Object.freeze({
-    challengeVersion: T,
+  HIGH_SEA_TUNING_FLAG_KEYS = Object.freeze([`allowUnclampedWaveRoll`]),
+  HIGH_SEA_CHALLENGE_CONFIG = Object.freeze({
+    challengeVersion: HIGH_SEA_CHALLENGE_VERSION,
     loopRadius: 260,
     wind: { speed: 28, directionDeg: 220 },
     sea: {
@@ -102,17 +102,17 @@ var _ = 3.2,
   });
 function F(e = {}) {
   return {
-    ...P,
+    ...HIGH_SEA_CHALLENGE_CONFIG,
     ...e,
-    wind: { ...P.wind, ...(e.wind || {}) },
+    wind: { ...HIGH_SEA_CHALLENGE_CONFIG.wind, ...(e.wind || {}) },
     sea: {
-      ...P.sea,
+      ...HIGH_SEA_CHALLENGE_CONFIG.sea,
       ...(e.sea || {}),
-      waveConfig: { ...P.sea.waveConfig, ...(e.sea?.waveConfig || {}) },
+      waveConfig: { ...HIGH_SEA_CHALLENGE_CONFIG.sea.waveConfig, ...(e.sea?.waveConfig || {}) },
     },
-    progression: { ...P.progression, ...(e.progression || {}) },
-    dynamics: { ...P.dynamics, ...(e.dynamics || {}) },
-    fail: { ...P.fail, ...(e.fail || {}) },
+    progression: { ...HIGH_SEA_CHALLENGE_CONFIG.progression, ...(e.progression || {}) },
+    dynamics: { ...HIGH_SEA_CHALLENGE_CONFIG.dynamics, ...(e.dynamics || {}) },
+    fail: { ...HIGH_SEA_CHALLENGE_CONFIG.fail, ...(e.fail || {}) },
   };
 }
 function I(e, t = null) {

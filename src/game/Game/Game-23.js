@@ -1,7 +1,7 @@
 // Game 23 — boat
 // Lines 9273-10497 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
 var Zi = 0.2,
-  Qi = class {
+  RaceFlowManager = class {
     constructor(e, t, n = null, r = null, i = null) {
       ((this.world = e),
         (this.boat = t),
@@ -33,9 +33,9 @@ var Zi = 0.2,
                 ))),
         Yi(this.config),
         (this.checkpointManager = new mr(this.world.scene, this.config)),
-        (this.uiManager = new xi()),
+        (this.uiManager = new RaceHudFacade()),
         (this.recordService = new Si()),
-        (this.countryService = n || new pr()),
+        (this.countryService = n || new CountryService()),
         (this._leaderboardRequestVersion = 0),
         this.boat?.model &&
           this.countryService &&
@@ -604,7 +604,7 @@ var Zi = 0.2,
       return t && e >= 0 && e < t.length ? t[e] : null;
     }
   },
-  $i = class extends Qi {
+  FreeSailFlow = class extends RaceFlowManager {
     constructor(e, t, n = null, r = null, i = null) {
       super(e, t, n, r, i);
     }
@@ -641,7 +641,7 @@ var Zi = 0.2,
       this.resetBoatAndCamera(0, 0);
     }
   },
-  ea = class extends Qi {
+  RegattaFlow = class extends RaceFlowManager {
     constructor(e, t, n = null, r = null, i = null) {
       (super(e, t, n, r, i),
         (this.isPreStart = !1),
@@ -778,7 +778,7 @@ var Zi = 0.2,
           (i.getTrackId = () => a.trackId),
           (i.useDevTrackShortcuts = !1),
           console.info(`Initializing Time Trial: ${a.title}`),
-          new $i(e, t, n, r, i)
+          new FreeSailFlow(e, t, n, r, i)
         );
       }
       let o = new bt({
@@ -787,8 +787,8 @@ var Zi = 0.2,
       });
       return o.isRegattaRace && o.isRegattaRace()
         ? (console.info(`Initializing Regatta Style Race`),
-          new ea(e, t, n, r, o))
-        : (console.info(`Initializing Standard Race`), new $i(e, t, n, r, o));
+          new RegattaFlow(e, t, n, r, o))
+        : (console.info(`Initializing Standard Race`), new FreeSailFlow(e, t, n, r, o));
     }
   },
   na = class {
@@ -890,7 +890,7 @@ var Zi = 0.2,
   },
   ra = { min: 0.15, max: 4, wheelSpeed: 0.002 },
   ia = 2e4,
-  aa = class {
+  MapOverlay = class {
     constructor(e, t) {
       ((this.app = e),
         (this.parentElement = t),

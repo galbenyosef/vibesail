@@ -1,6 +1,6 @@
 // Game 12 — config
 // Lines 5329-5925 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var pr = class {
+var CountryService = class {
     constructor() {
       ((this.registeredBoats = new Set()),
         (this.currentCountry = null),
@@ -431,7 +431,7 @@ var pr = class {
       return n * t.direction.x + r * t.direction.z >= 0 ? 1 : -1;
     }
   },
-  hr = class {
+  RaceOverlayBase = class {
     constructor() {
       this.race = null;
     }
@@ -467,7 +467,7 @@ var pr = class {
       return `${t.toString().padStart(2, `0`)}:${n.toString().padStart(2, `0`)}:${r.toString().padStart(2, `0`)}`;
     }
   },
-  gr = class extends hr {
+  RaceTimerOverlay = class extends RaceOverlayBase {
     constructor() {
       (super(), (this.timerDisplay = null));
     }
@@ -521,7 +521,7 @@ var pr = class {
       e && (e.style.display = `none`);
     }
   },
-  _r = class extends hr {
+  RaceCountdownOverlay = class extends RaceOverlayBase {
     constructor() {
       (super(),
         (this.countdownElement = null),

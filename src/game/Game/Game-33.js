@@ -1,6 +1,6 @@
 // Game 33 — water
 // Lines 17075-18390 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var Zo = class {
+var LookdevController = class {
     constructor(e, t = {}) {
       if (
         ((this.world = e),
@@ -139,7 +139,7 @@ var Zo = class {
             fresnelBase: H.water.fresnelBase ?? 0.02,
             fresnelPower: H.water.fresnelPower ?? 5,
             scatterStrength: H.water.scatterStrength ?? 1,
-            ...mn.Default,
+            ...WATER_LOOK_PRESETS.Default,
           },
         },
         Bright: {
@@ -157,7 +157,7 @@ var Zo = class {
             pointIntensity: 1,
           },
           water: {
-            ...mn.TropicalNoon,
+            ...WATER_LOOK_PRESETS.TropicalNoon,
             sunColor: 16642770,
             reflectionStrength: 1.15,
             specularStrength: 1.35,
@@ -178,7 +178,7 @@ var Zo = class {
             directionalIntensity: 0.88,
             pointIntensity: 0.95,
           },
-          water: { ...mn.GoldenReach },
+          water: { ...WATER_LOOK_PRESETS.GoldenReach },
         },
         Overcast: {
           sky: {
@@ -227,13 +227,13 @@ var Zo = class {
             pointIntensity: 0.6,
           },
           waterLook: `StormySeas`,
-          water: { ...mn.StormySeas },
+          water: { ...WATER_LOOK_PRESETS.StormySeas },
         },
       };
     }
     applyWaterLook(e) {
       if (!this.parameters) return;
-      let t = mn[e];
+      let t = WATER_LOOK_PRESETS[e];
       t &&
         (Object.assign(this.parameters.water, t),
         (this.parameters.presets.waterLook = e),
@@ -241,7 +241,7 @@ var Zo = class {
         this.refreshGuiDisplays());
     }
     getLookdevBaseline() {
-      let e = { ...vn(), ...mn.Default };
+      let e = { ...vn(), ...WATER_LOOK_PRESETS.Default };
       return {
         presets: { skyPreset: `Default`, waterLook: `Default` },
         sky: {
@@ -263,7 +263,7 @@ var Zo = class {
         },
         fog: { ...H.scene.fog, enabled: H.scene.fog?.enabled === !0 },
         water: e,
-        effects: { ...Cn },
+        effects: { ...DEFAULT_EFFECT_STATE },
         wind: { visibilityRadius: 800 },
         refractDebugMode: `Off`,
       };
@@ -328,7 +328,7 @@ var Zo = class {
           t.water &&
             (Object.assign(this.parameters.water, t.water),
             t.waterLook &&
-              mn[t.waterLook] &&
+              WATER_LOOK_PRESETS[t.waterLook] &&
               (this.parameters.presets.waterLook = t.waterLook)),
           (this.parameters.presets.skyPreset = e),
           this.applyAllParameters(),
@@ -370,7 +370,7 @@ var Zo = class {
     }
     createPanel() {
       this.parameters &&
-        ((this.panel = new Bo({
+        ((this.panel = new LookdevPanel({
           title: `Sea Lookdev`,
           subtitle: `Hybrid ocean · collapsible folders`,
           storageKey: `seaLookdev.hybrid.openFolders`,
@@ -429,7 +429,7 @@ var Zo = class {
             {
               type: `select`,
               label: `Water look`,
-              options: Object.keys(mn),
+              options: Object.keys(WATER_LOOK_PRESETS),
               get: () => e.presets.waterLook,
               set: (e) => this.applyWaterLook(e),
             },
@@ -480,7 +480,7 @@ var Zo = class {
         },
         {
           id: `lights`,
-          title: Po.lights,
+          title: LOOKDEV_FOLDER_LABELS.lights,
           controls: [
             {
               type: `range`,
@@ -525,7 +525,7 @@ var Zo = class {
         },
         {
           id: `fog`,
-          title: Po.fog,
+          title: LOOKDEV_FOLDER_LABELS.fog,
           enabled: {
             get: () => e.fog.enabled !== !1,
             set: (t) => {
@@ -601,7 +601,7 @@ var Zo = class {
         },
         {
           id: `ripples`,
-          title: Po.ripples,
+          title: LOOKDEV_FOLDER_LABELS.ripples,
           enabled: d(`proceduralRipples`),
           controls: [
             f(`detailNormals`, `Detail normals (texture)`),
@@ -649,7 +649,7 @@ var Zo = class {
         },
         {
           id: `reflections`,
-          title: Po.reflections,
+          title: LOOKDEV_FOLDER_LABELS.reflections,
           enabled: d(`planarReflect`),
           controls: [
             {
@@ -703,11 +703,11 @@ var Zo = class {
             {
               type: `select`,
               label: `Debug view`,
-              options: Object.keys(Wo),
+              options: Object.keys(REFRACTION_DEBUG_LEVELS),
               get: () => e.refractDebugMode,
               set: (t) => {
                 ((e.refractDebugMode = t),
-                  (e.water.refractDebug = Wo[t] ?? 0),
+                  (e.water.refractDebug = REFRACTION_DEBUG_LEVELS[t] ?? 0),
                   n());
               },
             },
@@ -1047,12 +1047,12 @@ var Zo = class {
         },
         {
           id: `clouds`,
-          title: Po.clouds,
+          title: LOOKDEV_FOLDER_LABELS.clouds,
           controls: [
             {
               type: `select`,
               label: `Sky setup`,
-              options: [...qn],
+              options: [...SKY_MODEL_IDS],
               get: () => e.sky.model || `analytic`,
               set: (e) => this.setSkyModel(e),
             },
@@ -1086,7 +1086,7 @@ var Zo = class {
         },
         {
           id: `bloom`,
-          title: Po.bloom,
+          title: LOOKDEV_FOLDER_LABELS.bloom,
           controls: [
             {
               type: `note`,
@@ -1096,7 +1096,7 @@ var Zo = class {
         },
         {
           id: `underwater`,
-          title: Po.underwater,
+          title: LOOKDEV_FOLDER_LABELS.underwater,
           controls: [
             {
               type: `note`,
@@ -1310,9 +1310,9 @@ var Zo = class {
     update() {}
   },
   Qo = e({
-    ONE_WEEK_MS: () => $o,
+    ONE_WEEK_MS: () => AUDIO_PREFS_TTL_MS,
     loadAudioPreferences: () => ts,
-    saveAudioPreferences: () => ns,
+    saveAudioPreferences: () => saveAudioPreferences,
   }),
-  $o = 10080 * 60 * 1e3,
-  es = `vibesail:audio`;
+  AUDIO_PREFS_TTL_MS = 10080 * 60 * 1e3,
+  AUDIO_PREFS_STORAGE_KEY = `vibesail:audio`;

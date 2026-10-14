@@ -14,14 +14,14 @@ function Cd(e) {
             ? `2h-10h`
             : `10h+`;
 }
-var wd = class {
+var CoinBalance = class {
     constructor(e = {}) {
       ((this.storage = e.storage || Bt),
         (this.flushEverySeconds = Math.max(
           1,
           Number(e.flushEverySeconds) || Sd,
         )));
-      let t = Number(this.storage.getWithTTL?.(bd));
+      let t = Number(this.storage.getWithTTL?.(PLAYTIME_STORAGE_KEY));
       ((this._total = Number.isFinite(t) ? Math.max(0, Math.floor(t)) : 0),
         (this._pending = 0));
     }
@@ -40,11 +40,11 @@ var wd = class {
         ? this.getSeconds()
         : ((this._total = Math.floor(this._total + this._pending)),
           (this._pending = 0),
-          this.storage.setWithTTL?.(bd, this._total, xd),
+          this.storage.setWithTTL?.(PLAYTIME_STORAGE_KEY, this._total, PLAYTIME_TTL_MS),
           this._total);
     }
   },
-  Td = `sail_balance_v2`;
+  BALANCE_STORAGE_KEY = `sail_balance_v2`;
 function Ed(e) {
   let t = Number(e);
   return !Number.isFinite(t) || t <= 0
@@ -60,14 +60,14 @@ function Ed(e) {
             : `50000+`;
 }
 function Dd(e = Bt) {
-  let t = e.getWithTTL?.(Td),
+  let t = e.getWithTTL?.(BALANCE_STORAGE_KEY),
     n = Number(t);
   return Number.isFinite(n) ? Math.max(0, Math.round(n)) : 0;
 }
 function Od(e = Bt) {
-  let t = e.getWithTTL?.(pa.storageKey),
+  let t = e.getWithTTL?.(TUNING_SCHEMA.storageKey),
     n = {};
-  for (let e of pa.stats) {
+  for (let e of TUNING_SCHEMA.stats) {
     let r = Number(t?.[e.id]);
     n[e.id] = Number.isFinite(r)
       ? Math.max(0, Math.min(e.maxLevel || 10, Math.round(r)))
@@ -83,7 +83,7 @@ function kd(e = {}) {
 function Ad(e) {
   return typeof e?.getVisibleBoatIds == `function`
     ? e.getVisibleBoatIds().filter(Boolean).sort()
-    : Object.keys(Jc).sort();
+    : Object.keys(BOAT_STORE_CATALOG).sort();
 }
 function jd(e = {}) {
   let t = e.inventory || null,
@@ -109,7 +109,7 @@ function jd(e = {}) {
     d = 0,
     f = 0,
     p = [];
-  for (let e of pa.stats) {
+  for (let e of TUNING_SCHEMA.stats) {
     let t = e.maxLevel || 10,
       n = Number(u?.[e.id]),
       r = Number.isFinite(n) ? Math.max(0, Math.min(t, Math.round(n))) : 0;

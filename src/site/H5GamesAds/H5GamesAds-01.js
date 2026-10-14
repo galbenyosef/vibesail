@@ -1,12 +1,12 @@
 // H5GamesAds 01 — keys
 // Lines 1-275 of readable/assets/H5GamesAds-cgmFpTvU.pretty.js (statement-aligned).
 var e = `vibesail-h5-games-ads`,
-  t = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`,
-  n = `vibesail.rewardedAds.v1`,
+  ADS_SCRIPT_URL = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`,
+  REWARD_STATE_STORAGE_KEY = `vibesail.rewardedAds.v1`,
   r = 9e4,
-  i = Object.freeze([`vibesail.com`, `www.vibesail.com`]),
-  a = new Set([`viewed`, `dismissed`]),
-  o = new Set([`0`, `false`, `off`, `no`]),
+  ALLOWED_ADS_HOSTS = Object.freeze([`vibesail.com`, `www.vibesail.com`]),
+  REWARD_TERMINAL_STATES = new Set([`viewed`, `dismissed`]),
+  FALSE_LIKE_VALUES = new Set([`0`, `false`, `off`, `no`]),
   s = !1;
 function c(e, t) {
   if (!e || typeof e != `object`) return ``;
@@ -65,7 +65,7 @@ function h(e, t = d()) {
   if (!t?.setItem) return e;
   try {
     t.setItem(
-      n,
+      REWARD_STATE_STORAGE_KEY,
       JSON.stringify({ day: e.day, count: e.count, keys: e.keys.slice(-50) }),
     );
   } catch {}
@@ -96,16 +96,16 @@ function b(e) {
     .trim()
     .toLowerCase()
     .replace(/\.$/, ``);
-  return i.includes(t);
+  return ALLOWED_ADS_HOSTS.includes(t);
 }
 function x(e) {
   let t = c(e, `VITE_H5_GAMES_ADS`).toLowerCase();
-  return o.has(t) ? !1 : l(t);
+  return FALSE_LIKE_VALUES.has(t) ? !1 : l(t);
 }
 function S(e = {}) {
   let t = e.env ?? u(),
     n = c(t, `VITE_H5_GAMES_ADS`).toLowerCase();
-  return o.has(n) ? !1 : n ? l(n) : t?.PROD === !0 || t?.MODE === `production`;
+  return FALSE_LIKE_VALUES.has(n) ? !1 : n ? l(n) : t?.PROD === !0 || t?.MODE === `production`;
 }
 function C(e = globalThis) {
   let t = e?.navigator?.userAgent || ``;
@@ -141,7 +141,7 @@ function D(n = typeof document < `u` ? document : null, r = {}) {
     (a.id = e),
     (a.async = !0),
     (a.crossOrigin = `anonymous`),
-    (a.src = t),
+    (a.src = ADS_SCRIPT_URL),
     a.setAttribute(`data-ad-client`, r.client || `ca-pub-5378087601280989`),
     a.setAttribute(`data-ad-frequency-hint`, r.frequencyHint || `30s`),
     (r.test === !0 || w(r)) && a.setAttribute(`data-adbreak-test`, `on`),
@@ -212,7 +212,7 @@ function j({
     adBreakDone: (e = {}) => {
       u?.(e);
       let t = e.breakStatus;
-      f || a.has(t) || l?.(e);
+      f || REWARD_TERMINAL_STATES.has(t) || l?.(e);
     },
   });
 }

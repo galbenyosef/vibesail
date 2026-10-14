@@ -1,13 +1,13 @@
 // Game 43 — rules
 // Lines 21110-21801 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var tl = class {
+var BoatInventory = class {
     constructor(e = {}) {
-      ((this.rules = e.rules || new Xc()),
+      ((this.rules = e.rules || new BoatCatalog()),
         (this.storage = e.storage || Bt),
         (this.storageKey = e.storageKey || `sail_boat_inventory_v1`),
         (this.storageTtlMs = Number.isFinite(e.storageTtlMs)
           ? e.storageTtlMs
-          : Gc),
+          : YEAR_MS),
         (this.listeners = new Set()),
         (this.state = el(
           this.storage.getWithTTL(this.storageKey) || {},
@@ -119,7 +119,7 @@ var tl = class {
       return n && this.isVariantOwned(e, n) ? n : this.getEquippedVariantId(e);
     }
   },
-  nl = class {
+  GameplayLoadoutQueue = class {
     constructor(e = {}) {
       ((this.inventory = e.inventory),
         (this.rules = e.rules),
@@ -195,13 +195,13 @@ var tl = class {
       };
     }
   },
-  rl = class {
+  BoatShopController = class {
     constructor(e = {}) {
-      ((this.rules = e.rules || new Xc({ isDevMode: e.isDevMode === !0 })),
-        (this.store = e.store || new tl({ ...e, rules: this.rules })),
+      ((this.rules = e.rules || new BoatCatalog({ isDevMode: e.isDevMode === !0 })),
+        (this.store = e.store || new BoatInventory({ ...e, rules: this.rules })),
         (this.loadoutResolver =
           e.loadoutResolver ||
-          new nl({
+          new GameplayLoadoutQueue({
             inventory: this.store,
             rules: this.rules,
             windowRef: e.windowRef,
@@ -298,7 +298,7 @@ var tl = class {
       return this.loadoutResolver.resolveGameplayLoadout(e);
     }
   },
-  il = class {
+  BoatShopPresenter = class {
     constructor(e = {}) {
       ((this.inventory = e.inventory),
         (this.getBalance =
@@ -391,7 +391,7 @@ var tl = class {
       );
     }
   },
-  al = Object.freeze({
+  MINIMAP_ZOOM_CONFIG = Object.freeze({
     minZoom: 0.075,
     maxZoom: 6,
     initialZoom: 0.3,
@@ -402,29 +402,29 @@ var tl = class {
     followSmoothing: 0.08,
     inertiaDecay: 0.92,
   }),
-  ol = class {
+  WorldMapController = class {
     constructor(e, t, n = {}) {
       ((this.camera = e),
         (this.domElement = t),
         (this.center =
           n.center instanceof M ? n.center.clone() : new M(0, 0, 0)),
-        (this.minZoom = n.minZoom ?? al.minZoom),
-        (this.maxZoom = n.maxZoom ?? al.maxZoom),
-        (this.zoomSpeed = n.zoomSpeed ?? al.zoomSpeed),
-        (this.dragSpeed = n.dragSpeed ?? al.dragSpeed),
-        (this.height = n.height ?? al.height),
-        (this.frustumSize = n.frustumSize ?? al.frustumSize),
+        (this.minZoom = n.minZoom ?? MINIMAP_ZOOM_CONFIG.minZoom),
+        (this.maxZoom = n.maxZoom ?? MINIMAP_ZOOM_CONFIG.maxZoom),
+        (this.zoomSpeed = n.zoomSpeed ?? MINIMAP_ZOOM_CONFIG.zoomSpeed),
+        (this.dragSpeed = n.dragSpeed ?? MINIMAP_ZOOM_CONFIG.dragSpeed),
+        (this.height = n.height ?? MINIMAP_ZOOM_CONFIG.height),
+        (this.frustumSize = n.frustumSize ?? MINIMAP_ZOOM_CONFIG.frustumSize),
         (this.followTarget = n.followTarget ?? null),
-        (this.followSmoothing = n.followSmoothing ?? al.followSmoothing),
+        (this.followSmoothing = n.followSmoothing ?? MINIMAP_ZOOM_CONFIG.followSmoothing),
         (this.isDragging = !1),
         (this.lastPointerX = 0),
         (this.lastPointerY = 0),
-        (this.targetZoom = this.clampZoom(n.initialZoom ?? al.initialZoom)),
+        (this.targetZoom = this.clampZoom(n.initialZoom ?? MINIMAP_ZOOM_CONFIG.initialZoom)),
         (this.currentZoom = this.targetZoom),
         (this.zoomLerpSpeed = 8),
         (this.velocityX = 0),
         (this.velocityZ = 0),
-        (this.inertiaDecay = n.inertiaDecay ?? al.inertiaDecay),
+        (this.inertiaDecay = n.inertiaDecay ?? MINIMAP_ZOOM_CONFIG.inertiaDecay),
         (this.lastPinchDistance = null),
         (this.lastPinchMidpoint = null),
         this._setupCamera(),

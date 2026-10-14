@@ -1,7 +1,7 @@
 // MultiplayerManager 02 — math
 // Lines 12-532 of readable/assets/MultiplayerManager-CgzUu3MG.pretty.js (statement-aligned).
 var d = 4e3,
-  f = `send_failed`,
+  SEND_FAILED_EVENT = `send_failed`,
   p = 2,
   m = class {
     constructor(e, t, n, r = {}) {
@@ -382,7 +382,7 @@ var d = 4e3,
           n && typeof n.close == `function`)
         )
           try {
-            n.close(d, f);
+            n.close(d, SEND_FAILED_EVENT);
           } catch {}
         return (
           console.warn(

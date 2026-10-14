@@ -1,9 +1,9 @@
 // Game 30 — isfinite
 // Lines 16426-16666 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-function Fo() {
-  if (typeof document > `u` || document.getElementById(jo)) return;
+function ensureLookdevPanelStyles() {
+  if (typeof document > `u` || document.getElementById(SEA_LOOKDEV_STYLES_ID)) return;
   let e = document.createElement(`style`);
-  ((e.id = jo),
+  ((e.id = SEA_LOOKDEV_STYLES_ID),
     (e.textContent = `
 .sea-lookdev {
   --sea-bg: rgba(10, 14, 22, 0.94);
@@ -232,7 +232,7 @@ function Ro(e, t) {
   return e.toFixed(Math.min(n, 4));
 }
 function zo(e) {
-  let t = new Map(No.map((e, t) => [e, t]));
+  let t = new Map(LOOKDEV_FOLDER_IDS.map((e, t) => [e, t]));
   return [...e].sort((e, n) => {
     let r = t.has(e.id) ? t.get(e.id) : 1e3,
       i = t.has(n.id) ? t.get(n.id) : 1e3;

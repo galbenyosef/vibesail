@@ -1,26 +1,26 @@
 // Game 04 — geo
 // Lines 909-1268 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
-  cn = !!(V && V.scene === l.GEO && V.place && o[V.place]),
-  ln = () =>
-    V
-      ? V.scene === l.GEO
-        ? B.GEO
-        : V.scene === l.OCEAN
-          ? B.OCEAN
-          : (V.scene, l.ISLANDS, B.ISLANDS)
-      : B.ISLANDS,
-  un = () => {
-    if (typeof window > `u`) return sn.defaultLocation;
-    let e = V?.loc;
-    if (e && sn.locations[e]) return e;
+var activeWorldDefinition = sceneLocationContext && sceneLocationContext.scene === l.GEO && sceneLocationContext.place && o[sceneLocationContext.place] ? o[sceneLocationContext.place] : DEFAULT_WORLD_DEFINITION,
+  isGeoScene = !!(sceneLocationContext && sceneLocationContext.scene === l.GEO && sceneLocationContext.place && o[sceneLocationContext.place]),
+  getSceneType = () =>
+    sceneLocationContext
+      ? sceneLocationContext.scene === l.GEO
+        ? SCENE_TYPES.GEO
+        : sceneLocationContext.scene === l.OCEAN
+          ? SCENE_TYPES.OCEAN
+          : (sceneLocationContext.scene, l.ISLANDS, SCENE_TYPES.ISLANDS)
+      : SCENE_TYPES.ISLANDS,
+  getScenePlace = () => {
+    if (typeof window > `u`) return activeWorldDefinition.defaultLocation;
+    let e = sceneLocationContext?.loc;
+    if (e && activeWorldDefinition.locations[e]) return e;
     let t = window.location.pathname.toLowerCase();
-    for (let [e, n] of Object.entries(sn.locations))
+    for (let [e, n] of Object.entries(activeWorldDefinition.locations))
       if (n.path && t.startsWith(n.path)) return e;
-    return sn.defaultLocation;
+    return activeWorldDefinition.defaultLocation;
   },
-  dn =
-    !V || V.scene !== l.GEO
+  geoPlaceInfo =
+    !sceneLocationContext || sceneLocationContext.scene !== l.GEO
       ? null
       : tn
         ? {
@@ -28,11 +28,11 @@ var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
             lon: tn.lon,
             height: Number.isFinite(tn.height) ? tn.height : on(),
           }
-        : !Number.isFinite(V.lat) || !Number.isFinite(V.lon)
+        : !Number.isFinite(sceneLocationContext.lat) || !Number.isFinite(sceneLocationContext.lon)
           ? null
-          : { lat: V.lat, lon: V.lon, height: on() },
-  fn = !!dn && !nn,
-  pn = Object.freeze({
+          : { lat: sceneLocationContext.lat, lon: sceneLocationContext.lon, height: on() },
+  isGeoPlacePending = !!geoPlaceInfo && !hasPlaceHeight,
+  DEFAULT_WATER_PARAMS = Object.freeze({
     sunColor: 16765634,
     alpha: 1,
     reflectionStrength: 0.9,
@@ -85,7 +85,7 @@ var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
     refractDebug: 0,
     underFar: 8e3,
   }),
-  mn = Object.freeze({
+  WATER_LOOK_PRESETS = Object.freeze({
     Default: {
       sunColor: 16765634,
       waterColor: 1738436,
@@ -220,9 +220,9 @@ var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
       scatterStrength: 1,
     },
   }),
-  hn = {
-    [B.GEO]: {
-      ...pn,
+  WATER_PARAMS_BY_SCENE = {
+    [SCENE_TYPES.GEO]: {
+      ...DEFAULT_WATER_PARAMS,
       distortionScale: 5,
       size: 10,
       waterColor: 1738436,
@@ -230,8 +230,8 @@ var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
       tiling: { enabled: !0, tileSize: 2e3, tileSegments: 256, gridRadius: 1 },
       waveConfig: { ...Ke },
     },
-    [B.ISLANDS]: {
-      ...pn,
+    [SCENE_TYPES.ISLANDS]: {
+      ...DEFAULT_WATER_PARAMS,
       distortionScale: 5,
       size: 10,
       waterColor: 1738436,
@@ -239,9 +239,9 @@ var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
       tiling: { enabled: !0, tileSize: 2e3, tileSegments: 256, gridRadius: 1 },
       waveConfig: { ...Ke },
     },
-    [B.OCEAN]: {
-      ...pn,
-      ...mn.StormySeas,
+    [SCENE_TYPES.OCEAN]: {
+      ...DEFAULT_WATER_PARAMS,
+      ...WATER_LOOK_PRESETS.StormySeas,
       distortionScale: 5,
       size: 10,
       waveSpeed: Ze,
@@ -259,23 +259,23 @@ var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
       },
     },
   },
-  gn = {
-    [B.GEO]: { elevation: 39.1, azimuth: 169 },
-    [B.ISLANDS]: { elevation: 4, azimuth: 90 },
-    [B.OCEAN]: { elevation: 3.5, azimuth: 128 },
+  SUN_ANGLES_BY_SCENE = {
+    [SCENE_TYPES.GEO]: { elevation: 39.1, azimuth: 169 },
+    [SCENE_TYPES.ISLANDS]: { elevation: 4, azimuth: 90 },
+    [SCENE_TYPES.OCEAN]: { elevation: 3.5, azimuth: 128 },
   },
-  _n = {
-    [B.GEO]: {
+  CAMERA_SETTINGS_BY_SCENE = {
+    [SCENE_TYPES.GEO]: {
       cameraFar: 3e4,
       fog: { enabled: !1, near: 5e3, far: 25e3, color: 16762032 },
-      sun: gn[B.GEO],
+      sun: SUN_ANGLES_BY_SCENE[SCENE_TYPES.GEO],
     },
-    [B.ISLANDS]: {
+    [SCENE_TYPES.ISLANDS]: {
       cameraFar: 2e4,
       fog: { enabled: !1, near: 400, far: 1900, color: 16762032 },
-      sun: gn[B.ISLANDS],
+      sun: SUN_ANGLES_BY_SCENE[SCENE_TYPES.ISLANDS],
     },
-    [B.OCEAN]: {
+    [SCENE_TYPES.OCEAN]: {
       cameraFar: 2e4,
       fog: { enabled: !1, near: 400, far: 1900, color: 16762032 },
       lighting: {
@@ -283,25 +283,25 @@ var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
         directionalIntensity: 0.32,
         pointIntensity: 0.6,
       },
-      sun: gn[B.OCEAN],
+      sun: SUN_ANGLES_BY_SCENE[SCENE_TYPES.OCEAN],
     },
   },
   H = {
-    sceneType: ln(),
+    sceneType: getSceneType(),
     googleMaps: {
       apiKey: `AIzaSyA70ViI4JOspeXGG69hDggwAHUmClSe6fo`,
       tilesetUrl: `https://tile.googleapis.com/v1/3dtiles/root.json`,
-      locations: sn.locations,
-      defaultLocation: un(),
+      locations: activeWorldDefinition.locations,
+      defaultLocation: getScenePlace(),
       scale: 2.5,
       get center() {
         return (
-          dn ||
+          geoPlaceInfo ||
           this.locations[this.defaultLocation] ||
           Object.values(this.locations)[0]
         );
       },
-      autoAlignCoordinateCenter: fn,
+      autoAlignCoordinateCenter: isGeoPlacePending,
       refreshRate: 30,
     },
     get sky() {
@@ -315,8 +315,8 @@ var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
         exposure: 1,
         billboardOpacity: 1,
       };
-      if (this.sceneType === B.OCEAN) {
-        let t = tn?.lat ?? V?.lat ?? this.googleMaps?.center?.lat;
+      if (this.sceneType === SCENE_TYPES.OCEAN) {
+        let t = tn?.lat ?? sceneLocationContext?.lat ?? this.googleMaps?.center?.lat;
         return {
           ...e,
           model: `sky-image`,
@@ -327,7 +327,7 @@ var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
           sunGlow: 0.7,
         };
       }
-      if (this.sceneType !== B.GEO) return e;
+      if (this.sceneType !== SCENE_TYPES.GEO) return e;
       let t = this.googleMaps?.center?.lat;
       return {
         ...e,
@@ -337,15 +337,15 @@ var sn = V && V.scene === l.GEO && V.place && o[V.place] ? o[V.place] : en,
       };
     },
     get sun() {
-      return gn[this.sceneType] || gn[B.ISLANDS];
+      return SUN_ANGLES_BY_SCENE[this.sceneType] || SUN_ANGLES_BY_SCENE[SCENE_TYPES.ISLANDS];
     },
     get water() {
-      return this.sceneType === B.GEO && cn && sn.water
-        ? { ...hn[B.GEO], ...sn.water }
-        : hn[this.sceneType] || hn[B.ISLANDS];
+      return this.sceneType === SCENE_TYPES.GEO && isGeoScene && activeWorldDefinition.water
+        ? { ...WATER_PARAMS_BY_SCENE[SCENE_TYPES.GEO], ...activeWorldDefinition.water }
+        : WATER_PARAMS_BY_SCENE[this.sceneType] || WATER_PARAMS_BY_SCENE[SCENE_TYPES.ISLANDS];
     },
     get scene() {
-      return _n[this.sceneType] || _n[B.ISLANDS];
+      return CAMERA_SETTINGS_BY_SCENE[this.sceneType] || CAMERA_SETTINGS_BY_SCENE[SCENE_TYPES.ISLANDS];
     },
     docking: {
       minSpeedToDock: 9,

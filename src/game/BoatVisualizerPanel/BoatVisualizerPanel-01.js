@@ -3,8 +3,8 @@
 import { c as e, d as t } from "./GhostReplayModel-B8EqTWpz.js";
 var n = (...e) => e.find((e) => e != null),
   r = (e) => !!e && typeof e == `object` && !Array.isArray(e),
-  i = `boat-visualizer-panel`,
-  a = Object.freeze({ EDITOR: `editor`, VISUALIZER: `visualizer` }),
+  PANEL_ID = `boat-visualizer-panel`,
+  PANEL_MODES = Object.freeze({ EDITOR: `editor`, VISUALIZER: `visualizer` }),
   o = (e, t) => {
     let n = Number(e);
     return Number.isFinite(n) ? n : t;
@@ -28,8 +28,8 @@ function u(e = ``) {
     .trim()
     .toLowerCase();
   return t === `/boat-visualizer` || t === `/boat-visualizer.html`
-    ? a.VISUALIZER
-    : a.EDITOR;
+    ? PANEL_MODES.VISUALIZER
+    : PANEL_MODES.EDITOR;
 }
 function d(
   e,

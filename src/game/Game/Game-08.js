@@ -1,6 +1,6 @@
 // Game 08 — water
 // Lines 1725-4061 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var zn = class {
+var SeabedRocks = class {
     constructor(e, t, n = {}) {
       ((this.scene = e),
         (this.depth = Number.isFinite(n.depth)
@@ -415,7 +415,7 @@ var zn = class {
         (this._rockMaterial = null));
     }
   },
-  Bn = class {
+  WaterSurface = class {
     constructor(e, t, n = null, r) {
       if (!r) throw Error(`Ocean requires a WaveSystem instance`);
       ((this.scene = e),
@@ -493,7 +493,7 @@ var zn = class {
         (this._refractionClear = new j(H.water.deepColor ?? 405577)),
         (this._refractionHideList = []),
         (this._refractionHidePrev = []),
-        (this._effects = { ...Cn, ...(i.effects || {}) }),
+        (this._effects = { ...DEFAULT_EFFECT_STATE, ...(i.effects || {}) }),
         (this._contactBodies = []),
         (this._contactScratch = {
           pos: new M(),
@@ -660,7 +660,7 @@ var zn = class {
                 ? this._refractionRT.depthTexture
                 : null,
             }));
-          for (let [t, n] of Sn) e.uniforms[n] = { value: +!!this._effects[t] };
+          for (let [t, n] of EFFECT_TOGGLE_IDS) e.uniforms[n] = { value: +!!this._effects[t] };
           let n = this.waveSystem.getVertexShaderCode();
           ((e.vertexShader = this._buildVertexShader(n)),
             (e.fragmentShader = `
@@ -1215,7 +1215,7 @@ var zn = class {
     _createSeabed() {
       if (this._seabed || !this.scene || !this._floorEnabled) return;
       let e = H.water.floorY ?? -10;
-      this._seabed = new zn(this.scene, this.sun, {
+      this._seabed = new SeabedRocks(this.scene, this.sun, {
         depth: Math.abs(e),
         tileSize: this.tileSize,
         gridRadius: this.tilingEnabled ? this.gridRadius : 0,
@@ -1670,7 +1670,7 @@ var zn = class {
     _applyEffectGates() {
       let e = this.water?.material?.uniforms;
       if (e) {
-        for (let [t, n] of Sn) e[n] && (e[n].value = +!!this._effects[t]);
+        for (let [t, n] of EFFECT_TOGGLE_IDS) e[n] && (e[n].value = +!!this._effects[t]);
         (e.refractionEnabled &&
           (e.refractionEnabled.value =
             this._refractionEnabled && this._effects.refraction ? 1 : 0),
@@ -1908,7 +1908,7 @@ var zn = class {
       }
     }
   },
-  Vn = class {
+  WaveModel = class {
     getVertexShaderCode() {
       throw Error(
         `WaveSystem.getVertexShaderCode() must be implemented by subclass`,
@@ -1932,10 +1932,10 @@ var zn = class {
       throw Error(`WaveSystem.setDirection() must be implemented by subclass`);
     }
   },
-  Hn = Math.PI * 2,
+  TWO_PI = Math.PI * 2,
   Un = -1,
-  Wn = 1e-6,
-  Gn = class extends Vn {
+  FLOAT_EPSILON = 1e-6,
+  GerstnerWaves = class extends WaveModel {
     constructor(e = {}) {
       (super(),
         (this.config = {
@@ -2008,7 +2008,7 @@ var zn = class {
         ];
       for (let e = 0; e < a.length; e++) {
         let o = a[e],
-          s = (e * 7.3) % Hn,
+          s = (e * 7.3) % TWO_PI,
           c = o.steepMult * o.weight * 0.09 * n;
         r.push({
           direction: t + o.dirOffset,
@@ -2144,9 +2144,9 @@ ${n}
           a = P.degToRad(n.direction);
         ((i.dLocalX = Math.sin(a)),
           (i.dLocalY = Math.cos(a)),
-          (i.k = Hn / n.wavelength),
+          (i.k = TWO_PI / n.wavelength),
           (i.c = Math.sqrt(9.8 / i.k)));
-        let o = Hn / (n.modPeriod || 30),
+        let o = TWO_PI / (n.modPeriod || 30),
           s = n.modPhase || 0,
           c = 1 + 0.4 * Math.sin(e * o + s);
         i.amplitude = (n.steepness * c) / i.k;
@@ -2187,23 +2187,23 @@ ${n}
       let t = !1;
       if (e.windSpeed !== void 0) {
         let n = P.clamp(e.windSpeed, 1, 30);
-        Math.abs(n - this.config.windSpeed) > Wn &&
+        Math.abs(n - this.config.windSpeed) > FLOAT_EPSILON &&
           ((this.config.windSpeed = n), (t = !0));
       }
       if (e.windDirection !== void 0) {
         let n = Number(e.windDirection);
         Number.isFinite(n) &&
-          Math.abs(n - this.config.windDirection) > Wn &&
+          Math.abs(n - this.config.windDirection) > FLOAT_EPSILON &&
           ((this.config.windDirection = n), (t = !0));
       }
       if (e.waveScale !== void 0) {
         let n = P.clamp(e.waveScale, 0, 10);
-        Math.abs(n - this.config.waveScale) > Wn &&
+        Math.abs(n - this.config.waveScale) > FLOAT_EPSILON &&
           ((this.config.waveScale = n), (t = !0));
       }
       if (e.choppiness !== void 0) {
         let t = P.clamp(e.choppiness, 0, 3);
-        Math.abs(t - this.config.choppiness) > Wn &&
+        Math.abs(t - this.config.choppiness) > FLOAT_EPSILON &&
           (this.config.choppiness = t);
       }
       return (
@@ -2244,7 +2244,7 @@ ${n}
       return this.waves.length;
     }
   },
-  Kn = Object.freeze({
+  SKY_MODELS = Object.freeze({
     analytic: {
       id: `analytic`,
       label: `analytic`,
@@ -2260,8 +2260,8 @@ ${n}
       note: `Static equirectangular sky photo (/textures/sky/*.jpg)`,
     },
   }),
-  qn = Object.freeze(Object.keys(Kn)),
-  Jn = Object.freeze({
+  SKY_MODEL_IDS = Object.freeze(Object.keys(SKY_MODELS)),
+  SKY_PRESETS = Object.freeze({
     analytic: Object.freeze({
       cloudCover: 0.28,
       cirrus: 1,
@@ -2275,7 +2275,7 @@ ${n}
       billboardOpacity: 0.35,
     }),
   }),
-  Yn = Object.freeze({
+  SKY_CONTROL_SECTIONS = Object.freeze({
     analytic: Object.freeze([
       {
         type: `range`,

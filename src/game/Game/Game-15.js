@@ -1,11 +1,11 @@
 // Game 15 — bronze
 // Lines 6297-6634 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
 function Tr(e = {}) {
-  return (wr || (wr = new Cr(e)), wr);
+  return (wr || (wr = new NotificationCenter(e)), wr);
 }
-var Er = `race-leaderboard-modal`,
-  Dr = `/advertise`,
-  Or = class extends hr {
+var RACE_LEADERBOARD_MODAL_ID = `race-leaderboard-modal`,
+  ADVERTISE_ROUTE = `/advertise`,
+  RaceLeaderboardModal = class extends RaceOverlayBase {
     constructor() {
       (super(), (this.overlaySystem = Tr()));
     }
@@ -66,14 +66,14 @@ var Er = `race-leaderboard-modal`,
         this._attachDayTabHandlers(n, null, t));
     }
     hide() {
-      this.overlaySystem.closeModal(Er);
+      this.overlaySystem.closeModal(RACE_LEADERBOARD_MODAL_ID);
     }
     isVisible() {
-      return !!document.querySelector(`.ui-system-modal[data-ui-id="${Er}"]`);
+      return !!document.querySelector(`.ui-system-modal[data-ui-id="${RACE_LEADERBOARD_MODAL_ID}"]`);
     }
     _showLeaderboardModal(e, t) {
       this.overlaySystem.showModal({
-        id: Er,
+        id: RACE_LEADERBOARD_MODAL_ID,
         group: `main-panel`,
         title: t,
         content: e,
@@ -88,7 +88,7 @@ var Er = `race-leaderboard-modal`,
     _createLeaderboardActions() {
       return `
             <a href="/leaderboard" target="_blank" rel="noopener" class="leaderboard-action-button leaderboard-action-secondary" data-i18n="ui.full_leaderboard">${R.t(`ui.full_leaderboard`)}</a>
-            <a href="${Dr}" target="_blank" rel="noopener" class="leaderboard-action-button leaderboard-action-secondary leaderboard-advertise-cta" data-i18n="ui.advertise_here">${R.t(`ui.advertise_here`)}</a>
+            <a href="${ADVERTISE_ROUTE}" target="_blank" rel="noopener" class="leaderboard-action-button leaderboard-action-secondary leaderboard-advertise-cta" data-i18n="ui.advertise_here">${R.t(`ui.advertise_here`)}</a>
         `;
     }
     _createDayTabs(e = 0) {
@@ -192,7 +192,7 @@ var Er = `race-leaderboard-modal`,
         });
     }
   },
-  kr = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+  MOBILE_USER_AGENT_PATTERN = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
 function Ar(e) {
   window.open(
     `https://x.com/intent/tweet?text=${encodeURIComponent(e)}`,
@@ -229,11 +229,11 @@ async function Mr(e) {
   }
 }
 function Nr(e) {
-  kr.test(navigator.userAgent) && typeof navigator.share == `function`
+  MOBILE_USER_AGENT_PATTERN.test(navigator.userAgent) && typeof navigator.share == `function`
     ? navigator.share({ text: e }).catch(() => Ar(e))
     : Ar(e);
 }
-var Pr = Object.freeze([`big-iron`, `island-star`]),
+var TRIAL_BOAT_IDS = Object.freeze([`big-iron`, `island-star`]),
   Fr = 20;
 function Ir(e) {
   return 100 * (Number(e?.size) || 1) + Fr + 45;
@@ -310,7 +310,7 @@ function Gr(e) {
   let t = String(e || ``)
     .trim()
     .toLowerCase();
-  return t === `inner-zigzag` ? `island-star` : Pr.includes(t) ? t : null;
+  return t === `inner-zigzag` ? `island-star` : TRIAL_BOAT_IDS.includes(t) ? t : null;
 }
 function Kr(e, t = Lr()) {
   let n = Gr(e);
@@ -336,5 +336,5 @@ function Jr(e, t) {
           ? `bronze`
           : null;
 }
-var Yr = `vibesail.raceTrialProgress`,
-  Xr = Object.freeze({ bronze: 0, silver: 1, gold: 2 });
+var TRIAL_PROGRESS_STORAGE_KEY = `vibesail.raceTrialProgress`,
+  TRIAL_MEDALS = Object.freeze({ bronze: 0, silver: 1, gold: 2 });

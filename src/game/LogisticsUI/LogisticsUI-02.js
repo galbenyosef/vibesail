@@ -54,7 +54,7 @@ var v = class {
   }
   _updateDockingUI(e) {
     if (e?.isDocked || e?.locked || !e?.inside) {
-      (this.overlaySystem.hideBanner(i), (this._lastDockingMessage = ``));
+      (this.overlaySystem.hideBanner(DOCKING_BANNER_ID), (this._lastDockingMessage = ``));
       return;
     }
     let t = e.canDock
@@ -64,7 +64,7 @@ var v = class {
     t &&
       ((this._lastDockingMessage = t),
       this.overlaySystem.showBanner({
-        id: i,
+        id: DOCKING_BANNER_ID,
         message: t,
         tone: e.canDock ? `info` : `warning`,
       }));
@@ -74,7 +74,7 @@ var v = class {
       this._activeMission
         ? this._renderMissionBanner()
         : ((this._missionProgress = null),
-          this.overlaySystem.hideBanner(a),
+          this.overlaySystem.hideBanner(ACTIVE_MISSION_BANNER_ID),
           this._hideHeelGauge()));
   }
   _updateMissionProgress(e) {
@@ -84,7 +84,7 @@ var v = class {
   }
   _renderMissionBanner() {
     if (!this._activeMission) {
-      (this.overlaySystem.hideBanner(a), this._hideHeelGauge());
+      (this.overlaySystem.hideBanner(ACTIVE_MISSION_BANNER_ID), this._hideHeelGauge());
       return;
     }
     let e = this._activeMission.name || r.t(`logistics.mission`) || `Mission`,
@@ -117,7 +117,7 @@ var v = class {
     (o && l.push(o), c && l.push(c));
     let u = `${e}\n${l.join(`  •  `)}`;
     this.overlaySystem.showBanner({
-      id: a,
+      id: ACTIVE_MISSION_BANNER_ID,
       message: u,
       tone: `info`,
       actionLabel: r.t(`logistics.abort`) || `Abort`,
@@ -135,12 +135,12 @@ var v = class {
       this.overlaySystem?.documentRef ||
       (typeof document < `u` ? document : null);
     if (!e?.body) return null;
-    let t = e.getElementById(l),
-      n = e.getElementById(u);
+    let t = e.getElementById(HEEL_GAUGE_ID),
+      n = e.getElementById(BANNER_STACK_TOP_ID);
     if (
       (n ||
         ((n = e.createElement(`div`)),
-        (n.id = u),
+        (n.id = BANNER_STACK_TOP_ID),
         (n.className = `ui-banner-stack ui-banner-stack-top`),
         e.body.appendChild(n)),
       t)
@@ -148,7 +148,7 @@ var v = class {
       t.parentElement !== n && n.appendChild(t);
     else {
       ((t = e.createElement(`div`)),
-        (t.id = l),
+        (t.id = HEEL_GAUGE_ID),
         (t.className = `logistics-heel-gauge is-visible`),
         (t.dataset.tone = `info`));
       let r = h(e, `div`, `logistics-heel-gauge-header`);
@@ -228,7 +228,7 @@ var v = class {
     let t = Number(e?.heelSignedDegrees);
     if (Number.isFinite(t)) return t;
     let n = Number(this.app?.boat?.getHeelAngle?.());
-    if (Number.isFinite(n)) return n * p;
+    if (Number.isFinite(n)) return n * RAD_TO_DEG;
     let r = Number(e?.heelDegrees);
     return Number.isFinite(r) ? r : 0;
   }
@@ -236,7 +236,7 @@ var v = class {
     let e =
         this.overlaySystem?.documentRef ||
         (typeof document < `u` ? document : null),
-      t = this._heelGauge || e?.getElementById?.(l);
+      t = this._heelGauge || e?.getElementById?.(HEEL_GAUGE_ID);
     (t && t.remove(),
       (this._heelGauge = null),
       (this._heelGaugeFill = null),
@@ -364,7 +364,7 @@ var v = class {
           i.appendChild(o));
       }),
       this.overlaySystem.showModal({
-        id: o,
+        id: MISSION_MODAL_ID,
         title: r.t(`logistics.available_missions`) || `Available Missions`,
         description:
           r.t(`logistics.pick_one`) ||
@@ -385,7 +385,7 @@ var v = class {
       (this.isModalOpen = !0));
   }
   hideMissionModal() {
-    (this.overlaySystem.closeModal(o),
+    (this.overlaySystem.closeModal(MISSION_MODAL_ID),
       (this.isModalOpen = !1),
       (this._currentMissionModalMissions = null));
   }
@@ -425,7 +425,7 @@ var v = class {
     }),
       d.appendChild(p),
       this.overlaySystem.showModal({
-        id: s,
+        id: COMPLETION_MODAL_ID,
         title: `Mission Complete`,
         description: `Cargo delivered successfully.`,
         content: d,
@@ -462,7 +462,7 @@ var v = class {
   showPayloadDroppedNotification() {
     (this._hideHeelGauge(),
       this.overlaySystem.showToast({
-        id: c,
+        id: PAYLOAD_DROPPED_TOAST_ID,
         message: `Payload dropped. Mission aborted.`,
         tone: `warning`,
         durationMs: 4200,
@@ -500,7 +500,7 @@ var v = class {
     this.logisticsManager.clearMission();
   }
   _onCompletionConfirm() {
-    (this.overlaySystem.closeModal(s), (this._completionModalOpen = !1));
+    (this.overlaySystem.closeModal(COMPLETION_MODAL_ID), (this._completionModalOpen = !1));
     let e = this._consumePendingDockMissions();
     e.length > 0 && this._showMissionModalNow(e);
   }
@@ -554,13 +554,13 @@ var v = class {
         (n.removeActionListener(this._keyboardListener),
         (this._keyboardListener = null)),
       this.hideMissionModal(),
-      this.overlaySystem.closeModal(s),
+      this.overlaySystem.closeModal(COMPLETION_MODAL_ID),
       (this._completionModalOpen = !1),
       (this._pendingMissionModalMissions = null),
       this._hideHeelGauge(),
-      this.overlaySystem.hideBanner(i),
-      this.overlaySystem.hideBanner(a),
-      this.overlaySystem.dismissToast(c),
+      this.overlaySystem.hideBanner(DOCKING_BANNER_ID),
+      this.overlaySystem.hideBanner(ACTIVE_MISSION_BANNER_ID),
+      this.overlaySystem.dismissToast(PAYLOAD_DROPPED_TOAST_ID),
       (this.callbacks = {}));
   }
 };

@@ -5,14 +5,14 @@ function X(e) {
   let t = e.trim();
   return t.length > 0 ? t : null;
 }
-var Xc = class {
+var BoatCatalog = class {
   constructor(e = {}) {
     ((this.isDevMode = e.isDevMode === !0),
-      (this.catalog = e.catalog || new Yc()),
+      (this.catalog = e.catalog || new BoatCatalogIndex()),
       (this.presetMeta = new Map(zt().map((e) => [e.id, e]))));
   }
   getDefaultOwnedBoatId() {
-    return qc;
+    return DEFAULT_BOAT_PRESET_ID;
   }
   getBoatPrice() {
     return Kc.boat;

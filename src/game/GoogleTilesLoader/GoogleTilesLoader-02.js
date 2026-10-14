@@ -1,12 +1,12 @@
 // GoogleTilesLoader 02 — isfinite
 // Lines 3887-3962 of readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js (statement-aligned).
-var Bn = 1024 * 1024;
-function Vn() {
+var BYTES_PER_MB = 1024 * 1024;
+function deviceMemoryGB() {
   if (typeof navigator > `u`) return null;
   let e = navigator.deviceMemory;
   return Number.isFinite(e) ? e : null;
 }
-function Hn(e = Vn()) {
+function resolveTileCacheProfile(e = deviceMemoryGB()) {
   let t = !Number.isFinite(e) || e <= 4;
   return {
     main: {
@@ -37,11 +37,11 @@ function Un(e, t) {
   (Number.isFinite(t.errorTarget) && (e.errorTarget = t.errorTarget),
     n &&
       (Number.isFinite(t.minSize) && (n.minSize = t.minSize),
-      Number.isFinite(t.minBytesMB) && (n.minBytesSize = t.minBytesMB * Bn),
+      Number.isFinite(t.minBytesMB) && (n.minBytesSize = t.minBytesMB * BYTES_PER_MB),
       t.persistentCache === !0
         ? ((n.maxSize = 1 / 0), (n.maxBytesSize = 1 / 0), (n.unloadPercent = 0))
         : (Number.isFinite(t.maxSize) && (n.maxSize = t.maxSize),
-          Number.isFinite(t.maxBytesMB) && (n.maxBytesSize = t.maxBytesMB * Bn),
+          Number.isFinite(t.maxBytesMB) && (n.maxBytesSize = t.maxBytesMB * BYTES_PER_MB),
           Number.isFinite(t.unloadPercent) &&
             (n.unloadPercent = t.unloadPercent))),
     typeof t.displayActiveTiles == `boolean` &&
@@ -49,28 +49,28 @@ function Un(e, t) {
     typeof t.optimizedLoadStrategy == `boolean` &&
       (e.optimizedLoadStrategy = t.optimizedLoadStrategy));
 }
-var Q = null,
-  Wn = 29,
-  Gn = `vibesail_google_tiles_session_v1`,
-  Kn = 3600 * 1e3,
-  qn = Object.freeze({ UP: `BracketRight`, DOWN: `BracketLeft` }),
-  $ = Object.freeze({
+var dracoLoader = null,
+  SESSION_TTL_DAYS = 29,
+  TILES_SESSION_STORAGE_KEY = `vibesail_google_tiles_session_v1`,
+  SESSION_REFRESH_MS = 3600 * 1e3,
+  TILE_CALIBRATION_KEYS = Object.freeze({ UP: `BracketRight`, DOWN: `BracketLeft` }),
+  TILE_FAILURE_MODES = Object.freeze({
     OFFLINE: `offline`,
     GOOGLE_TILE_REQUEST_WITH_SESSION_FAILED: `google_tile_request_with_session_failed`,
     GOOGLE_TILE_REQUEST_WITHOUT_SESSION_FAILED: `google_tile_request_without_session_failed`,
     NON_GOOGLE_TILE_REQUEST: `non_google_tile_request`,
     UNKNOWN: `unknown`,
   });
-function Jn() {
+function getDracoLoader() {
   return (
-    Q ||
-      ((Q = new oe()),
-      Q.setDecoderPath(e(`/assets/draco/`)),
-      Q.setDecoderConfig({ type: `js` })),
-    Q
+    dracoLoader ||
+      ((dracoLoader = new oe()),
+      dracoLoader.setDecoderPath(e(`/assets/draco/`)),
+      dracoLoader.setDecoderConfig({ type: `js` })),
+    dracoLoader
   );
 }
-function Yn(e) {
+function isEditableTarget(e) {
   if (!e) return !1;
   if (e.isContentEditable) return !0;
   let t = String(e.tagName || ``).toLowerCase();

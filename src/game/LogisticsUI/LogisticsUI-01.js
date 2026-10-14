@@ -3,17 +3,17 @@
 import { b as e, g as t } from "./Game-CrsSKcAK.js";
 import { t as n } from "./KeyboardManager-DVLZ3teY.js";
 import { a as r } from "./GeoMath-B_Iby49-.js";
-var i = `logistics-docking-banner`,
-  a = `logistics-active-mission-banner`,
-  o = `logistics-mission-modal`,
-  s = `logistics-completion-modal`,
-  c = `logistics-payload-dropped-toast`,
-  l = `logistics-heel-gauge`,
-  u = `ui-banner-stack-top`,
+var DOCKING_BANNER_ID = `logistics-docking-banner`,
+  ACTIVE_MISSION_BANNER_ID = `logistics-active-mission-banner`,
+  MISSION_MODAL_ID = `logistics-mission-modal`,
+  COMPLETION_MODAL_ID = `logistics-completion-modal`,
+  PAYLOAD_DROPPED_TOAST_ID = `logistics-payload-dropped-toast`,
+  HEEL_GAUGE_ID = `logistics-heel-gauge`,
+  BANNER_STACK_TOP_ID = `ui-banner-stack-top`,
   d = 50,
   f = 0.5,
-  p = 180 / Math.PI,
-  m = Object.freeze({
+  RAD_TO_DEG = 180 / Math.PI,
+  CARGO_DISPLAY_CONFIG = Object.freeze({
     standard: Object.freeze({
       id: `standard`,
       label: `Standard Cargo`,
@@ -38,7 +38,7 @@ function g(e) {
 function _(e = {}) {
   let t = String(e.contractType || ``).toLowerCase(),
     n = e.payload?.droppable ? `fragile` : `standard`,
-    r = m[m[t] ? t : n] || m.standard,
+    r = CARGO_DISPLAY_CONFIG[CARGO_DISPLAY_CONFIG[t] ? t : n] || CARGO_DISPLAY_CONFIG.standard,
     i = Number.isFinite(e.payload?.heelDropDegrees)
       ? e.payload.heelDropDegrees
       : 18;

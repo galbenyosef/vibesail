@@ -1,6 +1,6 @@
 // BoatModel 04 — isfinite
 // Lines 441-1637 of readable/assets/BoatModel-Cf2RVdWT.pretty.js (statement-aligned).
-var he = class {
+var SailRig = class {
     constructor(e, t = {}) {
       ((this.boatGroup = e),
         (this.mastHeight = t.mastHeight),
@@ -492,7 +492,7 @@ var he = class {
         this.jibPivot.add(this.jibRotationGroup));
       let s = Number.isFinite(this.jibLength) ? this.jibLength : 1,
         c = Number.isFinite(this.jibHeight) ? this.jibHeight : 1;
-      ((this.jibSail = new pe({
+      ((this.jibSail = new SailMesh({
         width: s,
         height: c,
         color: this.jibColor,
@@ -508,7 +508,7 @@ var he = class {
     _createMainSail() {
       ((this.sailGroup = new a()),
         (this.sailHeight = Math.max(0.1, this.headPointY - this.boomHeight)),
-        (this.mainSail = new pe({
+        (this.mainSail = new SailMesh({
           width: this.sailLength,
           height: this.sailHeight,
           color: this.sailColor,
@@ -658,7 +658,7 @@ var he = class {
           this._jibAnimOnComplete && this._jibAnimOnComplete()));
     }
   },
-  ge = class {
+  SailTextures = class {
     static createSailTexture(e) {
       let t = document.createElement(`canvas`),
         n = t.getContext(`2d`);
@@ -694,7 +694,7 @@ var he = class {
   be = 3,
   xe = 0.4,
   Se = 14,
-  Ce = class {
+  ForceVectorDebug = class {
     constructor(e, t) {
       ((this.boatModel = e),
         (this.boatGroup = t),
@@ -1193,7 +1193,7 @@ var he = class {
         a(this.yawMoment, new S(0, 1, 0), t.yaw, new S(0, 2, i)));
     }
   },
-  we = `/assets/flags/countries`,
-  P = `/assets/flags/unknown.png`,
-  F = `/assets/flags/pirate.png`,
-  Te = Object.freeze({ UK: `GB` });
+  FLAG_COUNTRY_BASE_PATH = `/assets/flags/countries`,
+  FLAG_UNKNOWN_PATH = `/assets/flags/unknown.png`,
+  FLAG_PIRATE_PATH = `/assets/flags/pirate.png`,
+  COUNTRY_CODE_ALIASES = Object.freeze({ UK: `GB` });

@@ -23,7 +23,7 @@ var e = `gameplay_control`,
       this.emit(e, { source: t });
     }
   })(),
-  r = new Set([
+  NAVIGATION_KEYS = new Set([
     `a`,
     `d`,
     `w`,
@@ -126,7 +126,7 @@ var e = `gameplay_control`,
             (this.lastKeyStates[i] = this.keys[i]),
             (this.keys[i] = !0),
             this.notifyListeners(),
-            r.has(i) && !e && n.emitGameplayControl(`keyboard_control`),
+            NAVIGATION_KEYS.has(i) && !e && n.emitGameplayControl(`keyboard_control`),
             i === `r` && !this.lastKeyStates.r && this._emitAction(t),
             i === `u` && !this.lastKeyStates.u && this._emitAction(`undock`),
             i === `q` && !this.lastKeyStates.q && this._emitAction(`fire_left`),

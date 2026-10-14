@@ -1,6 +1,6 @@
 // Game 10 — scene
 // Lines 4262-5320 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var dr = class e {
+var GeoModelRegistry = class e {
     constructor(e, { getConfig: t, setConfig: n, logger: r = console } = {}) {
       ((this.scene = e),
         (this.getConfig = typeof t == `function` ? t : () => null),
@@ -29,7 +29,7 @@ var dr = class e {
       return e
         ? this.mesh
           ? this.mesh.root
-          : ((this.mesh = new sr(this.scene, e)), this.mesh.load())
+          : ((this.mesh = new GeoModelAsset(this.scene, e)), this.mesh.load())
         : null;
     }
     async loadSafely() {
@@ -113,7 +113,7 @@ var dr = class e {
       (this.mesh?.dispose?.(), (this.mesh = null));
     }
   },
-  fr = class e {
+  WorldBuilder = class e {
     constructor(e, t = null, n = {}) {
       ((this.scene = e),
         (this.camera = t),
@@ -149,12 +149,12 @@ var dr = class e {
         (this.seaCreatures = null),
         (this._localGeoConfig = n.localGeoMeshConfig || null),
         (this.localGeoFeature = n.localGeoMeshId
-          ? dr.fromMeshId(this.scene, n.localGeoMeshId, {
+          ? GeoModelRegistry.fromMeshId(this.scene, n.localGeoMeshId, {
               setConfig: (e) => {
                 this._localGeoConfig = e;
               },
             })
-          : new dr(this.scene, {
+          : new GeoModelRegistry(this.scene, {
               getConfig: () => this._localGeoConfig,
               setConfig: (e) => {
                 this._localGeoConfig = e;
@@ -187,7 +187,7 @@ var dr = class e {
         this.loadDecorativeElementsAsync());
     }
     createClouds() {
-      this.clouds = Qt.createClouds(this.scene, 1500, 12);
+      this.clouds = CloudSystem.createClouds(this.scene, 1500, 12);
     }
     async createCityAsync() {
       let e = 0;
@@ -224,7 +224,7 @@ var dr = class e {
         };
       await t();
       let i =
-          this.sceneType !== B.GEO &&
+          this.sceneType !== SCENE_TYPES.GEO &&
           (this.options?.enableCargoShips ?? this.options?.enableSponsors) !==
             !1,
         a = !!this.options?.floatingWorldProp?.modelUrl,
@@ -237,13 +237,13 @@ var dr = class e {
         ],
         s = [
           () => this.createSeaCreaturesAsync(),
-          ...(this.sceneType !== B.OCEAN && this.options?.enableBirds !== !1
+          ...(this.sceneType !== SCENE_TYPES.OCEAN && this.options?.enableBirds !== !1
             ? [() => this.createBirdsAsync()]
             : []),
         ],
         c = () => Promise.all(o.map((e) => e()));
       try {
-        if (this.sceneType === B.ISLANDS) {
+        if (this.sceneType === SCENE_TYPES.ISLANDS) {
           let e = c(),
             t = Promise.resolve();
           (this.options?.enableSponsors !== !1 &&
@@ -266,7 +266,7 @@ var dr = class e {
               e,
               this.loadLocalGeoFeatureSafely(),
             ]));
-        } else if (this.sceneType === B.GEO)
+        } else if (this.sceneType === SCENE_TYPES.GEO)
           (await this.createCityAsync(), await c());
         else {
           let e = c();
@@ -307,14 +307,14 @@ var dr = class e {
     }
     createSea() {
       let t = H.water.waveConfig || {},
-        n = new Gn({
+        n = new GerstnerWaves({
           windSpeed: t.windSpeed ?? 6,
           windDirection: t.windDirection ?? -135,
           choppiness: t.choppiness ?? 0.8,
           waveScale: t.waveScale ?? 1,
           waveCount: 8,
         });
-      ((this.water = new Bn(this.scene, this.sun, this.camera, n)),
+      ((this.water = new WaterSurface(this.scene, this.sun, this.camera, n)),
         this.water.create(),
         e.showGrid && this._createGrid(new pe(1e4, 1e4)));
     }
@@ -374,7 +374,7 @@ var dr = class e {
         r = H.sky || {};
       if (n.dome === `image`) {
         ((this.analyticSky = null),
-          (this.imageSky = new yn({
+          (this.imageSky = new SkyTextureLoader({
             image: t.image || r.image || `tropical_day.jpg`,
             rotation: t.rotation ?? r.rotation ?? 296,
             exposure: t.exposure ?? r.exposure ?? 1,
@@ -384,7 +384,7 @@ var dr = class e {
         return;
       }
       ((this.imageSky = null),
-        (this.analyticSky = new Ut(this.sun, {
+        (this.analyticSky = new SkyDome(this.sun, {
           cloudCover: t.cloudCover ?? r.cloudCover ?? 0.28,
           cirrus: t.cirrus ?? r.cirrus ?? 1,
           sunGlow: t.sunGlow ?? r.sunGlow ?? 1,
@@ -394,11 +394,11 @@ var dr = class e {
     }
     _applySkyLayers(e, t = {}) {
       if (e.billboards === !1) {
-        (Qt.setVisible(!1), this.applySkySetupParams(e.id, t));
+        (CloudSystem.setVisible(!1), this.applySkySetupParams(e.id, t));
         return;
       }
-      Qt.setVisible(!0);
-      let n = Jn[e.id] || {};
+      CloudSystem.setVisible(!0);
+      let n = SKY_PRESETS[e.id] || {};
       this.applySkySetupParams(e.id, {
         billboardOpacity: n.billboardOpacity,
         ...t,
@@ -415,7 +415,7 @@ var dr = class e {
         this.imageSky && this.imageSky.setParameters(t),
         n.billboards !== !1 &&
           t.billboardOpacity !== void 0 &&
-          Qt.setOpacityScale(t.billboardOpacity));
+          CloudSystem.setOpacityScale(t.billboardOpacity));
     }
     setSkyModel(e, t = {}) {
       let n = this._normalizeSkyModel(e),
@@ -451,7 +451,7 @@ var dr = class e {
         }),
         this._applySkyLayers(Zn(n), t));
       let r =
-        this.localGeoFeature?.getFogConfig?.(this.sceneType, B.GEO) ||
+        this.localGeoFeature?.getFogConfig?.(this.sceneType, SCENE_TYPES.GEO) ||
         H.scene.fog;
       r?.enabled === !1
         ? (this.scene.fog = null)
@@ -622,7 +622,7 @@ var dr = class e {
     }
     createWindParticles() {
       if (this.camera) {
-        this.windSystem = new Wt(
+        this.windSystem = new WindTrails(
           this.scene,
           this.camera,
           this.windDirection,
@@ -807,7 +807,7 @@ var dr = class e {
       if (
         (this.floatingWorldProps?.length > 0 &&
           this.floatingWorldProps.forEach((t) => t.update?.(e)),
-        Qt.updateAll(this.windDirection, e),
+        CloudSystem.updateAll(this.windDirection, e),
         this.blimp && this.blimp.update(),
         this.portals.forEach((t) => {
           t.update(e);
@@ -1046,7 +1046,7 @@ var dr = class e {
         this.floatingWorldProps?.forEach((e) => e.dispose?.()),
         (this.floatingWorldProps = []),
         this.blimp && this.blimp.dispose(),
-        Qt.disposeAll(),
+        CloudSystem.disposeAll(),
         this.portals.forEach((e) => {
           e.dispose();
         }),

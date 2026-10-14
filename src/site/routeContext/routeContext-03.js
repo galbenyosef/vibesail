@@ -43,14 +43,14 @@ function A(e) {
 function j(e) {
   return e === D.BOAT_VISUALIZER ? `visualizer` : `editor`;
 }
-var M = new Set(Object.keys(l)),
-  N = (() => {
+var WORLD_PLACE_IDS = new Set(Object.keys(l)),
+  worldStopsByPlaceKey = (() => {
     let e = new Map();
     for (let t of b({ includeDisabled: !0 }))
       (e.set(t.place, t.place), e.set(t.id, t.place));
     return e;
   })(),
-  P = `world`,
+  WORLD_PLACE_ID = `world`,
   F = new Set([
     D.BACKGROUND,
     D.MAP,
@@ -60,7 +60,7 @@ var M = new Set(Object.keys(l)),
     `visualizer`,
     `race`,
   ]),
-  I = {
+  SURFACE_DEFAULTS = {
     background: { surface: D.BACKGROUND, activity: null, legacyRace: !1 },
     map: { surface: D.MAP, activity: null, legacyRace: !1 },
     tutorial: { surface: D.TUTORIAL, activity: null, legacyRace: !1 },
@@ -108,7 +108,7 @@ function B(e) {
   let i = G(r);
   return i
     ? ((t.scene = i), i === E.GEO && R(t, e[2], e[3]), t)
-    : (r === P && e[2] && R(t, e[2], e[3]), t);
+    : (r === WORLD_PLACE_ID && e[2] && R(t, e[2], e[3]), t);
 }
 function V(e) {
   return e
@@ -161,15 +161,15 @@ function K(e) {
   }
   let n = V(t);
   if (!n) return null;
-  if (M.has(n)) return n;
+  if (WORLD_PLACE_IDS.has(n)) return n;
   let r = Object.values(l).find((e) => V(e.name) === n);
   return r ? r.id : null;
 }
 function q(e) {
-  return e == null || e === `` ? null : K(e) || N.get(f(e)) || null;
+  return e == null || e === `` ? null : K(e) || worldStopsByPlaceKey.get(f(e)) || null;
 }
 function J(e) {
-  return !!(e && M.has(e));
+  return !!(e && WORLD_PLACE_IDS.has(e));
 }
 function Y(e) {
   let t = V(e);
@@ -242,7 +242,7 @@ function Q(e) {
       }
     return r;
   }
-  let i = I[n];
+  let i = SURFACE_DEFAULTS[n];
   if (i)
     return (
       (r.surface = i.surface),
@@ -252,7 +252,7 @@ function Q(e) {
     );
   if (n === `boat-editor`) return ((r.surface = D.BOAT_EDITOR), r);
   if (n === `boat-visualizer`) return ((r.surface = D.BOAT_VISUALIZER), r);
-  if (n === P && t[1])
+  if (n === WORLD_PLACE_ID && t[1])
     return ((r.scene = E.GEO), (r.place = q(t[1])), t[2] && (r.loc = t[2]), r);
   if (n === `city`) return ((r.scene = E.GEO), r);
   let a = B(t);
@@ -261,7 +261,7 @@ function Q(e) {
 function ee(e) {
   let t = String(e || ``).toLowerCase(),
     n = { scene: null, place: null, loc: null };
-  for (let e of M)
+  for (let e of WORLD_PLACE_IDS)
     if (t.includes(`vibesail.${e}`))
       return ((n.scene = E.GEO), (n.place = e), n);
   return (t.includes(`vibesail.city`) && (n.scene = E.GEO), n);

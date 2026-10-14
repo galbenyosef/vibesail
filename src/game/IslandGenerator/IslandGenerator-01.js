@@ -30,7 +30,7 @@ import { D as w } from "./Game-CrsSKcAK.js";
 import { t as T } from "./RenderOrder-CTE7PEm0.js";
 import { n as E } from "./WorldDefinitionBuilder-CjRtTnhK.js";
 import { t as D } from "./GeometryGuards-BGRyriw5.js";
-var O = class {
+var PerlinNoise = class {
     constructor(e = 12345) {
       this.seed = e;
     }
@@ -212,7 +212,7 @@ function te(e, t, n = {}) {
     a
   );
 }
-var L = {
+var CASTLE_CONFIG = {
     BASE_RADIUS: 4.5,
     BASE_HEIGHT: 22,
     FOUNDATION_RADIUS: 7.2,
@@ -231,7 +231,7 @@ var L = {
     PLACEMENT_HEIGHT_PERCENTILE: 0.44,
     PLACEMENT_MAX_SLOPE_DELTA: 3.2,
   },
-  R = {
+  VOLCANO_CONFIG = {
     RING_RADIUS: 6.4,
     RING_TUBE: 0.72,
     LAVA_RADIUS: 5,
@@ -246,30 +246,30 @@ var L = {
 function z(e = 1) {
   let t = new i();
   t.userData.kind = `island_beacon`;
-  let n = new h({ color: L.STONE_COLOR }),
-    r = new h({ color: L.STONE_SHADE_COLOR }),
-    a = new h({ color: L.ROOF_COLOR }),
-    o = new x({ color: L.LIGHT_COLOR }),
-    s = -L.BASE_EMBED_DEPTH * e,
-    c = L.BASE_HEIGHT * e,
-    l = new v(new S(L.BASE_RADIUS * e, L.BASE_RADIUS * 1.18 * e, c, 10), n);
+  let n = new h({ color: CASTLE_CONFIG.STONE_COLOR }),
+    r = new h({ color: CASTLE_CONFIG.STONE_SHADE_COLOR }),
+    a = new h({ color: CASTLE_CONFIG.ROOF_COLOR }),
+    o = new x({ color: CASTLE_CONFIG.LIGHT_COLOR }),
+    s = -CASTLE_CONFIG.BASE_EMBED_DEPTH * e,
+    c = CASTLE_CONFIG.BASE_HEIGHT * e,
+    l = new v(new S(CASTLE_CONFIG.BASE_RADIUS * e, CASTLE_CONFIG.BASE_RADIUS * 1.18 * e, c, 10), n);
   ((l.position.y = s + c * 0.5), t.add(l));
-  let u = L.GALLERY_HEIGHT * e,
-    d = new v(new S(L.GALLERY_RADIUS * e, L.GALLERY_RADIUS * e, u, 12), r);
+  let u = CASTLE_CONFIG.GALLERY_HEIGHT * e,
+    d = new v(new S(CASTLE_CONFIG.GALLERY_RADIUS * e, CASTLE_CONFIG.GALLERY_RADIUS * e, u, 12), r);
   ((d.position.y = s + c + u * 0.5), t.add(d));
-  let f = L.LANTERN_HEIGHT * e,
-    m = new v(new S(L.LANTERN_RADIUS * e, L.LANTERN_RADIUS * e, f, 10), o);
+  let f = CASTLE_CONFIG.LANTERN_HEIGHT * e,
+    m = new v(new S(CASTLE_CONFIG.LANTERN_RADIUS * e, CASTLE_CONFIG.LANTERN_RADIUS * e, f, 10), o);
   ((m.position.y = s + c + u + f * 0.5), t.add(m));
-  let g = L.ROOF_HEIGHT * e,
-    _ = new v(new C(L.ROOF_RADIUS * e, g, 10), a);
+  let g = CASTLE_CONFIG.ROOF_HEIGHT * e,
+    _ = new v(new C(CASTLE_CONFIG.ROOF_RADIUS * e, g, 10), a);
   ((_.position.y = s + c + u + f + g * 0.5), t.add(_));
   for (let n = 0; n < 4; n += 1) {
     let i = (n / 4) * Math.PI * 2,
       a = new v(new p(0.35 * e, 2.2 * e, 0.35 * e), r);
     (a.position.set(
-      Math.cos(i) * L.GALLERY_RADIUS * 0.82 * e,
+      Math.cos(i) * CASTLE_CONFIG.GALLERY_RADIUS * 0.82 * e,
       s + c + u + 1.1 * e,
-      Math.sin(i) * L.GALLERY_RADIUS * 0.82 * e,
+      Math.sin(i) * CASTLE_CONFIG.GALLERY_RADIUS * 0.82 * e,
     ),
       t.add(a));
   }
@@ -278,22 +278,22 @@ function z(e = 1) {
 function ne(e = 1) {
   let n = new i();
   n.userData.kind = `island_volcano`;
-  let r = new h({ color: R.ROCK_COLOR }),
-    a = new h({ color: R.RIM_SHADE_COLOR }),
-    o = new x({ color: R.LAVA_COLOR }),
-    s = new x({ color: R.LAVA_GLOW_COLOR, transparent: !0, opacity: 0.5 }),
-    l = new h({ color: R.SMOKE_COLOR, transparent: !0, opacity: 0.34 }),
+  let r = new h({ color: VOLCANO_CONFIG.ROCK_COLOR }),
+    a = new h({ color: VOLCANO_CONFIG.RIM_SHADE_COLOR }),
+    o = new x({ color: VOLCANO_CONFIG.LAVA_COLOR }),
+    s = new x({ color: VOLCANO_CONFIG.LAVA_GLOW_COLOR, transparent: !0, opacity: 0.5 }),
+    l = new h({ color: VOLCANO_CONFIG.SMOKE_COLOR, transparent: !0, opacity: 0.34 }),
     d = new v(
-      new S(R.RING_RADIUS * 0.9 * e, R.RING_RADIUS * 1.04 * e, 0.55 * e, 18),
+      new S(VOLCANO_CONFIG.RING_RADIUS * 0.9 * e, VOLCANO_CONFIG.RING_RADIUS * 1.04 * e, 0.55 * e, 18),
       a,
     );
   ((d.position.y = -0.16 * e), n.add(d));
-  let f = new v(new t(R.RING_RADIUS * e, R.RING_TUBE * e, 10, 24), r);
+  let f = new v(new t(VOLCANO_CONFIG.RING_RADIUS * e, VOLCANO_CONFIG.RING_TUBE * e, 10, 24), r);
   ((f.rotation.x = Math.PI * 0.5), (f.position.y = 0.24 * e), n.add(f));
   let p = new c(1, 0);
-  for (let t = 0; t < R.RIM_ROCK_COUNT; t += 1) {
-    let i = (t / R.RIM_ROCK_COUNT) * Math.PI * 2,
-      a = R.RING_RADIUS * (0.86 + (t % 3) * 0.08) * e,
+  for (let t = 0; t < VOLCANO_CONFIG.RIM_ROCK_COUNT; t += 1) {
+    let i = (t / VOLCANO_CONFIG.RIM_ROCK_COUNT) * Math.PI * 2,
+      a = VOLCANO_CONFIG.RING_RADIUS * (0.86 + (t % 3) * 0.08) * e,
       o = new v(p, r),
       s = (1.1 + (t % 4) * 0.22) * e;
     (o.position.set(
@@ -306,11 +306,11 @@ function ne(e = 1) {
       n.add(o));
   }
   let m = new v(
-    new S(R.LAVA_RADIUS * e, R.LAVA_RADIUS * e, R.LAVA_HEIGHT * e, 14),
+    new S(VOLCANO_CONFIG.LAVA_RADIUS * e, VOLCANO_CONFIG.LAVA_RADIUS * e, VOLCANO_CONFIG.LAVA_HEIGHT * e, 14),
     o,
   );
   ((m.position.y = 0.05 * e), n.add(m));
-  let g = new v(new u(R.LAVA_RADIUS * 1.15 * e, 10, 6), s);
+  let g = new v(new u(VOLCANO_CONFIG.LAVA_RADIUS * 1.15 * e, 10, 6), s);
   return (
     (g.scale.y = 0.18),
     (g.position.y = 0.24 * e),

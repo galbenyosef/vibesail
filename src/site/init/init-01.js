@@ -13,7 +13,7 @@ const __vite__mapDeps = (
     ]),
 ) => i.map((i) => d[i]);
 import { n as e, r as t, t as n } from "./preload-helper-CYTkKql0.js";
-function r(e) {
+function renderLanguageSelector(e) {
   let {
       labelsByCode: t,
       codes: n,
@@ -91,7 +91,7 @@ async function c(n, r) {
   }
   t(document);
 }
-async function l() {
+async function initI18n() {
   let n = await o(),
     r = (n.languages || []).map((e) => e.code),
     i = s();
@@ -106,7 +106,7 @@ function u(t) {
   let n = Object.fromEntries((t.languages || []).map((e) => [e.code, e.label])),
     i = document.getElementById(`lang-selector-container`);
   if (!i) return null;
-  let { select: a } = r({
+  let { select: a } = renderLanguageSelector({
     labelsByCode: n,
     codes: (t.languages || []).map((e) => e.code),
     current: e.getLanguage(),
@@ -191,7 +191,7 @@ function f(e) {
 }
 ((window.i18nReady = (async () => {
   try {
-    await l();
+    await initI18n();
   } catch (e) {
     (console.warn(`Language initialization failed`, e), a());
   }

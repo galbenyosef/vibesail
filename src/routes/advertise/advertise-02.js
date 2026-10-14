@@ -64,9 +64,9 @@ function ie({
     r
   );
 }
-var K = new Set([`vibesail`, `aisuitup`]);
+var ALLOWLISTED_SPONSOR_IDS = new Set([`vibesail`, `aisuitup`]);
 function q(e) {
-  return e ? !K.has(String(e).trim().toLowerCase()) : !1;
+  return e ? !ALLOWLISTED_SPONSOR_IDS.has(String(e).trim().toLowerCase()) : !1;
 }
 function J(e) {
   let t = {};
@@ -214,7 +214,7 @@ function pe(e) {
     throw (console.error(t), t);
   });
 }
-var Z = new Map([
+var PLACEMENT_KIND_BY_STORAGE_KEY = new Map([
   [`world-map-locations`, `world_map_location`],
   [`vibesail-island-placements`, `vibesail_island`],
   [`custom-sponsorship`, `custom_sponsorship`],
@@ -238,7 +238,7 @@ function me(e) {
 }
 function he(e) {
   let t = e.closest(`section`)?.id;
-  return Z.get(t) || `general`;
+  return PLACEMENT_KIND_BY_STORAGE_KEY.get(t) || `general`;
 }
 function ge(e) {
   try {
@@ -256,8 +256,8 @@ function _e(e, t = window) {
   return (
     n.hostname === `buy.stripe.com`
       ? ((r = `stripe_checkout`), (i = e.dataset.offerId || `unknown`))
-      : n.hash && Z.has(n.hash.slice(1))
-        ? ((r = `learn_more`), (i = Z.get(n.hash.slice(1))))
+      : n.hash && PLACEMENT_KIND_BY_STORAGE_KEY.has(n.hash.slice(1))
+        ? ((r = `learn_more`), (i = PLACEMENT_KIND_BY_STORAGE_KEY.get(n.hash.slice(1))))
         : e.matches(`[data-email-key="advertise"]`)
           ? ((r = `contact_sales`), (i = e.dataset.offerId || he(e)))
           : n.pathname === `/billing` &&

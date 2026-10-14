@@ -1,21 +1,21 @@
 // Game 09 — currenttransform
 // Lines 4062-4261 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
 function Xn(e) {
-  return e && Kn[e] ? e : `analytic`;
+  return e && SKY_MODELS[e] ? e : `analytic`;
 }
 function Zn(e) {
-  return Kn[Xn(e)];
+  return SKY_MODELS[Xn(e)];
 }
 function Qn(e) {
-  return { ...Jn[Xn(e)] };
+  return { ...SKY_PRESETS[Xn(e)] };
 }
 function $n() {
   let e = {};
-  for (let t of qn) e[t] = Qn(t);
+  for (let t of SKY_MODEL_IDS) e[t] = Qn(t);
   return e;
 }
 function er(e) {
-  return Yn[Xn(e)] || Yn.analytic;
+  return SKY_CONTROL_SECTIONS[Xn(e)] || SKY_CONTROL_SECTIONS.analytic;
 }
 function tr(e, { isPaid: t, placement: n, creativeType: r } = {}) {
   return !e || typeof e != `object`
@@ -79,7 +79,7 @@ function or(e) {
       }));
   });
 }
-var sr = class {
+var GeoModelAsset = class {
     constructor(e, t) {
       ((this.scene = e),
         (this.config = t),
@@ -183,8 +183,8 @@ var sr = class {
         (this.importedRoot = null));
     }
   },
-  cr = `https://geo.vibesail.com`.replace(/\/+$/, ``),
-  lr = Object.freeze({
+  GEO_API_BASE = `https://geo.vibesail.com`.replace(/\/+$/, ``),
+  GEO_LOCATION_PRESETS = Object.freeze({
     "positano-hd": Object.freeze({
       id: `positano-hd`,
       label: `Positano HD`,
@@ -197,6 +197,6 @@ var sr = class {
     }),
   });
 function ur(e) {
-  let t = lr[String(e || ``).trim()];
-  return t ? { ...t, assetUrl: a(`${cr}/${t.path}`) } : null;
+  let t = GEO_LOCATION_PRESETS[String(e || ``).trim()];
+  return t ? { ...t, assetUrl: a(`${GEO_API_BASE}/${t.path}`) } : null;
 }

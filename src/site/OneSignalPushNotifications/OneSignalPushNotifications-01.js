@@ -1,12 +1,12 @@
 // OneSignalPushNotifications 01 — localstorage
 // Lines 1-63 of readable/assets/OneSignalPushNotifications-C5QrvXEE.pretty.js (statement-aligned).
 import { i as e, t } from "./RuntimeEnvironment-BAaLbeCv.js";
-var n = `https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js`,
-  r = `onesignal-sdk-page`,
-  i = 5e3,
-  a = `notif_daily_race`,
+var ONESIGNAL_SDK_URL = `https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js`,
+  ONESIGNAL_SCRIPT_ID = `onesignal-sdk-page`,
+  SDK_LOAD_TIMEOUT_MS = 5e3,
+  DAILY_RACE_REMINDER_TAG = `notif_daily_race`,
   o = `1`,
-  s = `vibesail-onesignal-external-user-id`;
+  EXTERNAL_USER_ID_STORAGE_KEY = `vibesail-onesignal-external-user-id`;
 function c(e = null) {
   return e || (typeof window < `u` ? window : null);
 }
@@ -27,7 +27,7 @@ function d(e) {
 }
 function f(e) {
   try {
-    return String(e?.localStorage?.getItem?.(s) || ``).trim();
+    return String(e?.localStorage?.getItem?.(EXTERNAL_USER_ID_STORAGE_KEY) || ``).trim();
   } catch {
     return ``;
   }
@@ -35,10 +35,10 @@ function f(e) {
 function p(e, t) {
   try {
     if (e) {
-      t?.localStorage?.setItem?.(s, e);
+      t?.localStorage?.setItem?.(EXTERNAL_USER_ID_STORAGE_KEY, e);
       return;
     }
-    t?.localStorage?.removeItem?.(s);
+    t?.localStorage?.removeItem?.(EXTERNAL_USER_ID_STORAGE_KEY);
   } catch {}
 }
 function m(e) {

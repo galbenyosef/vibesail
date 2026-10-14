@@ -1,13 +1,13 @@
 // Game 19 — style
 // Lines 7757-8785 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var xi = class {
+var RaceHudFacade = class {
     constructor() {
-      ((this.timer = new gr()),
-        (this.countdown = new _r()),
-        (this.leaderboard = new Or()),
-        (this.challengePanel = new ui()),
-        (this.startCountdown = new fi()),
-        (this.regattaStart = new pi()),
+      ((this.timer = new RaceTimerOverlay()),
+        (this.countdown = new RaceCountdownOverlay()),
+        (this.leaderboard = new RaceLeaderboardModal()),
+        (this.challengePanel = new RaceCompletionModal()),
+        (this.startCountdown = new RaceStartCountdown()),
+        (this.regattaStart = new RaceHud()),
         (this.race = null));
     }
     setRace(e) {
@@ -1028,4 +1028,4 @@ var xi = class {
       this.listeners.clear();
     }
   },
-  Ti = `dailyRaceGhostCount`;
+  GHOST_COUNT_STORAGE_KEY = `dailyRaceGhostCount`;

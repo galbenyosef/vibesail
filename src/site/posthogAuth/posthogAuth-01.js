@@ -4,14 +4,14 @@ import { t as e } from "./PostHogCapture-DUxqoMcu.js";
 var t = ``,
   n = void 0,
   r = !1,
-  i = `vibesail-posthog-auth-distinct-id`;
+  DISTINCT_ID_STORAGE_KEY = `vibesail-posthog-auth-distinct-id`;
 function a(e = window) {
   let t = e?.posthog;
   return !t || typeof t.identify != `function` ? null : t;
 }
 function o(e = window) {
   try {
-    return String(e?.localStorage?.getItem?.(i) || ``).trim();
+    return String(e?.localStorage?.getItem?.(DISTINCT_ID_STORAGE_KEY) || ``).trim();
   } catch {
     return ``;
   }
@@ -19,10 +19,10 @@ function o(e = window) {
 function s(e, t = window) {
   try {
     if (e) {
-      t?.localStorage?.setItem?.(i, e);
+      t?.localStorage?.setItem?.(DISTINCT_ID_STORAGE_KEY, e);
       return;
     }
-    t?.localStorage?.removeItem?.(i);
+    t?.localStorage?.removeItem?.(DISTINCT_ID_STORAGE_KEY);
   } catch {}
 }
 function c(t = window) {

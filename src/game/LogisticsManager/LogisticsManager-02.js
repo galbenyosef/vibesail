@@ -48,7 +48,7 @@ var y = class {
       opacity: 0.8,
       surfaceHeightSampler: i,
     })),
-      (this.missionGenerator = new p(this.world, {
+      (this.missionGenerator = new MissionGenerator(this.world, {
         seed: r.missionSeed ?? v(),
         missionsPerDock: 3,
         excludeSameIsland: !0,
@@ -256,7 +256,7 @@ var y = class {
   }
   _persistBalance() {
     try {
-      l.setWithTTL(this._storageKey, this.state.balance, m);
+      l.setWithTTL(this._storageKey, this.state.balance, YEAR_MS);
     } catch (e) {
       console.warn(`Failed to persist balance:`, e);
     }

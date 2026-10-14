@@ -9,22 +9,22 @@ var S = class {
         (this.material = null),
         (this.geometry = null));
       let n = {
-        ...h,
+        ...FLOATING_PROP_DEFAULTS,
         ...t,
         emitters:
           Array.isArray(t.emitters) && t.emitters.length > 0
             ? t.emitters
-            : h.emitters,
+            : FLOATING_PROP_DEFAULTS.emitters,
         emitterJitter: t.emitterJitter
-          ? { ...h.emitterJitter, ...t.emitterJitter }
-          : { ...h.emitterJitter },
+          ? { ...FLOATING_PROP_DEFAULTS.emitterJitter, ...t.emitterJitter }
+          : { ...FLOATING_PROP_DEFAULTS.emitterJitter },
       };
       (this._build(n), this.mesh && this.parent && this.parent.add(this.mesh));
     }
     _build(e) {
       let t = e.count,
         n = e.emitters,
-        r = e.emitterJitter || h.emitterJitter,
+        r = e.emitterJitter || FLOATING_PROP_DEFAULTS.emitterJitter,
         i = t * 4,
         s = new Float32Array(i * 3),
         u = new Float32Array(i * 2),
@@ -266,7 +266,7 @@ function T() {
 function E(e) {
   return u.degToRad(Number.isFinite(e) ? e : 0);
 }
-var D = {
+var COLLISION_FOOTPRINT_DEFAULTS = {
   enabled: !0,
   length: null,
   width: null,
@@ -277,10 +277,10 @@ var D = {
 };
 function O(e) {
   return e === !1
-    ? { ...D, enabled: !1 }
+    ? { ...COLLISION_FOOTPRINT_DEFAULTS, enabled: !1 }
     : e === !0 || typeof e != `object` || !e
-      ? { ...D }
-      : { ...D, ...e, enabled: e.enabled !== !1 };
+      ? { ...COLLISION_FOOTPRINT_DEFAULTS }
+      : { ...COLLISION_FOOTPRINT_DEFAULTS, ...e, enabled: e.enabled !== !1 };
 }
 function k(e) {
   e?.traverse?.((e) => {

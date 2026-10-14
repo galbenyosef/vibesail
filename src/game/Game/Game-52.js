@@ -2,7 +2,7 @@
 // Lines 25280-26962 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
 var Ff = class {
   constructor(e = {}) {
-    ((this.options = Af(e)),
+    ((this.options = normalizeSessionOptions(e)),
       (this.mode = this.options.mode),
       (this.gameplayMode = this.options.gameplayMode || `free_sail`),
       (this.boatToolView = Df(this.mode, this.options.boatToolView)),
@@ -32,11 +32,11 @@ var Ff = class {
       (this.gameplayManager = null),
       (this.dailyRaceReplayController = null),
       (this.analytics = null),
-      (this.clientPlaytime = this.mode === `background` ? null : new wd()),
+      (this.clientPlaytime = this.mode === `background` ? null : new CoinBalance()),
       (this.promptForTutorial = ef()),
       (this.audioPrefs = ts()),
       (this.graphicsQuality = Nn()),
-      (this._graphicsStruggleWatch = cf(this.mode) ? new hf() : null),
+      (this._graphicsStruggleWatch = cf(this.mode) ? new FrameRateMonitor() : null),
       (this._graphicsStruggleWorldReady = !1),
       (this._graphicsStrugglePromptVisible = !1),
       (this._onWorldFullyLoadedForGraphicsStruggle = () => {
@@ -54,8 +54,8 @@ var Ff = class {
         this.options.enableMultiplayer && !kf(this.gameplayMode)),
       (this.isDevMode = h()),
       (this.serverUrl = m()),
-      (this.boatInventory = new rl({ isDevMode: this.isDevMode })),
-      (this.boatShopController = new il({
+      (this.boatInventory = new BoatShopController({ isDevMode: this.isDevMode })),
+      (this.boatShopController = new BoatShopPresenter({
         inventory: this.boatInventory,
         getBalance: () => Number(this.logisticsManager?.getBalance?.() || 0),
         subscribeBalanceChange: (e) => {
@@ -167,7 +167,7 @@ var Ff = class {
       (this.boat = new pt(this.scene, this.world, i)),
       (this.world.boat = this.boat),
       this.options.enableControls &&
-        (L.setBoat(this.boat), rs.setBoat(this.boat)),
+        (L.setBoat(this.boat), gameRuntime.setBoat(this.boat)),
       this.cameraController && (this.cameraController.boat = this.boat),
       (this.cannons = new CannonSystem(
         this.scene,
@@ -287,7 +287,7 @@ var Ff = class {
       this.renderer.setSize(window.innerWidth, window.innerHeight),
       this._applyRendererPixelRatio(),
       this.container.appendChild(this.renderer.domElement),
-      (this.world = new fr(this.scene, null, {
+      (this.world = new WorldBuilder(this.scene, null, {
         localGeoMeshId: this.options.localGeoMeshId,
         enableSponsors: this.options.enableSponsors,
         enableCargoShips: this.options.enableCargoShips,
@@ -299,7 +299,7 @@ var Ff = class {
       })),
       this.world.setRenderer(this.renderer),
       this.applyGraphicsQuality(this.graphicsQuality),
-      (this.audio = new qa()));
+      (this.audio = new GameAudio()));
     try {
       let e = this.audioPrefs || {};
       (typeof e.volume == `number` &&
@@ -308,7 +308,7 @@ var Ff = class {
     } catch (e) {
       console.error(e);
     }
-    if (((this.countryService = new pr()), this.options.enableLocalBoat)) {
+    if (((this.countryService = new CountryService()), this.options.enableLocalBoat)) {
       let e = new URLSearchParams(window.location.search),
         t = e.get(`boat`),
         n = e.get(`variant`),
@@ -364,9 +364,9 @@ var Ff = class {
         this.options.enableControls
           ? (L.setBoat(this.boat),
             L.enable(),
-            rs.setBoat(this.boat),
-            rs.enable())
-          : (L.setBoat(null), L.disable(), rs.setBoat(null), rs.disable()),
+            gameRuntime.setBoat(this.boat),
+            gameRuntime.enable())
+          : (L.setBoat(null), L.disable(), gameRuntime.setBoat(null), gameRuntime.disable()),
         (this.world.boat = this.boat),
         this.boat.setRandomInitialDirection(),
         this._applyLocalGeoSpawn() || this._applyFreeSailInitialSpawnOffset(),
@@ -397,7 +397,7 @@ var Ff = class {
         this.options.sailText &&
           this.boat.model?.setSailText &&
           this.boat.model.setSailText(this.options.sailText),
-        (this.cameraController = new Ao(
+        (this.cameraController = new CameraController(
           this.scene,
           this.boat,
           this.renderer.domElement,
@@ -412,8 +412,8 @@ var Ff = class {
           this.cameraController.toggleCameraMode(),
         this.options.enableControls
           ? (L.setCameraController(this.cameraController),
-            rs.setCameraController(this.cameraController))
-          : (L.setCameraController(null), rs.setCameraController(null)),
+            gameRuntime.setCameraController(this.cameraController))
+          : (L.setCameraController(null), gameRuntime.setCameraController(null)),
         Ef(this.mode) &&
           (this._configureBoatToolCameraAndBoat(),
           this._initBoatVisualizerAfterInitialHullSelection(d)));
@@ -421,14 +421,14 @@ var Ff = class {
       (L.setBoat(null),
       L.setCameraController(null),
       L.disable(),
-      rs.setBoat(null),
-      rs.setCameraController(null),
-      rs.disable(),
+      gameRuntime.setBoat(null),
+      gameRuntime.setCameraController(null),
+      gameRuntime.disable(),
       (this.world.boat = null),
       this.mode === `map`)
     ) {
       let e = window.innerWidth / window.innerHeight,
-        t = al.frustumSize;
+        t = MINIMAP_ZOOM_CONFIG.frustumSize;
       ((this.camera = new de(
         (-t * e) / 2,
         (t * e) / 2,
@@ -437,14 +437,14 @@ var Ff = class {
         0.1,
         H.scene.cameraFar,
       )),
-        (this.mapCameraController = new ol(
+        (this.mapCameraController = new WorldMapController(
           this.camera,
           this.renderer.domElement,
           {
             center: new M(0, 0, 0),
-            height: al.height,
+            height: MINIMAP_ZOOM_CONFIG.height,
             frustumSize: t,
-            initialZoom: this.options.mapInitialZoom ?? al.initialZoom,
+            initialZoom: this.options.mapInitialZoom ?? MINIMAP_ZOOM_CONFIG.initialZoom,
           },
         )));
     } else {
@@ -456,7 +456,7 @@ var Ff = class {
         H.scene.cameraFar,
       );
       let t = this.options.backgroundCameraTarget ?? new M(0, 0, 0);
-      this.backgroundCameraController = new gf(this.camera, {
+      this.backgroundCameraController = new CameraIntroDirector(this.camera, {
         mode: this.options.backgroundCameraMode || `orbit`,
         radius: this.options.backgroundCameraRadius ?? 680,
         height: this.options.backgroundCameraHeight ?? 20,
@@ -470,7 +470,7 @@ var Ff = class {
     (this.world.setCamera(this.camera), this.applyModeConfig());
     let e = !!this.options.enableLookdevPanel;
     (((this.isDevMode && this.options.enableUI) || e) &&
-      ((this.lightingControls = new Zo(this.world, { forceEnable: e })),
+      ((this.lightingControls = new LookdevController(this.world, { forceEnable: e })),
       e &&
         (this.lightingControls.applyLookdevDefaults(),
         this.lightingControls.showPanel()),
@@ -480,16 +480,16 @@ var Ff = class {
           : `Lighting controls enabled (dev mode only)`,
       )),
       this.options.enableUI &&
-        ((this.ui = new Ra(this)),
+        ((this.ui = new GameUi(this)),
         this.mode === `game` &&
           this.ui?.race &&
-          (this.dailyRaceReplayController = new Zd(this))),
+          (this.dailyRaceReplayController = new RaceReplay(this))),
       this.options.enableUI &&
         this.options.enableLogistics !== !1 &&
         this._initLogisticsSystem(),
       this.options.enableControls &&
         this.options.enableMobileControls !== !1 &&
-        (this.mobileControls = new Ka(this)),
+        (this.mobileControls = new TouchControls(this)),
       this.mode === `tutorial` &&
         r(
           async () => {
@@ -732,7 +732,7 @@ var Ff = class {
     return !e || typeof e.showModal != `function`
       ? !1
       : (e.showModal({
-          id: wf,
+          id: TUTORIAL_PROMPT_MODAL_ID,
           group: `main-panel`,
           title: `Try the tutorial?`,
           description: `Learn steering, sail trim, and race basics in a guided run.`,
@@ -961,7 +961,7 @@ var Ff = class {
   _initCollisionManager() {
     if (!(!this.boat || !this.world))
       try {
-        ((this.collisionManager = new Wc({
+        ((this.collisionManager = new CollisionManager({
           boat: this.boat,
           world: this.world,
           multiplayer: this.multiplayer,
@@ -1006,7 +1006,7 @@ var Ff = class {
               );
             }
             try {
-              ns(e);
+              saveAudioPreferences(e);
             } catch (e) {
               console.error(e);
             }
@@ -1153,7 +1153,7 @@ var Ff = class {
           : null,
       o = this.options?.analyticsSponsor || null;
     if (
-      ((this.analytics = new yd({
+      ((this.analytics = new AnalyticsClient({
         debug: this._shouldEnableAnalyticsDebug(),
         webglContext: this.renderer?.getContext?.() || null,
         sharedProperties: {
@@ -1420,7 +1420,7 @@ var Ff = class {
           : this.cameraController &&
             !t &&
             this.cameraController.update(e, L.getKeys()),
-      rs.poll(e),
+      gameRuntime.poll(e),
       this.perf?.markSystem(`Camera`),
       this.world.update(e),
       this.perf?.markSystem(`World`),
@@ -1505,14 +1505,14 @@ var Ff = class {
       ((this._graphicsStrugglePromptVisible = !0),
       this._trackGraphicsStrugglePrompt(`presented`, n),
       t.showBanner({
-        id: rf,
+        id: GRAPHICS_STRUGGLE_BANNER_ID,
         message: n.message,
         tone: `warning`,
         actionLabel: n.actionLabel,
         dismissible: !0,
         onAction: () => {
           ((this._graphicsStrugglePromptVisible = !1),
-            t.hideBanner?.(rf),
+            t.hideBanner?.(GRAPHICS_STRUGGLE_BANNER_ID),
             this._trackGraphicsStrugglePrompt(`switched`, n),
             this.applyGraphicsQuality(n.to));
         },
@@ -1534,7 +1534,7 @@ var Ff = class {
   _hideGraphicsStrugglePrompt() {
     this._graphicsStrugglePromptVisible &&
       ((this._graphicsStrugglePromptVisible = !1),
-      this.ui?.overlaySystem?.hideBanner?.(rf));
+      this.ui?.overlaySystem?.hideBanner?.(GRAPHICS_STRUGGLE_BANNER_ID));
   }
   startDailyRaceReplay(e = {}) {
     if (!this.dailyRaceReplayController)

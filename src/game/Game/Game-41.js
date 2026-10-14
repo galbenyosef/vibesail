@@ -1,6 +1,6 @@
 // Game 41 — boat
 // Lines 20488-20964 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var Vc = {
+var COLLISION_RESPONSE_CONFIG = {
     enabled: !0,
     response: {
       speedLossMultiplier: 0.72,
@@ -22,7 +22,7 @@ var Vc = {
     },
   },
   Hc = 0.35,
-  Uc = {
+  COLLISION_DEBUG_COLORS = {
     player: 3396095,
     playerColliding: 16729156,
     remoteBoat: 3407752,
@@ -31,7 +31,7 @@ var Vc = {
     cargoShip: 2056095,
     floatingWorldProp: 11570431,
   },
-  Wc = class {
+  CollisionManager = class {
     constructor({ boat: e, world: t, multiplayer: n }) {
       ((this.boat = e),
         (this.world = t),
@@ -76,8 +76,8 @@ var Vc = {
       return !Number.isFinite(t) || !Number.isFinite(n)
         ? null
         : {
-            halfLength: t * Vc.boat.lengthScale * 0.5,
-            halfWidth: n * Vc.boat.widthScale * 0.5,
+            halfLength: t * COLLISION_RESPONSE_CONFIG.boat.lengthScale * 0.5,
+            halfWidth: n * COLLISION_RESPONSE_CONFIG.boat.widthScale * 0.5,
           };
     }
     registerDock(e) {
@@ -103,11 +103,11 @@ var Vc = {
       if (
         !e ||
         this._registeredIslands.has(e) ||
-        !Vc.island.enabled ||
+        !COLLISION_RESPONSE_CONFIG.island.enabled ||
         typeof e.computeCollisionContours != `function`
       )
         return 0;
-      let t = Vc.island,
+      let t = COLLISION_RESPONSE_CONFIG.island,
         n = 0,
         r = e.computeCollisionContours({
           seaLevelLocal: t.seaLevelLocal,
@@ -141,7 +141,7 @@ var Vc = {
     }
     update(e) {
       if (
-        !Vc.enabled ||
+        !COLLISION_RESPONSE_CONFIG.enabled ||
         ((this._elapsedTime += e),
         this._frameCount++,
         this.registerStaticBodies(),
@@ -156,7 +156,7 @@ var Vc = {
         n = 0,
         r = !1;
       this._collidingBodies.clear();
-      let i = this._elapsedTime < Vc.response.spawnGracePeriodSeconds;
+      let i = this._elapsedTime < COLLISION_RESPONSE_CONFIG.response.spawnGracePeriodSeconds;
       if (
         (this.system.checkOne(this.playerBody, (e) => {
           let a = e.b === this.playerBody ? e.a : e.b;
@@ -168,7 +168,7 @@ var Vc = {
             (!s.x && !s.y) ||
             ((t -= s.x), (n -= s.y), (r = !0), this._collidingBodies.add(a));
         }),
-        Vc.tiles.enabled && this._frameCount % 3 == 0)
+        COLLISION_RESPONSE_CONFIG.tiles.enabled && this._frameCount % 3 == 0)
       ) {
         let e = this._checkTileCollision();
         e && ((t += e.x), (n += e.z), (r = !0));
@@ -259,7 +259,7 @@ var Vc = {
       let n = this._getBoatDimensions(this.boat);
       if (!n) return null;
       let r = this.boat.dynamics.rotation?.y ?? 0,
-        i = Vc.tiles,
+        i = COLLISION_RESPONSE_CONFIG.tiles,
         a = Math.sin(r),
         o = Math.cos(r),
         s = Math.cos(r),
@@ -317,7 +317,7 @@ var Vc = {
         !this.speedPenaltyEnabled)
       )
         return;
-      let r = Vc.response;
+      let r = COLLISION_RESPONSE_CONFIG.response;
       this._elapsedTime - this._lastPenaltyTime >= r.speedLossCooldownSeconds &&
         ((n.speed *= r.speedLossMultiplier),
         n.velocity?.multiplyScalar?.(r.speedLossMultiplier),
@@ -360,14 +360,14 @@ var Vc = {
       if (((t.name = `collision-debug-overlays`), this.playerBody)) {
         let n = this._bodyToWorldPoints(this.playerBody);
         n &&
-          t.add(this._createDebugLoop(n, e ? Uc.playerColliding : Uc.player));
+          t.add(this._createDebugLoop(n, e ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.player));
       }
       for (let e of this.remoteBoatBodies.values()) {
         let n = this._bodyToWorldPoints(e);
         if (n) {
           let r = this._collidingBodies.has(e);
           t.add(
-            this._createDebugLoop(n, r ? Uc.playerColliding : Uc.remoteBoat),
+            this._createDebugLoop(n, r ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.remoteBoat),
           );
         }
       }
@@ -376,7 +376,7 @@ var Vc = {
         if (n) {
           let r = this._collidingBodies.has(e);
           t.add(
-            this._createDebugLoop(n, r ? Uc.playerColliding : Uc.cargoShip),
+            this._createDebugLoop(n, r ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.cargoShip),
           );
         }
       }
@@ -387,7 +387,7 @@ var Vc = {
           t.add(
             this._createDebugLoop(
               n,
-              r ? Uc.playerColliding : Uc.floatingWorldProp,
+              r ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.floatingWorldProp,
             ),
           );
         }
@@ -396,14 +396,14 @@ var Vc = {
         let n = this._bodyToWorldPoints(e);
         if (n) {
           let r = this._collidingBodies.has(e);
-          t.add(this._createDebugLoop(n, r ? Uc.playerColliding : Uc.island));
+          t.add(this._createDebugLoop(n, r ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.island));
         }
       }
       for (let e of this.dockBodies) {
         let n = this._bodyToWorldPoints(e);
         if (n) {
           let r = this._collidingBodies.has(e);
-          t.add(this._createDebugLoop(n, r ? Uc.playerColliding : Uc.dock));
+          t.add(this._createDebugLoop(n, r ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.dock));
         }
       }
       (this.world?.scene?.add?.(t), (this._debugGroup = t));
@@ -429,10 +429,10 @@ var Vc = {
           (this.system.remove(this.playerBody), (this.playerBody = null)));
     }
   },
-  Gc = 365 * 24 * 60 * 60 * 1e3,
+  YEAR_MS = 365 * 24 * 60 * 60 * 1e3,
   Kc = Object.freeze({ boat: 3e3, variant: 1e3 }),
-  qc = `venice`,
-  Jc = Object.freeze({
+  DEFAULT_BOAT_PRESET_ID = `venice`,
+  BOAT_STORE_CATALOG = Object.freeze({
     venice: Object.freeze({
       storeState: `unlockable`,
       unlockPolicy: Object.freeze({ type: `coins`, price: Kc.boat }),
@@ -462,8 +462,8 @@ var Vc = {
       unlockPolicy: Object.freeze({ type: `coins`, price: Kc.boat }),
     }),
   }),
-  Yc = class {
-    constructor(e = Jc) {
+  BoatCatalogIndex = class {
+    constructor(e = BOAT_STORE_CATALOG) {
       this.entries = new Map(Object.entries(e));
     }
     hasEntry(e) {

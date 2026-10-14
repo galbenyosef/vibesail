@@ -31,6 +31,7 @@ const proj = path.resolve(here, "..");
 const args = process.argv.slice(2).filter((a) => a !== "--dry");
 const dry = process.argv.includes("--dry");
 const allMode = args[0] === "--all";
+const fromNames = process.argv.includes("--from-names");
 
 const spec = JSON.parse(fs.readFileSync(path.join(proj, "split-spec.json"), "utf8"));
 const prettyFor = sourceResolver(proj, spec);
@@ -39,11 +40,21 @@ const rm = fs.existsSync(mapPath) ? JSON.parse(fs.readFileSync(mapPath, "utf8"))
 rm.files = rm.files || {};
 rm.scoped = rm.scoped || {};
 
-const targets = allMode
-  ? Object.keys(rm.files).concat(Object.keys(rm.scoped))
-  : args;
+let targets;
+if (fromNames) {
+  // Every slice of every chunk that has reviewed rules in tools/names.json —
+  // the reproducible rebuild path: derive -> apply-names --all -> this.
+  const namesFile = JSON.parse(fs.readFileSync(path.join(proj, "tools", "names.json"), "utf8"));
+  targets = [];
+  for (const src of Object.keys(namesFile.chunks || {}))
+    for (const s of spec.sections) if (s.sourceFile === src && !s.wholeFile && !s.skipped) targets.push(s.file);
+} else if (allMode) {
+  targets = Object.keys(rm.files).concat(Object.keys(rm.scoped));
+} else {
+  targets = args;
+}
 if (!targets.length) {
-  console.error("usage: node tools/recover-scoped-map.mjs <slice-file> [...] | --all [--dry]");
+  console.error("usage: node tools/recover-scoped-map.mjs <slice-file> [...] | --all | --from-names [--dry]");
   process.exit(1);
 }
 
@@ -120,8 +131,13 @@ function recoverOne(file) {
 for (const file of [...new Set(targets)]) {
   const { flat, scoped } = recoverOne(file);
   if (dry) continue;
-  rm.files[file] = { ...(rm.files[file] || {}), ...flat };
-  rm.scoped[file] = scoped;
+  // A slice with no substitutions keeps NO record — the record only exists for
+  // slices the rename layer actually touched (an empty entry would claim a
+  // rename layer that is not there).
+  if (Object.keys(flat).length) rm.files[file] = { ...(rm.files[file] || {}), ...flat };
+  else delete rm.files[file];
+  if (Object.keys(scoped).length) rm.scoped[file] = scoped;
+  else delete rm.scoped[file];
 }
 
 if (!dry) {

@@ -5,9 +5,9 @@ import "./init-CC0aACO2.js";
 /* empty css             */ import "./console-setup-BNMG1_tD.js";
 import { n as e } from "./routeContext-D1HYUwP9.js";
 import { t } from "./Game-CrsSKcAK.js";
-var n = /^\d{4}-\d{2}-\d{2}$/,
-  r = new Set([`chase`, `orbit`, `front`]),
-  i = new Set([`bow`, `firstperson`, `first-person`]),
+var DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/,
+  CAMERA_MODES = new Set([`chase`, `orbit`, `front`]),
+  FIRST_PERSON_CAMERA_IDS = new Set([`bow`, `firstperson`, `first-person`]),
   a = 10,
   o = 1;
 function s(e = new Date()) {
@@ -17,7 +17,7 @@ function s(e = new Date()) {
 function c(e) {
   if (typeof e != `string`) return !1;
   let t = e.trim();
-  if (!n.test(t)) return !1;
+  if (!DATE_PATTERN.test(t)) return !1;
   let [r, i, a] = t.split(`-`),
     o = Number.parseInt(r, 10),
     s = Number.parseInt(i, 10),
@@ -35,7 +35,7 @@ function u(e) {
     .trim()
     .toLowerCase()
     .replace(/_/g, `-`);
-  return i.has(t) ? `front` : r.has(t) ? t : `orbit`;
+  return FIRST_PERSON_CAMERA_IDS.has(t) ? `front` : CAMERA_MODES.has(t) ? t : `orbit`;
 }
 function d(e) {
   let t = Number.parseInt(String(e ?? ``), 10);
@@ -256,10 +256,10 @@ function E({ documentRef: e = document } = {}) {
     }
   );
 }
-var D = new Set([`completed`, `failed`, `stopped`]);
+var TERMINAL_RUN_STATUSES = new Set([`completed`, `failed`, `stopped`]);
 function O(e) {
   let t = String(e?.status || ``);
-  return D.has(t);
+  return TERMINAL_RUN_STATUSES.has(t);
 }
 function k(e) {
   if (!e || typeof e != `object`) return `Replay: booting`;
@@ -302,10 +302,10 @@ function A({
   }
   return s;
 }
-var j = `daily-race-replay-mode`;
+var MODE_STORAGE_KEY = `daily-race-replay-mode`;
 function M(e = document) {
   let t = e?.body;
-  return t?.classList ? (t.classList.add(j), !0) : !1;
+  return t?.classList ? (t.classList.add(MODE_STORAGE_KEY), !0) : !1;
 }
 function N(e, t) {
   return typeof e == `function`

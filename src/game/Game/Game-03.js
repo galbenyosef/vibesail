@@ -1,15 +1,15 @@
 // Game 03 — isfinite
 // Lines 873-908 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-(He(Qt, `_system`, null), He(Qt, `commonUniforms`, { time: Yt }));
+(He(CloudSystem, `_system`, null), He(CloudSystem, `commonUniforms`, { time: Yt }));
 function $t(e, t = 296) {
   let n = Number(e),
     r = Number.isFinite(t) ? t : 296;
   return Number.isFinite(n) && n < 0 ? (r + 180) % 360 : r;
 }
-var B = { ISLANDS: `islands`, OCEAN: `ocean`, GEO: `geo` };
-(({ ...B }), B.GEO, B.OCEAN);
-var en = o.nyc,
-  V = (() => {
+var SCENE_TYPES = { ISLANDS: `islands`, OCEAN: `ocean`, GEO: `geo` };
+(({ ...SCENE_TYPES }), SCENE_TYPES.GEO, SCENE_TYPES.OCEAN);
+var DEFAULT_WORLD_DEFINITION = o.nyc,
+  sceneLocationContext = (() => {
     if (typeof window > `u`) return null;
     try {
       return i(window.location);
@@ -17,8 +17,8 @@ var en = o.nyc,
       return null;
     }
   })(),
-  tn = V?.scene === l.GEO || V?.scene === l.OCEAN ? c(V) : null,
-  nn = Number.isFinite(tn?.height),
+  tn = sceneLocationContext?.scene === l.GEO || sceneLocationContext?.scene === l.OCEAN ? c(sceneLocationContext) : null,
+  hasPlaceHeight = Number.isFinite(tn?.height),
   rn = 10;
 function an(e) {
   if (!Array.isArray(e) || e.length === 0) return null;

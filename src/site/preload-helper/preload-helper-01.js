@@ -1,6 +1,6 @@
 // preload-helper 01 — translationsbylang
 // Lines 1-185 of readable/assets/preload-helper-CYTkKql0.pretty.js (statement-aligned).
-var e = [`en`, `it`];
+var DEFAULT_SUPPORTED_LANGUAGES = [`en`, `it`];
 function t(e, t) {
   let n = t.split(`.`),
     r = e;
@@ -15,7 +15,7 @@ async function n(e) {
   return await t.json();
 }
 var r = {
-  supportedLanguages: [...e],
+  supportedLanguages: [...DEFAULT_SUPPORTED_LANGUAGES],
   currentLanguage: `en`,
   translationsByLang: {},
   async init(e = {}) {
@@ -123,7 +123,7 @@ function a(e) {
 function o(e) {
   return e ? String(e).toLowerCase() : `en`;
 }
-var s = `modulepreload`,
+var MODULEPRELOAD_LINK_REL = `modulepreload`,
   c = function (e) {
     return `/` + e;
   },
@@ -158,7 +158,7 @@ var s = `modulepreload`,
           else if (document.querySelector(`link[href="${t}"]${i}`)) return;
           let o = document.createElement(`link`);
           if (
-            ((o.rel = r ? `stylesheet` : s),
+            ((o.rel = r ? `stylesheet` : MODULEPRELOAD_LINK_REL),
             r || (o.as = `script`),
             (o.crossOrigin = ``),
             (o.href = t),

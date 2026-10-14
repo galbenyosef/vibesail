@@ -28,7 +28,7 @@ function G() {
   }));
 }
 function K() {
-  return z;
+  return DEFAULT_BOAT_PRESET_ID;
 }
 function q(e, t = {}, n = {}) {
   let r = H(W(e));
@@ -37,12 +37,12 @@ function q(e, t = {}, n = {}) {
 function J(e, t = {}, n = {}) {
   return q(e, t, n);
 }
-var Y = new Map();
+var ghostReplayCache = new Map();
 function X(e) {
-  let t = e || z;
-  if (Y.has(t)) return Y.get(t);
+  let t = e || DEFAULT_BOAT_PRESET_ID;
+  if (ghostReplayCache.has(t)) return ghostReplayCache.get(t);
   let n = (async () => x(W(t)))();
-  return (Y.set(t, n), n);
+  return (ghostReplayCache.set(t, n), n);
 }
 var Z = K();
 Object.freeze({ presetId: Z, variantId: null });

@@ -4,12 +4,12 @@ var f = class {
   constructor(e, { toolView: t = null } = {}) {
     ((this.app = e),
       (this.toolView =
-        t === a.VISUALIZER
-          ? a.VISUALIZER
-          : t === a.EDITOR
-            ? a.EDITOR
+        t === PANEL_MODES.VISUALIZER
+          ? PANEL_MODES.VISUALIZER
+          : t === PANEL_MODES.EDITOR
+            ? PANEL_MODES.EDITOR
             : u(typeof window < `u` ? window.location?.pathname : ``)),
-      (this.isVisualizationOnly = this.toolView === a.VISUALIZER),
+      (this.isVisualizationOnly = this.toolView === PANEL_MODES.VISUALIZER),
       (this.root = null),
       (this.controls = {}),
       (this._diagnosticInterval = null),
@@ -39,7 +39,7 @@ var f = class {
       this.root
         ? (this.root.innerHTML = ``)
         : ((this.root = document.createElement(`div`)),
-          (this.root.id = i),
+          (this.root.id = PANEL_ID),
           (this.root.style.cssText = `position:fixed;left:12px;top:calc(var(--vs-header-clearance, 72px) + 8px);z-index:1200;background:rgba(8,14,20,.85);backdrop-filter:blur(12px);padding:20px;border-radius:16px;color:#fff;width:min(340px, calc(100vw - 24px));font-family:Sora,sans-serif;box-shadow:0 12px 48px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.15);max-height:85vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.2) transparent;`),
           document.body.appendChild(this.root)));
     let t = document.createElement(`div`);

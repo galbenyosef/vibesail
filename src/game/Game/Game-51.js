@@ -12,7 +12,7 @@ function ef(e = {}) {
   let t = $d(e.storage || null);
   if (!t || typeof t.getItem != `function`) return !0;
   try {
-    let e = t.getItem(Qd);
+    let e = t.getItem(PROMPT_TUTORIAL_STORAGE_KEY);
     if (e === `false`) return !1;
     if (e === `true`) return !0;
   } catch {}
@@ -23,18 +23,18 @@ function tf(e, t = {}) {
     r = $d(t.storage || null);
   if (!r || typeof r.setItem != `function`) return n;
   try {
-    r.setItem(Qd, n ? `true` : `false`);
+    r.setItem(PROMPT_TUTORIAL_STORAGE_KEY, n ? `true` : `false`);
   } catch {}
   return n;
 }
-var nf = `vibesail:graphicsStruggleDeclined`,
-  rf = `graphics-struggle-banner`,
-  af = Object.freeze({
+var GRAPHICS_STRUGGLE_DECLINED_KEY = `vibesail:graphicsStruggleDeclined`,
+  GRAPHICS_STRUGGLE_BANNER_ID = `graphics-struggle-banner`,
+  QUALITY_LABEL_KEYS = Object.freeze({
     [En]: `settings.graphics_high`,
     [Dn]: `settings.graphics_medium`,
     low: `settings.graphics_low`,
   }),
-  of = Object.freeze({ [En]: `High`, [Dn]: `Medium`, low: `Low` });
+  QUALITY_LABELS = Object.freeze({ [En]: `High`, [Dn]: `Medium`, low: `Low` });
 function sf(e = null) {
   if (e) return e;
   try {
@@ -53,7 +53,7 @@ function lf(e) {
 function uf(e = sf()) {
   if (!e || typeof e.getItem != `function`) return [];
   try {
-    let t = e.getItem(nf);
+    let t = e.getItem(GRAPHICS_STRUGGLE_DECLINED_KEY);
     if (!t) return [];
     let n = JSON.parse(t);
     return Array.isArray(n)
@@ -77,14 +77,14 @@ function ff(e, t = sf()) {
   let i = Array.from(r);
   if (!t || typeof t.setItem != `function`) return i;
   try {
-    t.setItem(nf, JSON.stringify(i));
+    t.setItem(GRAPHICS_STRUGGLE_DECLINED_KEY, JSON.stringify(i));
   } catch {}
   return i;
 }
 function pf(e, t) {
   let n = jn(e),
-    r = af[n],
-    i = of[n] || n;
+    r = QUALITY_LABEL_KEYS[n],
+    i = QUALITY_LABELS[n] || n;
   if (typeof t != `function` || !r) return i;
   let a = t(r);
   return typeof a == `string` && a && a !== r ? a : i;
@@ -110,7 +110,7 @@ function mf(e, t = null) {
     actionLabel: u && u !== c ? u : `Switch to ${a}`,
   };
 }
-var hf = class {
+var FrameRateMonitor = class {
     constructor(e = {}) {
       ((this.settleSeconds = Number.isFinite(e.settleSeconds)
         ? Math.max(0, e.settleSeconds)
@@ -160,7 +160,7 @@ var hf = class {
       );
     }
   },
-  gf = class {
+  CameraIntroDirector = class {
     constructor(e, t = {}) {
       ((this.camera = e),
         (this.mode = t.mode || `orbit`),
@@ -222,7 +222,7 @@ var hf = class {
     }
   },
   _f = e({ default: () => Ff }),
-  vf = Object.freeze({
+  DEFAULT_SESSION_OPTIONS = Object.freeze({
     game: Object.freeze({
       enableUI: !0,
       enableControls: !0,
@@ -288,7 +288,7 @@ var hf = class {
   xf = 2,
   Sf = 1e4,
   Cf = 600,
-  wf = `tutorial-join-prompt-modal`,
+  TUTORIAL_PROMPT_MODAL_ID = `tutorial-join-prompt-modal`,
   Tf = 20;
 function Ef(e) {
   return e === `boat_editor` || e === `boat_visualizer` || e === `visualizer`;
@@ -316,9 +316,9 @@ function Of(e) {
 function kf(e) {
   return cl(e) === `high_sea`;
 }
-function Af(e = {}) {
+function normalizeSessionOptions(e = {}) {
   let t = Of(e.mode);
-  return { ...vf[t], ...e, mode: t, container: e.container || null };
+  return { ...DEFAULT_SESSION_OPTIONS[t], ...e, mode: t, container: e.container || null };
 }
 function jf(e, t = 2) {
   return Number.isFinite(e) ? Number(e.toFixed(t)) : null;

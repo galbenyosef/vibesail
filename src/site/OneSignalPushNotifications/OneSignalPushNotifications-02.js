@@ -1,18 +1,18 @@
 // OneSignalPushNotifications 02 — onesignalref
 // Lines 64-379 of readable/assets/OneSignalPushNotifications-C5QrvXEE.pretty.js (statement-aligned).
-var _ = class {
+var PushNotificationClient = class {
     constructor(e = {}) {
       ((this.env = e.env),
         (this.windowRef = c(e.windowRef || null)),
         (this.documentRef = l(this.windowRef, e.documentRef || null)),
         (this.locationRef = e.locationRef || this.windowRef?.location || null),
-        (this.sdkUrl = e.sdkUrl || n),
-        (this.scriptId = e.scriptId || r),
+        (this.sdkUrl = e.sdkUrl || ONESIGNAL_SDK_URL),
+        (this.scriptId = e.scriptId || ONESIGNAL_SCRIPT_ID),
         (this.deferredResolveTimeoutMs = Number.isFinite(
           e.deferredResolveTimeoutMs,
         )
           ? Math.max(0, Number(e.deferredResolveTimeoutMs))
-          : i),
+          : SDK_LOAD_TIMEOUT_MS),
         (this._oneSignalRef = e.oneSignalRef || null),
         (this._scriptPromise = null),
         (this._initPromise = null),
@@ -277,13 +277,13 @@ var _ = class {
       try {
         if (e)
           return typeof t.addTag == `function`
-            ? (await t.addTag(a, o), !0)
+            ? (await t.addTag(DAILY_RACE_REMINDER_TAG, o), !0)
             : typeof t.addTags == `function`
-              ? (await t.addTags({ [a]: o }), !0)
+              ? (await t.addTags({ [DAILY_RACE_REMINDER_TAG]: o }), !0)
               : !1;
-        if (typeof t.removeTag == `function`) return (await t.removeTag(a), !0);
+        if (typeof t.removeTag == `function`) return (await t.removeTag(DAILY_RACE_REMINDER_TAG), !0);
         if (typeof t.removeTags == `function`)
-          return (await t.removeTags([a]), !0);
+          return (await t.removeTags([DAILY_RACE_REMINDER_TAG]), !0);
       } catch {
         return !1;
       }
@@ -299,7 +299,7 @@ var _ = class {
   v = null;
 function y(e = {}) {
   return (
-    (!v || e?.reset === !0) && (v = new _(e)),
+    (!v || e?.reset === !0) && (v = new PushNotificationClient(e)),
     h(v.windowRef) && v.ensureStartupTagBackfill().catch(() => {}),
     v
   );

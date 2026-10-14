@@ -1,7 +1,7 @@
 // game 04 — location
 // Lines 943-1195 of readable/assets/game-DaugXgrE.pretty.js (statement-aligned).
 if (($ && window.location.replace($), !$)) {
-  oe(document, ce(window.location), {
+  oe(document, toCommitSha(window.location), {
     sound: x().soundEnabled === !1 ? `off` : `on`,
   });
   let n = () => {
@@ -65,7 +65,7 @@ if (($ && window.location.replace($), !$)) {
         boatToolView: x,
         localGeoMeshId: S,
         sponsoredLocation: oe,
-      } = ce(window.location),
+      } = toCommitSha(window.location),
       w = t(window.location),
       E = a === `tutorial`,
       D = a === `game` || E,
@@ -240,7 +240,7 @@ if (($ && window.location.replace($), !$)) {
       timeTrialId: b,
       boatToolView: x,
       localGeoMeshId: S,
-      ...se(oe),
+      ...fetchBuildVersion(oe),
       ...ge(window.location),
       ...he(window.location),
       accountBridge: N,

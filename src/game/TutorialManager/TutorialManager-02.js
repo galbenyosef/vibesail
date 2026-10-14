@@ -2,12 +2,12 @@
 // Lines 5-1160 of readable/assets/TutorialManager-iD72X4OM.pretty.js (statement-aligned).
 var c = Math.PI / 6,
   l = 42,
-  u = `race_rules`,
-  d = `race_run`,
-  f = `race_submission`,
-  p = new Set([u, d, f]),
-  m = new Set([u, d]),
-  h = {
+  STEP_RACE_RULES = `race_rules`,
+  STEP_RACE_RUN = `race_run`,
+  STEP_RACE_SUBMISSION = `race_submission`,
+  RACE_STEP_IDS = new Set([STEP_RACE_RULES, STEP_RACE_RUN, STEP_RACE_SUBMISSION]),
+  RACE_RULES_STEP_IDS = new Set([STEP_RACE_RULES, STEP_RACE_RUN]),
+  CONTROL_HINT_SVGS = {
     down: `<svg class="tutorial-control-arrow-svg" viewBox="0 0 120 120" aria-hidden="true">
         <line x1="60" y1="60" x2="60" y2="102" />
         <polyline points="48,90 60,104 72,90" />
@@ -255,7 +255,7 @@ var c = Math.PI / 6,
           autoAdvance: !0,
         },
         {
-          id: u,
+          id: STEP_RACE_RULES,
           title: `Chapter 6: Race Rules`,
           text: `Hold behind the <b>start gate</b> and cross only when the timer hits <b>zero</b>.`,
           voice: `Hold behind the start gate and cross only when the timer hits zero.`,
@@ -278,7 +278,7 @@ var c = Math.PI / 6,
           autoAdvance: !0,
         },
         {
-          id: d,
+          id: STEP_RACE_RUN,
           title: `Chapter 7: Race Run`,
           text: `The race has started. Follow the compass, pass each buoy, and finish at the <b>red buoy</b>.`,
           voice: `The race has started. Follow the compass, pass each buoy, and finish at the red buoy.`,
@@ -290,7 +290,7 @@ var c = Math.PI / 6,
           autoAdvance: !0,
         },
         {
-          id: f,
+          id: STEP_RACE_SUBMISSION,
           title: `Chapter 8: Submit Your Time`,
           text: `Great finish. Your time submits automatically under the <b>name</b> you chose before the race.`,
           voice: `Great finish. Your time submits automatically under the name you chose before the race.`,
@@ -441,7 +441,7 @@ var c = Math.PI / 6,
         window.speechSynthesis.speak(n));
     }
     _isRaceOverlayAutoMinimizeStep(e) {
-      return m.has(e);
+      return RACE_RULES_STEP_IDS.has(e);
     }
     _getRaceOverlayAudioCompletionHandler(e) {
       return this._isRaceOverlayAutoMinimizeStep(e)
@@ -533,7 +533,7 @@ var c = Math.PI / 6,
       !e || typeof e.showLeaderboard != `function` || e.showLeaderboard();
     }
     _restartGuidedRaceFlowFromRules() {
-      let e = this.steps?.findIndex?.((e) => e?.id === u) ?? -1;
+      let e = this.steps?.findIndex?.((e) => e?.id === STEP_RACE_RULES) ?? -1;
       return !Number.isInteger(e) || e < 0
         ? !1
         : (this.hideHint(), this.startStep(e), !0);
@@ -558,14 +558,14 @@ var c = Math.PI / 6,
           )
             return;
           let e = this.steps?.[this.currentStepIndex]?.id;
-          (e !== d && e !== f) || this._restartGuidedRaceFlowFromRules();
+          (e !== STEP_RACE_RUN && e !== STEP_RACE_SUBMISSION) || this._restartGuidedRaceFlowFromRules();
         },
         i = () => {
           this.raceFlowState.submissionSucceeded = !0;
         },
         a = () => {
           let e = this.steps?.[this.currentStepIndex]?.id;
-          p.has(e) &&
+          RACE_STEP_IDS.has(e) &&
             (this.raceFlowState.submissionSucceeded ||
               (this.raceFlowState.joined = this._startGuidedDailyRace()));
         };
@@ -918,7 +918,7 @@ var c = Math.PI / 6,
         o = i.top + (Number.isFinite(i.height) ? i.height * 0.5 : 0);
       ((n.style.left = `${Math.round(a)}px`),
         (n.style.top = `${Math.round(o)}px`),
-        (n.innerHTML = t === `down` ? h.down : h.left),
+        (n.innerHTML = t === `down` ? CONTROL_HINT_SVGS.down : CONTROL_HINT_SVGS.left),
         n.classList.remove(
           `tutorial-control-arrow-left`,
           `tutorial-control-arrow-down`,
@@ -996,7 +996,7 @@ var c = Math.PI / 6,
         completedTime: null,
         raceOverlayMinimized: !1,
       }),
-        this._setTutorialCompassVisible(t?.id === d),
+        this._setTutorialCompassVisible(t?.id === STEP_RACE_RUN),
         this.events.emit(`tutorial:step_started`, {
           stepId: t?.id || null,
           stepIndex: e,
@@ -1086,8 +1086,8 @@ var c = Math.PI / 6,
         let e =
           t.id === `escaping_irons` ||
           t.id === `catching_power` ||
-          t.id === u ||
-          t.id === d
+          t.id === STEP_RACE_RULES ||
+          t.id === STEP_RACE_RUN
             ? 500
             : 2500;
         Date.now() - this.stepData.completedTime > e && this.nextStep();

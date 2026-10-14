@@ -4,8 +4,8 @@ var Je = class {
   static preload(t) {
     if (!t) return Promise.resolve();
     let n = e(t);
-    return R.has(n)
-      ? R.get(n)
+    return boatTextureSets.has(n)
+      ? boatTextureSets.get(n)
       : (console.debug(`Preloading boat model: ${n}`),
         Ie(n).catch((e) => {
           throw (console.warn(`Failed to preload boat model: ${n}`, e), e);
@@ -81,7 +81,7 @@ var Je = class {
       (this._initialHullLoadPromise = Promise.resolve()),
       this.createBoatModel(),
       (this.debugVisuals = null),
-      this.isRemoteBoat || (this.debugVisuals = new Ce(this, this.boatGroup)));
+      this.isRemoteBoat || (this.debugVisuals = new ForceVectorDebug(this, this.boatGroup)));
   }
   getColors() {
     return {
@@ -359,7 +359,7 @@ var Je = class {
         this.sailRig.setSailTexture(null);
         return;
       }
-      let e = ge.createSailTexture(this.mainSailText);
+      let e = SailTextures.createSailTexture(this.mainSailText);
       this.sailRig.setSailTexture(e);
     }
   }
@@ -372,7 +372,7 @@ var Je = class {
         this.sailRig.setJibTexture(null);
         return;
       }
-      let e = ge.createSailTexture(this.jibSailText);
+      let e = SailTextures.createSailTexture(this.jibSailText);
       this.sailRig.setJibTexture(e);
     }
   }
@@ -754,7 +754,7 @@ var Je = class {
       (console.error(`[BoatModel] Failed to initialize custom hull:`, e),
         window.dispatchEvent(new CustomEvent(`boatHullLoaded`)));
     })),
-      (this.sailRig = new he(this.boatGroup, {
+      (this.sailRig = new SailRig(this.boatGroup, {
         mastHeight: this.mastHeight,
         mastThickness: this.mastThickness,
         mastBase: this.mastBasePos,
@@ -1274,7 +1274,7 @@ var Je = class {
   }
   _isWaterBlockerMesh(e) {
     if (!e || !e.isMesh) return !1;
-    if (De.test(e.name || ``) || De.test(e.parent?.name || ``)) return !0;
+    if (WATER_BLOCKER_NAME_PATTERN.test(e.name || ``) || WATER_BLOCKER_NAME_PATTERN.test(e.parent?.name || ``)) return !0;
     let t = e.userData || {};
     return t.waterBlocker === !0 || t?.vibesail?.waterBlocker === !0
       ? !0

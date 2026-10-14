@@ -21,7 +21,7 @@ function Oi(e, t = 6) {
 function ki(e = Di()) {
   if (!e || typeof e.getItem != `function`) return Oi(6);
   try {
-    return Oi(e.getItem(Ti), 6);
+    return Oi(e.getItem(GHOST_COUNT_STORAGE_KEY), 6);
   } catch {
     return Oi(6);
   }
@@ -30,7 +30,7 @@ function Ai(e, t = Di()) {
   let n = Oi(e, 6);
   if (!t || typeof t.setItem != `function`) return n;
   try {
-    t.setItem(Ti, String(n));
+    t.setItem(GHOST_COUNT_STORAGE_KEY, String(n));
   } catch {}
   return n;
 }
@@ -42,8 +42,8 @@ function Mi(e) {
     ((t ^= e.charCodeAt(n)), (t = Math.imul(t, 16777619)));
   return ((t >>> 0) % ji) / 100;
 }
-var Ni = 6378137,
-  Pi = 0.00669437999014;
+var WGS84_SEMI_MAJOR_M = 6378137,
+  WGS84_ECCENTRICITY_SQ = 0.00669437999014;
 function Fi(e, t, n = 0) {
   let r = e * wt,
     i = t * wt,
@@ -51,17 +51,17 @@ function Fi(e, t, n = 0) {
     o = Math.cos(r),
     s = Math.sin(i),
     c = Math.cos(i),
-    l = Ni / Math.sqrt(1 - Pi * a * a);
-  return { x: (l + n) * o * c, y: (l + n) * o * s, z: (l * (1 - Pi) + n) * a };
+    l = WGS84_SEMI_MAJOR_M / Math.sqrt(1 - WGS84_ECCENTRICITY_SQ * a * a);
+  return { x: (l + n) * o * c, y: (l + n) * o * s, z: (l * (1 - WGS84_ECCENTRICITY_SQ) + n) * a };
 }
 function Ii(e, t, n) {
   let r = Math.atan2(t, e),
     i = Math.sqrt(e * e + t * t),
-    a = Math.atan2(n, i * (1 - Pi));
+    a = Math.atan2(n, i * (1 - WGS84_ECCENTRICITY_SQ));
   for (let e = 0; e < 5; e++) {
     let e = Math.sin(a),
-      t = Ni / Math.sqrt(1 - Pi * e * e);
-    a = Math.atan2(n + Pi * t * e, i);
+      t = WGS84_SEMI_MAJOR_M / Math.sqrt(1 - WGS84_ECCENTRICITY_SQ * e * e);
+    a = Math.atan2(n + WGS84_ECCENTRICITY_SQ * t * e, i);
   }
   return { lat: a * Ct, lon: r * Ct };
 }

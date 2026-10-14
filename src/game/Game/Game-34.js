@@ -2,7 +2,7 @@
 // Lines 18391-18545 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
 function ts() {
   try {
-    let e = Bt.getWithTTL(es);
+    let e = Bt.getWithTTL(AUDIO_PREFS_STORAGE_KEY);
     if (e && typeof e == `object`)
       return {
         soundEnabled: typeof e.soundEnabled == `boolean` ? e.soundEnabled : !0,
@@ -17,19 +17,19 @@ function ts() {
   }
   return { soundEnabled: !0, musicEnabled: !0, volume: 0.5 };
 }
-function ns(e) {
+function saveAudioPreferences(e) {
   try {
     let t = {
       soundEnabled: !!e.soundEnabled,
       musicEnabled: !!e.musicEnabled,
       volume: Math.max(0, Math.min(1, Number(e.volume) || 0.5)),
     };
-    Bt.setWithTTL(es, t, $o);
+    Bt.setWithTTL(AUDIO_PREFS_STORAGE_KEY, t, AUDIO_PREFS_TTL_MS);
   } catch (e) {
     console.error(e);
   }
 }
-var rs = new (class {
+var gameRuntime = new (class {
     constructor() {
       ((this.boat = null),
         (this.cameraController = null),

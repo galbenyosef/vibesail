@@ -37,7 +37,9 @@ const proj = path.resolve(here, "..");
 const args = process.argv.slice(2);
 const listMode = args[0] === "--list";
 const allMode = args[0] === "--all";
-const file = listMode || allMode ? null : args[0];
+const chunkMode = args[0] === "--chunk";
+const file = listMode || allMode ? null : chunkMode ? null : args[0];
+const chunkArg = chunkMode ? args[1] : null;
 const namesFile = path.join(proj, "tools", "names.json");
 if (!listMode && !allMode && !file) {
   console.error("usage: node tools/apply-names.mjs <slice-file> [names.json] | --all | --list <slice-file>");
@@ -45,6 +47,7 @@ if (!listMode && !allMode && !file) {
 }
 
 const all = JSON.parse(fs.readFileSync(namesFile, "utf8"));
+const chunkRules = all.chunks || {};
 const spec = JSON.parse(fs.readFileSync(path.join(proj, "split-spec.json"), "utf8"));
 const prettyFor = sourceResolver(proj, spec);
 
@@ -363,13 +366,18 @@ function matches(sp, node) {
   if (!node.__scope) return false;
   if (sp.program) {
     if (node.__scope !== sp.root) return false;
-    if (!declInSlice(sp.root, node.name)) return false;
+    const entry = sp.root.names.get(node.name);
+    // In a chunk-wide pass the declaration may live in a SIBLING slice (the
+    // rule is applied to every slice of the chunk), so "declared in the chunk"
+    // is enough — the sibling applies the same rule at its own declaration.
+    const ok = sp.wholeChunk ? !!entry && entry.decls.length > 0 : declInSlice(sp.root, node.name);
+    if (!ok) return false;
     return !(sp.shared && sp.shared.has(node.name));
   }
   return sp.deep ? within(sp.root, node.__scope) : node.__scope === sp.root;
 }
 
-async function applyRule(rule, bodyText, ctx) {
+async function applyRule(rule, bodyText, ctx, { wholeChunk = false } = {}) {
   sliceEnd = ctx.sliceStart + bodyText.length;
   const programText = ctx.fullText.slice(0, ctx.sliceStart) + bodyText + (bodyText.endsWith("\n") ? "" : "\n") + ctx.fullText.slice(ctx.rangeEnd);
   const ast = await parseProgram(programText);
@@ -384,9 +392,12 @@ async function applyRule(rule, bodyText, ctx) {
   const sp = { ...rule, ...scopeMatches(rule.scope) };
   if (sp.program) {
     sp.root = programScope;
+    sp.wholeChunk = wholeChunk;
     const declaredHere = new Set([...programScope.names.keys()].filter((n) => declInSlice(programScope, n)));
     const outside = outsideRefs.get(programScope) || new Set();
-    sp.shared = new Set([...declaredHere].filter((n) => outside.has(n)));
+    // A chunk-wide rule renames every slice of the chunk in one pass, so a
+    // cross-slice reference is no longer a reason to refuse the name.
+    sp.shared = wholeChunk ? new Set() : new Set([...declaredHere].filter((n) => outside.has(n)));
   } else {
     const scope = functionScopes.get(sp.want);
     if (!scope) throw new Error(`no function named ${sp.want}`);
@@ -427,8 +438,8 @@ async function applyRule(rule, bodyText, ctx) {
   return { text: out + bodyText.slice(last), count: marks.length };
 }
 
-async function applyFile(f) {
-  const rules = all[f] || [];
+async function applyFile(f, rulesOverride = null, applyOpts = {}) {
+  const rules = rulesOverride ?? all[f] ?? [];
   const sec = sectionFor(f);
   const ctx = makeContext(sec);
   const srcPath = path.join(proj, "src", f);
@@ -472,7 +483,7 @@ async function applyFile(f) {
   }
   const summary = [];
   for (const rule of rules) {
-    const r = await applyRule(rule, body, ctx);
+    const r = await applyRule(rule, body, ctx, applyOpts);
     body = r.text;
     summary.push(
       `  ${rule.scope === null ? "<top-level>" : rule.scope}: ${Object.keys(rule.renames).length} name(s), ${r.count} identifier(s)`,
@@ -485,9 +496,27 @@ async function applyFile(f) {
 }
 
 if (allMode) {
-  const files = Object.keys(all);
+  const files = Object.keys(all).filter((k) => k !== "chunks" && k !== "note");
   for (const f of files) await applyFile(f);
-  console.log(`apply-names: ${files.length} file(s) processed`);
+  // chunk-wide rules: every slice of the chunk, in line order
+  for (const [sourceFile, rules] of Object.entries(chunkRules)) {
+    const slices = spec.sections
+      .filter((s) => !s.wholeFile && !s.skipped && s.sourceFile === sourceFile)
+      .sort((a, b) => a.startLine - b.startLine);
+    if (!slices.length) throw new Error(`chunk rules for ${sourceFile} match no slices`);
+    for (const s of slices) await applyFile(s.file, rules, { wholeChunk: true });
+  }
+  console.log(`apply-names: ${files.length} file(s) + ${Object.keys(chunkRules).length} chunk rule set(s) processed`);
+} else if (chunkMode) {
+  const rules = chunkRules[chunkArg];
+  if (!rules) {
+    console.error(`no chunk rules for ${chunkArg}`);
+    process.exit(1);
+  }
+  const slices = spec.sections
+    .filter((s) => !s.wholeFile && !s.skipped && s.sourceFile === chunkArg)
+    .sort((a, b) => a.startLine - b.startLine);
+  for (const s of slices) await applyFile(s.file, rules, { wholeChunk: true });
 } else {
   await applyFile(file);
 }

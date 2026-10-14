@@ -229,7 +229,7 @@ var y = new r(),
       let t = this.getPlayerAnchorPosition() || this.position || new r();
       for (let n = 0; n < e; n++) {
         let e = this.createBird(this.models.seagull, `seagull`);
-        this.models.seagull.setMode(e, p.WATER);
+        this.models.seagull.setMode(e, BIRD_MODES.WATER);
         let n = Math.random() * Math.PI * 2,
           i = M + Math.random() * (N - M),
           a = t.x + Math.sin(n) * i,
@@ -240,7 +240,7 @@ var y = new r(),
           this.waterBirds.push({
             bird: e,
             model: this.models.seagull,
-            state: p.WATER,
+            state: BIRD_MODES.WATER,
             timer: 6 + Math.random() * 8,
             fleeTimer: 0,
             fleeStartPoint: e.position.clone(),
@@ -269,20 +269,20 @@ var y = new r(),
     respawnWaterBirdNearCenter(e, t) {
       let n = this.sampleLocalWaterPosition(t, x);
       (this.placeWaterBirdOnSurface(e, n.x, n.z),
-        (e.state = p.WATER),
-        e.model.setMode(e.bird, p.WATER),
+        (e.state = BIRD_MODES.WATER),
+        e.model.setMode(e.bird, BIRD_MODES.WATER),
         e.velocity.set(0, 0, 0));
     }
     tryStartleBirdFromBoat(e, t, n) {
-      if (e.state === p.FLYING || !this.hasBoatPosition) return !1;
+      if (e.state === BIRD_MODES.FLYING || !this.hasBoatPosition) return !1;
       let r = e.bird;
       return r.position.distanceToSquared(this.boatPosition) >=
         e.startleRadius * e.startleRadius
         ? !1
-        : ((e.state = p.FLYING),
+        : ((e.state = BIRD_MODES.FLYING),
           (e.fleeTimer = 0),
           e.fleeStartPoint.copy(r.position),
-          e.model.setMode(r, p.FLYING),
+          e.model.setMode(r, BIRD_MODES.FLYING),
           b.copy(r.position).sub(this.boatPosition),
           b.lengthSq() < 0.01 &&
             b.set(Math.random() - 0.5, 0, Math.random() - 0.5),
@@ -295,12 +295,12 @@ var y = new r(),
       let t = this.createBird(this.models.black, `black`);
       return (
         t.scale.multiplyScalar(0.8 + Math.random() * 0.12),
-        this.models.black.setMode(t, p.PERCHED),
+        this.models.black.setMode(t, BIRD_MODES.PERCHED),
         this.scene.add(t),
         {
           bird: t,
           model: this.models.black,
-          state: p.PERCHED,
+          state: BIRD_MODES.PERCHED,
           currentIndex: e,
           destinationIndex: e,
           timer: 4 + Math.random() * 7,
@@ -315,7 +315,7 @@ var y = new r(),
     createIslandSurfaceBirdEntry(e, t = 0) {
       let n = this.createBird(this.models.seagull, `seagull`);
       (n.scale.multiplyScalar(0.9 + Math.random() * 0.12),
-        this.models.seagull.setMode(n, p.PERCHED));
+        this.models.seagull.setMode(n, BIRD_MODES.PERCHED));
       let i = this.computeIslandSurfacePerchPoint(e, t);
       return (
         n.position.copy(i),
@@ -326,7 +326,7 @@ var y = new r(),
           model: this.models.seagull,
           sign: e,
           homePoint: i,
-          state: p.PERCHED,
+          state: BIRD_MODES.PERCHED,
           timer: 6 + Math.random() * 8,
           fleeTimer: 0,
           fleeStartPoint: i.clone(),
@@ -391,15 +391,15 @@ var y = new r(),
           e <= 0 ||
             ((t.currentIndex = ((t.currentIndex % e) + e) % e),
             (t.destinationIndex = ((t.destinationIndex % e) + e) % e),
-            (t.state !== p.FLYING || e === 1) &&
+            (t.state !== BIRD_MODES.FLYING || e === 1) &&
               (this.placeBillboardBird(
                 t,
                 Math.min(t.currentIndex, e - 1),
-                p.PERCHED,
+                BIRD_MODES.PERCHED,
               ),
               e === 1 && (t.timer = 6 + Math.random() * 8)),
             this.billboardTargets[t.currentIndex] ||
-              this.placeBillboardBird(t, n % e, p.PERCHED));
+              this.placeBillboardBird(t, n % e, BIRD_MODES.PERCHED));
         });
       }
     }
@@ -417,7 +417,7 @@ var y = new r(),
           speed: a,
           cruiseSpeed: a,
           targetSpeed: this.speed,
-          mode: p.FLYING,
+          mode: BIRD_MODES.FLYING,
           targetHeight: this.height,
           orbitDirection: Math.random() < 0.5 ? -1 : 1,
           orbitRadius: 260 + Math.random() * 210,
@@ -457,7 +457,7 @@ var y = new r(),
           : {};
       return e.createInstance(n);
     }
-    placeBillboardBird(e, t, n = p.PERCHED) {
+    placeBillboardBird(e, t, n = BIRD_MODES.PERCHED) {
       let r = this.billboardTargets[t];
       r &&
         ((e.currentIndex = t),
@@ -466,7 +466,7 @@ var y = new r(),
         e.model.setMode(e.bird, n),
         e.bird.position.copy(r.point),
         e.bird.rotation.set(0, r.rotationY + Math.PI, 0),
-        n === p.PERCHED &&
+        n === BIRD_MODES.PERCHED &&
           (e.bird.rotation.z = Math.sin(this.billboardTime + t) * 0.04));
     }
     pickBillboardDestination(e, t) {
@@ -475,7 +475,7 @@ var y = new r(),
     animateSingleBirdWings(e, t, n = 1) {
       let r = e.userData.leftWingPivot,
         i = e.userData.rightWingPivot;
-      if (!r || !i || e.userData.mode !== p.FLYING) return;
+      if (!r || !i || e.userData.mode !== BIRD_MODES.FLYING) return;
       e.userData.flapAngle += t * e.userData.flapSpeed;
       let a = Math.sin(e.userData.flapAngle) * e.userData.flapAmplitude,
         o =
@@ -519,11 +519,11 @@ var y = new r(),
           s = a.position.z - t.z;
         if (
           (o * o + s * s > i &&
-            r.state !== p.FLYING &&
+            r.state !== BIRD_MODES.FLYING &&
             (this.respawnWaterBirdNearCenter(r, t),
             (r.timer = 4 + Math.random() * 8)),
           this.tryStartleBirdFromBoat(r, 3.2, 1.8),
-          r.state === p.FLYING)
+          r.state === BIRD_MODES.FLYING)
         ) {
           ((r.fleeTimer += e),
             this.updateEscapeVelocity(r, a, e, 3.6),
@@ -533,9 +533,9 @@ var y = new r(),
             b.lengthSq() > 0.01 && (a.rotation.y = Math.atan2(b.x, b.z)));
           let t = a.position.distanceTo(r.fleeStartPoint);
           if (r.fleeTimer > O && t >= J) {
-            ((r.state = p.WATER),
+            ((r.state = BIRD_MODES.WATER),
               (r.timer = 5 + Math.random() * 8),
-              r.model.setMode(a, p.WATER),
+              r.model.setMode(a, BIRD_MODES.WATER),
               r.velocity.multiplyScalar(0.2),
               (a.rotation.y += (Math.random() - 0.5) * 0.6));
             let e = this.sampleWaterHeight(a.position.x, a.position.z) + R;
@@ -560,7 +560,7 @@ var y = new r(),
         let c = a.position.x - t.x,
           l = a.position.z - t.z;
         if (c * c + l * l > n) {
-          if (r.state === p.FLYING && r.fleeTimer < O) {
+          if (r.state === BIRD_MODES.FLYING && r.fleeTimer < O) {
             (b.set(c, 0, l).normalize(),
               a.position.set(
                 t.x + b.x * (j - 30),
@@ -578,7 +578,7 @@ var y = new r(),
       this.islandSurfaceBirds.length &&
         this.islandSurfaceBirds.forEach((t, n) => {
           let { bird: r } = t;
-          if (((t.phase += e), t.state !== p.FLYING)) {
+          if (((t.phase += e), t.state !== BIRD_MODES.FLYING)) {
             (r.position.lerp(t.homePoint, Math.min(1, e * 4)),
               (r.rotation.z = Math.sin(t.phase * 0.8 + n) * 0.02),
               (t.timer -= e),
@@ -594,9 +594,9 @@ var y = new r(),
           let i = r.position.distanceTo(t.fleeStartPoint);
           t.fleeTimer > H &&
             i >= J &&
-            ((t.state = p.PERCHED),
+            ((t.state = BIRD_MODES.PERCHED),
             (t.timer = 6 + Math.random() * 8),
-            t.model.setMode(r, p.PERCHED),
+            t.model.setMode(r, BIRD_MODES.PERCHED),
             r.position.copy(t.homePoint),
             t.velocity.set(0, 0, 0));
         });
@@ -605,7 +605,7 @@ var y = new r(),
       this.billboardTargets.length === 0 ||
         this.billboardBirds.length === 0 ||
         this.billboardBirds.forEach((t, n) => {
-          if (t.state === p.FLYING) {
+          if (t.state === BIRD_MODES.FLYING) {
             t.progress = Math.min(
               1,
               t.progress + e / Math.max(0.001, t.duration),
@@ -618,7 +618,7 @@ var y = new r(),
                 (t.bird.rotation.y = Math.atan2(b.x, b.z)),
               this.animateSingleBirdWings(t.bird, e, 0.9),
               n >= 1 &&
-                (this.placeBillboardBird(t, t.destinationIndex, p.PERCHED),
+                (this.placeBillboardBird(t, t.destinationIndex, BIRD_MODES.PERCHED),
                 (t.timer = 4 + Math.random() * 8)));
             return;
           }
@@ -631,8 +631,8 @@ var y = new r(),
             (t.bird.rotation.y = r.rotationY + Math.PI),
             (t.bird.rotation.z =
               Math.sin(this.billboardTime * 1.3 + n) * 0.035),
-            t.bird.userData.mode !== p.PERCHED &&
-              t.model.setMode(t.bird, p.PERCHED),
+            t.bird.userData.mode !== BIRD_MODES.PERCHED &&
+              t.model.setMode(t.bird, BIRD_MODES.PERCHED),
             (t.timer -= e),
             t.timer > 0 || this.billboardTargets.length <= 1)
           )
@@ -646,8 +646,8 @@ var y = new r(),
             t.timer = 3 + Math.random() * 4;
             return;
           }
-          ((t.state = p.FLYING),
-            t.model.setMode(t.bird, p.FLYING),
+          ((t.state = BIRD_MODES.FLYING),
+            t.model.setMode(t.bird, BIRD_MODES.FLYING),
             (t.progress = 0),
             t.startPoint.copy(r.point),
             t.endPoint.copy(i.point));
@@ -704,10 +704,10 @@ var y = new r(),
     }
     animateBirdWings(e, t) {
       e.birds.forEach((n) => {
-        if (n.userData.mode !== p.FLYING) {
+        if (n.userData.mode !== BIRD_MODES.FLYING) {
           ((n.rotation.x = 0),
             (n.rotation.z =
-              n.userData.mode === p.WATER
+              n.userData.mode === BIRD_MODES.WATER
                 ? Math.sin(e.angle * 0.9 + n.userData.glidePhase) * 0.03
                 : 0));
           return;
@@ -727,11 +727,11 @@ var y = new r(),
           i = t.x + Math.sin(n) * r,
           a = t.z + Math.cos(n) * r;
         (e.position.set(i, this.height, a),
-          (e.mode = p.FLYING),
+          (e.mode = BIRD_MODES.FLYING),
           (e.speed = e.cruiseSpeed),
           (e.targetSpeed = e.cruiseSpeed),
           (e.targetHeight = this.height),
-          e.birds.forEach((t) => e.model.setMode(t, p.FLYING)),
+          e.birds.forEach((t) => e.model.setMode(t, BIRD_MODES.FLYING)),
           this.rotateFlockToDirection(e));
       }
     }

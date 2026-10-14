@@ -1,6 +1,6 @@
 // Game 27 — options
 // Lines 12039-15637 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var La = class {
+var RemoteBoatInspector = class {
     constructor(e, t = {}) {
       ((this.app = e),
         (this.documentRef =
@@ -430,14 +430,14 @@ var La = class {
         this.profileStatsRequestId++);
     }
   },
-  Ra = class {
+  GameUi = class {
     constructor(e) {
       ((this.app = e),
         (this.boat = e.boat),
         (this.world = e.world),
         (this.pushNotificationPreferences = new $r()));
       let t = e.options?.enableRaceUI !== !1;
-      ((this.tuning = new fa(this.boat)),
+      ((this.tuning = new PhysicsTuningPanel(this.boat)),
         t
           ? ((this.race = new ta(
               this.world,
@@ -497,7 +497,7 @@ var La = class {
         (this.elements.topRightContainer = r));
       let i = this.app.options?.enableButtonPanel !== !1,
         a = this.app.options?.enableRaceUI !== !1;
-      ((this.speedometerCompass = new da(this.boat, this.world, t)),
+      ((this.speedometerCompass = new MissionStatusText(this.boat, this.world, t)),
         this.speedometerCompass?.setMissionTargetProvider &&
           this.speedometerCompass.setMissionTargetProvider(() => {
             if (this.app.tutorialManager) {
@@ -521,13 +521,13 @@ var La = class {
             return this.app?.logisticsManager?.getTargetPosition?.();
           }),
         i &&
-          ((this.buttonPanel = new sa(this.app, r, { i18n: R })),
-          (this.upgradeShop = new ma(this.app, this.tuning))),
+          ((this.buttonPanel = new HudButtonFactory(this.app, r, { i18n: R })),
+          (this.upgradeShop = new BoatUpgradeStore(this.app, this.tuning))),
         R.translate(document),
         this.app?.options?.enableLandingOverlay !== !1 &&
           this.createLandingOverlay(),
         i && this.createHotkeysOverlay(),
-        (this.remoteBoatInspector = new La(this.app)),
+        (this.remoteBoatInspector = new RemoteBoatInspector(this.app)),
         a && (this.buoyIndicator = new na(this.race, this.boat)),
         (this.geoCourseNavigator = Xi({
           scene: this.world.scene,
@@ -1998,7 +1998,7 @@ var La = class {
   Ua = Ha * 0.75,
   Wa = 14,
   Ga = 6e4,
-  Ka = class {
+  TouchControls = class {
     constructor(e) {
       ((this.app = e),
         (this.boat = e.boat),
@@ -2443,7 +2443,7 @@ var La = class {
       (I.emitGameplayControl(`touch_control`), I.emit(`fire_right`));
     }
   },
-  qa = class {
+  GameAudio = class {
     constructor() {
       ((this.audioContext = null),
         (this.masterGain = null),
@@ -2959,7 +2959,7 @@ var La = class {
   Qa = new ze(),
   $a = Math.cos(70 * P.DEG2RAD),
   W = new M(),
-  eo = 2 * Math.PI,
+  TWO_PI_RAD = 2 * Math.PI,
   G = {
     NONE: -1,
     ROTATE: 0,
@@ -3175,8 +3175,8 @@ var La = class {
         r = this.maxAzimuthAngle;
       (isFinite(n) &&
         isFinite(r) &&
-        (n < -Math.PI ? (n += eo) : n > Math.PI && (n -= eo),
-        r < -Math.PI ? (r += eo) : r > Math.PI && (r -= eo),
+        (n < -Math.PI ? (n += TWO_PI_RAD) : n > Math.PI && (n -= TWO_PI_RAD),
+        r < -Math.PI ? (r += TWO_PI_RAD) : r > Math.PI && (r -= TWO_PI_RAD),
         n <= r
           ? (this._spherical.theta = Math.max(
               n,
@@ -3292,8 +3292,8 @@ var La = class {
     }
     _getAutoRotationAngle(e) {
       return e === null
-        ? (eo / 60 / 60) * this.autoRotateSpeed
-        : (eo / 60) * this.autoRotateSpeed * e;
+        ? (TWO_PI_RAD / 60 / 60) * this.autoRotateSpeed
+        : (TWO_PI_RAD / 60) * this.autoRotateSpeed * e;
     }
     _getZoomScale(e) {
       let t = Math.abs(e * 0.01);
@@ -3396,8 +3396,8 @@ var La = class {
           .subVectors(this._rotateEnd, this._rotateStart)
           .multiplyScalar(this.rotateSpeed));
       let t = this.domElement;
-      (this._rotateLeft((eo * this._rotateDelta.x) / t.clientHeight),
-        this._rotateUp((eo * this._rotateDelta.y) / t.clientHeight),
+      (this._rotateLeft((TWO_PI_RAD * this._rotateDelta.x) / t.clientHeight),
+        this._rotateUp((TWO_PI_RAD * this._rotateDelta.y) / t.clientHeight),
         this._rotateStart.copy(this._rotateEnd),
         this.update());
     }
@@ -3434,7 +3434,7 @@ var La = class {
           (e.ctrlKey || e.metaKey || e.shiftKey
             ? this.enableRotate &&
               this._rotateUp(
-                (eo * this.keyRotateSpeed) / this.domElement.clientHeight,
+                (TWO_PI_RAD * this.keyRotateSpeed) / this.domElement.clientHeight,
               )
             : this.enablePan && this._pan(0, this.keyPanSpeed),
             (t = !0));
@@ -3443,7 +3443,7 @@ var La = class {
           (e.ctrlKey || e.metaKey || e.shiftKey
             ? this.enableRotate &&
               this._rotateUp(
-                (-eo * this.keyRotateSpeed) / this.domElement.clientHeight,
+                (-TWO_PI_RAD * this.keyRotateSpeed) / this.domElement.clientHeight,
               )
             : this.enablePan && this._pan(0, -this.keyPanSpeed),
             (t = !0));
@@ -3452,7 +3452,7 @@ var La = class {
           (e.ctrlKey || e.metaKey || e.shiftKey
             ? this.enableRotate &&
               this._rotateLeft(
-                (eo * this.keyRotateSpeed) / this.domElement.clientHeight,
+                (TWO_PI_RAD * this.keyRotateSpeed) / this.domElement.clientHeight,
               )
             : this.enablePan && this._pan(this.keyPanSpeed, 0),
             (t = !0));
@@ -3461,7 +3461,7 @@ var La = class {
           (e.ctrlKey || e.metaKey || e.shiftKey
             ? this.enableRotate &&
               this._rotateLeft(
-                (-eo * this.keyRotateSpeed) / this.domElement.clientHeight,
+                (-TWO_PI_RAD * this.keyRotateSpeed) / this.domElement.clientHeight,
               )
             : this.enablePan && this._pan(-this.keyPanSpeed, 0),
             (t = !0));
@@ -3514,8 +3514,8 @@ var La = class {
         .subVectors(this._rotateEnd, this._rotateStart)
         .multiplyScalar(this.rotateSpeed);
       let t = this.domElement;
-      (this._rotateLeft((eo * this._rotateDelta.x) / t.clientHeight),
-        this._rotateUp((eo * this._rotateDelta.y) / t.clientHeight),
+      (this._rotateLeft((TWO_PI_RAD * this._rotateDelta.x) / t.clientHeight),
+        this._rotateUp((TWO_PI_RAD * this._rotateDelta.y) / t.clientHeight),
         this._rotateStart.copy(this._rotateEnd));
     }
     _handleTouchMovePan(e) {

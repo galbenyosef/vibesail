@@ -2,7 +2,7 @@
 // Lines 1-222 of readable/assets/WorldAdPopupManager-WzG-fNUY.pretty.js (statement-aligned).
 import { g as e } from "./routeContext-D1HYUwP9.js";
 var t = 100,
-  n = `
+  POPUP_STYLES = `
     position: fixed;
     top: 50%;
     left: 50%;
@@ -137,7 +137,7 @@ var s = class {
       (t.id = e),
       (t.__adPopupManager = this));
     let i = () => {
-      t.style.cssText = n + r(window.innerWidth);
+      t.style.cssText = POPUP_STYLES + r(window.innerWidth);
     };
     return (
       i(),

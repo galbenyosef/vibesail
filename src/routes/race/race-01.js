@@ -9,8 +9,8 @@ import { n } from "./RuntimeEnvironment-BAaLbeCv.js";
 import { c as r, r as i } from "./Bearing-Bz8gc2k9.js";
 import { i as a, t as o } from "./RaceConfig-BiFwKzq8.js";
 import { t as s } from "./TrackGenerator-CFnrWNiH.js";
-var c = Object.freeze([`bronze`, `silver`, `gold`]),
-  l = `vibesail.raceTrialProgress`;
+var TRIAL_TIER_IDS = Object.freeze([`bronze`, `silver`, `gold`]),
+  TRIAL_PROGRESS_STORAGE_KEY = `vibesail.raceTrialProgress`;
 function u() {
   return { trials: {} };
 }
@@ -18,13 +18,13 @@ function d(e) {
   let t = String(e || ``)
     .trim()
     .toLowerCase();
-  return c.includes(t) ? t : null;
+  return TRIAL_TIER_IDS.includes(t) ? t : null;
 }
 function f(e) {
   let t = d(e);
   if (!t) return [];
-  let n = c.indexOf(t);
-  return c.slice(0, n + 1);
+  let n = TRIAL_TIER_IDS.indexOf(t);
+  return TRIAL_TIER_IDS.slice(0, n + 1);
 }
 function p(e) {
   if (e == null || e === ``) return `—`;
@@ -38,7 +38,7 @@ function p(e) {
 }
 function m(e = globalThis.localStorage) {
   try {
-    let t = e?.getItem?.(l);
+    let t = e?.getItem?.(TRIAL_PROGRESS_STORAGE_KEY);
     if (!t) return u();
     let n = JSON.parse(t);
     return { trials: n?.trials && typeof n.trials == `object` ? n.trials : {} };
@@ -72,10 +72,10 @@ function g(e = document, t = m()) {
         }));
     });
 }
-var _ = { lat: 40.71335, lon: -74.01655 },
-  v = { lat: 40.68918993281163, lon: -74.04216206852419 },
-  y = { lat: -33.85353467385855, lon: 151.2138145569059 },
-  b = [
+var NYC_HARBOR_POINT = { lat: 40.71335, lon: -74.01655 },
+  LIBERTY_ISLAND_POINT = { lat: 40.68918993281163, lon: -74.04216206852419 },
+  SYDNEY_HARBOR_POINT = { lat: -33.85353467385855, lon: 151.2138145569059 },
+  WORLD_COURSE_DEFINITIONS = [
     {
       id: `nyc-liberty-wtc`,
       title: `Statue of Liberty`,
@@ -85,7 +85,7 @@ var _ = { lat: 40.71335, lon: -74.01655 },
       playable: !1,
       place: `nyc`,
       loc: `statueOfLiberty`,
-      course: [v, _],
+      course: [LIBERTY_ISLAND_POINT, NYC_HARBOR_POINT],
     },
     {
       id: `sydney-harbour`,
@@ -96,7 +96,7 @@ var _ = { lat: 40.71335, lon: -74.01655 },
       playable: !1,
       place: `sydney`,
       loc: `sydney_harbour`,
-      course: [y, { lat: -33.8572, lon: 151.2148 }, y],
+      course: [SYDNEY_HARBOR_POINT, { lat: -33.8572, lon: 151.2148 }, SYDNEY_HARBOR_POINT],
     },
     {
       id: `capri-marina`,
@@ -124,7 +124,7 @@ function x(n) {
     course: n.course,
   });
 }
-function S(e, t = b) {
+function S(e, t = WORLD_COURSE_DEFINITIONS) {
   e &&
     (e.innerHTML = t
       .map((e) => {
@@ -170,19 +170,19 @@ function C(e = 220) {
   return { x: a.x, z: a.z, towardDegrees: t, fromDegrees: o };
 }
 var w = n(),
-  T = [`race`, `world`, `high-sea`, `live`],
-  E = document.getElementById(`daily-course-date`),
-  D = document.getElementById(`daily-course-buoys`),
-  O = document.getElementById(`daily-course-runs`),
-  k = document.getElementById(`daily-course-status`),
-  A = document.getElementById(`daily-replay-link`),
-  j = document.getElementById(`daily-course-map`),
-  M = document.getElementById(`daily-course-canvas`),
-  N = M?.getContext?.(`2d`) || null,
-  P = [...document.querySelectorAll(`.races-tab[data-tab]`)],
-  F = [...document.querySelectorAll(`[data-tab-panel]`)],
-  I = document.getElementById(`world-courses-grid`),
-  L = document.getElementById(`time-trials-grid`);
+  RACE_TAB_KEYS = [`race`, `world`, `high-sea`, `live`],
+  dailyCourseDateEl = document.getElementById(`daily-course-date`),
+  dailyCourseBuoysEl = document.getElementById(`daily-course-buoys`),
+  dailyCourseRunsEl = document.getElementById(`daily-course-runs`),
+  dailyCourseStatusEl = document.getElementById(`daily-course-status`),
+  dailyReplayLinkEl = document.getElementById(`daily-replay-link`),
+  dailyCourseMapEl = document.getElementById(`daily-course-map`),
+  dailyCourseCanvasEl = document.getElementById(`daily-course-canvas`),
+  dailyCourseCtx = dailyCourseCanvasEl?.getContext?.(`2d`) || null,
+  raceTabButtons = [...document.querySelectorAll(`.races-tab[data-tab]`)],
+  tabPanels = [...document.querySelectorAll(`[data-tab-panel]`)],
+  worldCoursesGridEl = document.getElementById(`world-courses-grid`),
+  timeTrialsGridEl = document.getElementById(`time-trials-grid`);
 function R(e) {
   let t = String(e || ``)
     .trim()
@@ -193,19 +193,19 @@ function R(e) {
       ? `world`
       : t === `live-party`
         ? `live`
-        : T.includes(t)
+        : RACE_TAB_KEYS.includes(t)
           ? t
           : `race`;
 }
 function z(e, { updateHash: t = !0 } = {}) {
   let n = R(e);
   if (
-    (P.forEach((e) => {
+    (raceTabButtons.forEach((e) => {
       let t = e.dataset.tab === n;
       (e.setAttribute(`aria-selected`, t ? `true` : `false`),
         (e.tabIndex = t ? 0 : -1));
     }),
-    F.forEach((e) => {
+    tabPanels.forEach((e) => {
       e.hidden = e.dataset.tabPanel !== n;
     }),
     t)
@@ -222,9 +222,9 @@ function z(e, { updateHash: t = !0 } = {}) {
     });
 }
 function B() {
-  P.length &&
+  raceTabButtons.length &&
     (z(R(window.location.hash.replace(/^#/, ``)), { updateHash: !1 }),
-    P.forEach((e) => {
+    raceTabButtons.forEach((e) => {
       e.addEventListener(`click`, () => {
         z(e.dataset.tab);
       });
@@ -282,24 +282,24 @@ function U(e) {
   );
 }
 function W(e) {
-  if (!N || !M || !j) return;
+  if (!dailyCourseCtx || !dailyCourseCanvasEl || !dailyCourseMapEl) return;
   let t = Math.max(
       320,
-      Math.floor(j.clientWidth * (window.devicePixelRatio || 1)),
+      Math.floor(dailyCourseMapEl.clientWidth * (window.devicePixelRatio || 1)),
     ),
     n = Math.max(
       240,
-      Math.floor(j.clientHeight * (window.devicePixelRatio || 1)),
+      Math.floor(dailyCourseMapEl.clientHeight * (window.devicePixelRatio || 1)),
     );
   if (
-    ((M.width = t),
-    (M.height = n),
-    N.clearRect(0, 0, t, n),
-    (N.fillStyle = `#071116`),
-    N.fillRect(0, 0, t, n),
+    ((dailyCourseCanvasEl.width = t),
+    (dailyCourseCanvasEl.height = n),
+    dailyCourseCtx.clearRect(0, 0, t, n),
+    (dailyCourseCtx.fillStyle = `#071116`),
+    dailyCourseCtx.fillRect(0, 0, t, n),
     !Array.isArray(e) || e.length === 0)
   ) {
-    k && ((k.hidden = !1), (k.textContent = `Could not draw today’s course.`));
+    dailyCourseStatusEl && ((dailyCourseStatusEl.hidden = !1), (dailyCourseStatusEl.textContent = `Could not draw today’s course.`));
     return;
   }
   let { minX: r, maxX: i, minZ: a, maxZ: o } = U(e),
@@ -314,34 +314,34 @@ function W(e) {
     h = m?.center || { x: 0, z: 0 },
     g = p(h.x, h.z);
   if (
-    (N.beginPath(),
-    (N.strokeStyle = `rgba(255, 255, 255, 0.18)`),
-    (N.lineWidth = Math.max(1.5, t / 420)),
-    N.moveTo(g.x, g.y),
+    (dailyCourseCtx.beginPath(),
+    (dailyCourseCtx.strokeStyle = `rgba(255, 255, 255, 0.18)`),
+    (dailyCourseCtx.lineWidth = Math.max(1.5, t / 420)),
+    dailyCourseCtx.moveTo(g.x, g.y),
     e.forEach((e) => {
       let t = p(e.x, e.z);
-      N.lineTo(t.x, t.y);
+      dailyCourseCtx.lineTo(t.x, t.y);
     }),
-    N.stroke(),
+    dailyCourseCtx.stroke(),
     m?.p1 && m?.p2)
   ) {
     let e = p(m.p1.x, m.p1.z),
       n = p(m.p2.x, m.p2.z);
-    (N.beginPath(),
-      (N.strokeStyle = `#4caf50`),
-      (N.lineWidth = Math.max(2, t / 320)),
-      N.moveTo(e.x, e.y),
-      N.lineTo(n.x, n.y),
-      N.stroke());
-  } else ((N.fillStyle = `#4caf50`), N.fillRect(g.x - 4, g.y - 4, 8, 8));
+    (dailyCourseCtx.beginPath(),
+      (dailyCourseCtx.strokeStyle = `#4caf50`),
+      (dailyCourseCtx.lineWidth = Math.max(2, t / 320)),
+      dailyCourseCtx.moveTo(e.x, e.y),
+      dailyCourseCtx.lineTo(n.x, n.y),
+      dailyCourseCtx.stroke());
+  } else ((dailyCourseCtx.fillStyle = `#4caf50`), dailyCourseCtx.fillRect(g.x - 4, g.y - 4, 8, 8));
   (e.forEach((n, r) => {
     let i = p(n.x, n.z),
       a = r === e.length - 1;
-    (N.beginPath(),
-      (N.fillStyle = a ? `#ff6b6b` : `#ffcf4d`),
-      N.arc(i.x, i.y, Math.max(4, t / 160), 0, Math.PI * 2),
-      N.fill());
+    (dailyCourseCtx.beginPath(),
+      (dailyCourseCtx.fillStyle = a ? `#ff6b6b` : `#ffcf4d`),
+      dailyCourseCtx.arc(i.x, i.y, Math.max(4, t / 160), 0, Math.PI * 2),
+      dailyCourseCtx.fill());
   }),
     G(t, n),
-    k && (k.hidden = !0));
+    dailyCourseStatusEl && (dailyCourseStatusEl.hidden = !0));
 }

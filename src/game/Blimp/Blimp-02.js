@@ -1,6 +1,6 @@
 // Blimp 02 — blimp
 // Lines 20-440 of readable/assets/Blimp-CsqFvrq-.pretty.js (statement-aligned).
-var _ = Object.freeze({
+var BLIMP_POPUP_CONTENT = Object.freeze({
     title: `Sponsor this blimp`,
     text: `Your brand on a blimp, a cargo ship, or any custom object you want in VibeSail.
 Custom sponsored content is $300/month.`,
@@ -8,7 +8,7 @@ Custom sponsored content is $300/month.`,
     buttonText: `Buy Custom - $300/mo`,
     buttonHref: `https://buy.stripe.com/28o4iL3HndYi0y4bIM`,
   }),
-  v = `adPopup_blimp`,
+  BLIMP_POPUP_ID = `adPopup_blimp`,
   y = 100,
   b = class {
     constructor(e, t = {}) {
@@ -118,11 +118,11 @@ Custom sponsored content is $300/month.`,
         kind: `blimp`,
         skipWaterCapture: !0,
         popupContent: {
-          title: e?.title || _.title,
-          text: e?.text || _.text,
-          image: e?.image || _.image,
-          buttonText: e?.buttonText || _.buttonText,
-          buttonHref: e?.buttonHref || _.buttonHref,
+          title: e?.title || BLIMP_POPUP_CONTENT.title,
+          text: e?.text || BLIMP_POPUP_CONTENT.text,
+          image: e?.image || BLIMP_POPUP_CONTENT.image,
+          buttonText: e?.buttonText || BLIMP_POPUP_CONTENT.buttonText,
+          buttonHref: e?.buttonHref || BLIMP_POPUP_CONTENT.buttonHref,
         },
       };
     }
@@ -217,8 +217,8 @@ Custom sponsored content is $300/month.`,
         (this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1),
         this.raycaster.setFromCamera(this.mouse, this.scene.camera),
         this.raycaster.intersectObjects(this.blimp.children, !0).length > 0 &&
-          (this.createPopup(this.blimp.userData.popupContent, v),
-          this.showPopup(v)));
+          (this.createPopup(this.blimp.userData.popupContent, BLIMP_POPUP_ID),
+          this.showPopup(BLIMP_POPUP_ID)));
     }
     createPopup(t, n) {
       let r = document.getElementById(n);
@@ -413,9 +413,9 @@ Custom sponsored content is $300/month.`,
     dispose() {
       ((this.isDisposed = !0),
         window.removeEventListener(`click`, this.boundWindowClick),
-        this.hidePopup(v),
+        this.hidePopup(BLIMP_POPUP_ID),
         this.clearPopupOutsideClick(),
-        document.getElementById(v)?.remove?.(),
+        document.getElementById(BLIMP_POPUP_ID)?.remove?.(),
         this.disposeBlimpMeshes(),
         this.blimp?.parent?.remove?.(this.blimp),
         (this.blimp = null));

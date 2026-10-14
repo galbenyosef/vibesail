@@ -1,6 +1,6 @@
 // Game 21 — mesh
 // Lines 8881-9235 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var Bi = class {
+var GeoProjection = class {
     constructor({ centerLat: e, centerLon: t, scale: n = 2.5 }) {
       ((this.centerLat = e),
         (this.centerLon = t),
@@ -40,9 +40,9 @@ var Bi = class {
     }
   },
   Vi = 50,
-  Hi = class {
+  GeoCourseBuilder = class {
     constructor({ centerLat: e, centerLon: t, scale: n = 2.5 }) {
-      this.converter = new Bi({ centerLat: e, centerLon: t, scale: n });
+      this.converter = new GeoProjection({ centerLat: e, centerLon: t, scale: n });
     }
     buildCheckpoints(e) {
       return e.length < 2 ? [] : this.converter.convertWaypoints(e.slice(1));
@@ -234,7 +234,7 @@ var Bi = class {
   Gi = 14856302,
   Ki = 65450,
   qi = 3718648,
-  Ji = class {
+  RaceCheckpointTracker = class {
     constructor({
       scene: e,
       boat: t,

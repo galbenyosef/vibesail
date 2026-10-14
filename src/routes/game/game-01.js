@@ -34,9 +34,9 @@ import { n as C } from "./OneSignalPushNotifications-C5QrvXEE.js";
 import { i as oe, r as w } from "./H5GamesAds-cgmFpTvU.js";
 import { t as T } from "./posthogAuth-6WDf5lnM.js";
 import { t as E } from "./WorldSignAsset-yHPgCsa-.js";
-var D = Object.freeze({ x: 70, y: 150, z: 110 }),
-  O = `Visit website`;
-function k(e) {
+var DEFAULT_LANDING_SPAWN = Object.freeze({ x: 70, y: 150, z: 110 }),
+  VISIT_WEBSITE_LABEL = `Visit website`;
+function readVersionState(e) {
   return e === i.BACKGROUND
     ? `background`
     : e === i.MAP
@@ -47,7 +47,7 @@ function k(e) {
           ? `tutorial`
           : `game`;
 }
-function A(e) {
+function writeVersionState(e) {
   return e === u.RACE
     ? o.DAILY_RACE
     : e === u.HIGH_SEA
@@ -56,7 +56,7 @@ function A(e) {
         ? o.TIME_TRIAL
         : o.FREE_SAIL;
 }
-function se(e) {
+function fetchBuildVersion(e) {
   if (!e) return {};
   let t = e.enableBlimp !== !1,
     n = (e.playScene || `geo`) === `ocean`,
@@ -80,21 +80,21 @@ function se(e) {
         title: e.name,
         text: e.description,
         image: e.logo,
-        buttonText: O,
+        buttonText: VISIT_WEBSITE_LABEL,
         buttonHref: e.url,
         bodyText: e.shortName || e.name,
         tagline: e.typeLabel,
-        position: D,
+        position: DEFAULT_LANDING_SPAWN,
       }),
     r
   );
 }
-function ce(e = window.location) {
+function toCommitSha(e = window.location) {
   let n = t(e),
     r = new URLSearchParams(e?.search || ``),
-    i = k(n.surface || n.mode),
+    i = readVersionState(n.surface || n.mode),
     c = n.activity || u.FREE_SAIL,
-    d = n.gameplay || A(c),
+    d = n.gameplay || writeVersionState(c),
     f = i === `game` && (c === u.RACE || c === u.TIME_TRIAL),
     p = s(n),
     m =
@@ -113,7 +113,7 @@ function ce(e = window.location) {
     sponsoredLocation: p,
   };
 }
-var j = new Set([d.GAME]);
+var RACE_SCENE_TYPES = new Set([d.GAME]);
 function M(e) {
   return String(e || ``).replace(/\/+$/, ``) || `/`;
 }
@@ -121,9 +121,9 @@ function N(e) {
   let t = String(e || ``);
   return t ? (t.startsWith(`#`) ? t : `#${t}`) : ``;
 }
-function P(e = window.location) {
+function supportsVersionProbe(e = window.location) {
   let n = M(e?.pathname);
-  if (!j.has(n) || t(e).surface !== i.TUTORIAL) return null;
+  if (!RACE_SCENE_TYPES.has(n) || t(e).surface !== i.TUTORIAL) return null;
   let r = new URLSearchParams(e?.search || ``);
   (r.delete(`surface`), r.delete(`mode`));
   let a = r.toString(),
@@ -279,9 +279,9 @@ function xe(
       : ((c = !0), d(), u)
   );
 }
-var z = `location_ad_link_clicked`,
-  B = `geo_access_gate_action`,
-  V = `geo_auth_gate`;
+var EVENT_LOCATION_AD_LINK_CLICKED = `location_ad_link_clicked`,
+  EVENT_GEO_ACCESS_GATE_ACTION = `geo_access_gate_action`,
+  EVENT_GEO_AUTH_GATE = `geo_auth_gate`;
 function Se(t) {
   return e({ scene: t.playScene || c.GEO, place: t.place || t.id });
 }
@@ -316,8 +316,8 @@ function U(e) {
 }
 function W(e) {
   return {
-    surface: V,
-    placement: V,
+    surface: EVENT_GEO_AUTH_GATE,
+    placement: EVENT_GEO_AUTH_GATE,
     sponsor_id: e.id,
     sponsor_name: e.name,
     creative_type: `sponsored_location`,
@@ -341,12 +341,12 @@ function G(
 ) {
   let a = we(t, { linkKind: n, targetUrl: r });
   if (!i || !U(e)) {
-    f(z, a);
+    f(EVENT_LOCATION_AD_LINK_CLICKED, a);
     return;
   }
   e?.preventDefault?.();
   let o = e?.currentTarget?.ownerDocument?.defaultView || window;
-  p(z, a, { windowRef: o }).finally(() => {
+  p(EVENT_LOCATION_AD_LINK_CLICKED, a, { windowRef: o }).finally(() => {
     !r || !o?.location || (o.location.href = r);
   });
 }

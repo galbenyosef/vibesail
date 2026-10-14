@@ -25,11 +25,11 @@ var O = class {
       (this.floatPitch = 0),
       (this.floatRoll = 0),
       (this.elapsed = 0),
-      (this.orbitAngle = w.initialAngle),
-      (this.initialAngle = w.initialAngle),
-      (this.orbitRadius = w.radius),
-      (this.orbitSpeed = w.speed),
-      (this.orbitCenter = { x: w.centerX, z: w.centerZ }),
+      (this.orbitAngle = DEFAULT_CARGO_CONFIG.initialAngle),
+      (this.initialAngle = DEFAULT_CARGO_CONFIG.initialAngle),
+      (this.orbitRadius = DEFAULT_CARGO_CONFIG.radius),
+      (this.orbitSpeed = DEFAULT_CARGO_CONFIG.speed),
+      (this.orbitCenter = { x: DEFAULT_CARGO_CONFIG.centerX, z: DEFAULT_CARGO_CONFIG.centerZ }),
       (this.pathPoints = []),
       (this.pathSegments = []),
       (this.pathLength = 0),
@@ -37,16 +37,16 @@ var O = class {
       (this.initialPathDistance = 0),
       (this.pathHeading = 0),
       (this.currentHeading = 0),
-      (this.turnSpeed = w.turnSpeed),
-      (this.modelUrl = e(w.modelUrl)),
-      (this.modelScale = w.scale),
-      (this.positionY = w.positionY),
+      (this.turnSpeed = DEFAULT_CARGO_CONFIG.turnSpeed),
+      (this.modelUrl = e(DEFAULT_CARGO_CONFIG.modelUrl)),
+      (this.modelScale = DEFAULT_CARGO_CONFIG.scale),
+      (this.positionY = DEFAULT_CARGO_CONFIG.positionY),
       (this.headingOffset = 0),
       (this.modelRotation = new i(0, 0, 0)),
-      (this.sideLabelConfig = w.sideLabel),
-      (this.popupContent = w.popupContent),
-      (this.companyName = w.companyName),
-      (this.collisionConfig = w.collision),
+      (this.sideLabelConfig = DEFAULT_CARGO_CONFIG.sideLabel),
+      (this.popupContent = DEFAULT_CARGO_CONFIG.popupContent),
+      (this.companyName = DEFAULT_CARGO_CONFIG.companyName),
+      (this.collisionConfig = DEFAULT_CARGO_CONFIG.collision),
       this.loadConfig(),
       (this.ship.userData.companyName = this.companyName),
       (this.ship.userData.popupContent = this.popupContent),
@@ -68,9 +68,9 @@ var O = class {
   }
   loadConfig() {
     let t = Array.isArray(m) ? m : [],
-      n = { ...w, ...(t.find((e) => e.id === this.shipId) || {}) },
-      r = n.sideLabel ? { ...w.sideLabel, ...n.sideLabel } : null,
-      a = n.popupContent ? { ...w.popupContent, ...n.popupContent } : null;
+      n = { ...DEFAULT_CARGO_CONFIG, ...(t.find((e) => e.id === this.shipId) || {}) },
+      r = n.sideLabel ? { ...DEFAULT_CARGO_CONFIG.sideLabel, ...n.sideLabel } : null,
+      a = n.popupContent ? { ...DEFAULT_CARGO_CONFIG.popupContent, ...n.popupContent } : null;
     ((this.orbitRadius = n.radius),
       (this.orbitSpeed = n.speed),
       (this.orbitCenter = { x: n.centerX, z: n.centerZ }),
@@ -79,11 +79,11 @@ var O = class {
       (this.pathPoints = S(n.pathPoints)),
       this.rebuildPathSegments(),
       (this.initialPathDistance =
-        (this.pathLength * (((this.orbitAngle % v) + v) % v)) / v),
+        (this.pathLength * (((this.orbitAngle % TWO_PI) + TWO_PI) % TWO_PI)) / TWO_PI),
       (this.pathDistance = this.initialPathDistance),
       (this.turnSpeed = Math.max(
         0,
-        Number.isFinite(n.turnSpeed) ? n.turnSpeed : w.turnSpeed,
+        Number.isFinite(n.turnSpeed) ? n.turnSpeed : DEFAULT_CARGO_CONFIG.turnSpeed,
       )),
       (this.modelUrl = e(n.modelUrl)),
       (this.modelScale = n.scale),
@@ -91,8 +91,8 @@ var O = class {
       (this.headingOffset = y(n.headingOffsetDegrees)),
       (this.sideLabelConfig = r?.text ? r : null),
       (this.popupContent = a),
-      (this.collisionConfig = { ...w.collision, ...(n.collision || {}) }),
-      (this.companyName = String(n.companyName || w.companyName).trim()));
+      (this.collisionConfig = { ...DEFAULT_CARGO_CONFIG.collision, ...(n.collision || {}) }),
+      (this.companyName = String(n.companyName || DEFAULT_CARGO_CONFIG.companyName).trim()));
     let o = Number(this.collisionConfig?.length);
     this.buoyancyHalfLength = Number.isFinite(o) && o > 0 ? o * 0.35 : 40;
     let s = n.modelRotationDegrees || {};

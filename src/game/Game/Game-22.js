@@ -1,7 +1,7 @@
 // Game 22 — course
 // Lines 9236-9272 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
 function Yi(e) {
-  H.sceneType === B.GEO &&
+  H.sceneType === SCENE_TYPES.GEO &&
     i().course &&
     ((e.checkpointPositions = []),
     console.info(
@@ -9,19 +9,19 @@ function Yi(e) {
     ));
 }
 function Xi({ scene: e, boat: t, world: n, onNavigationEnd: r }) {
-  if (H.sceneType !== B.GEO) return null;
+  if (H.sceneType !== SCENE_TYPES.GEO) return null;
   let a = i();
   if (!a.course) return null;
   let o = H.googleMaps.center;
   if (o?.lat == null || o?.lon == null) return null;
-  let s = new Hi({
+  let s = new GeoCourseBuilder({
       centerLat: o.lat,
       centerLon: o.lon,
       scale: H.googleMaps.scale,
     }),
     c = s.buildCheckpoints(a.course);
   if (c.length === 0) return null;
-  let l = new Ji({
+  let l = new RaceCheckpointTracker({
     scene: e,
     boat: t,
     world: n,

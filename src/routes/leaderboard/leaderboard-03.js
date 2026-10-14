@@ -1,9 +1,9 @@
 // leaderboard 03 — innerhtml
 // Lines 581-765 of readable/assets/leaderboard-DToF7Del.pretty.js (statement-aligned).
 function ke(e) {
-  oe &&
+  statsActivityChartEl &&
     (D?.destroy(),
-    (D = new u(oe, {
+    (D = new u(statsActivityChartEl, {
       type: `bar`,
       data: {
         labels: e.daily.map((e) => J(e.date)),
@@ -69,16 +69,16 @@ function ke(e) {
     })));
 }
 function Ae(e) {
-  if (!U) return;
+  if (!statsCountriesTbody) return;
   let t = e.countries.slice(0, 40);
   if (t.length === 0) {
-    U.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:16px;">No country activity yet.</td></tr>`;
+    statsCountriesTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:16px;">No country activity yet.</td></tr>`;
     return;
   }
-  U.innerHTML = t
+  statsCountriesTbody.innerHTML = t
     .map((e) => {
       let t = c(e.country),
-        n = se.get(e.country) || e.country;
+        n = countryNameByCode.get(e.country) || e.country;
       return `
             <tr>
                 <td>${e.rank}</td>
@@ -92,48 +92,48 @@ function Ae(e) {
     .join(``);
 }
 async function je() {
-  if (!V) return;
+  if (!statsSummaryEl) return;
   let e = ++O,
-    t = T;
-  V.setAttribute(`aria-busy`, `true`);
+    t = dailyRaceStatsRange;
+  statsSummaryEl.setAttribute(`aria-busy`, `true`);
   try {
-    let n = await fetch(ee(h, t));
+    let n = await fetch(ee(chartLib, t));
     if (e !== O) return;
     if (!n.ok) throw Error(`HTTP ${n.status}`);
     let r = await n.json();
     if (e !== O) return;
     let i = m(r);
-    (V.setAttribute(`aria-busy`, `false`), Oe(i), ke(i), Ae(i));
+    (statsSummaryEl.setAttribute(`aria-busy`, `false`), Oe(i), ke(i), Ae(i));
   } catch (t) {
     if (e !== O) return;
-    (V.setAttribute(`aria-busy`, `false`),
+    (statsSummaryEl.setAttribute(`aria-busy`, `false`),
       console.error(`Error loading daily race activity stats:`, t),
-      (V.textContent = `Could not load daily race activity right now.`),
+      (statsSummaryEl.textContent = `Could not load daily race activity right now.`),
       D?.destroy(),
       (D = null),
-      U &&
-        (U.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:16px;">No activity data.</td></tr>`));
+      statsCountriesTbody &&
+        (statsCountriesTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:16px;">No activity data.</td></tr>`));
   }
 }
 async function Me() {
-  if (!R || !z || !B) return;
+  if (!championshipSummaryEl || !championshipPlayersTbody || !championshipNationsTbody) return;
   let e = ++E,
-    t = w;
-  R.setAttribute(`aria-busy`, `true`);
+    t = championshipRange;
+  championshipSummaryEl.setAttribute(`aria-busy`, `true`);
   try {
     let n = await fetch(le(t, 40));
     if (e !== E) return;
     if (!n.ok) throw Error(`HTTP ${n.status}`);
     let r = await n.json();
     if (e !== E) return;
-    (R.setAttribute(`aria-busy`, `false`), Ne(r));
+    (championshipSummaryEl.setAttribute(`aria-busy`, `false`), Ne(r));
   } catch (t) {
     if (e !== E) return;
-    (R.setAttribute(`aria-busy`, `false`),
+    (championshipSummaryEl.setAttribute(`aria-busy`, `false`),
       console.error(`Error loading championship standings:`, t),
-      (R.textContent = `Could not load championship standings right now.`),
-      (z.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:16px;">No championship data.</td></tr>`),
-      (B.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:16px;">No nation data.</td></tr>`));
+      (championshipSummaryEl.textContent = `Could not load championship standings right now.`),
+      (championshipPlayersTbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:16px;">No championship data.</td></tr>`),
+      (championshipNationsTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:16px;">No nation data.</td></tr>`));
   }
 }
 function Ne(e) {
@@ -147,11 +147,11 @@ function Ne(e) {
     a = Math.max(0, Number(r.unique_racers) || 0),
     o = i === 1 ? `run` : `runs`,
     s = a === 1 ? `racer` : `racers`;
-  R.innerHTML = `${Y(f(e.range))} standings · ${p(i)} ${o} · ${p(a)} ${s} · ${e.counted_race_days} race days · ${J(e.start_date)} - ${J(e.as_of)}${n}`;
+  championshipSummaryEl.innerHTML = `${Y(f(e.range))} standings · ${p(i)} ${o} · ${p(a)} ${s} · ${e.counted_race_days} race days · ${J(e.start_date)} - ${J(e.as_of)}${n}`;
   let l = Array.isArray(e.player_standings) ? e.player_standings : [];
   l.length === 0
-    ? (z.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:16px;">No player points yet for this period.</td></tr>`)
-    : (z.innerHTML = l
+    ? (championshipPlayersTbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:16px;">No player points yet for this period.</td></tr>`)
+    : (championshipPlayersTbody.innerHTML = l
         .map((e) => {
           let t = c(e.country);
           return `
@@ -168,8 +168,8 @@ function Ne(e) {
         .join(``));
   let u = Array.isArray(e.nation_standings) ? e.nation_standings : [];
   u.length === 0
-    ? (B.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:16px;">No nation points yet for this period.</td></tr>`)
-    : (B.innerHTML = u
+    ? (championshipNationsTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:16px;">No nation points yet for this period.</td></tr>`)
+    : (championshipNationsTbody.innerHTML = u
         .map((e) => {
           let t = c(e.country);
           return `

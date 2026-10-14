@@ -371,7 +371,7 @@ var S = class {
     !this.visible ||
       !this.elements.previewHost ||
       (this.preview ||
-        ((this.preview = new v()),
+        ((this.preview = new BoatPreview()),
         this.preview.attach(this.elements.previewHost)),
       this.preview.setSelection({
         boatId: this.selectedBoatId,
@@ -396,7 +396,7 @@ var S = class {
     }
     (this._disposePreview(),
       (this.visible = !1),
-      this.overlaySystem.closeModal(y));
+      this.overlaySystem.closeModal(BOAT_SHOP_MODAL_ID));
   }
   _flashActionFailure(e) {
     let t =
@@ -425,7 +425,7 @@ var S = class {
       this.visible
         ? (this._ensureSelection(),
           this.overlaySystem.showModal({
-            id: y,
+            id: BOAT_SHOP_MODAL_ID,
             group: `main-panel`,
             title: ``,
             showCloseButton: !1,
@@ -437,12 +437,12 @@ var S = class {
             },
           }),
           this._render())
-        : (this.overlaySystem.closeModal(y), this._disposePreview()));
+        : (this.overlaySystem.closeModal(BOAT_SHOP_MODAL_ID), this._disposePreview()));
   }
   dispose() {
     (this._onBalanceChanged?.(),
       this._unsubscribeInventory?.(),
       this._disposePreview(),
-      this.overlaySystem.closeModal(y));
+      this.overlaySystem.closeModal(BOAT_SHOP_MODAL_ID));
   }
 };

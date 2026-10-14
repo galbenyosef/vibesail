@@ -13,19 +13,19 @@ import {
   xt as l,
   y as u,
 } from "./three.module-BgyKfsEV.js";
-var d = Object.freeze({
+var BIRD_PALETTE_LIGHT = Object.freeze({
     bodyColor: 3093565,
     wingColor: 2435893,
     accentColor: 3883856,
     beakColor: 14990438,
   }),
-  f = Object.freeze({
+  BIRD_PALETTE_DARK = Object.freeze({
     bodyColor: 15330802,
     wingColor: 13095131,
     accentColor: 9806516,
     beakColor: 15843677,
   }),
-  p = Object.freeze({ FLYING: `flying`, PERCHED: `perched`, WATER: `water` });
+  BIRD_MODES = Object.freeze({ FLYING: `flying`, PERCHED: `perched`, WATER: `water` });
 function m(e) {
   let t = new s(),
     n = e.wingSpan || 1,
@@ -57,9 +57,9 @@ function m(e) {
 function h(e, t, n) {
   return t + e() * (n - t);
 }
-var g = class {
-  constructor({ palette: e = d, profile: t = {} } = {}) {
-    ((this.palette = { ...d, ...(e || {}) }),
+var BirdFlock = class {
+  constructor({ palette: e = BIRD_PALETTE_LIGHT, profile: t = {} } = {}) {
+    ((this.palette = { ...BIRD_PALETTE_LIGHT, ...(e || {}) }),
       (this.profile = {
         bodyScaleX: 0.65,
         bodyScaleY: 0.45,
@@ -198,7 +198,7 @@ var g = class {
       (E.userData.flapAmplitude = o.degToRad(h(n, l, u))),
       (E.userData.wingRest = B),
       (E.userData.glidePhase = h(n, 0, Math.PI * 2)),
-      this.setMode(E, p.FLYING),
+      this.setMode(E, BIRD_MODES.FLYING),
       E
     );
   }
@@ -210,7 +210,7 @@ var g = class {
       o = e.userData.body,
       s = e.userData.wingRest || 0;
     if (!n || !r || !i || !a || !o) return;
-    let c = Object.values(p).includes(t) ? t : p.FLYING;
+    let c = Object.values(BIRD_MODES).includes(t) ? t : BIRD_MODES.FLYING;
     if (
       ((e.userData.mode = c),
       (e.rotation.x = 0),
@@ -223,7 +223,7 @@ var g = class {
       (r.rotation.z = -s),
       (n.rotation.y = 0),
       (r.rotation.y = 0),
-      c === p.PERCHED)
+      c === BIRD_MODES.PERCHED)
     ) {
       ((n.visible = !1),
         (r.visible = !1),
@@ -232,7 +232,7 @@ var g = class {
         (a.rotation.x = -0.28));
       return;
     }
-    c === p.WATER &&
+    c === BIRD_MODES.WATER &&
       ((n.visible = !1),
       (r.visible = !1),
       (i.visible = !1),
@@ -248,12 +248,12 @@ var g = class {
   }
 };
 function _(e = {}) {
-  return new g({ ...e, palette: { ...d, ...(e.palette || {}) } });
+  return new BirdFlock({ ...e, palette: { ...BIRD_PALETTE_LIGHT, ...(e.palette || {}) } });
 }
 function v(e = {}) {
-  return new g({
+  return new BirdFlock({
     ...e,
-    palette: { ...f, ...(e.palette || {}) },
+    palette: { ...BIRD_PALETTE_DARK, ...(e.palette || {}) },
     profile: {
       wingSpan: 1.12,
       wingSweep: 1.08,

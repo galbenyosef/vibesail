@@ -1,7 +1,7 @@
 // race 02 — math
 // Lines 346-437 of readable/assets/race-Cw13y8lA.pretty.js (statement-aligned).
 function G(e, t) {
-  if (!N) return;
+  if (!dailyCourseCtx) return;
   let n = C(),
     r = Math.max(28, Math.min(e, t) * 0.12),
     i = e - r * 0.85,
@@ -12,38 +12,38 @@ function G(e, t) {
     l = Math.hypot(s, c) || 1,
     u = (s / l) * o,
     d = (c / l) * o;
-  (N.save(),
-    N.beginPath(),
-    (N.fillStyle = `rgba(7, 17, 22, 0.72)`),
-    (N.strokeStyle = `rgba(255, 255, 255, 0.18)`),
-    (N.lineWidth = Math.max(1, e / 640)),
-    N.arc(i, a, r * 0.48, 0, Math.PI * 2),
-    N.fill(),
-    N.stroke(),
-    (N.strokeStyle = `#5eb0ff`),
-    (N.fillStyle = `#5eb0ff`),
-    (N.lineWidth = Math.max(2, e / 280)),
-    (N.lineCap = `round`),
-    N.beginPath(),
-    N.moveTo(i - u, a - d),
-    N.lineTo(i + u, a + d),
-    N.stroke());
+  (dailyCourseCtx.save(),
+    dailyCourseCtx.beginPath(),
+    (dailyCourseCtx.fillStyle = `rgba(7, 17, 22, 0.72)`),
+    (dailyCourseCtx.strokeStyle = `rgba(255, 255, 255, 0.18)`),
+    (dailyCourseCtx.lineWidth = Math.max(1, e / 640)),
+    dailyCourseCtx.arc(i, a, r * 0.48, 0, Math.PI * 2),
+    dailyCourseCtx.fill(),
+    dailyCourseCtx.stroke(),
+    (dailyCourseCtx.strokeStyle = `#5eb0ff`),
+    (dailyCourseCtx.fillStyle = `#5eb0ff`),
+    (dailyCourseCtx.lineWidth = Math.max(2, e / 280)),
+    (dailyCourseCtx.lineCap = `round`),
+    dailyCourseCtx.beginPath(),
+    dailyCourseCtx.moveTo(i - u, a - d),
+    dailyCourseCtx.lineTo(i + u, a + d),
+    dailyCourseCtx.stroke());
   let f = i + u,
     p = a + d,
     m = (-d / o) * (o * 0.28),
     h = (u / o) * (o * 0.28);
-  (N.beginPath(),
-    N.moveTo(f, p),
-    N.lineTo(f - u * 0.55 + m, p - d * 0.55 + h),
-    N.lineTo(f - u * 0.55 - m, p - d * 0.55 - h),
-    N.closePath(),
-    N.fill(),
-    (N.fillStyle = `rgba(255, 255, 255, 0.72)`),
-    (N.font = `600 ${Math.max(9, Math.round(r * 0.22))}px Sora, sans-serif`),
-    (N.textAlign = `center`),
-    (N.textBaseline = `top`),
-    N.fillText(`WIND`, i, a + r * 0.28),
-    N.restore());
+  (dailyCourseCtx.beginPath(),
+    dailyCourseCtx.moveTo(f, p),
+    dailyCourseCtx.lineTo(f - u * 0.55 + m, p - d * 0.55 + h),
+    dailyCourseCtx.lineTo(f - u * 0.55 - m, p - d * 0.55 - h),
+    dailyCourseCtx.closePath(),
+    dailyCourseCtx.fill(),
+    (dailyCourseCtx.fillStyle = `rgba(255, 255, 255, 0.72)`),
+    (dailyCourseCtx.font = `600 ${Math.max(9, Math.round(r * 0.22))}px Sora, sans-serif`),
+    (dailyCourseCtx.textAlign = `center`),
+    (dailyCourseCtx.textBaseline = `top`),
+    dailyCourseCtx.fillText(`WIND`, i, a + r * 0.28),
+    dailyCourseCtx.restore());
 }
 async function K(e) {
   try {
@@ -65,23 +65,23 @@ async function q() {
   } catch (e) {
     console.error(`Failed to generate daily course preview`, e);
   }
-  (E && (E.textContent = V(e)),
-    D && (D.textContent = t.length > 0 ? String(t.length) : `—`),
-    A && (A.href = `/daily-race-replay?date=${encodeURIComponent(e)}`),
+  (dailyCourseDateEl && (dailyCourseDateEl.textContent = V(e)),
+    dailyCourseBuoysEl && (dailyCourseBuoysEl.textContent = t.length > 0 ? String(t.length) : `—`),
+    dailyReplayLinkEl && (dailyReplayLinkEl.href = `/daily-race-replay?date=${encodeURIComponent(e)}`),
     W(t));
   let n = await K(`race_${e}`);
-  O && (O.textContent = n == null ? `—` : String(n));
+  dailyCourseRunsEl && (dailyCourseRunsEl.textContent = n == null ? `—` : String(n));
 }
 function J() {
-  g(L || document);
+  g(timeTrialsGridEl || document);
 }
 function Y() {
-  S(I);
+  S(worldCoursesGridEl);
 }
-var X = null;
+var resizeTimer = null;
 (window.addEventListener(`resize`, () => {
-  (window.clearTimeout(X),
-    (X = window.setTimeout(() => {
+  (window.clearTimeout(resizeTimer),
+    (resizeTimer = window.setTimeout(() => {
       try {
         let { checkpoints: e } = H();
         W(e);

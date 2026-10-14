@@ -1,6 +1,6 @@
 // routeContext 02 — place
 // Lines 290-611 of readable/assets/routeContext-D1HYUwP9.pretty.js (statement-aligned).
-var u = [
+var WORLD_STOP_DEFINITIONS = [
   {
     id: `hudson-river-community-sailing`,
     enabled: !1,
@@ -290,12 +290,12 @@ function p(e = {}) {
     geoSpawn: i,
   };
 }
-var m = Object.freeze(u.map((e) => Object.freeze(p(e)))),
-  h = Object.freeze(m.filter(v)),
-  g = new Map(),
-  _ = new Map();
-h.forEach((e) => {
-  (g.set(e.id, e), _.set(e.place, e), e.place !== e.id && _.set(e.id, e));
+var WORLD_STOPS = Object.freeze(WORLD_STOP_DEFINITIONS.map((e) => Object.freeze(p(e)))),
+  VISIBLE_WORLD_STOPS = Object.freeze(WORLD_STOPS.filter(v)),
+  worldStopsById = new Map(),
+  worldStopsByPlace = new Map();
+VISIBLE_WORLD_STOPS.forEach((e) => {
+  (worldStopsById.set(e.id, e), worldStopsByPlace.set(e.place, e), e.place !== e.id && worldStopsByPlace.set(e.id, e));
 });
 function v(e = {}) {
   return e.enabled !== !1;
@@ -304,14 +304,14 @@ function y(e = {}) {
   return v(e) && e.isPaid !== !1;
 }
 function b({ includeDisabled: e = !1 } = {}) {
-  return e ? m : h;
+  return e ? WORLD_STOPS : VISIBLE_WORLD_STOPS;
 }
 function x() {
-  return h.filter(y);
+  return VISIBLE_WORLD_STOPS.filter(y);
 }
 function S(e) {
   let t = f(e);
-  return _.get(t) || g.get(t) || null;
+  return worldStopsByPlace.get(t) || worldStopsById.get(t) || null;
 }
 function C(e = {}) {
   return Number.isFinite(e.lat) || Number.isFinite(e.lon);

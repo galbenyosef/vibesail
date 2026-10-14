@@ -1,6 +1,6 @@
 // Game 06 — uniforms
 // Lines 1272-1622 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var yn = class {
+var SkyTextureLoader = class {
     constructor(e = {}) {
       ((this._imageName = e.image || `tropical_day.jpg`),
         (this._exposure = Number.isFinite(e.exposure) ? e.exposure : 1),
@@ -307,7 +307,7 @@ var yn = class {
         }));
     }
   },
-  xn = Object.freeze([
+  EFFECT_SECTIONS = Object.freeze([
     {
       title: `Passes`,
       toggles: Object.freeze([
@@ -342,9 +342,9 @@ var yn = class {
       ]),
     },
   ]),
-  Sn = Object.freeze(xn.flatMap((e) => e.toggles)),
-  Cn = Object.freeze({
-    ...Object.fromEntries(Sn.map(([e]) => [e, !0])),
+  EFFECT_TOGGLE_IDS = Object.freeze(EFFECT_SECTIONS.flatMap((e) => e.toggles)),
+  DEFAULT_EFFECT_STATE = Object.freeze({
+    ...Object.fromEntries(EFFECT_TOGGLE_IDS.map(([e]) => [e, !0])),
     proceduralRipples: !1,
     foam: !1,
     crestFoam: !1,

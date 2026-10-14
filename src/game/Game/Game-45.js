@@ -55,7 +55,7 @@ var ru = 60,
   Cu = 80,
   wu = 12,
   Tu = `vibesail.com`,
-  Eu = [
+  ANALYTICS_HOST_ALLOWLIST = [
     `simple.vibesail.com`,
     `simpleanalyticscdn.com`,
     `analytics.ahrefs.com`,
@@ -319,7 +319,7 @@ function Zu({ message: e, filename: t, stackTopFrame: n, event: r }) {
 }
 function Qu(e) {
   let t = Ku(e);
-  return t ? Eu.some((e) => t === e || t.endsWith(`.${e}`)) : !1;
+  return t ? ANALYTICS_HOST_ALLOWLIST.some((e) => t === e || t.endsWith(`.${e}`)) : !1;
 }
 function $u(e = {}, t = {}) {
   return (Z(e.resource_target_rel, 40)?.toLowerCase() || ``)

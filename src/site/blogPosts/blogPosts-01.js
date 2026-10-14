@@ -1,10 +1,10 @@
 // blogPosts 01 — trim
 // Lines 1-276 of readable/assets/blogPosts-BqnGg-S6.pretty.js (statement-aligned).
-var e = /^(\d{4})-(\d{2})-(\d{2})$/,
-  t = /^changelog-(\d+)(?:-|$)/,
-  n = /^(?:x|twitter)\.com$/,
-  r = /^\/[^/]+\/status\/\d+\/?$/,
-  i = /^\/assets\/[a-z0-9][a-z0-9/_-]*\.(?:avif|webp|png|jpe?g)$/i;
+var DATE_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/,
+  CHANGELOG_SLUG_PATTERN = /^changelog-(\d+)(?:-|$)/,
+  X_HOST_PATTERN = /^(?:x|twitter)\.com$/,
+  X_STATUS_PATH_PATTERN = /^\/[^/]+\/status\/\d+\/?$/,
+  COVER_ASSET_PATH_PATTERN = /^\/assets\/[a-z0-9][a-z0-9/_-]*\.(?:avif|webp|png|jpe?g)$/i;
 function a(e, t = null) {
   return (
     String(e || ``)
@@ -21,7 +21,7 @@ function o(t) {
   if (t instanceof Date)
     return Number.isNaN(t.getTime()) ? null : o(t.toISOString().slice(0, 10));
   let n = String(t || ``).trim(),
-    r = e.exec(n);
+    r = DATE_PATTERN.exec(n);
   if (!r) return null;
   let i = Number(r[1]),
     a = Number(r[2]),
@@ -41,7 +41,7 @@ function c(e) {
   let n = String(e || ``)
       .trim()
       .toLowerCase(),
-    r = t.exec(n);
+    r = CHANGELOG_SLUG_PATTERN.exec(n);
   return r ? s(r[1]) : null;
 }
 function l(e) {
@@ -51,7 +51,7 @@ function l(e) {
     let e = new URL(t);
     if (e.protocol !== `https:` && e.protocol !== `http:`) return null;
     let i = e.hostname.replace(/^www\./, ``).toLowerCase();
-    return !n.test(i) || !r.test(e.pathname)
+    return !X_HOST_PATTERN.test(i) || !X_STATUS_PATH_PATTERN.test(e.pathname)
       ? null
       : ((e.protocol = `https:`),
         (e.hostname = `x.com`),
@@ -66,7 +66,7 @@ function u(e) {
   let t = String(e || ``).trim();
   if (!t) return null;
   let n = t.startsWith(`assets/`) ? `/${t}` : t;
-  if (i.test(n)) return n;
+  if (COVER_ASSET_PATH_PATTERN.test(n)) return n;
   try {
     let e = new URL(t);
     return e.protocol === `https:`
@@ -83,15 +83,15 @@ function d(e) {
   return t ? (t.length <= 180 ? t : `${t.slice(0, 177)}...`) : ``;
 }
 var f = { CHANGELOG: `changelog`, NEWS: `news` },
-  p = new Set(Object.values(f)),
-  m = `vibesail.blog.lastSeenChangelogSequence`,
-  h = `vibesail.blog.lastSeenChangelogDate`,
-  g = `vibesail.blog.lastSeenChangelogSlug`;
+  POST_KINDS = new Set(Object.values(f)),
+  LAST_SEEN_SEQUENCE_KEY = `vibesail.blog.lastSeenChangelogSequence`,
+  LAST_SEEN_DATE_KEY = `vibesail.blog.lastSeenChangelogDate`,
+  LAST_SEEN_SLUG_KEY = `vibesail.blog.lastSeenChangelogSlug`;
 function _(e) {
   let t = String(e || ``)
     .trim()
     .toLowerCase();
-  return p.has(t) ? t : f.NEWS;
+  return POST_KINDS.has(t) ? t : f.NEWS;
 }
 function v(e) {
   return Array.isArray(e)
@@ -207,7 +207,7 @@ function D(e) {
 function O(e, t = null) {
   return !Array.isArray(e) || !e.length
     ? []
-    : !t || !p.has(t)
+    : !t || !POST_KINDS.has(t)
       ? e.slice()
       : e.filter((e) => e.type === t);
 }
@@ -245,7 +245,7 @@ function N(e, t) {
 function P(e = globalThis?.localStorage) {
   if (!e || typeof e.getItem != `function`) return null;
   try {
-    let t = s(e.getItem(m));
+    let t = s(e.getItem(LAST_SEEN_SEQUENCE_KEY));
     return t === null ? null : { sequence: t };
   } catch {
     return null;
@@ -259,8 +259,8 @@ function F(e, t = globalThis?.localStorage, n = ``) {
     let e = P(t),
       n = !e || M(r, e) > 0 ? r : e;
     return (
-      t.setItem(m, String(n.sequence)),
-      typeof t.removeItem == `function` && (t.removeItem(h), t.removeItem(g)),
+      t.setItem(LAST_SEEN_SEQUENCE_KEY, String(n.sequence)),
+      typeof t.removeItem == `function` && (t.removeItem(LAST_SEEN_DATE_KEY), t.removeItem(LAST_SEEN_SLUG_KEY)),
       String(n.sequence)
     );
   } catch {

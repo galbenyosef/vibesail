@@ -1,16 +1,16 @@
 // Game 07 — freeze
 // Lines 1623-1724 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
 function wn(e = {}) {
-  return { ...Cn, ...e };
+  return { ...DEFAULT_EFFECT_STATE, ...e };
 }
-var Tn = `vibesail:graphicsQuality`,
+var GRAPHICS_QUALITY_STORAGE_KEY = `vibesail:graphicsQuality`,
   En = `high`,
   Dn = `medium`,
-  On = En,
-  kn = Object.freeze({
+  currentQualityKey = En,
+  QUALITY_PRESETS = Object.freeze({
     [En]: Object.freeze({
       id: En,
-      effects: Cn,
+      effects: DEFAULT_EFFECT_STATE,
       refractionScale: 0.75,
       reflectionTextureSize: 512,
       maxPixelRatio: 1.75,
@@ -59,30 +59,30 @@ function An() {
     return null;
   }
 }
-function jn(e, t = On) {
+function jn(e, t = currentQualityKey) {
   let n = typeof e == `string` ? e.trim().toLowerCase() : e;
-  return kn[n] ? n : kn[t] ? t : On;
+  return QUALITY_PRESETS[n] ? n : QUALITY_PRESETS[t] ? t : currentQualityKey;
 }
-function Mn(e = On) {
-  return kn[jn(e)] || kn.high;
+function Mn(e = currentQualityKey) {
+  return QUALITY_PRESETS[jn(e)] || QUALITY_PRESETS.high;
 }
 function Nn(e = An()) {
-  if (!e || typeof e.getItem != `function`) return On;
+  if (!e || typeof e.getItem != `function`) return currentQualityKey;
   try {
-    return jn(e.getItem(Tn));
+    return jn(e.getItem(GRAPHICS_QUALITY_STORAGE_KEY));
   } catch {
-    return On;
+    return currentQualityKey;
   }
 }
 function Pn(e, t = An()) {
   let n = jn(e);
   if (!t || typeof t.setItem != `function`) return n;
   try {
-    t.setItem(Tn, n);
+    t.setItem(GRAPHICS_QUALITY_STORAGE_KEY, n);
   } catch {}
   return n;
 }
-function Fn({ quality: e = On, isMobile: t = !1 } = {}) {
+function Fn({ quality: e = currentQualityKey, isMobile: t = !1 } = {}) {
   return {
     antialias: jn(e) === `high` && t !== !0,
     stencil: !0,
@@ -91,7 +91,7 @@ function Fn({ quality: e = On, isMobile: t = !1 } = {}) {
   };
 }
 var In = 1.75;
-function Ln({ quality: e = On, devicePixelRatio: t = 1 } = {}) {
+function Ln({ quality: e = currentQualityKey, devicePixelRatio: t = 1 } = {}) {
   let n = Mn(e),
     r = Number.isFinite(t) && t > 0 ? t : 1;
   return Number.isFinite(n.maxPixelRatio)

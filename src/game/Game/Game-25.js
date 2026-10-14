@@ -1,12 +1,12 @@
 // Game 25 — style
 // Lines 10507-11900 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var sa = class {
+var HudButtonFactory = class {
     constructor(e, t, n = {}) {
       ((this.app = e),
         (this.parentElement = t),
         (this.elements = {}),
         (this.i18n = n.i18n),
-        (this.minimap = new aa(e, document.body)),
+        (this.minimap = new MapOverlay(e, document.body)),
         (this.isExpanded = !1),
         (this.hudScaleFrame = null),
         (this.buttonContainer = document.createElement(`div`)),
@@ -442,8 +442,8 @@ var sa = class {
         .forEach((e) => e.classList.remove(`expanded`));
     }
   },
-  ca = `http://www.w3.org/2000/svg`,
-  la = class {
+  SVG_NAMESPACE = `http://www.w3.org/2000/svg`,
+  SvgIcon = class {
     constructor(e, t = 100) {
       ((this.parentElement = e),
         (this.size = t),
@@ -452,7 +452,7 @@ var sa = class {
         this.createSVG());
     }
     createSVG() {
-      ((this.svg = document.createElementNS(ca, `svg`)),
+      ((this.svg = document.createElementNS(SVG_NAMESPACE, `svg`)),
         this.svg.setAttribute(`width`, this.size),
         this.svg.setAttribute(`height`, this.size),
         this.svg.setAttribute(`viewBox`, `0 0 ${this.size} ${this.size}`),
@@ -461,7 +461,7 @@ var sa = class {
         (this.svg.style.webkitUserSelect = `none`),
         (this.svg.style.display = `block`),
         (this.svg.style.margin = `0 auto`));
-      let e = document.createElementNS(ca, `circle`);
+      let e = document.createElementNS(SVG_NAMESPACE, `circle`);
       (e.setAttribute(`cx`, this.halfSize),
         e.setAttribute(`cy`, this.halfSize),
         e.setAttribute(`r`, this.halfSize - 1),
@@ -469,20 +469,20 @@ var sa = class {
         e.setAttribute(`stroke`, `white`),
         e.setAttribute(`stroke-width`, `1.5`),
         this.svg.appendChild(e),
-        (this.elements.roseGroup = document.createElementNS(ca, `g`)),
+        (this.elements.roseGroup = document.createElementNS(SVG_NAMESPACE, `g`)),
         this.elements.roseGroup.setAttribute(
           `transform-origin`,
           `${this.halfSize} ${this.halfSize}`,
         ),
         this.svg.appendChild(this.elements.roseGroup));
-      let t = document.createElementNS(ca, `g`);
+      let t = document.createElementNS(SVG_NAMESPACE, `g`);
       (t.setAttribute(`stroke`, `white`),
         t.setAttribute(`stroke-width`, `1`),
         this.elements.roseGroup.appendChild(t));
       for (let e = 0; e < 360; e += 15) {
         let n = e % 45 == 0,
           r = n ? 6 : 3,
-          i = document.createElementNS(ca, `line`);
+          i = document.createElementNS(SVG_NAMESPACE, `line`);
         (i.setAttribute(`x1`, this.halfSize),
           i.setAttribute(`y1`, 1),
           i.setAttribute(`x2`, this.halfSize),
@@ -494,7 +494,7 @@ var sa = class {
           n && i.setAttribute(`stroke-width`, `1.5`),
           t.appendChild(i));
       }
-      let n = document.createElementNS(ca, `g`);
+      let n = document.createElementNS(SVG_NAMESPACE, `g`);
       (n.classList.add(`compass-text`), this.elements.roseGroup.appendChild(n));
       let r = { N: 0, E: 90, S: 180, W: 270 },
         i = this.halfSize - 12;
@@ -502,20 +502,20 @@ var sa = class {
         let r = (t * Math.PI) / 180,
           a = this.halfSize + i * Math.sin(r),
           o = this.halfSize - i * Math.cos(r),
-          s = document.createElementNS(ca, `text`);
+          s = document.createElementNS(SVG_NAMESPACE, `text`);
         (s.setAttribute(`x`, a),
           s.setAttribute(`y`, o),
           (s.textContent = e),
           n.appendChild(s));
       }
-      let a = document.createElementNS(ca, `path`);
+      let a = document.createElementNS(SVG_NAMESPACE, `path`);
       (a.setAttribute(
         `d`,
         `M ${this.halfSize} 0 L ${this.halfSize - 16 / 2} 16 L ${this.halfSize + 16 / 2} 16 Z`,
       ),
         a.setAttribute(`fill`, `red`),
         this.svg.appendChild(a),
-        (this.elements.boat = document.createElementNS(ca, `ellipse`)),
+        (this.elements.boat = document.createElementNS(SVG_NAMESPACE, `ellipse`)),
         this.elements.boat.setAttribute(`cx`, this.halfSize),
         this.elements.boat.setAttribute(`cy`, this.halfSize),
         this.elements.boat.setAttribute(`rx`, 5),
@@ -524,7 +524,7 @@ var sa = class {
         this.elements.boat.setAttribute(`stroke`, `white`),
         this.elements.boat.setAttribute(`stroke-width`, `0.5`),
         this.svg.appendChild(this.elements.boat),
-        (this.elements.sail = document.createElementNS(ca, `path`)));
+        (this.elements.sail = document.createElementNS(SVG_NAMESPACE, `path`)));
       let o = this.halfSize * 0.6,
         s = this.halfSize,
         c = this.halfSize - 5,
@@ -536,12 +536,12 @@ var sa = class {
         this.elements.sail.setAttribute(`transform-origin`, `${s} ${c}`),
         this.elements.sail.setAttribute(`visibility`, `visible`),
         this.svg.appendChild(this.elements.sail),
-        (this.elements.windArrow = document.createElementNS(ca, `path`)),
+        (this.elements.windArrow = document.createElementNS(SVG_NAMESPACE, `path`)),
         this.elements.windArrow.setAttribute(`d`, `M 0 -8 L -8 8 L 8 8 Z`),
         this.elements.windArrow.setAttribute(`fill`, `#3399ff`),
         this.elements.windArrow.setAttribute(`visibility`, `hidden`),
         this.svg.appendChild(this.elements.windArrow),
-        (this.elements.destinationArrow = document.createElementNS(ca, `path`)),
+        (this.elements.destinationArrow = document.createElementNS(SVG_NAMESPACE, `path`)),
         this.elements.destinationArrow.setAttribute(
           `d`,
           `M 0 -8 L -8 8 L 8 8 Z`,
@@ -596,7 +596,7 @@ var sa = class {
     }
   },
   ua = `var(--left-hud-width, 150px)`,
-  da = class {
+  MissionStatusText = class {
     constructor(e, t, n) {
       ((this.boat = e),
         (this.world = t),
@@ -666,7 +666,7 @@ var sa = class {
         o.appendChild(l.container),
         e.appendChild(o),
         this.parentElement.appendChild(e),
-        (this.compass = new la(a, 100)),
+        (this.compass = new SvgIcon(a, 100)),
         (this.elements.speedValue = n),
         (this.elements.speedNumber = r),
         (this.elements.speedUnit = i),
@@ -740,7 +740,7 @@ var sa = class {
         (this.elements = {}));
     }
   },
-  fa = class e {
+  PhysicsTuningPanel = class e {
     constructor(e) {
       ((this.boat = e), (this.isLocked = !1), this._captureBaselines());
     }
@@ -983,7 +983,7 @@ var sa = class {
       return (this.applyMultipliers(r), this.applyColors(n.colors), !0);
     }
   },
-  pa = {
+  TUNING_SCHEMA = {
     storageKey: `sail_upgrades_v1`,
     costPerStep: 100,
     stats: [
@@ -1041,13 +1041,13 @@ var sa = class {
       },
     ],
   },
-  ma = class {
+  BoatUpgradeStore = class {
     constructor(e, t) {
       ((this.app = e),
-        (this.tuning = t || new fa(e.boat)),
-        (this.storageKey = pa.storageKey || `sail_upgrades_v1`),
-        (this.costPerStep = pa.costPerStep || 100),
-        (this.stats = pa.stats.map((e) => ({ ...e }))),
+        (this.tuning = t || new PhysicsTuningPanel(e.boat)),
+        (this.storageKey = TUNING_SCHEMA.storageKey || `sail_upgrades_v1`),
+        (this.costPerStep = TUNING_SCHEMA.costPerStep || 100),
+        (this.stats = TUNING_SCHEMA.stats.map((e) => ({ ...e }))),
         (this.levels = this._loadLevels()),
         (this.elements = {}),
         (this.overlaySystem = Tr()),
@@ -1059,9 +1059,9 @@ var sa = class {
     }
     _loadLevels() {
       let e = Bt.getWithTTL(this.storageKey),
-        t = Object.fromEntries(pa.stats.map((e) => [e.id, 0]));
+        t = Object.fromEntries(TUNING_SCHEMA.stats.map((e) => [e.id, 0]));
       if (e && typeof e == `object`)
-        for (let n of pa.stats) {
+        for (let n of TUNING_SCHEMA.stats) {
           let r = n.id,
             i = Number(e[r]);
           Number.isFinite(i) &&
@@ -1302,7 +1302,7 @@ var sa = class {
               Math.min(t.maxLevel || 10, Number(this.levels[t.id]) || 0),
             ),
             r = (t.direction ?? 1) * n * (t.scale ?? 1),
-            i = fa.toMultiplierFromSlider(r);
+            i = PhysicsTuningPanel.toMultiplierFromSlider(r);
           if (Array.isArray(t.targets) && t.targets.length)
             for (let n of t.targets) e[n] = i;
           else e[t.id] = i;

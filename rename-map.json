@@ -1,0 +1,2512 @@
+{
+  "note": "rename-map.json has two sections, recovered by token alignment from the committed slices (tools/recover-scoped-map.mjs) and re-applied by tools/apply-record — never edited by hand. `files[slice]` is a word-boundary map, used only where a name means the same thing everywhere in the slice, is never a property or object key, and every occurrence was renamed. `scoped[slice]` addresses the rest by exact token index as { name: [[i, target], ...] }: the minifier reused short names across scopes and those same names are keys (`t.x`, `{x: .3}`), so neither one-to-one nor occurrence-counting can express them. `files` is authoritative per slice. The reviewed rule list that produced these slices is tools/names.json; the gates are tools/verify-rename.mjs and tools/check-chunk.mjs.",
+  "files": {
+    "routes/home/main-01.js": {
+      "E": "ANALYTICS_FLUSH_TIMEOUT_MS",
+      "D": "compactProperties",
+      "O": "referrerHostname",
+      "k": "documentLanguage",
+      "A": "worldCitySlug",
+      "j": "resolveHref",
+      "M": "isPlainLeftClick",
+      "N": "initHomepagePlayTracking",
+      "P": "formatShortDate",
+      "F": "renderWhatsNewAside",
+      "I": "IDLE_CALLBACK_TIMEOUT_MS",
+      "L": "BACKGROUND_CAMERA_RADIUS",
+      "R": "BACKGROUND_CAMERA_ANCHOR",
+      "B": "resolveBackgroundCamera",
+      "V": "defaultBackgroundCamera",
+      "H": "buildBackgroundGameOptions",
+      "U": "whenIdle",
+      "W": "mountBackgroundGame"
+    },
+    "routes/home/main-02.js": {
+      "G": "initEmailSoftAskPrompt",
+      "K": "currentPlayHref",
+      "q": "syncPlayButtonHref",
+      "W": "mountBackgroundGame"
+    },
+    "routes/contact/contact-01.js": {
+      "r": "buildContactEmail",
+      "i": "copyToClipboard"
+    },
+    "routes/game/game-01.js": {
+      "D": "DEFAULT_LANDING_SPAWN",
+      "O": "VISIT_WEBSITE_LABEL",
+      "k": "readVersionState",
+      "A": "writeVersionState",
+      "se": "fetchBuildVersion",
+      "ce": "toCommitSha",
+      "j": "RACE_SCENE_TYPES",
+      "P": "supportsVersionProbe",
+      "B": "EVENT_GEO_ACCESS_GATE_ACTION",
+      "V": "EVENT_GEO_AUTH_GATE"
+    },
+    "routes/game/game-02.js": {
+      "B": "EVENT_GEO_ACCESS_GATE_ACTION",
+      "K": "BUILD_INFO",
+      "q": "BUILD_VERSION_STORAGE_KEY",
+      "J": "VERSION_MANIFEST_URL",
+      "Me": "VERSION_POLL_INTERVAL_MS",
+      "Y": "UPDATE_NOTICE_STORAGE_KEY",
+      "X": "STALE_ASSET_RELOAD_STORAGE_KEY",
+      "Ne": "STALE_ASSET_RELOAD_MS",
+      "Pe": "UPDATE_NOTICE_TITLE",
+      "Fe": "RELOAD_REQUIRED_TITLE"
+    },
+    "routes/game/game-03.js": {
+      "K": "BUILD_INFO",
+      "Me": "VERSION_POLL_INTERVAL_MS",
+      "J": "VERSION_MANIFEST_URL",
+      "qe": "H5ADS_PROVIDER_STORAGE_VALUE",
+      "Je": "H5ADS_PROVIDER_GOOGLE",
+      "Ye": "H5ADS_REWARD_MIN_MS",
+      "Xe": "H5ADS_REWARD_MAX_MS",
+      "Q": "H5ADS_PREVIEW_OVERLAY_ID",
+      "Ze": "H5ADS_PREVIEW_REWARD_WRAP_ID",
+      "Qe": "H5ADS_READY_EVENTS",
+      "$e": "H5ADS_PREVIEW_TRUTHY_VALUES",
+      "P": "supportsVersionProbe"
+    },
+    "routes/game/game-04.js": {
+      "ce": "toCommitSha"
+    },
+    "game/Game/Game-02.js": {
+      "Vt": "SKY_NOISE_GLSL",
+      "Ht": "SKY_ATMOSPHERE_GLSL",
+      "Ut": "SkyDome",
+      "Wt": "WindTrails",
+      "Zt": "CloudLayer",
+      "Qt": "CloudSystem"
+    },
+    "game/Game/Game-03.js": {
+      "Qt": "CloudSystem",
+      "en": "DEFAULT_WORLD_DEFINITION",
+      "V": "sceneLocationContext",
+      "nn": "hasPlaceHeight"
+    },
+    "game/Game/Game-04.js": {
+      "V": "sceneLocationContext",
+      "en": "DEFAULT_WORLD_DEFINITION",
+      "cn": "isGeoScene",
+      "ln": "getSceneType",
+      "B": "SCENE_TYPES",
+      "un": "getScenePlace",
+      "dn": "geoPlaceInfo",
+      "fn": "isGeoPlacePending",
+      "nn": "hasPlaceHeight",
+      "gn": "SUN_ANGLES_BY_SCENE",
+      "_n": "CAMERA_SETTINGS_BY_SCENE"
+    },
+    "game/Game/Game-06.js": {
+      "yn": "SkyTextureLoader",
+      "xn": "EFFECT_SECTIONS",
+      "Sn": "EFFECT_TOGGLE_IDS",
+      "Cn": "DEFAULT_EFFECT_STATE"
+    },
+    "game/Game/Game-07.js": {
+      "Tn": "GRAPHICS_QUALITY_STORAGE_KEY",
+      "On": "currentQualityKey",
+      "kn": "QUALITY_PRESETS"
+    },
+    "game/Game/Game-08.js": {
+      "zn": "SeabedRocks",
+      "Bn": "WaterSurface",
+      "Sn": "EFFECT_TOGGLE_IDS",
+      "Vn": "WaveModel",
+      "Hn": "TWO_PI",
+      "Wn": "FLOAT_EPSILON",
+      "Gn": "GerstnerWaves",
+      "Kn": "SKY_MODELS",
+      "qn": "SKY_MODEL_IDS",
+      "Jn": "SKY_PRESETS",
+      "Yn": "SKY_CONTROL_SECTIONS"
+    },
+    "game/Game/Game-09.js": {
+      "Kn": "SKY_MODELS",
+      "qn": "SKY_MODEL_IDS",
+      "Yn": "SKY_CONTROL_SECTIONS",
+      "sr": "GeoModelAsset",
+      "cr": "GEO_API_BASE",
+      "lr": "GEO_LOCATION_PRESETS"
+    },
+    "game/Game/Game-10.js": {
+      "dr": "GeoModelRegistry",
+      "sr": "GeoModelAsset",
+      "fr": "WorldBuilder",
+      "Qt": "CloudSystem",
+      "B": "SCENE_TYPES",
+      "Gn": "GerstnerWaves",
+      "Bn": "WaterSurface",
+      "yn": "SkyTextureLoader",
+      "Ut": "SkyDome",
+      "Jn": "SKY_PRESETS",
+      "Wt": "WindTrails"
+    },
+    "game/Game/Game-11.js": {
+      "fr": "WorldBuilder"
+    },
+    "game/Game/Game-12.js": {
+      "pr": "CountryService",
+      "hr": "RaceOverlayBase",
+      "gr": "RaceTimerOverlay",
+      "_r": "RaceCountdownOverlay"
+    },
+    "game/Game/Game-14.js": {
+      "Cr": "NotificationCenter"
+    },
+    "game/Game/Game-15.js": {
+      "Cr": "NotificationCenter",
+      "Er": "RACE_LEADERBOARD_MODAL_ID",
+      "Dr": "ADVERTISE_ROUTE",
+      "Or": "RaceLeaderboardModal",
+      "hr": "RaceOverlayBase",
+      "kr": "MOBILE_USER_AGENT_PATTERN",
+      "Pr": "TRIAL_BOAT_IDS",
+      "Yr": "TRIAL_PROGRESS_STORAGE_KEY",
+      "Xr": "TRIAL_MEDALS"
+    },
+    "game/Game/Game-16.js": {
+      "Yr": "TRIAL_PROGRESS_STORAGE_KEY",
+      "Xr": "TRIAL_MEDALS"
+    },
+    "game/Game/Game-17.js": {
+      "ei": "RACE_ROUTE",
+      "ti": "DAILY_RACE_ROUTE",
+      "ii": "RACE_COMPLETE_MODAL_ID",
+      "ai": "RACE_INCOMPLETE_MODAL_ID",
+      "hr": "RaceOverlayBase",
+      "di": "RACE_START_COUNTDOWN_ID",
+      "fi": "RaceStartCountdown",
+      "pi": "RaceHud",
+      "mi": "SUBMISSION_ERROR_KINDS"
+    },
+    "game/Game/Game-18.js": {
+      "mi": "SUBMISSION_ERROR_KINDS"
+    },
+    "game/Game/Game-19.js": {
+      "xi": "RaceHudFacade",
+      "gr": "RaceTimerOverlay",
+      "_r": "RaceCountdownOverlay",
+      "Or": "RaceLeaderboardModal",
+      "ui": "RaceCompletionModal",
+      "fi": "RaceStartCountdown",
+      "pi": "RaceHud",
+      "Ti": "GHOST_COUNT_STORAGE_KEY"
+    },
+    "game/Game/Game-20.js": {
+      "Ti": "GHOST_COUNT_STORAGE_KEY",
+      "Ni": "WGS84_SEMI_MAJOR_M",
+      "Pi": "WGS84_ECCENTRICITY_SQ"
+    },
+    "game/Game/Game-21.js": {
+      "Bi": "GeoProjection",
+      "Hi": "GeoCourseBuilder",
+      "Ji": "RaceCheckpointTracker"
+    },
+    "game/Game/Game-22.js": {
+      "B": "SCENE_TYPES",
+      "Hi": "GeoCourseBuilder",
+      "Ji": "RaceCheckpointTracker"
+    },
+    "game/Game/Game-23.js": {
+      "Qi": "RaceFlowManager",
+      "xi": "RaceHudFacade",
+      "pr": "CountryService",
+      "$i": "FreeSailFlow",
+      "ea": "RegattaFlow",
+      "aa": "MapOverlay"
+    },
+    "game/Game/Game-25.js": {
+      "sa": "HudButtonFactory",
+      "aa": "MapOverlay",
+      "ca": "SVG_NAMESPACE",
+      "la": "SvgIcon",
+      "da": "MissionStatusText",
+      "fa": "PhysicsTuningPanel",
+      "pa": "TUNING_SCHEMA",
+      "ma": "BoatUpgradeStore"
+    },
+    "game/Game/Game-27.js": {
+      "La": "RemoteBoatInspector",
+      "Ra": "GameUi",
+      "fa": "PhysicsTuningPanel",
+      "da": "MissionStatusText",
+      "sa": "HudButtonFactory",
+      "ma": "BoatUpgradeStore",
+      "Ka": "TouchControls",
+      "qa": "GameAudio",
+      "eo": "TWO_PI_RAD"
+    },
+    "game/Game/Game-29.js": {
+      "Ao": "CameraController",
+      "jo": "SEA_LOOKDEV_STYLES_ID",
+      "Mo": "LOOKDEV_OPEN_FOLDERS_KEY",
+      "No": "LOOKDEV_FOLDER_IDS",
+      "Po": "LOOKDEV_FOLDER_LABELS"
+    },
+    "game/Game/Game-30.js": {
+      "Fo": "ensureLookdevPanelStyles",
+      "jo": "SEA_LOOKDEV_STYLES_ID",
+      "No": "LOOKDEV_FOLDER_IDS"
+    },
+    "game/Game/Game-31.js": {
+      "Bo": "LookdevPanel",
+      "Fo": "ensureLookdevPanelStyles",
+      "Mo": "LOOKDEV_OPEN_FOLDERS_KEY",
+      "Po": "LOOKDEV_FOLDER_LABELS",
+      "Wo": "REFRACTION_DEBUG_LEVELS",
+      "Go": "COLOR_PARAM_KEYS"
+    },
+    "game/Game/Game-32.js": {
+      "Go": "COLOR_PARAM_KEYS"
+    },
+    "game/Game/Game-33.js": {
+      "Zo": "LookdevController",
+      "Bo": "LookdevPanel",
+      "Po": "LOOKDEV_FOLDER_LABELS",
+      "Wo": "REFRACTION_DEBUG_LEVELS",
+      "$o": "AUDIO_PREFS_TTL_MS",
+      "ns": "saveAudioPreferences",
+      "es": "AUDIO_PREFS_STORAGE_KEY"
+    },
+    "game/Game/Game-34.js": {
+      "es": "AUDIO_PREFS_STORAGE_KEY",
+      "ns": "saveAudioPreferences",
+      "$o": "AUDIO_PREFS_TTL_MS",
+      "rs": "gameRuntime"
+    },
+    "game/Game/Game-41.js": {
+      "Vc": "COLLISION_RESPONSE_CONFIG",
+      "Uc": "COLLISION_DEBUG_COLORS",
+      "Wc": "CollisionManager",
+      "Gc": "YEAR_MS",
+      "qc": "DEFAULT_BOAT_PRESET_ID",
+      "Jc": "BOAT_STORE_CATALOG",
+      "Yc": "BoatCatalogIndex"
+    },
+    "game/Game/Game-42.js": {
+      "Xc": "BoatCatalog",
+      "Yc": "BoatCatalogIndex",
+      "qc": "DEFAULT_BOAT_PRESET_ID"
+    },
+    "game/Game/Game-43.js": {
+      "tl": "BoatInventory",
+      "Xc": "BoatCatalog",
+      "Gc": "YEAR_MS",
+      "nl": "GameplayLoadoutQueue",
+      "rl": "BoatShopController",
+      "il": "BoatShopPresenter",
+      "al": "MINIMAP_ZOOM_CONFIG",
+      "ol": "WorldMapController"
+    },
+    "game/Game/Game-45.js": {
+      "Eu": "ANALYTICS_HOST_ALLOWLIST"
+    },
+    "game/Game/Game-47.js": {
+      "yd": "AnalyticsClient",
+      "bd": "PLAYTIME_STORAGE_KEY",
+      "xd": "PLAYTIME_TTL_MS"
+    },
+    "game/Game/Game-48.js": {
+      "wd": "CoinBalance",
+      "bd": "PLAYTIME_STORAGE_KEY",
+      "xd": "PLAYTIME_TTL_MS",
+      "Td": "BALANCE_STORAGE_KEY",
+      "pa": "TUNING_SCHEMA",
+      "Jc": "BOAT_STORE_CATALOG"
+    },
+    "game/Game/Game-49.js": {
+      "Yd": "REPLAY_DEFAULTS"
+    },
+    "game/Game/Game-50.js": {
+      "Zd": "RaceReplay",
+      "Qd": "PROMPT_TUTORIAL_STORAGE_KEY"
+    },
+    "game/Game/Game-51.js": {
+      "Qd": "PROMPT_TUTORIAL_STORAGE_KEY",
+      "nf": "GRAPHICS_STRUGGLE_DECLINED_KEY",
+      "rf": "GRAPHICS_STRUGGLE_BANNER_ID",
+      "af": "QUALITY_LABEL_KEYS",
+      "of": "QUALITY_LABELS",
+      "hf": "FrameRateMonitor",
+      "gf": "CameraIntroDirector",
+      "wf": "TUTORIAL_PROMPT_MODAL_ID",
+      "Af": "normalizeSessionOptions"
+    },
+    "game/Game/Game-52.js": {
+      "Af": "normalizeSessionOptions",
+      "wd": "CoinBalance",
+      "hf": "FrameRateMonitor",
+      "rl": "BoatShopController",
+      "il": "BoatShopPresenter",
+      "rs": "gameRuntime",
+      "fr": "WorldBuilder",
+      "qa": "GameAudio",
+      "pr": "CountryService",
+      "Ao": "CameraController",
+      "al": "MINIMAP_ZOOM_CONFIG",
+      "ol": "WorldMapController",
+      "gf": "CameraIntroDirector",
+      "Zo": "LookdevController",
+      "Ra": "GameUi",
+      "Zd": "RaceReplay",
+      "Ka": "TouchControls",
+      "wf": "TUTORIAL_PROMPT_MODAL_ID",
+      "Wc": "CollisionManager",
+      "ns": "saveAudioPreferences",
+      "yd": "AnalyticsClient",
+      "rf": "GRAPHICS_STRUGGLE_BANNER_ID"
+    },
+    "game/BoatModel/BoatModel-02.js": {
+      "pe": "SailMesh"
+    },
+    "game/BoatModel/BoatModel-04.js": {
+      "he": "SailRig",
+      "pe": "SailMesh",
+      "ge": "SailTextures",
+      "Ce": "ForceVectorDebug",
+      "we": "FLAG_COUNTRY_BASE_PATH",
+      "P": "FLAG_UNKNOWN_PATH",
+      "F": "FLAG_PIRATE_PATH",
+      "Te": "COUNTRY_CODE_ALIASES"
+    },
+    "game/BoatModel/BoatModel-05.js": {
+      "F": "FLAG_PIRATE_PATH",
+      "we": "FLAG_COUNTRY_BASE_PATH",
+      "Te": "COUNTRY_CODE_ALIASES",
+      "P": "FLAG_UNKNOWN_PATH",
+      "R": "boatTextureSets",
+      "De": "WATER_BLOCKER_NAME_PATTERN"
+    },
+    "game/BoatModel/BoatModel-06.js": {
+      "R": "boatTextureSets",
+      "Ce": "ForceVectorDebug",
+      "ge": "SailTextures",
+      "he": "SailRig",
+      "De": "WATER_BLOCKER_NAME_PATTERN"
+    },
+    "game/GhostReplayModel/GhostReplayModel-02.js": {
+      "S": "VENICE_PRESET",
+      "C": "TRIANGLE_PRESET",
+      "w": "ARROW_PRESET",
+      "T": "LAYLA_MODELS_DIR",
+      "E": "LAYLA_BASE_TRANSFORM",
+      "te": "LAYLA_VARIANTS",
+      "D": "LAYLA_PRESET",
+      "O": "MIRIA_MODELS_DIR",
+      "k": "MIRIA_BASE_TRANSFORM",
+      "A": "MIRIA_VARIANTS",
+      "j": "MIRIA_PRESET",
+      "M": "MEME_MODELS_DIR",
+      "N": "MEME_BASE_TRANSFORM",
+      "P": "MEME_VARIANTS",
+      "ne": "MEME_PRESET",
+      "F": "METAL_MODELS_DIR",
+      "I": "METAL_BASE_TRANSFORM",
+      "L": "METAL_VARIANTS",
+      "R": "METAL_PRESET"
+    },
+    "game/GhostReplayModel/GhostReplayModel-03.js": {
+      "z": "DEFAULT_BOAT_PRESET_ID",
+      "Y": "ghostReplayCache"
+    },
+    "game/BoatShop/BoatShop-01.js": {
+      "v": "BoatPreview"
+    },
+    "game/Blimp/Blimp-02.js": {
+      "_": "BLIMP_POPUP_CONTENT",
+      "v": "BLIMP_POPUP_ID"
+    },
+    "game/Birds/Birds-01.js": {
+      "p": "BIRD_MODES"
+    },
+    "game/Birds/Birds-02.js": {
+      "p": "BIRD_MODES"
+    },
+    "game/CargoShip/CargoShip-01.js": {
+      "v": "TWO_PI",
+      "w": "DEFAULT_CARGO_CONFIG",
+      "T": "CARGO_MODEL_TEXTURE_KEYS"
+    },
+    "game/CargoShip/CargoShip-02.js": {
+      "v": "TWO_PI"
+    },
+    "game/GeoMath/GeoMath-01.js": {
+      "a": "EARTH_RADIUS_M"
+    },
+    "site/blogPosts/blogPosts-01.js": {
+      "m": "LAST_SEEN_SEQUENCE_KEY",
+      "h": "LAST_SEEN_DATE_KEY",
+      "g": "LAST_SEEN_SLUG_KEY"
+    },
+    "routes/leaderboard/leaderboard-01.js": {
+      "d": "RANGE_OPTIONS",
+      "g": "SERIES_COLORS",
+      "S": "championshipRows",
+      "w": "championshipRange",
+      "T": "dailyRaceStatsRange",
+      "A": "replayCanvasEl",
+      "j": "replayCtx",
+      "M": "replaySliderEl",
+      "ne": "watch3dButtonEl",
+      "N": "playPauseButtonEl",
+      "P": "replayTimeEl",
+      "F": "currentDateDisplayEl",
+      "re": "prevDateButtonEl",
+      "I": "nextDateButtonEl",
+      "L": "dailyRaceSummaryEl",
+      "R": "championshipSummaryEl",
+      "ie": "championshipRangeControlsEl",
+      "B": "championshipNationsTbody",
+      "V": "statsSummaryEl",
+      "ae": "statsRangeControlsEl",
+      "oe": "statsActivityChartEl",
+      "H": "statsActivityChartTitleEl",
+      "U": "statsCountriesTbody",
+      "W": "statElements",
+      "se": "countryNameByCode"
+    },
+    "routes/leaderboard/leaderboard-02.js": {
+      "j": "replayCtx",
+      "A": "replayCanvasEl",
+      "S": "championshipRows",
+      "P": "replayTimeEl",
+      "M": "replaySliderEl",
+      "N": "playPauseButtonEl",
+      "ae": "statsRangeControlsEl",
+      "T": "dailyRaceStatsRange",
+      "ie": "championshipRangeControlsEl",
+      "w": "championshipRange",
+      "W": "statElements",
+      "V": "statsSummaryEl",
+      "H": "statsActivityChartTitleEl"
+    },
+    "routes/leaderboard/leaderboard-03.js": {
+      "oe": "statsActivityChartEl",
+      "U": "statsCountriesTbody",
+      "se": "countryNameByCode",
+      "V": "statsSummaryEl",
+      "T": "dailyRaceStatsRange",
+      "h": "chartLib",
+      "R": "championshipSummaryEl",
+      "z": "championshipPlayersTbody",
+      "B": "championshipNationsTbody",
+      "w": "championshipRange"
+    },
+    "routes/race/race-01.js": {
+      "_": "NYC_HARBOR_POINT",
+      "v": "LIBERTY_ISLAND_POINT",
+      "b": "WORLD_COURSE_DEFINITIONS",
+      "T": "RACE_TAB_KEYS",
+      "E": "dailyCourseDateEl",
+      "D": "dailyCourseBuoysEl",
+      "O": "dailyCourseRunsEl",
+      "k": "dailyCourseStatusEl",
+      "A": "dailyReplayLinkEl",
+      "j": "dailyCourseMapEl",
+      "M": "dailyCourseCanvasEl",
+      "N": "dailyCourseCtx",
+      "P": "raceTabButtons",
+      "F": "tabPanels",
+      "I": "worldCoursesGridEl",
+      "L": "timeTrialsGridEl"
+    },
+    "routes/race/race-02.js": {
+      "N": "dailyCourseCtx",
+      "E": "dailyCourseDateEl",
+      "D": "dailyCourseBuoysEl",
+      "A": "dailyReplayLinkEl",
+      "O": "dailyCourseRunsEl",
+      "L": "timeTrialsGridEl",
+      "I": "worldCoursesGridEl",
+      "X": "resizeTimer"
+    },
+    "routes/advertise/advertise-01.js": {
+      "S": "SIMPLE_ANALYTICS_STATS_URL",
+      "C": "STATS_FETCH_TIMEOUT_MS"
+    },
+    "routes/advertise/advertise-02.js": {
+      "K": "ALLOWLISTED_SPONSOR_IDS",
+      "Z": "PLACEMENT_KIND_BY_STORAGE_KEY"
+    },
+    "routes/daily-race-replay/daily-race-replay-01.js": {
+      "D": "TERMINAL_RUN_STATUSES",
+      "j": "MODE_STORAGE_KEY"
+    },
+    "game/HighSeaModeManager/HighSeaModeManager-01.js": {
+      "S": "HIGH_SEA_BUOY_POPUP_ID",
+      "C": "HIGH_SEA_WARNING_BANNER_ID",
+      "w": "HIGH_SEA_FAILURE_MODAL_ID",
+      "T": "HIGH_SEA_CHALLENGE_VERSION",
+      "j": "HIGH_SEA_VISUAL_STYLE",
+      "M": "HIGH_SEA_TUNING_PARAM_KEYS",
+      "N": "HIGH_SEA_TUNING_FLAG_KEYS"
+    },
+    "game/HighSeaModeManager/HighSeaModeManager-02.js": {
+      "T": "HIGH_SEA_CHALLENGE_VERSION",
+      "w": "HIGH_SEA_FAILURE_MODAL_ID",
+      "S": "HIGH_SEA_BUOY_POPUP_ID",
+      "C": "HIGH_SEA_WARNING_BANNER_ID",
+      "M": "HIGH_SEA_TUNING_PARAM_KEYS",
+      "N": "HIGH_SEA_TUNING_FLAG_KEYS"
+    },
+    "game/IslandGenerator/IslandGenerator-01.js": {
+      "L": "CASTLE_CONFIG",
+      "R": "VOLCANO_CONFIG"
+    },
+    "game/IslandGenerator/IslandGenerator-03.js": {
+      "me": "TERRAIN_PROFILES"
+    },
+    "game/IslandGenerator/IslandGenerator-04.js": {
+      "ge": "IslandTerrain",
+      "J": "DOCK_CONFIG",
+      "_e": "Dock",
+      "Y": "TREE_CONFIG",
+      "X": "HUT_CONFIG",
+      "Q": "HUT_PALETTES",
+      "$": "HUT_PLACEMENT_CONFIG",
+      "O": "PerlinNoise",
+      "L": "CASTLE_CONFIG"
+    },
+    "game/LogisticsManager/LogisticsManager-02.js": {
+      "p": "MissionGenerator",
+      "m": "YEAR_MS"
+    },
+    "game/LogisticsUI/LogisticsUI-01.js": {
+      "o": "MISSION_MODAL_ID",
+      "s": "COMPLETION_MODAL_ID",
+      "c": "PAYLOAD_DROPPED_TOAST_ID",
+      "l": "HEEL_GAUGE_ID",
+      "u": "BANNER_STACK_TOP_ID",
+      "p": "RAD_TO_DEG",
+      "m": "CARGO_DISPLAY_CONFIG"
+    },
+    "site/OneSignalPushNotifications/OneSignalPushNotifications-01.js": {
+      "a": "DAILY_RACE_REMINDER_TAG",
+      "s": "EXTERNAL_USER_ID_STORAGE_KEY"
+    },
+    "site/OneSignalPushNotifications/OneSignalPushNotifications-02.js": {
+      "_": "PushNotificationClient"
+    },
+    "site/routeContext/routeContext-02.js": {
+      "u": "WORLD_STOP_DEFINITIONS",
+      "h": "VISIBLE_WORLD_STOPS",
+      "g": "worldStopsById",
+      "_": "worldStopsByPlace"
+    },
+    "site/profileClient/profileClient-01.js": {
+      "u": "PROFILE_FIELD_KEYS"
+    },
+    "site/preload-helper/preload-helper-01.js": {
+      "s": "MODULEPRELOAD_LINK_REL"
+    },
+    "game/SharedTextureLoader/SharedTextureLoader-01.js": {
+      "n": "textureCache"
+    },
+    "game/GoogleTilesLoader/GoogleTilesLoader-02.js": {
+      "Bn": "BYTES_PER_MB",
+      "Vn": "deviceMemoryGB",
+      "Hn": "resolveTileCacheProfile",
+      "Q": "dracoLoader",
+      "Wn": "SESSION_TTL_DAYS",
+      "Gn": "TILES_SESSION_STORAGE_KEY",
+      "Kn": "SESSION_REFRESH_MS",
+      "qn": "TILE_CALIBRATION_KEYS",
+      "$": "TILE_FAILURE_MODES",
+      "Jn": "getDracoLoader",
+      "Yn": "isEditableTarget"
+    },
+    "game/GoogleTilesLoader/GoogleTilesLoader-03.js": {
+      "Hn": "resolveTileCacheProfile",
+      "Gn": "TILES_SESSION_STORAGE_KEY",
+      "Kn": "SESSION_REFRESH_MS",
+      "$": "TILE_FAILURE_MODES",
+      "Yn": "isEditableTarget",
+      "qn": "TILE_CALIBRATION_KEYS",
+      "Jn": "getDracoLoader",
+      "Wn": "SESSION_TTL_DAYS"
+    }
+  },
+  "scoped": {
+    "routes/home/main-01.js": {
+      "z": [
+        [
+          1538,
+          "BACKGROUND_CAMERA_ANGLE"
+        ],
+        [
+          1610,
+          "BACKGROUND_CAMERA_ANGLE"
+        ]
+      ]
+    },
+    "routes/home/main-02.js": {
+      "N": [
+        [
+          1075,
+          "initHomepagePlayTracking"
+        ]
+      ],
+      "F": [
+        [
+          1079,
+          "renderWhatsNewAside"
+        ]
+      ]
+    },
+    "routes/contact/contact-01.js": {
+      "e": [
+        [
+          7,
+          "emailLinkEl"
+        ],
+        [
+          67,
+          "emailLinkEl"
+        ],
+        [
+          90,
+          "emailLinkEl"
+        ],
+        [
+          251,
+          "emailLinkEl"
+        ]
+      ],
+      "t": [
+        [
+          18,
+          "copyButtonEl"
+        ],
+        [
+          309,
+          "copyButtonEl"
+        ],
+        [
+          341,
+          "copyButtonEl"
+        ]
+      ],
+      "n": [
+        [
+          29,
+          "statusEl"
+        ],
+        [
+          273,
+          "statusEl"
+        ],
+        [
+          277,
+          "statusEl"
+        ],
+        [
+          350,
+          "statusEl"
+        ],
+        [
+          354,
+          "statusEl"
+        ],
+        [
+          371,
+          "statusEl"
+        ],
+        [
+          375,
+          "statusEl"
+        ]
+      ]
+    },
+    "routes/game/game-01.js": {
+      "z": [
+        [
+          2360,
+          "EVENT_LOCATION_AD_LINK_CLICKED"
+        ],
+        [
+          2855,
+          "EVENT_LOCATION_AD_LINK_CLICKED"
+        ],
+        [
+          2891,
+          "EVENT_LOCATION_AD_LINK_CLICKED"
+        ]
+      ]
+    },
+    "routes/game/game-04.js": {
+      "se": [
+        [
+          1983,
+          "fetchBuildVersion"
+        ]
+      ]
+    },
+    "game/Game/Game-03.js": {
+      "B": [
+        [
+          84,
+          "SCENE_TYPES"
+        ],
+        [
+          112,
+          "SCENE_TYPES"
+        ],
+        [
+          116,
+          "SCENE_TYPES"
+        ],
+        [
+          120,
+          "SCENE_TYPES"
+        ]
+      ]
+    },
+    "game/Game/Game-04.js": {
+      "sn": [
+        [
+          1,
+          "activeWorldDefinition"
+        ],
+        [
+          141,
+          "activeWorldDefinition"
+        ],
+        [
+          158,
+          "activeWorldDefinition"
+        ],
+        [
+          194,
+          "activeWorldDefinition"
+        ],
+        [
+          219,
+          "activeWorldDefinition"
+        ],
+        [
+          1523,
+          "activeWorldDefinition"
+        ],
+        [
+          1805,
+          "activeWorldDefinition"
+        ],
+        [
+          1823,
+          "activeWorldDefinition"
+        ]
+      ],
+      "pn": [
+        [
+          332,
+          "DEFAULT_WATER_PARAMS"
+        ],
+        [
+          1084,
+          "DEFAULT_WATER_PARAMS"
+        ],
+        [
+          1144,
+          "DEFAULT_WATER_PARAMS"
+        ],
+        [
+          1204,
+          "DEFAULT_WATER_PARAMS"
+        ]
+      ],
+      "mn": [
+        [
+          547,
+          "WATER_LOOK_PRESETS"
+        ],
+        [
+          1209,
+          "WATER_LOOK_PRESETS"
+        ]
+      ],
+      "hn": [
+        [
+          1071,
+          "WATER_PARAMS_BY_SCENE"
+        ],
+        [
+          1813,
+          "WATER_PARAMS_BY_SCENE"
+        ],
+        [
+          1828,
+          "WATER_PARAMS_BY_SCENE"
+        ],
+        [
+          1836,
+          "WATER_PARAMS_BY_SCENE"
+        ]
+      ]
+    },
+    "game/Game/Game-07.js": {
+      "Cn": [
+        [
+          14,
+          "DEFAULT_EFFECT_STATE"
+        ],
+        [
+          68,
+          "DEFAULT_EFFECT_STATE"
+        ]
+      ]
+    },
+    "game/Game/Game-08.js": {
+      "Cn": [
+        [
+          3055,
+          "DEFAULT_EFFECT_STATE"
+        ]
+      ]
+    },
+    "game/Game/Game-09.js": {
+      "Jn": [
+        [
+          49,
+          "SKY_PRESETS"
+        ]
+      ]
+    },
+    "game/Game/Game-17.js": {
+      "ui": [
+        [
+          600,
+          "RaceCompletionModal"
+        ]
+      ]
+    },
+    "game/Game/Game-33.js": {
+      "mn": [
+        [
+          1182,
+          "WATER_LOOK_PRESETS"
+        ],
+        [
+          1257,
+          "WATER_LOOK_PRESETS"
+        ],
+        [
+          1348,
+          "WATER_LOOK_PRESETS"
+        ],
+        [
+          1565,
+          "WATER_LOOK_PRESETS"
+        ],
+        [
+          1592,
+          "WATER_LOOK_PRESETS"
+        ],
+        [
+          1658,
+          "WATER_LOOK_PRESETS"
+        ],
+        [
+          2338,
+          "WATER_LOOK_PRESETS"
+        ],
+        [
+          3098,
+          "WATER_LOOK_PRESETS"
+        ]
+      ],
+      "Cn": [
+        [
+          1823,
+          "DEFAULT_EFFECT_STATE"
+        ]
+      ],
+      "qn": [
+        [
+          6602,
+          "SKY_MODEL_IDS"
+        ]
+      ]
+    },
+    "game/Game/Game-50.js": {
+      "Yd": [
+        [
+          33,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          4129,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          4209,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          4235,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          6643,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          6666,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          6689,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          6862,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          6884,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          6907,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          6926,
+          "REPLAY_DEFAULTS"
+        ],
+        [
+          8493,
+          "REPLAY_DEFAULTS"
+        ]
+      ]
+    },
+    "game/Game/Game-51.js": {
+      "vf": [
+        [
+          2021,
+          "DEFAULT_SESSION_OPTIONS"
+        ],
+        [
+          2550,
+          "DEFAULT_SESSION_OPTIONS"
+        ]
+      ]
+    },
+    "game/BoatModel/BoatModel-05.js": {
+      "z": [
+        [
+          163,
+          "pendingHullReload"
+        ],
+        [
+          362,
+          "pendingHullReload"
+        ],
+        [
+          367,
+          "pendingHullReload"
+        ],
+        [
+          375,
+          "pendingHullReload"
+        ],
+        [
+          387,
+          "pendingHullReload"
+        ],
+        [
+          401,
+          "pendingHullReload"
+        ]
+      ]
+    },
+    "game/DataModels/DataModels-02.js": {
+      "h": [
+        [
+          1,
+          "TWO_PI"
+        ],
+        [
+          3519,
+          "TWO_PI"
+        ],
+        [
+          4925,
+          "TWO_PI"
+        ],
+        [
+          4945,
+          "TWO_PI"
+        ]
+      ],
+      "g": [
+        [
+          9,
+          "UP_VECTOR"
+        ],
+        [
+          1992,
+          "UP_VECTOR"
+        ],
+        [
+          3053,
+          "UP_VECTOR"
+        ]
+      ],
+      "_": [
+        [
+          21,
+          "BoatPhysics"
+        ],
+        [
+          10148,
+          "BoatPhysics"
+        ]
+      ],
+      "x": [
+        [
+          6716,
+          "BoatControls"
+        ],
+        [
+          10176,
+          "BoatControls"
+        ]
+      ],
+      "S": [
+        [
+          7842,
+          "WaterlineTracker"
+        ],
+        [
+          10271,
+          "WaterlineTracker"
+        ]
+      ]
+    },
+    "game/GhostReplayModel/GhostReplayModel-02.js": {
+      "z": [
+        [
+          4380,
+          "DEFAULT_BOAT_PRESET_ID"
+        ]
+      ]
+    },
+    "game/BoatShop/BoatShop-01.js": {
+      "y": [
+        [
+          2126,
+          "BOAT_SHOP_MODAL_ID"
+        ]
+      ]
+    },
+    "game/BoatShop/BoatShop-02.js": {
+      "v": [
+        [
+          3441,
+          "BoatPreview"
+        ]
+      ],
+      "y": [
+        [
+          3637,
+          "BOAT_SHOP_MODAL_ID"
+        ],
+        [
+          3792,
+          "BOAT_SHOP_MODAL_ID"
+        ],
+        [
+          3870,
+          "BOAT_SHOP_MODAL_ID"
+        ],
+        [
+          3915,
+          "BOAT_SHOP_MODAL_ID"
+        ]
+      ]
+    },
+    "game/Birds/Birds-01.js": {
+      "d": [
+        [
+          51,
+          "BIRD_PALETTE_LIGHT"
+        ],
+        [
+          311,
+          "BIRD_PALETTE_LIGHT"
+        ],
+        [
+          335,
+          "BIRD_PALETTE_LIGHT"
+        ],
+        [
+          1869,
+          "BIRD_PALETTE_LIGHT"
+        ]
+      ],
+      "f": [
+        [
+          77,
+          "BIRD_PALETTE_DARK"
+        ],
+        [
+          1913,
+          "BIRD_PALETTE_DARK"
+        ]
+      ],
+      "g": [
+        [
+          300,
+          "BirdFlock"
+        ],
+        [
+          1855,
+          "BirdFlock"
+        ],
+        [
+          1899,
+          "BirdFlock"
+        ]
+      ]
+    },
+    "game/CargoShip/CargoShip-02.js": {
+      "w": [
+        [
+          248,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          258,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          268,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          278,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          291,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          297,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          366,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          378,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          389,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          399,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          433,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          443,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          453,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          463,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          652,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          694,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          718,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          876,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          961,
+          "DEFAULT_CARGO_CONFIG"
+        ],
+        [
+          992,
+          "DEFAULT_CARGO_CONFIG"
+        ]
+      ]
+    },
+    "game/FloatingWorldProp/FloatingWorldProp-01.js": {
+      "h": [
+        [
+          82,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          381,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          519,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          920,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1123,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1224,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1249,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1278,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1306,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1334,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1356,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1385,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1411,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1437,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1463,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1489,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1515,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1541,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1571,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1597,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          1623,
+          "FLOATING_PROP_DEFAULTS"
+        ]
+      ],
+      "_": [
+        [
+          259,
+          "FLOATING_PROP_SIZE_STEPS"
+        ],
+        [
+          700,
+          "FLOATING_PROP_SIZE_STEPS"
+        ],
+        [
+          714,
+          "FLOATING_PROP_SIZE_STEPS"
+        ]
+      ]
+    },
+    "game/FloatingWorldProp/FloatingWorldProp-02.js": {
+      "h": [
+        [
+          73,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          104,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          118,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          134,
+          "FLOATING_PROP_DEFAULTS"
+        ],
+        [
+          197,
+          "FLOATING_PROP_DEFAULTS"
+        ]
+      ],
+      "D": [
+        [
+          1569,
+          "COLLISION_FOOTPRINT_DEFAULTS"
+        ],
+        [
+          1621,
+          "COLLISION_FOOTPRINT_DEFAULTS"
+        ],
+        [
+          1653,
+          "COLLISION_FOOTPRINT_DEFAULTS"
+        ],
+        [
+          1660,
+          "COLLISION_FOOTPRINT_DEFAULTS"
+        ]
+      ]
+    },
+    "game/BoatVisualizerPanel/BoatVisualizerPanel-01.js": {
+      "i": [
+        [
+          68,
+          "PANEL_ID"
+        ]
+      ],
+      "a": [
+        [
+          74,
+          "PANEL_MODES"
+        ],
+        [
+          298,
+          "PANEL_MODES"
+        ],
+        [
+          302,
+          "PANEL_MODES"
+        ]
+      ]
+    },
+    "game/BoatVisualizerPanel/BoatVisualizerPanel-02.js": {
+      "a": [
+        [
+          39,
+          "PANEL_MODES"
+        ],
+        [
+          43,
+          "PANEL_MODES"
+        ],
+        [
+          51,
+          "PANEL_MODES"
+        ],
+        [
+          55,
+          "PANEL_MODES"
+        ],
+        [
+          91,
+          "PANEL_MODES"
+        ]
+      ],
+      "i": [
+        [
+          417,
+          "PANEL_ID"
+        ]
+      ]
+    },
+    "game/RaceConfig/RaceConfig-01.js": {
+      "n": [
+        [
+          104,
+          "DATE_ONLY_PATTERN"
+        ],
+        [
+          140,
+          "DATE_ONLY_PATTERN"
+        ]
+      ]
+    },
+    "site/blogPosts/blogPosts-01.js": {
+      "e": [
+        [
+          1,
+          "DATE_PATTERN"
+        ],
+        [
+          174,
+          "DATE_PATTERN"
+        ]
+      ],
+      "t": [
+        [
+          5,
+          "CHANGELOG_SLUG_PATTERN"
+        ],
+        [
+          362,
+          "CHANGELOG_SLUG_PATTERN"
+        ]
+      ],
+      "n": [
+        [
+          9,
+          "X_HOST_PATTERN"
+        ],
+        [
+          471,
+          "X_HOST_PATTERN"
+        ]
+      ],
+      "r": [
+        [
+          13,
+          "X_STATUS_PATH_PATTERN"
+        ],
+        [
+          480,
+          "X_STATUS_PATH_PATTERN"
+        ]
+      ],
+      "i": [
+        [
+          17,
+          "COVER_ASSET_PATH_PATTERN"
+        ],
+        [
+          596,
+          "COVER_ASSET_PATH_PATTERN"
+        ]
+      ],
+      "p": [
+        [
+          742,
+          "POST_KINDS"
+        ],
+        [
+          800,
+          "POST_KINDS"
+        ],
+        [
+          1890,
+          "POST_KINDS"
+        ]
+      ]
+    },
+    "site/KeyboardManager/KeyboardManager-01.js": {
+      "r": [
+        [
+          132,
+          "NAVIGATION_KEYS"
+        ],
+        [
+          775,
+          "NAVIGATION_KEYS"
+        ]
+      ]
+    },
+    "site/emailSoftAsk/emailSoftAsk-01.js": {
+      "e": [
+        [
+          1,
+          "SNOOZE_UNTIL_STORAGE_KEY"
+        ],
+        [
+          46,
+          "SNOOZE_UNTIL_STORAGE_KEY"
+        ],
+        [
+          157,
+          "SNOOZE_UNTIL_STORAGE_KEY"
+        ],
+        [
+          188,
+          "SNOOZE_UNTIL_STORAGE_KEY"
+        ]
+      ],
+      "t": [
+        [
+          7,
+          "SNOOZE_WINDOW_MS"
+        ],
+        [
+          135,
+          "SNOOZE_WINDOW_MS"
+        ]
+      ],
+      "n": [
+        [
+          15,
+          "PROMPT_TEXT"
+        ],
+        [
+          267,
+          "PROMPT_TEXT"
+        ]
+      ],
+      "r": [
+        [
+          21,
+          "PROMPT_TEXT_REPEAT"
+        ],
+        [
+          265,
+          "PROMPT_TEXT_REPEAT"
+        ]
+      ]
+    },
+    "routes/leaderboard/leaderboard-01.js": {
+      "h": [
+        [
+          775,
+          "chartLib"
+        ],
+        [
+          1476,
+          "chartLib"
+        ],
+        [
+          1485,
+          "chartLib"
+        ],
+        [
+          1489,
+          "chartLib"
+        ],
+        [
+          1934,
+          "chartLib"
+        ],
+        [
+          2087,
+          "chartLib"
+        ]
+      ],
+      "x": [
+        [
+          847,
+          "dailyRaceRows"
+        ],
+        [
+          2469,
+          "dailyRaceRows"
+        ]
+      ],
+      "z": [
+        [
+          1057,
+          "championshipPlayersTbody"
+        ]
+      ]
+    },
+    "routes/leaderboard/leaderboard-02.js": {
+      "x": [
+        [
+          41,
+          "dailyRaceRows"
+        ],
+        [
+          360,
+          "dailyRaceRows"
+        ],
+        [
+          1183,
+          "dailyRaceRows"
+        ],
+        [
+          1360,
+          "dailyRaceRows"
+        ],
+        [
+          1370,
+          "dailyRaceRows"
+        ],
+        [
+          1533,
+          "dailyRaceRows"
+        ],
+        [
+          2337,
+          "dailyRaceRows"
+        ],
+        [
+          2457,
+          "dailyRaceRows"
+        ],
+        [
+          2591,
+          "dailyRaceRows"
+        ]
+      ],
+      "d": [
+        [
+          2694,
+          "RANGE_OPTIONS"
+        ]
+      ]
+    },
+    "routes/race/race-01.js": {
+      "c": [
+        [
+          60,
+          "TRIAL_TIER_IDS"
+        ],
+        [
+          128,
+          "TRIAL_TIER_IDS"
+        ],
+        [
+          166,
+          "TRIAL_TIER_IDS"
+        ],
+        [
+          174,
+          "TRIAL_TIER_IDS"
+        ]
+      ],
+      "l": [
+        [
+          81,
+          "TRIAL_PROGRESS_STORAGE_KEY"
+        ],
+        [
+          334,
+          "TRIAL_PROGRESS_STORAGE_KEY"
+        ]
+      ],
+      "y": [
+        [
+          736,
+          "SYDNEY_HARBOR_POINT"
+        ],
+        [
+          861,
+          "SYDNEY_HARBOR_POINT"
+        ],
+        [
+          874,
+          "SYDNEY_HARBOR_POINT"
+        ]
+      ]
+    },
+    "routes/daily-race-replay/daily-race-replay-01.js": {
+      "n": [
+        [
+          26,
+          "DATE_PATTERN"
+        ],
+        [
+          190,
+          "DATE_PATTERN"
+        ]
+      ],
+      "r": [
+        [
+          30,
+          "CAMERA_MODES"
+        ],
+        [
+          416,
+          "CAMERA_MODES"
+        ]
+      ],
+      "i": [
+        [
+          50,
+          "FIRST_PERSON_CAMERA_IDS"
+        ],
+        [
+          405,
+          "FIRST_PERSON_CAMERA_IDS"
+        ]
+      ]
+    },
+    "game/HighSeaModeManager/HighSeaModeManager-01.js": {
+      "x": [
+        [
+          123,
+          "HOLD_COURSE_HINT"
+        ]
+      ],
+      "P": [
+        [
+          273,
+          "HIGH_SEA_CHALLENGE_CONFIG"
+        ],
+        [
+          525,
+          "HIGH_SEA_CHALLENGE_CONFIG"
+        ],
+        [
+          538,
+          "HIGH_SEA_CHALLENGE_CONFIG"
+        ],
+        [
+          562,
+          "HIGH_SEA_CHALLENGE_CONFIG"
+        ],
+        [
+          585,
+          "HIGH_SEA_CHALLENGE_CONFIG"
+        ],
+        [
+          616,
+          "HIGH_SEA_CHALLENGE_CONFIG"
+        ],
+        [
+          640,
+          "HIGH_SEA_CHALLENGE_CONFIG"
+        ],
+        [
+          664,
+          "HIGH_SEA_CHALLENGE_CONFIG"
+        ]
+      ]
+    },
+    "game/HighSeaModeManager/HighSeaModeManager-02.js": {
+      "x": [
+        [
+          666,
+          "HOLD_COURSE_HINT"
+        ],
+        [
+          10355,
+          "HOLD_COURSE_HINT"
+        ],
+        [
+          10413,
+          "HOLD_COURSE_HINT"
+        ],
+        [
+          10497,
+          "HOLD_COURSE_HINT"
+        ],
+        [
+          10512,
+          "HOLD_COURSE_HINT"
+        ]
+      ],
+      "j": [
+        [
+          793,
+          "HIGH_SEA_VISUAL_STYLE"
+        ],
+        [
+          12554,
+          "HIGH_SEA_VISUAL_STYLE"
+        ]
+      ]
+    },
+    "game/IslandGenerator/IslandGenerator-01.js": {
+      "O": [
+        [
+          144,
+          "PerlinNoise"
+        ]
+      ]
+    },
+    "game/IslandGenerator/IslandGenerator-03.js": {
+      "q": [
+        [
+          1,
+          "DEFAULT_TERRAIN_PROFILE"
+        ],
+        [
+          60,
+          "DEFAULT_TERRAIN_PROFILE"
+        ],
+        [
+          575,
+          "DEFAULT_TERRAIN_PROFILE"
+        ],
+        [
+          594,
+          "DEFAULT_TERRAIN_PROFILE"
+        ]
+      ]
+    },
+    "game/LogisticsManager/LogisticsManager-01.js": {
+      "d": [
+        [
+          92,
+          "CARGO_TYPES"
+        ],
+        [
+          975,
+          "CARGO_TYPES"
+        ],
+        [
+          1372,
+          "CARGO_TYPES"
+        ],
+        [
+          1385,
+          "CARGO_TYPES"
+        ],
+        [
+          1398,
+          "CARGO_TYPES"
+        ]
+      ],
+      "p": [
+        [
+          260,
+          "MissionGenerator"
+        ]
+      ],
+      "m": [
+        [
+          2277,
+          "YEAR_MS"
+        ]
+      ]
+    },
+    "game/LogisticsUI/LogisticsUI-01.js": {
+      "i": [
+        [
+          32,
+          "DOCKING_BANNER_ID"
+        ]
+      ],
+      "a": [
+        [
+          38,
+          "ACTIVE_MISSION_BANNER_ID"
+        ]
+      ]
+    },
+    "game/LogisticsUI/LogisticsUI-02.js": {
+      "i": [
+        [
+          483,
+          "DOCKING_BANNER_ID"
+        ],
+        [
+          555,
+          "DOCKING_BANNER_ID"
+        ],
+        [
+          4652,
+          "DOCKING_BANNER_ID"
+        ]
+      ],
+      "a": [
+        [
+          625,
+          "ACTIVE_MISSION_BANNER_ID"
+        ],
+        [
+          694,
+          "ACTIVE_MISSION_BANNER_ID"
+        ],
+        [
+          1028,
+          "ACTIVE_MISSION_BANNER_ID"
+        ],
+        [
+          4661,
+          "ACTIVE_MISSION_BANNER_ID"
+        ]
+      ],
+      "l": [
+        [
+          1178,
+          "HEEL_GAUGE_ID"
+        ],
+        [
+          1278,
+          "HEEL_GAUGE_ID"
+        ],
+        [
+          2268,
+          "HEEL_GAUGE_ID"
+        ]
+      ],
+      "u": [
+        [
+          1187,
+          "BANNER_STACK_TOP_ID"
+        ],
+        [
+          1215,
+          "BANNER_STACK_TOP_ID"
+        ]
+      ],
+      "p": [
+        [
+          2200,
+          "RAD_TO_DEG"
+        ]
+      ],
+      "o": [
+        [
+          3250,
+          "MISSION_MODAL_ID"
+        ],
+        [
+          3376,
+          "MISSION_MODAL_ID"
+        ]
+      ],
+      "s": [
+        [
+          3806,
+          "COMPLETION_MODAL_ID"
+        ],
+        [
+          4289,
+          "COMPLETION_MODAL_ID"
+        ],
+        [
+          4620,
+          "COMPLETION_MODAL_ID"
+        ]
+      ],
+      "c": [
+        [
+          4055,
+          "PAYLOAD_DROPPED_TOAST_ID"
+        ],
+        [
+          4670,
+          "PAYLOAD_DROPPED_TOAST_ID"
+        ]
+      ]
+    },
+    "game/MultiplayerManager/MultiplayerManager-02.js": {
+      "f": [
+        [
+          5,
+          "SEND_FAILED_EVENT"
+        ],
+        [
+          3270,
+          "SEND_FAILED_EVENT"
+        ]
+      ]
+    },
+    "site/OneSignalPushNotifications/OneSignalPushNotifications-01.js": {
+      "n": [
+        [
+          12,
+          "ONESIGNAL_SDK_URL"
+        ]
+      ],
+      "r": [
+        [
+          18,
+          "ONESIGNAL_SCRIPT_ID"
+        ]
+      ],
+      "i": [
+        [
+          24,
+          "SDK_LOAD_TIMEOUT_MS"
+        ]
+      ]
+    },
+    "site/OneSignalPushNotifications/OneSignalPushNotifications-02.js": {
+      "n": [
+        [
+          91,
+          "ONESIGNAL_SDK_URL"
+        ]
+      ],
+      "r": [
+        [
+          104,
+          "ONESIGNAL_SCRIPT_ID"
+        ]
+      ],
+      "i": [
+        [
+          136,
+          "SDK_LOAD_TIMEOUT_MS"
+        ]
+      ],
+      "a": [
+        [
+          2087,
+          "DAILY_RACE_REMINDER_TAG"
+        ],
+        [
+          2114,
+          "DAILY_RACE_REMINDER_TAG"
+        ],
+        [
+          2147,
+          "DAILY_RACE_REMINDER_TAG"
+        ],
+        [
+          2174,
+          "DAILY_RACE_REMINDER_TAG"
+        ]
+      ]
+    },
+    "game/PirateHuntManager/PirateHuntManager-01.js": {
+      "c": [
+        [
+          44,
+          "BurstEffect"
+        ],
+        [
+          879,
+          "BurstEffect"
+        ]
+      ]
+    },
+    "game/SeaCreatures/SeaCreatures-01.js": {
+      "o": [
+        [
+          31,
+          "SEA_CREATURE_CONFIG"
+        ],
+        [
+          555,
+          "SEA_CREATURE_CONFIG"
+        ],
+        [
+          1028,
+          "SEA_CREATURE_CONFIG"
+        ],
+        [
+          1591,
+          "SEA_CREATURE_CONFIG"
+        ]
+      ]
+    },
+    "game/TutorialManager/TutorialManager-02.js": {
+      "u": [
+        [
+          13,
+          "STEP_RACE_RULES"
+        ],
+        [
+          37,
+          "STEP_RACE_RULES"
+        ],
+        [
+          51,
+          "STEP_RACE_RULES"
+        ],
+        [
+          1671,
+          "STEP_RACE_RULES"
+        ],
+        [
+          3935,
+          "STEP_RACE_RULES"
+        ],
+        [
+          8926,
+          "STEP_RACE_RULES"
+        ]
+      ],
+      "d": [
+        [
+          19,
+          "STEP_RACE_RUN"
+        ],
+        [
+          39,
+          "STEP_RACE_RUN"
+        ],
+        [
+          53,
+          "STEP_RACE_RUN"
+        ],
+        [
+          1810,
+          "STEP_RACE_RUN"
+        ],
+        [
+          4138,
+          "STEP_RACE_RUN"
+        ],
+        [
+          8018,
+          "STEP_RACE_RUN"
+        ],
+        [
+          8935,
+          "STEP_RACE_RUN"
+        ]
+      ],
+      "f": [
+        [
+          25,
+          "STEP_RACE_SUBMISSION"
+        ],
+        [
+          41,
+          "STEP_RACE_SUBMISSION"
+        ],
+        [
+          1875,
+          "STEP_RACE_SUBMISSION"
+        ],
+        [
+          4145,
+          "STEP_RACE_SUBMISSION"
+        ]
+      ],
+      "p": [
+        [
+          31,
+          "RACE_STEP_IDS"
+        ],
+        [
+          4199,
+          "RACE_STEP_IDS"
+        ]
+      ],
+      "m": [
+        [
+          45,
+          "RACE_RULES_STEP_IDS"
+        ],
+        [
+          3084,
+          "RACE_RULES_STEP_IDS"
+        ]
+      ],
+      "h": [
+        [
+          57,
+          "CONTROL_HINT_SVGS"
+        ],
+        [
+          7448,
+          "CONTROL_HINT_SVGS"
+        ],
+        [
+          7452,
+          "CONTROL_HINT_SVGS"
+        ]
+      ]
+    },
+    "site/routeContext/routeContext-01.js": {
+      "e": [
+        [
+          1,
+          "ASSET_BASE_PLACEHOLDER"
+        ],
+        [
+          160,
+          "ASSET_BASE_PLACEHOLDER"
+        ]
+      ],
+      "t": [
+        [
+          8,
+          "applyAssetBase"
+        ],
+        [
+          237,
+          "applyAssetBase"
+        ]
+      ]
+    },
+    "site/routeContext/routeContext-02.js": {
+      "m": [
+        [
+          1787,
+          "WORLD_STOPS"
+        ],
+        [
+          1820,
+          "WORLD_STOPS"
+        ],
+        [
+          1966,
+          "WORLD_STOPS"
+        ]
+      ]
+    },
+    "site/routeContext/routeContext-03.js": {
+      "M": [
+        [
+          265,
+          "WORLD_PLACE_IDS"
+        ],
+        [
+          1245,
+          "WORLD_PLACE_IDS"
+        ],
+        [
+          1349,
+          "WORLD_PLACE_IDS"
+        ],
+        [
+          2177,
+          "WORLD_PLACE_IDS"
+        ]
+      ],
+      "N": [
+        [
+          278,
+          "worldStopsByPlaceKey"
+        ],
+        [
+          1322,
+          "worldStopsByPlaceKey"
+        ]
+      ],
+      "P": [
+        [
+          345,
+          "WORLD_PLACE_ID"
+        ],
+        [
+          824,
+          "WORLD_PLACE_ID"
+        ],
+        [
+          2017,
+          "WORLD_PLACE_ID"
+        ]
+      ],
+      "I": [
+        [
+          388,
+          "SURFACE_DEFAULTS"
+        ],
+        [
+          1917,
+          "SURFACE_DEFAULTS"
+        ]
+      ]
+    },
+    "site/PlayerNameStorage/PlayerNameStorage-01.js": {
+      "t": [
+        [
+          7,
+          "NAME_TOO_SHORT_MESSAGE"
+        ],
+        [
+          363,
+          "NAME_TOO_SHORT_MESSAGE"
+        ]
+      ],
+      "n": [
+        [
+          13,
+          "RESERVED_NAME_MESSAGE"
+        ],
+        [
+          355,
+          "RESERVED_NAME_MESSAGE"
+        ]
+      ],
+      "r": [
+        [
+          19,
+          "DISPLAY_NAME_PATTERN"
+        ],
+        [
+          241,
+          "DISPLAY_NAME_PATTERN"
+        ]
+      ],
+      "i": [
+        [
+          23,
+          "ANONYMOUS_NAME_PATTERN"
+        ],
+        [
+          178,
+          "ANONYMOUS_NAME_PATTERN"
+        ]
+      ]
+    },
+    "site/posthogAuth/posthogAuth-01.js": {
+      "i": [
+        [
+          25,
+          "DISTINCT_ID_STORAGE_KEY"
+        ],
+        [
+          90,
+          "DISTINCT_ID_STORAGE_KEY"
+        ],
+        [
+          138,
+          "DISTINCT_ID_STORAGE_KEY"
+        ],
+        [
+          156,
+          "DISTINCT_ID_STORAGE_KEY"
+        ]
+      ]
+    },
+    "site/installability/installability-01.js": {
+      "e": [
+        [
+          1,
+          "INSTALL_PROMPT_GUARD_SYMBOL"
+        ],
+        [
+          241,
+          "INSTALL_PROMPT_GUARD_SYMBOL"
+        ],
+        [
+          274,
+          "INSTALL_PROMPT_GUARD_SYMBOL"
+        ],
+        [
+          294,
+          "INSTALL_PROMPT_GUARD_SYMBOL"
+        ]
+      ],
+      "t": [
+        [
+          12,
+          "SERVICE_WORKER_PATH"
+        ],
+        [
+          190,
+          "SERVICE_WORKER_PATH"
+        ]
+      ]
+    },
+    "site/preload-helper/preload-helper-01.js": {
+      "e": [
+        [
+          1,
+          "DEFAULT_SUPPORTED_LANGUAGES"
+        ],
+        [
+          129,
+          "DEFAULT_SUPPORTED_LANGUAGES"
+        ]
+      ]
+    },
+    "site/H5GamesAds/H5GamesAds-01.js": {
+      "t": [
+        [
+          7,
+          "ADS_SCRIPT_URL"
+        ],
+        [
+          1339,
+          "ADS_SCRIPT_URL"
+        ]
+      ],
+      "n": [
+        [
+          13,
+          "REWARD_STATE_STORAGE_KEY"
+        ],
+        [
+          532,
+          "REWARD_STATE_STORAGE_KEY"
+        ]
+      ],
+      "i": [
+        [
+          23,
+          "ALLOWED_ADS_HOSTS"
+        ],
+        [
+          803,
+          "ALLOWED_ADS_HOSTS"
+        ]
+      ],
+      "a": [
+        [
+          40,
+          "REWARD_TERMINAL_STATES"
+        ],
+        [
+          1932,
+          "REWARD_TERMINAL_STATES"
+        ]
+      ],
+      "o": [
+        [
+          56,
+          "FALSE_LIKE_VALUES"
+        ],
+        [
+          834,
+          "FALSE_LIKE_VALUES"
+        ],
+        [
+          887,
+          "FALSE_LIKE_VALUES"
+        ]
+      ]
+    },
+    "game/WorldAdPopupManager/WorldAdPopupManager-01.js": {
+      "n": [
+        [
+          14,
+          "POPUP_STYLES"
+        ],
+        [
+          869,
+          "POPUP_STYLES"
+        ]
+      ]
+    },
+    "site/init/init-01.js": {
+      "r": [
+        [
+          72,
+          "renderLanguageSelector"
+        ],
+        [
+          911,
+          "renderLanguageSelector"
+        ]
+      ],
+      "l": [
+        [
+          713,
+          "initI18n"
+        ],
+        [
+          1744,
+          "initI18n"
+        ]
+      ]
+    }
+  }
+}

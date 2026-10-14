@@ -1,6 +1,6 @@
 // Game 02 — math
 // Lines 202-872 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var Vt = `
+var SKY_NOISE_GLSL = `
 float hash21(vec2 p) {
     p = fract(p * vec2(123.34, 456.21));
     p += dot(p, p + 45.32);
@@ -38,7 +38,7 @@ float fbm(vec2 p, int oct) {
     return sum;
 }
 `,
-  Ht = `
+  SKY_ATMOSPHERE_GLSL = `
 vec3 atmosphere(vec3 dir, vec3 sunDir) {
     dir = normalize(dir);
     float up = clamp(dir.y, -1.0, 1.0);
@@ -92,7 +92,7 @@ vec3 atmosphere(vec3 dir, vec3 sunDir) {
     return max(col, vec3(0.0));
 }
 `,
-  Ut = class {
+  SkyDome = class {
     constructor(e, t = {}) {
       let n = (e?.clone?.() || new M(0.4, 0.6, 0.3)).normalize();
       this.uniforms = {
@@ -125,8 +125,8 @@ vec3 atmosphere(vec3 dir, vec3 sunDir) {
                 uniform float uCirrus;
                 uniform float uSunGlow;
                 varying vec3 vWorldDir;
-                ${Vt}
-                ${Ht}
+                ${SKY_NOISE_GLSL}
+                ${SKY_ATMOSPHERE_GLSL}
                 void main() {
                     vec3 dir = normalize(vWorldDir);
                     gl_FragColor = vec4(atmosphere(dir, normalize(uSunDir)), 1.0);
@@ -170,7 +170,7 @@ vec3 atmosphere(vec3 dir, vec3 sunDir) {
       (this.mesh.geometry?.dispose?.(), this.mesh.material?.dispose?.());
     }
   },
-  Wt = class {
+  WindTrails = class {
     constructor(e, t, n, r, i = 300) {
       ((this.scene = e),
         (this.camera = t),
@@ -401,7 +401,7 @@ vec3 atmosphere(vec3 dir, vec3 sunDir) {
   Jt = !1,
   Yt = { value: 0 },
   Xt = [],
-  Zt = class {
+  CloudLayer = class {
     constructor(e) {
       ((this.scene = e),
         (this.boundary = 7e3),
@@ -637,7 +637,7 @@ vec3 atmosphere(vec3 dir, vec3 sunDir) {
         (Jt = !1));
     }
   },
-  Qt = class e {
+  CloudSystem = class e {
     static updateTime(e) {
       Yt.value += e;
     }
@@ -653,7 +653,7 @@ vec3 atmosphere(vec3 dir, vec3 sunDir) {
     update(e, t) {}
     dispose() {}
     static createClouds(t, n = 4e3, r = 28) {
-      return (e._system || (e._system = new Zt(t)), e._system.init(r, n), []);
+      return (e._system || (e._system = new CloudLayer(t)), e._system.init(r, n), []);
     }
     static setVisible(e) {
       z && (z.visible = !!e);

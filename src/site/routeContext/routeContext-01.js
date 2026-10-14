@@ -1,7 +1,7 @@
 // routeContext 01 — height
 // Lines 1-289 of readable/assets/routeContext-D1HYUwP9.pretty.js (statement-aligned).
-var e = `__VIBESAIL_ASSET_BASE__`;
-function t(e) {
+var ASSET_BASE_PLACEHOLDER = `__VIBESAIL_ASSET_BASE__`;
+function applyAssetBase(e) {
   return (
     /^(?:[a-z][a-z0-9+.-]*:)?\/\//i.test(e) ||
     e.startsWith(`data:`) ||
@@ -21,7 +21,7 @@ function r(e, t) {
     : t;
 }
 function i() {
-  return typeof globalThis > `u` ? `` : n(globalThis[e]);
+  return typeof globalThis > `u` ? `` : n(globalThis[ASSET_BASE_PLACEHOLDER]);
 }
 function a() {
   return n(void 0);
@@ -32,7 +32,7 @@ function o() {
 function s(e, i = {}) {
   if (typeof e != `string`) return e;
   let a = e.trim();
-  if (!a || t(a)) return a;
+  if (!a || applyAssetBase(a)) return a;
   let s = n(i.baseUrl ?? o());
   return s && (a === s || a.startsWith(`${s}/`)) ? a : r(s, a);
 }

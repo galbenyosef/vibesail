@@ -8,7 +8,7 @@ import {
   u as i,
 } from "./three.module-BgyKfsEV.js";
 import { b as a, c as o, p as s } from "./Game-CrsSKcAK.js";
-var c = class {
+var BurstEffect = class {
   constructor(e) {
     ((this.scene = e),
       (this._activeFX = []),
@@ -95,7 +95,7 @@ var u = class {
       (this.events = new s(`Pirate`)),
       (this.on = this.events.on.bind(this.events)),
       (this.off = this.events.off.bind(this.events)),
-      (this.particleFX = new c(e)),
+      (this.particleFX = new BurstEffect(e)),
       (this.overlaySystem = a()));
   }
   update(e) {

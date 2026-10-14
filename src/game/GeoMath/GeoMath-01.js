@@ -66,14 +66,14 @@ var n = new (class {
   })(),
   r = Math.PI / 180,
   i = 180 / Math.PI,
-  a = 6371e3;
+  EARTH_RADIUS_M = 6371e3;
 function o(e, t, n, i) {
   let o = (n - e) * r,
     s = (i - t) * r,
     c =
       Math.sin(o / 2) ** 2 +
       Math.cos(e * r) * Math.cos(n * r) * Math.sin(s / 2) ** 2;
-  return a * 2 * Math.atan2(Math.sqrt(c), Math.sqrt(1 - c));
+  return EARTH_RADIUS_M * 2 * Math.atan2(Math.sqrt(c), Math.sqrt(1 - c));
 }
 function s(e, t, n, r) {
   return o(e, t, n, r) / 1e3;

@@ -6,17 +6,17 @@ function I(e) {
   return /^[A-Z]{2}$/.test(t) ? t : null;
 }
 function L(t) {
-  if (typeof t == `string` && t.trim().toLowerCase() === `pirate`) return e(F);
+  if (typeof t == `string` && t.trim().toLowerCase() === `pirate`) return e(FLAG_PIRATE_PATH);
   let n = I(t);
-  return e(n ? `${we}/${(Te[n] || n).toLowerCase()}.png` : P);
+  return e(n ? `${FLAG_COUNTRY_BASE_PATH}/${(COUNTRY_CODE_ALIASES[n] || n).toLowerCase()}.png` : FLAG_UNKNOWN_PATH);
 }
 function Ee() {
-  return e(P);
+  return e(FLAG_UNKNOWN_PATH);
 }
-Object.freeze({ countryBase: we, unknown: P, pirate: F });
-var R = new Map(),
-  z = null,
-  De = /water[_-]?blocker/i,
+Object.freeze({ countryBase: FLAG_COUNTRY_BASE_PATH, unknown: FLAG_UNKNOWN_PATH, pirate: FLAG_PIRATE_PATH });
+var boatTextureSets = new Map(),
+  pendingHullReload = null,
+  WATER_BLOCKER_NAME_PATTERN = /water[_-]?blocker/i,
   Oe = 10,
   ke = 8,
   Ae = 3.2,
@@ -41,11 +41,11 @@ function B(e, t) {
 }
 function Pe() {
   return (
-    z ||
-      ((z = new ae()),
-      z.setDecoderPath(t(`/assets/draco/`)),
-      z.setDecoderConfig({ type: `js` })),
-    z
+    pendingHullReload ||
+      ((pendingHullReload = new ae()),
+      pendingHullReload.setDecoderPath(t(`/assets/draco/`)),
+      pendingHullReload.setDecoderConfig({ type: `js` })),
+    pendingHullReload
   );
 }
 function Fe() {
@@ -53,7 +53,7 @@ function Fe() {
   return (e.setDRACOLoader(Pe()), e.setMeshoptDecoder(ue), e);
 }
 function Ie(e) {
-  if (R.has(e)) return R.get(e);
+  if (boatTextureSets.has(e)) return boatTextureSets.get(e);
   let t = Fe(),
     n = new Promise((n, r) => {
       t.load(
@@ -63,11 +63,11 @@ function Ie(e) {
         },
         void 0,
         (t) => {
-          (R.delete(e), r(t));
+          (boatTextureSets.delete(e), r(t));
         },
       );
     });
-  return (R.set(e, n), n);
+  return (boatTextureSets.set(e, n), n);
 }
 function Le(e) {
   let t = e.scene.clone(!0);

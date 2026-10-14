@@ -120,7 +120,7 @@ function bi({
       },
       onBreakDone: (e = {}) => {
         (x(),
-          mi.has(e.breakStatus) &&
+          SUBMISSION_ERROR_KINDS.has(e.breakStatus) &&
             (b(), y(`failed`, { breakStatus: e.breakStatus })));
       },
       onAvailable: (e) => {

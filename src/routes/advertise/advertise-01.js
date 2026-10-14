@@ -131,8 +131,8 @@ function x(e = {}) {
     { inventory: n, summary: r }
   );
 }
-var S = `https://simpleanalytics.com/vibesail.com.json`,
-  C = 5e3;
+var SIMPLE_ANALYTICS_STATS_URL = `https://simpleanalytics.com/vibesail.com.json`,
+  STATS_FETCH_TIMEOUT_MS = 5e3;
 function w(e) {
   let t = Number(e);
   return Number.isFinite(t)
@@ -176,7 +176,7 @@ function O({ pages: e } = {}) {
     timezone: `UTC`,
     info: `false`,
   });
-  return (e && t.set(`pages`, e), `${S}?${t.toString()}`);
+  return (e && t.set(`pages`, e), `${SIMPLE_ANALYTICS_STATS_URL}?${t.toString()}`);
 }
 function k(e) {
   let t = Number(e?.pageviews || 0),
@@ -294,7 +294,7 @@ function z(e) {
 function B(e) {
   return e ? Array.from(e.children || []).some((e) => e.tagName !== `P`) : !1;
 }
-function V(e, t = C) {
+function V(e, t = STATS_FETCH_TIMEOUT_MS) {
   let n = e.getElementById(`simple-analytics-chart`);
   if (!n) return;
   let r = e.getElementById(`simple-analytics-embed-script`);

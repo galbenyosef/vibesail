@@ -24,8 +24,8 @@ var R = class {
       (this.recordService = t.recordService || new a()),
       (this.challengeVersion =
         String(
-          t.challengeVersion || this.settings.challengeVersion || T,
-        ).trim() || T),
+          t.challengeVersion || this.settings.challengeVersion || HIGH_SEA_CHALLENGE_VERSION,
+        ).trim() || HIGH_SEA_CHALLENGE_VERSION),
       (this.ghostsPerChallenge = Number.isFinite(Number(t.ghostsPerChallenge))
         ? Math.max(1, Math.floor(Number(t.ghostsPerChallenge)))
         : D),
@@ -65,7 +65,7 @@ var R = class {
       (this._failureSubmissionRequestId = 0),
       (this._failureSubmissionUi = null),
       (this._pendingFailureSubmission = null),
-      (this._statusText = x),
+      (this._statusText = HOLD_COURSE_HINT),
       (this._statusTone = `normal`),
       (this._statusHoldUntil = 0),
       (this._popupText = ``),
@@ -78,7 +78,7 @@ var R = class {
       (this._modeStartMs = null),
       (this._lastProgressionUpdateStep = -1),
       (this._modeWindDirection = L(this.settings.wind.directionDeg)),
-      (this._windTrailBase = { ...j }));
+      (this._windTrailBase = { ...HIGH_SEA_VISUAL_STYLE }));
     let n = this._computeProgressionState(0);
     ((this._currentWaveScale = n.waveScale),
       (this._currentWindSpeed = n.windSpeed),
@@ -982,7 +982,7 @@ var R = class {
   _setFailureSummaryVisibility(e) {
     if (!e) {
       ((this._failureSubmissionRequestId += 1),
-        this.overlaySystem?.closeModal(w),
+        this.overlaySystem?.closeModal(HIGH_SEA_FAILURE_MODAL_ID),
         (this._isFailureModalVisible = !1),
         (this._failureSubmissionUi = null));
       return;
@@ -1004,7 +1004,7 @@ var R = class {
         officialDisplayName: this._resolveOfficialDisplayName(),
       });
     (this.overlaySystem.showModal({
-      id: w,
+      id: HIGH_SEA_FAILURE_MODAL_ID,
       title: `Run Failed`,
       content: a.content,
       showCloseButton: !1,
@@ -1297,7 +1297,7 @@ var R = class {
         1.1,
         e,
       ),
-        this._setStatus(x, `normal`));
+        this._setStatus(HOLD_COURSE_HINT, `normal`));
       return;
     }
     if (t >= this.settings.fail.rollWarningRad) {
@@ -1308,7 +1308,7 @@ var R = class {
         1.1,
         e,
       ),
-        this._setStatus(x, `normal`));
+        this._setStatus(HOLD_COURSE_HINT, `normal`));
       return;
     }
     if (this._submersionExposure > 0.25) {
@@ -1321,10 +1321,10 @@ var R = class {
         1.1,
         n,
       ),
-        this._setStatus(x, `normal`));
+        this._setStatus(HOLD_COURSE_HINT, `normal`));
       return;
     }
-    this._setStatus(x, `normal`);
+    this._setStatus(HOLD_COURSE_HINT, `normal`);
   }
   _formatTimerSeconds(e) {
     return `${(Number.isFinite(e) ? Math.max(0, e) : 0).toFixed(1)}s`;
@@ -1435,25 +1435,25 @@ var R = class {
     this.overlaySystem &&
       (this._popupHoldUntil > e && this._popupText
         ? this.overlaySystem.showToast({
-            id: S,
+            id: HIGH_SEA_BUOY_POPUP_ID,
             message: this._popupText,
             tone: this._mapOverlayTone(this._popupTone),
             durationMs: 0,
           })
-        : this.overlaySystem.dismissToast(S),
+        : this.overlaySystem.dismissToast(HIGH_SEA_BUOY_POPUP_ID),
       this._centerWarningHoldUntil > e && this._centerWarningText
         ? this.overlaySystem.showBanner({
-            id: C,
+            id: HIGH_SEA_WARNING_BANNER_ID,
             message: this._centerWarningText,
             messageSecondary: this._centerWarningTimeText,
             messageSecondaryTone: this._mapOverlayTone(this._centerWarningTone),
             className: `high-sea-warning-banner`,
             tone: this._mapOverlayTone(this._centerWarningTone),
           })
-        : this.overlaySystem.hideBanner(C));
+        : this.overlaySystem.hideBanner(HIGH_SEA_WARNING_BANNER_ID));
   }
   _clearOverlayMessages() {
-    (this.overlaySystem?.dismissToast(S), this.overlaySystem?.hideBanner(C));
+    (this.overlaySystem?.dismissToast(HIGH_SEA_BUOY_POPUP_ID), this.overlaySystem?.hideBanner(HIGH_SEA_WARNING_BANNER_ID));
   }
   _removeHud() {
     (this.panelElement?.isConnected && this.panelElement.remove(),
@@ -1532,8 +1532,8 @@ var R = class {
     ) {
       let t = this.boat.dynamics;
       e.boatDynamics = {};
-      for (let n of M) Number.isFinite(t[n]) && (e.boatDynamics[n] = t[n]);
-      for (let n of N) typeof t[n] == `boolean` && (e.boatDynamics[n] = t[n]);
+      for (let n of HIGH_SEA_TUNING_PARAM_KEYS) Number.isFinite(t[n]) && (e.boatDynamics[n] = t[n]);
+      for (let n of HIGH_SEA_TUNING_FLAG_KEYS) typeof t[n] == `boolean` && (e.boatDynamics[n] = t[n]);
       typeof this.boat?.sailsFurledTarget == `boolean`
         ? (e.sailsFurled = this.boat.sailsFurledTarget)
         : typeof t.isMainSailFurled == `boolean` &&
@@ -1573,7 +1573,7 @@ var R = class {
     }
   }
   _deriveWindTrailBase(e = null) {
-    let t = j;
+    let t = HIGH_SEA_VISUAL_STYLE;
     if (!e) return { ...t };
     let n = Number(e.thickness),
       r = Number(e.glow),

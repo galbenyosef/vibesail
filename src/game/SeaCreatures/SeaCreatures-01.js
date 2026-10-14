@@ -8,7 +8,7 @@ import {
   lt as i,
   y as a,
 } from "./three.module-BgyKfsEV.js";
-var o = {
+var SEA_CREATURE_CONFIG = {
     fish: {
       schoolCount: 2,
       fishPerSchool: 2,
@@ -84,7 +84,7 @@ var f = class f {
     return Number.isFinite(n) ? n : 0;
   }
   createFishMesh() {
-    let t = o.fish,
+    let t = SEA_CREATURE_CONFIG.fish,
       n = new e(),
       r = new i(this.shared.fishBodyGeometry, this.shared.fishBodyMaterial);
     (r.scale.set(2.4, 0.84, 1.12), (r.rotation.y = Math.PI / 2), n.add(r));
@@ -117,7 +117,7 @@ var f = class f {
     );
   }
   createFishSchools() {
-    let e = o.fish,
+    let e = SEA_CREATURE_CONFIG.fish,
       t = this.resolveAnchor();
     for (let n = 0; n < e.schoolCount; n++) {
       let n = d(0, Math.PI * 2),
@@ -175,7 +175,7 @@ var f = class f {
       e.jumpDirection.copy(s.normalize()));
   }
   updateFish(e, t) {
-    let n = o.fish,
+    let n = SEA_CREATURE_CONFIG.fish,
       r = Math.max(n.submergedDepth, n.visibilityArcThreshold);
     this.schools.forEach((i) => {
       let a = this.time * i.angularSpeed + i.baseAngle;

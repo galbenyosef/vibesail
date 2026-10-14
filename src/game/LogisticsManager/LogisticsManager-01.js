@@ -9,7 +9,7 @@ import { t as s } from "./KeyboardManager-DVLZ3teY.js";
 import { i as c } from "./RaceConfig-BiFwKzq8.js";
 import { t as l } from "./LocalCache-DHomYmcY.js";
 var u = e(o(), 1),
-  d = Object.freeze([
+  CARGO_TYPES = Object.freeze([
     Object.freeze({
       id: `standard`,
       label: `Standard Cargo`,
@@ -37,7 +37,7 @@ function f(e) {
     ? structuredClone(e)
     : JSON.parse(JSON.stringify(e));
 }
-var p = class {
+var MissionGenerator = class {
     constructor(e, t = {}) {
       ((this.world = e),
         (this.seed = String(t.seed ?? `default`)),
@@ -119,7 +119,7 @@ var p = class {
             g = i[a],
             _ = o / 1e3,
             v = Math.round(80 + _ * 120),
-            y = m[r].contract || d[0],
+            y = m[r].contract || CARGO_TYPES[0],
             b = Math.max(10, Math.round(v * y.rewardMultiplier)),
             x = this._generateCargoName(c),
             S = this._formatDestinationName(p, t);
@@ -166,9 +166,9 @@ var p = class {
         r = this._routeType(n, `ring`),
         i = this._routeType(n, `outer`);
       return [
-        { contract: d[0], routeType: r },
-        { contract: d[0], routeType: i },
-        { contract: d[1], routeType: r },
+        { contract: CARGO_TYPES[0], routeType: r },
+        { contract: CARGO_TYPES[0], routeType: i },
+        { contract: CARGO_TYPES[1], routeType: r },
       ];
     }
     _selectCandidatesForSlots(e, t) {
@@ -258,7 +258,7 @@ var p = class {
       return i ? `${i} ${r}` : r;
     }
   },
-  m = 365 * 24 * 60 * 60 * 1e3,
+  YEAR_MS = 365 * 24 * 60 * 60 * 1e3,
   h = 5e3,
   g = 18,
   _ = 1;

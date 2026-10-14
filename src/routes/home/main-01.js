@@ -70,29 +70,29 @@ import {
   t as C,
 } from "./emailSoftAsk-CIzvlYXI.js";
 import { i as w, u as T } from "./profileClient-Ce6d7RD4.js";
-var E = 450;
-function D(e) {
+var ANALYTICS_FLUSH_TIMEOUT_MS = 450;
+function compactProperties(e) {
   return Object.fromEntries(
     Object.entries(e).filter(([, e]) => e != null && e !== ``),
   );
 }
-function O(e) {
+function referrerHostname(e) {
   try {
     return e.referrer ? new URL(e.referrer).hostname : void 0;
   } catch {
     return;
   }
 }
-function k(e) {
+function documentLanguage(e) {
   let t = e.documentElement?.lang;
   return typeof t == `string` && t.trim() ? t.trim().toLowerCase() : `en`;
 }
-function A(e) {
+function worldCitySlug(e) {
   return (
     (e.location?.pathname || ``).match(/\/world\/([^/]+)\/?/i)?.[1] || void 0
   );
 }
-function j(e, t) {
+function resolveHref(e, t) {
   let n = e.getAttribute(`href`) || `/game`;
   try {
     let e = new URL(n, t.location.href);
@@ -101,7 +101,7 @@ function j(e, t) {
     return n;
   }
 }
-function M(e, t) {
+function isPlainLeftClick(e, t) {
   if (
     !e ||
     e.defaultPrevented ||
@@ -117,38 +117,38 @@ function M(e, t) {
     .toLowerCase();
   return !n || n === `_self`;
 }
-function N({
+function initHomepagePlayTracking({
   documentRef: e = document,
   windowRef: t = window,
   capture: n = o,
   captureAndFlush: r = s,
 } = {}) {
-  let i = A(t),
-    a = D({
-      locale: k(e),
+  let i = worldCitySlug(t),
+    a = compactProperties({
+      locale: documentLanguage(e),
       path: t.location?.pathname || `/`,
       place: i,
       is_city_page: !!i,
-      referrer_host: O(e),
+      referrer_host: referrerHostname(e),
     });
   n(`homepage_viewed`, a);
   let c = e.getElementById(`landing-play-button`);
   if (!c) return () => {};
   let l = (e) => {
-    let i = j(c, t),
-      o = D({
+    let i = resolveHref(c, t),
+      o = compactProperties({
         ...a,
         href: i,
         cta_label: String(c.textContent || ``)
           .trim()
           .slice(0, 80),
       });
-    if (!M(e, c)) {
+    if (!isPlainLeftClick(e, c)) {
       n(`homepage_play_clicked`, o);
       return;
     }
     (e.preventDefault(),
-      r(`homepage_play_clicked`, o, { windowRef: t, timeoutMs: E }).finally(
+      r(`homepage_play_clicked`, o, { windowRef: t, timeoutMs: ANALYTICS_FLUSH_TIMEOUT_MS }).finally(
         () => {
           t?.location && (t.location.href = i);
         },
@@ -159,7 +159,7 @@ function N({
     () => c.removeEventListener(`click`, l)
   );
 }
-function P(e) {
+function formatShortDate(e) {
   let t = new Date(`${e}T00:00:00Z`);
   return new Intl.DateTimeFormat(`en-US`, {
     year: `numeric`,
@@ -168,7 +168,7 @@ function P(e) {
     timeZone: `UTC`,
   }).format(t);
 }
-async function F() {
+async function renderWhatsNewAside() {
   let e = document.getElementById(`landing-page`);
   if (e)
     try {
@@ -210,7 +210,7 @@ async function F() {
             t && u(t);
           }));
         let r = document.createElement(`span`);
-        ((r.textContent = P(e.publishedAt)),
+        ((r.textContent = formatShortDate(e.publishedAt)),
           t.appendChild(n),
           t.appendChild(r),
           g.appendChild(t));
@@ -230,22 +230,22 @@ async function F() {
         e.appendChild(a));
     } catch {}
 }
-var I = 1200,
-  L = 680,
-  R = { x: -470, z: -235 },
-  z = 0.2;
-function B(e) {
+var IDLE_CALLBACK_TIMEOUT_MS = 1200,
+  BACKGROUND_CAMERA_RADIUS = 680,
+  BACKGROUND_CAMERA_ANCHOR = { x: -470, z: -235 },
+  BACKGROUND_CAMERA_ANGLE = 0.2;
+function resolveBackgroundCamera(e) {
   let r = t(e);
   return r.scene !== i.GEO || !r.place
     ? null
     : n[r.place]?.backgroundCamera || null;
 }
-function V() {
-  let e = Math.atan2(R.z, R.x) + z;
-  return { startX: Math.cos(e) * L, startZ: Math.sin(e) * L };
+function defaultBackgroundCamera() {
+  let e = Math.atan2(BACKGROUND_CAMERA_ANCHOR.z, BACKGROUND_CAMERA_ANCHOR.x) + BACKGROUND_CAMERA_ANGLE;
+  return { startX: Math.cos(e) * BACKGROUND_CAMERA_RADIUS, startZ: Math.sin(e) * BACKGROUND_CAMERA_RADIUS };
 }
-function H({ container: e, location: t }) {
-  let n = B(t) || V();
+function buildBackgroundGameOptions({ container: e, location: t }) {
+  let n = resolveBackgroundCamera(t) || defaultBackgroundCamera();
   return {
     mode: `background`,
     enableUI: !1,
@@ -264,13 +264,13 @@ function H({ container: e, location: t }) {
     backgroundCameraTarget: n.target,
   };
 }
-function U(e, t) {
+function whenIdle(e, t) {
   if (typeof t.requestIdleCallback == `function`) {
     t.requestIdleCallback(
       () => {
         e();
       },
-      { timeout: I },
+      { timeout: IDLE_CALLBACK_TIMEOUT_MS },
     );
     return;
   }
@@ -278,7 +278,7 @@ function U(e, t) {
     e();
   }, 0);
 }
-function W({ windowRef: t = window, documentRef: n = document } = {}) {
+function mountBackgroundGame({ windowRef: t = window, documentRef: n = document } = {}) {
   let r = n.getElementById(`game-root`) || n.body;
   (t.addEventListener(
     `worldFullyLoaded`,
@@ -287,7 +287,7 @@ function W({ windowRef: t = window, documentRef: n = document } = {}) {
     },
     { once: !0 },
   ),
-    U(async () => {
+    whenIdle(async () => {
       let { default: n } = await e(
         async () => {
           let { default: e } = await import(`./Game-CrsSKcAK.js`).then(
@@ -300,6 +300,6 @@ function W({ windowRef: t = window, documentRef: n = document } = {}) {
           20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         ]),
       );
-      t.sail = new n(H({ container: r, location: t.location }));
+      t.sail = new n(buildBackgroundGameOptions({ container: r, location: t.location }));
     }, t));
 }

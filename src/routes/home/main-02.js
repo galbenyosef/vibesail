@@ -1,6 +1,6 @@
 // main 02 — getelementbyid
 // Lines 304-431 of readable/assets/main-DT7pZ34g.pretty.js (statement-aligned).
-function G(e = {}) {
+function initEmailSoftAskPrompt(e = {}) {
   let t = e.documentRef || document,
     n = t.getElementById(`email-updates-soft-ask`);
   if (!n || !t.getElementById(`landing-page`)) return () => {};
@@ -111,20 +111,20 @@ function G(e = {}) {
     }
   );
 }
-var K = () => {
+var currentPlayHref = () => {
     let e = t(window.location);
     return e.scene === i.GEO && e.place ? r(e.place) : a.GAME;
   },
-  q = () => {
+  syncPlayButtonHref = () => {
     let e = document.getElementById(`landing-play-button`);
-    e && e.setAttribute(`href`, K());
+    e && e.setAttribute(`href`, currentPlayHref());
   };
 document.addEventListener(`DOMContentLoaded`, async () => {
-  (q(), N(), F(), h(), G());
+  (syncPlayButtonHref(), initHomepagePlayTracking(), renderWhatsNewAside(), h(), initEmailSoftAskPrompt());
   try {
     window.i18nReady &&
       typeof window.i18nReady.then == `function` &&
       (await window.i18nReady);
   } catch {}
-  W();
+  mountBackgroundGame();
 });

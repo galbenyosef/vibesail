@@ -1,7 +1,7 @@
 // installability 01 — navigator
 // Lines 1-39 of readable/assets/installability-D42GZDjn.pretty.js (statement-aligned).
-var e = Symbol.for(`vibesail.pwaInstallabilitySetup`),
-  t = `/pwa-worker.js`;
+var INSTALL_PROMPT_GUARD_SYMBOL = Symbol.for(`vibesail.pwaInstallabilitySetup`),
+  SERVICE_WORKER_PATH = `/pwa-worker.js`;
 function n(e) {
   return (
     e.matchMedia?.(`(display-mode: standalone)`)?.matches ||
@@ -26,16 +26,16 @@ function i(e) {
 function a(e) {
   if (i(e))
     try {
-      e.navigator.serviceWorker.register(t, { scope: `/` })?.catch?.(() => {});
+      e.navigator.serviceWorker.register(SERVICE_WORKER_PATH, { scope: `/` })?.catch?.(() => {});
     } catch {}
 }
 function o(t = {}) {
   let i = t.windowRef || window;
-  return i[e] || !i.document || !r(i) || n(i)
+  return i[INSTALL_PROMPT_GUARD_SYMBOL] || !i.document || !r(i) || n(i)
     ? () => {}
-    : ((i[e] = !0),
+    : ((i[INSTALL_PROMPT_GUARD_SYMBOL] = !0),
       a(i),
       () => {
-        delete i[e];
+        delete i[INSTALL_PROMPT_GUARD_SYMBOL];
       });
 }

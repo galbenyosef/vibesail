@@ -1,6 +1,6 @@
 // IslandGenerator 04 — math
 // Lines 743-2454 of readable/assets/IslandGenerator-DZNI3CSt.pretty.js (statement-aligned).
-var ge = class {
+var IslandTerrain = class {
     constructor(e, t, n, r, i, a = {}) {
       ((this.position = e),
         (this.geometry = t),
@@ -426,7 +426,7 @@ var ge = class {
       return this.mesh;
     }
   },
-  J = {
+  DOCK_CONFIG = {
     LENGTH: 20,
     WIDTH: 10,
     THICKNESS: 1,
@@ -442,7 +442,7 @@ var ge = class {
     DOCKING_CIRCLE_HEIGHT: 0.3,
     DOCKING_CIRCLE_FORWARD_OFFSET: w.docking.circleForwardOffset ?? 2,
   },
-  _e = class e {
+  Dock = class e {
     constructor() {
       ((this.mesh = null),
         (this.dockingCircle = null),
@@ -452,31 +452,31 @@ var ge = class {
     create() {
       let e = new i(),
         t = new v(
-          new p(J.WIDTH, J.THICKNESS, J.LENGTH),
-          new h({ color: J.WOOD_COLOR }),
+          new p(DOCK_CONFIG.WIDTH, DOCK_CONFIG.THICKNESS, DOCK_CONFIG.LENGTH),
+          new h({ color: DOCK_CONFIG.WOOD_COLOR }),
         );
-      ((t.position.y = J.HEIGHT_ABOVE_SEA),
+      ((t.position.y = DOCK_CONFIG.HEIGHT_ABOVE_SEA),
         e.add(t),
         [
-          { x: -J.WIDTH / 2 + 1, z: J.LENGTH / 2 - 1 },
-          { x: J.WIDTH / 2 - 1, z: J.LENGTH / 2 - 1 },
+          { x: -DOCK_CONFIG.WIDTH / 2 + 1, z: DOCK_CONFIG.LENGTH / 2 - 1 },
+          { x: DOCK_CONFIG.WIDTH / 2 - 1, z: DOCK_CONFIG.LENGTH / 2 - 1 },
         ].forEach((t) => {
           let n = new v(
-            new S(J.POLE_RADIUS, J.POLE_RADIUS, J.POLE_HEIGHT, J.POLE_SEGMENTS),
-            new h({ color: J.WOOD_COLOR }),
+            new S(DOCK_CONFIG.POLE_RADIUS, DOCK_CONFIG.POLE_RADIUS, DOCK_CONFIG.POLE_HEIGHT, DOCK_CONFIG.POLE_SEGMENTS),
+            new h({ color: DOCK_CONFIG.WOOD_COLOR }),
           );
-          (n.position.set(t.x, J.HEIGHT_ABOVE_SEA - J.POLE_HEIGHT / 2, t.z),
+          (n.position.set(t.x, DOCK_CONFIG.HEIGHT_ABOVE_SEA - DOCK_CONFIG.POLE_HEIGHT / 2, t.z),
             e.add(n));
         }));
       let n = this._createDockingDebugCircle(
-        J.DOCKING_RADIUS,
-        J.DOCKING_CIRCLE_SEGMENTS,
+        DOCK_CONFIG.DOCKING_RADIUS,
+        DOCK_CONFIG.DOCKING_CIRCLE_SEGMENTS,
       );
       (n
         ? (n.position.set(
             0,
-            J.DOCKING_CIRCLE_HEIGHT,
-            J.LENGTH / 2 + J.DOCKING_CIRCLE_FORWARD_OFFSET,
+            DOCK_CONFIG.DOCKING_CIRCLE_HEIGHT,
+            DOCK_CONFIG.LENGTH / 2 + DOCK_CONFIG.DOCKING_CIRCLE_FORWARD_OFFSET,
           ),
           (n.userData.kind = `dock_docking_circle`),
           (n.visible = !1),
@@ -484,14 +484,14 @@ var ge = class {
           (this.dockingCircle = n))
         : (this.dockingCircle = null),
         (e.userData.kind = `dock`),
-        (e.userData.dockingRadius = J.DOCKING_RADIUS),
+        (e.userData.dockingRadius = DOCK_CONFIG.DOCKING_RADIUS),
         (this.mesh = e));
     }
     getMesh() {
       return this.mesh;
     }
     static getConfig() {
-      return J;
+      return DOCK_CONFIG;
     }
     getDockingZoneWorldCenter() {
       if (!this.dockingCircle) return this.mesh.getWorldPosition(new g());
@@ -499,7 +499,7 @@ var ge = class {
       return (this.dockingCircle.getWorldPosition(e), e);
     }
     getDockingRadius() {
-      return J.DOCKING_RADIUS;
+      return DOCK_CONFIG.DOCKING_RADIUS;
     }
     getOutwardDirection() {
       return this.outwardDirection.clone();
@@ -599,7 +599,7 @@ var ge = class {
         let i = (r / t) * Math.PI * 2,
           a = Math.cos(i) * e,
           o = Math.sin(i) * e;
-        n.push(new g(a, J.DOCKING_CIRCLE_HEIGHT, o));
+        n.push(new g(a, DOCK_CONFIG.DOCKING_CIRCLE_HEIGHT, o));
       }
       let r = new b();
       try {
@@ -612,15 +612,15 @@ var ge = class {
       let i = new d(
         r,
         new a({
-          color: J.DOCKING_CIRCLE_COLOR,
+          color: DOCK_CONFIG.DOCKING_CIRCLE_COLOR,
           transparent: !0,
-          opacity: J.DOCKING_CIRCLE_OPACITY,
+          opacity: DOCK_CONFIG.DOCKING_CIRCLE_OPACITY,
           depthWrite: !1,
         }),
       );
       return (
         (i.renderOrder = T.SURFACE_OVERLAY),
-        (i.userData.baseOpacity = J.DOCKING_CIRCLE_OPACITY),
+        (i.userData.baseOpacity = DOCK_CONFIG.DOCKING_CIRCLE_OPACITY),
         i
       );
     }
@@ -642,7 +642,7 @@ var ge = class {
       return null;
     }
   },
-  Y = {
+  TREE_CONFIG = {
     TRUNK_SEGMENTS: 6,
     FOLIAGE_SEGMENTS: 6,
     TRUNK_HEIGHT: 10,
@@ -650,7 +650,7 @@ var ge = class {
     TRUNK_COLOR: 9127187,
     FOLIAGE_COLOR: 2263842,
   },
-  X = {
+  HUT_CONFIG = {
     HUT_BODY_WIDTH: 8,
     HUT_BODY_HEIGHT: 6,
     HUT_BODY_DEPTH: 8,
@@ -698,7 +698,7 @@ var ge = class {
     HEADLIGHT_COLOR: 16708551,
     TAILLIGHT_COLOR: 14235190,
   },
-  Q = [
+  HUT_PALETTES = [
     { body: 14271132, roof: 11687230 },
     { body: 13482646, roof: 10374202 },
     { body: 14468514, roof: 9395009 },
@@ -706,7 +706,7 @@ var ge = class {
     { body: 14071718, roof: 5140364 },
     { body: 12568783, roof: 9063995 },
   ],
-  $ = {
+  HUT_PLACEMENT_CONFIG = {
     MIN_HUTS: 2,
     MAX_HUTS: 12,
     MIN_SPACING: 13,
@@ -717,7 +717,7 @@ var ge = class {
     HEIGHT_THRESHOLD_OFFSET: 5,
   },
   ve = class {
-    constructor(e, t = new O(8888)) {
+    constructor(e, t = new PerlinNoise(8888)) {
       ((this.scene = e),
         (this.noise = t),
         (this.islands = []),
@@ -739,11 +739,11 @@ var ge = class {
           dockPathStone: [],
         }),
         (this.geometries = {
-          trunk: new S(1, 1, Y.TRUNK_HEIGHT, Y.TRUNK_SEGMENTS),
+          trunk: new S(1, 1, TREE_CONFIG.TRUNK_HEIGHT, TREE_CONFIG.TRUNK_SEGMENTS),
           foliage: new u(
-            Y.FOLIAGE_RADIUS,
-            Y.FOLIAGE_SEGMENTS,
-            Y.FOLIAGE_SEGMENTS,
+            TREE_CONFIG.FOLIAGE_RADIUS,
+            TREE_CONFIG.FOLIAGE_SEGMENTS,
+            TREE_CONFIG.FOLIAGE_SEGMENTS,
           ),
           pineTrunk: new S(0.8, 1, 12, 6),
           pineCone: new C(5, 6, 8),
@@ -751,30 +751,30 @@ var ge = class {
           varietyFoliage: new u(1, 6, 6),
           rock: new c(1, 0),
           dockHutBody: new p(
-            X.HUT_BODY_WIDTH,
-            X.HUT_BODY_HEIGHT,
-            X.HUT_BODY_DEPTH,
+            HUT_CONFIG.HUT_BODY_WIDTH,
+            HUT_CONFIG.HUT_BODY_HEIGHT,
+            HUT_CONFIG.HUT_BODY_DEPTH,
           ),
-          dockHutRoof: new C(X.HUT_ROOF_RADIUS, X.HUT_ROOF_HEIGHT, 4),
+          dockHutRoof: new C(HUT_CONFIG.HUT_ROOF_RADIUS, HUT_CONFIG.HUT_ROOF_HEIGHT, 4),
           dockHutDoor: new p(
-            X.HUT_DOOR_WIDTH,
-            X.HUT_DOOR_HEIGHT,
-            X.HUT_DETAIL_DEPTH,
+            HUT_CONFIG.HUT_DOOR_WIDTH,
+            HUT_CONFIG.HUT_DOOR_HEIGHT,
+            HUT_CONFIG.HUT_DETAIL_DEPTH,
           ),
           dockHutWindow: new p(
-            X.HUT_WINDOW_SIZE,
-            X.HUT_WINDOW_SIZE,
-            X.HUT_DETAIL_DEPTH,
+            HUT_CONFIG.HUT_WINDOW_SIZE,
+            HUT_CONFIG.HUT_WINDOW_SIZE,
+            HUT_CONFIG.HUT_DETAIL_DEPTH,
           ),
           dockPathStone: new p(
-            X.PATH_STEP_WIDTH,
-            X.PATH_STEP_HEIGHT,
-            X.PATH_STEP_DEPTH,
+            HUT_CONFIG.PATH_STEP_WIDTH,
+            HUT_CONFIG.PATH_STEP_HEIGHT,
+            HUT_CONFIG.PATH_STEP_DEPTH,
           ),
         }),
         (this.materials = {
-          trunk: new h({ color: Y.TRUNK_COLOR }),
-          foliage: new h({ color: Y.FOLIAGE_COLOR }),
+          trunk: new h({ color: TREE_CONFIG.TRUNK_COLOR }),
+          foliage: new h({ color: TREE_CONFIG.FOLIAGE_COLOR }),
           pineTrunk: new h({ color: 6111287 }),
           pineFoliage: new h({ color: 1793568 }),
           varietyTrunk: new h({ color: 7162945 }),
@@ -847,11 +847,11 @@ var ge = class {
         if ((i.setPosition(n), t < 0.4)) {
           let e = i
             .clone()
-            .multiply(new m().makeTranslation(0, Y.TRUNK_HEIGHT / 2, 0));
+            .multiply(new m().makeTranslation(0, TREE_CONFIG.TRUNK_HEIGHT / 2, 0));
           this.instanceMatrices.trunk.push(e);
           let t = i
             .clone()
-            .multiply(new m().makeTranslation(0, Y.TRUNK_HEIGHT, 0));
+            .multiply(new m().makeTranslation(0, TREE_CONFIG.TRUNK_HEIGHT, 0));
           this.instanceMatrices.foliage.push(t);
         } else if (t < 0.7) {
           let e = i.clone().multiply(new m().makeTranslation(0, 12 / 2, 0));
@@ -1027,8 +1027,8 @@ var ge = class {
       return n;
     }
     _buildHutFootprintSamples(e, t, n, r, i) {
-      let a = X.HUT_BODY_WIDTH * i * 0.48,
-        o = X.HUT_BODY_DEPTH * i * 0.48,
+      let a = HUT_CONFIG.HUT_BODY_WIDTH * i * 0.48,
+        o = HUT_CONFIG.HUT_BODY_DEPTH * i * 0.48,
         s = [
           { lx: -a, lz: -o },
           { lx: a, lz: -o },
@@ -1048,7 +1048,7 @@ var ge = class {
     _isClearFromIslandObjects(e, t, n) {
       let r = e?.objects;
       if (!Array.isArray(r) || r.length === 0) return !0;
-      let i = n + X.HUT_OBJECT_CLEARANCE,
+      let i = n + HUT_CONFIG.HUT_OBJECT_CLEARANCE,
         a = i * i;
       for (let e = 0; e < r.length; e++) {
         let n = r[e],
@@ -1061,7 +1061,7 @@ var ge = class {
       return !0;
     }
     _findDocksideHutPlacement(e, t, n, r) {
-      if (r() > X.HUT_CHANCE || !e?.mesh) return null;
+      if (r() > HUT_CONFIG.HUT_CHANCE || !e?.mesh) return null;
       let i = t.getWorldPosition(new g()),
         a = n.clone().setY(0).normalize();
       if (!Number.isFinite(a.x) || !Number.isFinite(a.z) || a.lengthSq() < 1e-4)
@@ -1069,7 +1069,7 @@ var ge = class {
       let o = a.clone().multiplyScalar(-1),
         s = new g(o.z, 0, -o.x).normalize(),
         c = i.y;
-      for (let t = 0; t < X.HUT_PLACEMENT_ATTEMPTS; t++) {
+      for (let t = 0; t < HUT_CONFIG.HUT_PLACEMENT_ATTEMPTS; t++) {
         let t = 0.82 + r() * 0.46,
           n = 12 + r() * 18,
           l = (r() - 0.5) * 18,
@@ -1083,14 +1083,14 @@ var ge = class {
           _ = Math.max(...p) - h;
         if (
           !Number.isFinite(m) ||
-          m < X.HUT_MIN_SURFACE_Y ||
-          Math.abs(m - c) > X.HUT_MAX_HEIGHT_FROM_DOCK ||
-          _ > X.HUT_MAX_SLOPE_DELTA
+          m < HUT_CONFIG.HUT_MIN_SURFACE_Y ||
+          Math.abs(m - c) > HUT_CONFIG.HUT_MAX_HEIGHT_FROM_DOCK ||
+          _ > HUT_CONFIG.HUT_MAX_SLOPE_DELTA
         )
           continue;
         let v = Math.hypot(
-            X.HUT_BODY_WIDTH * t * 0.5,
-            X.HUT_BODY_DEPTH * t * 0.5,
+            HUT_CONFIG.HUT_BODY_WIDTH * t * 0.5,
+            HUT_CONFIG.HUT_BODY_DEPTH * t * 0.5,
           ),
           y = new g(u, m + 0.02, d);
         if (this._isClearFromIslandObjects(e, y, v))
@@ -1103,20 +1103,20 @@ var ge = class {
       return null;
     }
     _addHutDetails(e) {
-      let t = X.HUT_BODY_HEIGHT * 0.5,
-        n = X.HUT_BODY_DEPTH * 0.5,
-        r = X.HUT_BODY_WIDTH * 0.5,
-        i = X.HUT_WINDOW_SIZE * 0.5,
-        a = X.HUT_DOOR_HEIGHT * 0.5 + 0.08,
-        o = n + X.HUT_DETAIL_DEPTH * 0.5 + 0.02;
+      let t = HUT_CONFIG.HUT_BODY_HEIGHT * 0.5,
+        n = HUT_CONFIG.HUT_BODY_DEPTH * 0.5,
+        r = HUT_CONFIG.HUT_BODY_WIDTH * 0.5,
+        i = HUT_CONFIG.HUT_WINDOW_SIZE * 0.5,
+        a = HUT_CONFIG.HUT_DOOR_HEIGHT * 0.5 + 0.08,
+        o = n + HUT_CONFIG.HUT_DETAIL_DEPTH * 0.5 + 0.02;
       this.instanceMatrices.dockHutDoor.push(
         this._composePlacementMatrix(e, new g(0, a, o)),
       );
       let s = Math.min(
           t - i - 0.08,
-          X.HUT_WINDOW_HEIGHT_OFFSET + X.HUT_DOOR_HEIGHT * 0.72,
+          HUT_CONFIG.HUT_WINDOW_HEIGHT_OFFSET + HUT_CONFIG.HUT_DOOR_HEIGHT * 0.72,
         ),
-        c = r + X.HUT_DETAIL_DEPTH * 0.5 + 0.02;
+        c = r + HUT_CONFIG.HUT_DETAIL_DEPTH * 0.5 + 0.02;
       this.instanceMatrices.dockHutWindow.push(
         this._composePlacementMatrix(e, new g(c, s, 0), Math.PI * 0.5),
       );
@@ -1132,14 +1132,14 @@ var ge = class {
       if (!Number.isFinite(u) || u < 2) return;
       l.normalize();
       let d = new g(l.z, 0, -l.x).normalize(),
-        f = Math.ceil(u / (X.PATH_STEP_DEPTH * X.PATH_STONE_OVERLAP_FACTOR)),
+        f = Math.ceil(u / (HUT_CONFIG.PATH_STEP_DEPTH * HUT_CONFIG.PATH_STONE_OVERLAP_FACTOR)),
         p = Math.max(
-          X.PATH_STONE_COUNT_MIN,
-          Math.min(X.PATH_STONE_COUNT_MAX, f),
+          HUT_CONFIG.PATH_STONE_COUNT_MIN,
+          Math.min(HUT_CONFIG.PATH_STONE_COUNT_MAX, f),
         );
       for (let t = 0; t < p; t++) {
         let n = (t + 0.5) / p,
-          r = (i() - 0.5) * (X.PATH_LATERAL_JITTER * 2),
+          r = (i() - 0.5) * (HUT_CONFIG.PATH_LATERAL_JITTER * 2),
           a = s.clone().lerp(c, n).add(d.clone().multiplyScalar(r)),
           o = this._sampleIslandSurfaceY(e, a.x, a.z),
           u = y.lerp(s.y, c.y, n),
@@ -1147,7 +1147,7 @@ var ge = class {
         if (!Number.isFinite(f) || f < -2) continue;
         let m = 0.86 + i() * 0.24,
           h = Math.atan2(l.x, l.z) + (i() - 0.5) * 0.18,
-          _ = new g(a.x, f + X.PATH_STONE_HEIGHT_OFFSET, a.z);
+          _ = new g(a.x, f + HUT_CONFIG.PATH_STONE_HEIGHT_OFFSET, a.z);
         this.instanceMatrices.dockPathStone.push(
           this._composeWorldMatrix(_, h, m),
         );
@@ -1181,13 +1181,13 @@ var ge = class {
         a = this._findDocksideHutPlacement(e, r, i, n);
       if (!a) return;
       let o = a.position.clone();
-      o.y += X.HUT_BODY_HEIGHT * a.scale * 0.5;
+      o.y += HUT_CONFIG.HUT_BODY_HEIGHT * a.scale * 0.5;
       let s = a.position.clone();
       s.y +=
-        X.HUT_BODY_HEIGHT * a.scale +
-        X.HUT_ROOF_HEIGHT * a.scale * 0.5 +
-        X.HUT_ROOF_LIFT * a.scale;
-      let c = Q[Math.floor(n() * Q.length)] || Q[0];
+        HUT_CONFIG.HUT_BODY_HEIGHT * a.scale +
+        HUT_CONFIG.HUT_ROOF_HEIGHT * a.scale * 0.5 +
+        HUT_CONFIG.HUT_ROOF_LIFT * a.scale;
+      let c = HUT_PALETTES[Math.floor(n() * HUT_PALETTES.length)] || HUT_PALETTES[0];
       (this.instanceMatrices.dockHutBody.push(
         this._composeWorldMatrix(o, a.rotationY, a.scale),
       ),
@@ -1424,10 +1424,10 @@ var ge = class {
       }
       if (!Number.isFinite(o) || !Number.isFinite(s) || s < 0.5) return r;
       let c = Math.max(0.7, o + (s - o) * 0.22),
-        l = Math.max(0.7, o + (s - o) * L.PLACEMENT_HEIGHT_PERCENTILE),
-        u = L.FOUNDATION_RADIUS * t * 1.18,
-        d = L.PLACEMENT_MAX_SLOPE_DELTA * Math.max(0.85, t),
-        f = Math.max(1, Math.ceil(a.length / L.PLACEMENT_SAMPLE_LIMIT)),
+        l = Math.max(0.7, o + (s - o) * CASTLE_CONFIG.PLACEMENT_HEIGHT_PERCENTILE),
+        u = CASTLE_CONFIG.FOUNDATION_RADIUS * t * 1.18,
+        d = CASTLE_CONFIG.PLACEMENT_MAX_SLOPE_DELTA * Math.max(0.85, t),
+        f = Math.max(1, Math.ceil(a.length / CASTLE_CONFIG.PLACEMENT_SAMPLE_LIMIT)),
         p = null,
         m = null;
       for (let t = 0; t < a.length; t += f) {
@@ -1482,13 +1482,13 @@ var ge = class {
           scale: r,
         },
         a = i.position.clone();
-      a.y += X.HUT_BODY_HEIGHT * i.scale * 0.5;
+      a.y += HUT_CONFIG.HUT_BODY_HEIGHT * i.scale * 0.5;
       let o = i.position.clone();
       o.y +=
-        X.HUT_BODY_HEIGHT * i.scale +
-        X.HUT_ROOF_HEIGHT * i.scale * 0.5 +
-        X.HUT_ROOF_LIFT * i.scale;
-      let s = n.palette || Q[Math.floor(t() * Q.length)] || Q[0];
+        HUT_CONFIG.HUT_BODY_HEIGHT * i.scale +
+        HUT_CONFIG.HUT_ROOF_HEIGHT * i.scale * 0.5 +
+        HUT_CONFIG.HUT_ROOF_LIFT * i.scale;
+      let s = n.palette || HUT_PALETTES[Math.floor(t() * HUT_PALETTES.length)] || HUT_PALETTES[0];
       (this.instanceMatrices.dockHutBody.push(
         this._composeWorldMatrix(a, i.rotationY, i.scale),
       ),
@@ -1521,7 +1521,7 @@ var ge = class {
             d = this._sampleIslandSurfaceY(e, l, u);
           if (!Number.isFinite(d) || d < n) continue;
           let f = new g(l, d + 0.02, u);
-          if (this._isClearFromIslandObjects(e, f, $.MIN_SPACING * 0.8))
+          if (this._isClearFromIslandObjects(e, f, HUT_PLACEMENT_CONFIG.MIN_SPACING * 0.8))
             return f;
         }
       return null;
@@ -1533,7 +1533,7 @@ var ge = class {
           ? e.getRandomPositionInSuitableArea(t)
           : typeof e?.sampleSurfaceY == `function` &&
               typeof e?.placeObjectAtRandomSpot == `function`
-            ? e.placeObjectAtRandomSpot(null, t, $.MIN_SPACING)
+            ? e.placeObjectAtRandomSpot(null, t, HUT_PLACEMENT_CONFIG.MIN_SPACING)
             : null)
       );
     }
@@ -1542,10 +1542,10 @@ var ge = class {
       if (n === 0) return t.clone();
       let o = y.clamp(
         (e.size || 600) / 34,
-        $.CLUSTER_RADIUS_MIN,
-        $.CLUSTER_RADIUS_MAX,
+        HUT_PLACEMENT_CONFIG.CLUSTER_RADIUS_MIN,
+        HUT_PLACEMENT_CONFIG.CLUSTER_RADIUS_MAX,
       );
-      for (let s = 0; s < $.CLUSTER_PLACEMENT_ATTEMPTS; s++) {
+      for (let s = 0; s < HUT_PLACEMENT_CONFIG.CLUSTER_PLACEMENT_ATTEMPTS; s++) {
         let c = n * 2.399963 + (a() - 0.5) * 0.72 + s * 0.47,
           l = Math.sqrt((n + s * 0.35) / Math.max(1, r)),
           u = y.lerp(9, o, Math.min(1, l)) * (0.75 + a() * 0.45),
@@ -1554,7 +1554,7 @@ var ge = class {
           p = this._sampleIslandSurfaceY(e, d, f);
         if (!Number.isFinite(p) || p < i) continue;
         let m = new g(d, p + 0.02, f);
-        if (this._isClearFromIslandObjects(e, m, $.MIN_SPACING * 0.58))
+        if (this._isClearFromIslandObjects(e, m, HUT_PLACEMENT_CONFIG.MIN_SPACING * 0.58))
           return m;
       }
       return null;
@@ -1562,14 +1562,14 @@ var ge = class {
     _addTownHutsToIsland(e, t = {}) {
       if (!e?.mesh) return 0;
       let n = Math.floor(Number(t.townSize)),
-        r = Math.round(y.clamp(e.size / 260, $.MIN_HUTS, $.MAX_HUTS)),
-        i = Number.isFinite(n) ? y.clamp(n, $.MIN_HUTS, $.MAX_HUTS) : r,
+        r = Math.round(y.clamp(e.size / 260, HUT_PLACEMENT_CONFIG.MIN_HUTS, HUT_PLACEMENT_CONFIG.MAX_HUTS)),
+        i = Number.isFinite(n) ? y.clamp(n, HUT_PLACEMENT_CONFIG.MIN_HUTS, HUT_PLACEMENT_CONFIG.MAX_HUTS) : r,
         a = (0, k.default)(
           `town:${this.noise.seed}:${Math.round(e.position.x)}:${Math.round(e.position.z)}`,
         ),
         o = Math.max(
-          $.MIN_SURFACE_Y,
-          e.config.treeHeightThreshold - $.HEIGHT_THRESHOLD_OFFSET,
+          HUT_PLACEMENT_CONFIG.MIN_SURFACE_Y,
+          e.config.treeHeightThreshold - HUT_PLACEMENT_CONFIG.HEIGHT_THRESHOLD_OFFSET,
         ),
         s = 0,
         c = this._findTownAnchor(e, o, t);
@@ -1578,8 +1578,8 @@ var ge = class {
             typeof e.sampleSurfaceY == `function`
               ? this._sampleTownClusterPosition(e, c, t, i, o, a)
               : null,
-          r = n || e.placeObjectAtRandomSpot?.(null, o, $.MIN_SPACING);
-        if (!r || r.y < $.MIN_SURFACE_Y) continue;
+          r = n || e.placeObjectAtRandomSpot?.(null, o, HUT_PLACEMENT_CONFIG.MIN_SPACING);
+        if (!r || r.y < HUT_PLACEMENT_CONFIG.MIN_SURFACE_Y) continue;
         let l = y.clamp(
             0.66 + a() * 0.72 + Math.min(0.28, e.size / 5200),
             0.64,
@@ -1588,7 +1588,7 @@ var ge = class {
           u = c?.isVector3
             ? Math.atan2(r.x - c.x, r.z - c.z) + Math.PI + (a() - 0.5) * 0.8
             : a() * Math.PI * 2,
-          d = Q[(t + Math.floor(a() * Q.length)) % Q.length];
+          d = HUT_PALETTES[(t + Math.floor(a() * HUT_PALETTES.length)) % HUT_PALETTES.length];
         (this._addTownHutAtPosition(r, a, {
           scale: l,
           rotationY: u,
@@ -1621,14 +1621,14 @@ var ge = class {
       );
     }
     _createIsland(e, t, n = 10, r = {}) {
-      let i = new ge(e, t, this.noise, this.scene, this.rng, {
+      let i = new IslandTerrain(e, t, this.noise, this.scene, this.rng, {
         terrainProfile: r.terrainProfile,
       });
       this._placeTrees(i, n);
       let a = null;
       if (r.placeDock !== !1) {
         let e = this.islands.length;
-        ((a = _e.placeOnIsland(i, e, this.scene, this.rng)),
+        ((a = Dock.placeOnIsland(i, e, this.scene, this.rng)),
           a &&
             (this.docks.push(a),
             r.deferDockLife === !0

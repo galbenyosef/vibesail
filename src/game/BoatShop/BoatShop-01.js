@@ -30,7 +30,7 @@ function _() {
     visualLuffing: 0,
   };
 }
-var v = class {
+var BoatPreview = class {
     constructor(e = {}) {
       ((this.host = e.host || null),
         (this.renderer = null),
@@ -226,7 +226,7 @@ var v = class {
         (this.statusEl = null));
     }
   },
-  y = `boat-shop-modal`;
+  BOAT_SHOP_MODAL_ID = `boat-shop-modal`;
 function b(e) {
   return `$${Number(e || 0).toLocaleString(`en-US`)}`;
 }
