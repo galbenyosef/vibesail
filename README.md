@@ -236,8 +236,9 @@ subdirectories, true module boundaries, semantic names. Done in three commits
   `tools/names.json` (reviewed rules, 42 chunks / 79 rule groups / 403 names) →
   `tools/apply-names.mjs` (splices identifier tokens through the real scope chain;
   chunk-wide passes so a name referenced from a sibling slice is renamed
-  everywhere) → `tools/recover-scoped-map.mjs` (records `rename-map.json`, 132
-  slices; 379 index-pinned occurrences + 463 word-boundary applications) →
+  everywhere) → `tools/recover-scoped-map.mjs` (records `rename-map.json`:
+  105 renamed slices — 82 with word-boundary maps (463 names), 56 with index-pinned
+  occurrences (379)) →
   `tools/verify-rename.mjs` / `tools/check-chunk.mjs` (gates). 842 recorded rename
   occurrences total. Named examples: Game → `WorldBuilder`, `GerstnerWaves`,
   `CameraController`, `RaceReplay`, `HudButtonFactory`, `CoinBalance`,
@@ -248,10 +249,10 @@ subdirectories, true module boundaries, semantic names. Done in three commits
   routeContext → `WORLD_STOP_DEFINITIONS`, `SURFACE_DEFAULTS`.
   - Gates (verbatim): `node tools/verify.mjs` → `410 files checked, 0 problems`;
     `node tools/audit.js` → `AUDIT PASS — 604 spec sections (177/177 src↔pretty
-    round-trips byte-exact, 132 through the recorded rename map, 441/441 pretty
+    round-trips byte-exact, 105 through the recorded rename map, 441/441 pretty
     sources tiled contiguously, 177/177 src slices + 426/426 readable/*.pretty.js
     parse standalone …, 441/441 pretties re-render byte-exact …, capture manifest
-    free of derived layers)`; `tools/verify-rename.mjs` on all 132 renamed slices →
+    free of derived layers)`; `tools/verify-rename.mjs` on all 105 renamed slices →
     `reproduces slice: YES` / `references ok: YES` / `bindings ok: YES`;
     `tools/check-chunk.mjs` → `cross-slice calls resolve: YES` for all 74 chunks;
     serve probe — `/`, `/game`, `/world`, `/race`, `/leaderboard`, `/tutorial`,
