@@ -129,6 +129,7 @@ node tools/verify.mjs     # re-hash the capture against the manifest
 node tools/audit.js       # derived-layer integrity gate (AUDIT PASS)
 node tools/verify-rename.mjs <slice> [...]   # rename reproduces + references + bindings
 node tools/check-chunk.mjs                   # cross-slice resolution, all chunks
+node tools/check-exports.mjs                 # the derived layer still exports every public name
 ```
 
 A full rebuild is deterministic and byte-identical (verified 2026-10-14: two
