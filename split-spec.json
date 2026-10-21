@@ -7685,12 +7685,13 @@
       "area": "game",
       "capture": "assets/Advertisement-D60LkU06.js",
       "title": "Advertisement — final export table (not sliced)",
-      "desc": "Lines 332-332. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 332-332. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/Advertisement-D60LkU06.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 332,
       "endLine": 332,
       "sourceFile": "readable/assets/Advertisement-D60LkU06.pretty.js",
       "firstLine": "export { x as default };",
-      "lastLine": "export { x as default };"
+      "lastLine": "export { x as default };",
+      "text": "export{x as default}"
     },
     {
       "file": "site/authClient/authClient-01.js",
@@ -7787,12 +7788,13 @@
       "area": "site",
       "capture": "assets/authClient-roTt0Fs9.js",
       "title": "authClient — final export table (not sliced)",
-      "desc": "Lines 4513-4529. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 4513-4529. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/authClient-roTt0Fs9.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 4513,
       "endLine": 4529,
       "sourceFile": "readable/assets/authClient-roTt0Fs9.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{jt as a,Nt as c,X as d,St as f,wt as h,kt as i,Dt as l,xt as m,Et as n,At as o,Ct as p,Pt as r,Ot as s,Ft as t,Mt as u}"
     },
     {
       "file": "vendor/assets/auto-CBo2XcXh.js",
@@ -7824,12 +7826,13 @@
       "area": "game",
       "capture": "assets/Bearing-Bz8gc2k9.js",
       "title": "Bearing — final export table (not sliced)",
-      "desc": "Lines 23-34. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 23-34. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/Bearing-Bz8gc2k9.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 23,
       "endLine": 34,
       "sourceFile": "readable/assets/Bearing-Bz8gc2k9.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{c as a,l as c,s as i,t as l,u as n,r as o,i as r,a as s,o as t,e as u}"
     },
     {
       "file": "game/Birds/Birds-01.js",
@@ -7860,12 +7863,13 @@
       "area": "game",
       "capture": "assets/Birds-DHEcQo9w.js",
       "title": "Birds — final export table (not sliced)",
-      "desc": "Lines 1037-1037. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 1037-1037. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/Birds-DHEcQo9w.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 1037,
       "endLine": 1037,
       "sourceFile": "readable/assets/Birds-DHEcQo9w.pretty.js",
       "firstLine": "export { ee as default };",
-      "lastLine": "export { ee as default };"
+      "lastLine": "export { ee as default };",
+      "text": "export{ee as default}"
     },
     {
       "file": "game/Blimp/Blimp-01.js",
@@ -7896,12 +7900,13 @@
       "area": "game",
       "capture": "assets/Blimp-CsqFvrq-.js",
       "title": "Blimp — final export table (not sliced)",
-      "desc": "Lines 441-441. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 441-441. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/Blimp-CsqFvrq-.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 441,
       "endLine": 441,
       "sourceFile": "readable/assets/Blimp-CsqFvrq-.pretty.js",
       "firstLine": "export { b as Blimp };",
-      "lastLine": "export { b as Blimp };"
+      "lastLine": "export { b as Blimp };",
+      "text": "export{b as Blimp}"
     },
     {
       "file": "routes/blog/blog-01.js",
@@ -7943,12 +7948,13 @@
       "area": "site",
       "capture": "assets/blogPosts-BqnGg-S6.js",
       "title": "blogPosts — final export table (not sliced)",
-      "desc": "Lines 277-289. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 277-289. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/blogPosts-BqnGg-S6.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 277,
       "endLine": 289,
       "sourceFile": "readable/assets/blogPosts-BqnGg-S6.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{N as a,P as c,F as d,C as i,T as l,O as n,A as o,k as r,I as s,f as t,x as u}"
     },
     {
       "file": "game/BoatModel/BoatModel-01.js",
@@ -8023,12 +8029,13 @@
       "area": "game",
       "capture": "assets/BoatModel-Cf2RVdWT.js",
       "title": "BoatModel — final export table (not sliced)",
-      "desc": "Lines 3532-3532. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 3532-3532. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/BoatModel-Cf2RVdWT.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 3532,
       "endLine": 3532,
       "sourceFile": "readable/assets/BoatModel-Cf2RVdWT.pretty.js",
       "firstLine": "export { I as i, L as n, Ee as r, Je as t };",
-      "lastLine": "export { I as i, L as n, Ee as r, Je as t };"
+      "lastLine": "export { I as i, L as n, Ee as r, Je as t };",
+      "text": "export{I as i,L as n,Ee as r,Je as t}"
     },
     {
       "file": "game/BoatShop/BoatShop-01.js",
@@ -8059,12 +8066,13 @@
       "area": "game",
       "capture": "assets/BoatShop-SaUBreAv.js",
       "title": "BoatShop — final export table (not sliced)",
-      "desc": "Lines 680-680. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 680-680. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/BoatShop-SaUBreAv.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 680,
       "endLine": 680,
       "sourceFile": "readable/assets/BoatShop-SaUBreAv.pretty.js",
       "firstLine": "export { S as default };",
-      "lastLine": "export { S as default };"
+      "lastLine": "export { S as default };",
+      "text": "export{S as default}"
     },
     {
       "file": "game/BoatVisualizerPanel/BoatVisualizerPanel-01.js",
@@ -8095,12 +8103,13 @@
       "area": "game",
       "capture": "assets/BoatVisualizerPanel-C8Vrfq5S.js",
       "title": "BoatVisualizerPanel — final export table (not sliced)",
-      "desc": "Lines 1887-1887. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 1887-1887. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/BoatVisualizerPanel-C8Vrfq5S.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 1887,
       "endLine": 1887,
       "sourceFile": "readable/assets/BoatVisualizerPanel-C8Vrfq5S.pretty.js",
       "firstLine": "export { f as default };",
-      "lastLine": "export { f as default };"
+      "lastLine": "export { f as default };",
+      "text": "export{f as default}"
     },
     {
       "file": "game/CannonSystem/CannonSystem-01.js",
@@ -8131,12 +8140,13 @@
       "area": "game",
       "capture": "assets/CannonSystem-8nVBpQ-O.js",
       "title": "CannonSystem — final export table (not sliced)",
-      "desc": "Lines 494-494. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 494-494. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/CannonSystem-8nVBpQ-O.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 494,
       "endLine": 494,
       "sourceFile": "readable/assets/CannonSystem-8nVBpQ-O.pretty.js",
       "firstLine": "export { v as default };",
-      "lastLine": "export { v as default };"
+      "lastLine": "export { v as default };",
+      "text": "export{v as default}"
     },
     {
       "file": "game/CargoShip/CargoShip-01.js",
@@ -8167,12 +8177,13 @@
       "area": "game",
       "capture": "assets/CargoShip-DSMEqWta.js",
       "title": "CargoShip — final export table (not sliced)",
-      "desc": "Lines 470-470. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 470-470. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/CargoShip-DSMEqWta.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 470,
       "endLine": 470,
       "sourceFile": "readable/assets/CargoShip-DSMEqWta.pretty.js",
       "firstLine": "export { O as default };",
-      "lastLine": "export { O as default };"
+      "lastLine": "export { O as default };",
+      "text": "export{O as default}"
     },
     {
       "file": "game/cargoShipDefinitions/cargoShipDefinitions-01.js",
@@ -8192,12 +8203,13 @@
       "area": "game",
       "capture": "assets/cargoShipDefinitions-DOR3sdqr.js",
       "title": "cargoShipDefinitions — final export table (not sliced)",
-      "desc": "Lines 148-148. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 148-148. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/cargoShipDefinitions-DOR3sdqr.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 148,
       "endLine": 148,
       "sourceFile": "readable/assets/cargoShipDefinitions-DOR3sdqr.pretty.js",
       "firstLine": "export { e as t };",
-      "lastLine": "export { e as t };"
+      "lastLine": "export { e as t };",
+      "text": "export{e as t}"
     },
     {
       "file": "vendor/assets/chunk-QTnfLwEv.js",
@@ -8251,12 +8263,13 @@
       "area": "site",
       "capture": "assets/countries-DfpOqyPC.js",
       "title": "countries — final export table (not sliced)",
-      "desc": "Lines 61-61. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 61-61. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/countries-DfpOqyPC.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 61,
       "endLine": 61,
       "sourceFile": "readable/assets/countries-DfpOqyPC.pretty.js",
       "firstLine": "export { e as t };",
-      "lastLine": "export { e as t };"
+      "lastLine": "export { e as t };",
+      "text": "export{e as t}"
     },
     {
       "file": "routes/daily-race-replay/daily-race-replay-01.js",
@@ -8320,12 +8333,13 @@
       "area": "game",
       "capture": "assets/DataModels-DjmBwyzI.js",
       "title": "DataModels — final export table (not sliced)",
-      "desc": "Lines 1634-1644. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 1634-1644. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/DataModels-DjmBwyzI.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 1634,
       "endLine": 1644,
       "sourceFile": "readable/assets/DataModels-DjmBwyzI.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{w as a,E as c,O as i,C as l,A as n,T as o,j as r,D as s,k as t}"
     },
     {
       "file": "vendor/assets/defineProperty-BbfpZ9Tg.js",
@@ -8357,12 +8371,13 @@
       "area": "site",
       "capture": "assets/displayFormat-DSwSTivx.js",
       "title": "displayFormat — final export table (not sliced)",
-      "desc": "Lines 44-44. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 44-44. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/displayFormat-DSwSTivx.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 44,
       "endLine": 44,
       "sourceFile": "readable/assets/displayFormat-DSwSTivx.pretty.js",
       "firstLine": "export { r as i, n, t as r, e as t };",
-      "lastLine": "export { r as i, n, t as r, e as t };"
+      "lastLine": "export { r as i, n, t as r, e as t };",
+      "text": "export{r as i,n,t as r,e as t}"
     },
     {
       "file": "vendor/assets/DRACOLoader-XlKGmd74.js",
@@ -8394,12 +8409,13 @@
       "area": "site",
       "capture": "assets/emailSoftAsk-CIzvlYXI.js",
       "title": "emailSoftAsk — final export table (not sliced)",
-      "desc": "Lines 51-51. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 51-51. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/emailSoftAsk-CIzvlYXI.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 51,
       "endLine": 51,
       "sourceFile": "readable/assets/emailSoftAsk-CIzvlYXI.pretty.js",
       "firstLine": "export { o as a, c as i, s as n, a as r, u as t };",
-      "lastLine": "export { o as a, c as i, s as n, a as r, u as t };"
+      "lastLine": "export { o as a, c as i, s as n, a as r, u as t };",
+      "text": "export{o as a,c as i,s as n,a as r,u as t}"
     },
     {
       "file": "routes/feedback/feedback-01.js",
@@ -8463,12 +8479,13 @@
       "area": "game",
       "capture": "assets/FloatingWorldProp--a8_muYf.js",
       "title": "FloatingWorldProp — final export table (not sliced)",
-      "desc": "Lines 676-676. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 676-676. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/FloatingWorldProp--a8_muYf.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 676,
       "endLine": 676,
       "sourceFile": "readable/assets/FloatingWorldProp--a8_muYf.pretty.js",
       "firstLine": "export { A as default };",
-      "lastLine": "export { A as default };"
+      "lastLine": "export { A as default };",
+      "text": "export{A as default}"
     },
     {
       "file": "game/Game/Game-01.js",
@@ -9049,12 +9066,13 @@
       "area": "game",
       "capture": "assets/Game-CrsSKcAK.js",
       "title": "Game — final export table (not sliced)",
-      "desc": "Lines 26963-26991. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 26963-26991. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/Game-CrsSKcAK.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 26963,
       "endLine": 26991,
       "sourceFile": "readable/assets/Game-CrsSKcAK.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{En as C,H as D,Nn as E,tr as S,jn as T,Qr as _,ts as a,Tr as b,ha as c,ki as d,Ai as f,bi as g,Si as h,Qo as i,na as l,Ci as m,_f as n,no as o,wi as p,Kc as r,Ba as s,Ff as t,Ui as u,$r as v,Dn as w,mr as x,Nr as y}"
     },
     {
       "file": "game/GeoMath/GeoMath-01.js",
@@ -9074,12 +9092,13 @@
       "area": "game",
       "capture": "assets/GeoMath-B_Iby49-.js",
       "title": "GeoMath — final export table (not sliced)",
-      "desc": "Lines 79-79. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 79-79. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/GeoMath-B_Iby49-.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 79,
       "endLine": 79,
       "sourceFile": "readable/assets/GeoMath-B_Iby49-.pretty.js",
       "firstLine": "export { n as a, o as i, i as n, s as r, r as t };",
-      "lastLine": "export { n as a, o as i, i as n, s as r, r as t };"
+      "lastLine": "export { n as a, o as i, i as n, s as r, r as t };",
+      "text": "export{n as a,o as i,i as n,s as r,r as t}"
     },
     {
       "file": "game/GeometryGuards/GeometryGuards-01.js",
@@ -9099,12 +9118,13 @@
       "area": "game",
       "capture": "assets/GeometryGuards-BGRyriw5.js",
       "title": "GeometryGuards — final export table (not sliced)",
-      "desc": "Lines 35-35. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 35-35. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/GeometryGuards-BGRyriw5.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 35,
       "endLine": 35,
       "sourceFile": "readable/assets/GeometryGuards-BGRyriw5.pretty.js",
       "firstLine": "export { r as t };",
-      "lastLine": "export { r as t };"
+      "lastLine": "export { r as t };",
+      "text": "export{r as t}"
     },
     {
       "file": "game/GhostReplayModel/GhostReplayModel-01.js",
@@ -9146,12 +9166,13 @@
       "area": "game",
       "capture": "assets/GhostReplayModel-B8EqTWpz.js",
       "title": "GhostReplayModel — final export table (not sliced)",
-      "desc": "Lines 984-996. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 984-996. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/GhostReplayModel-B8EqTWpz.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 984,
       "endLine": 996,
       "sourceFile": "readable/assets/GhostReplayModel-B8EqTWpz.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{B as a,X as c,x as d,ce as i,K as l,se as n,J as o,$ as r,q as s,oe as t,G as u}"
     },
     {
       "file": "vendor/assets/GLTFLoader-C2oC7w8g.js",
@@ -9217,12 +9238,13 @@
       "area": "game",
       "capture": "assets/GoogleTilesLoader-Ba1pGT7V.js",
       "title": "GoogleTilesLoader — final export table (not sliced)",
-      "desc": "Lines 4522-4522. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 4522-4522. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/GoogleTilesLoader-Ba1pGT7V.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 4522,
       "endLine": 4522,
       "sourceFile": "readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js",
       "firstLine": "export { Xn as default };",
-      "lastLine": "export { Xn as default };"
+      "lastLine": "export { Xn as default };",
+      "text": "export{Xn as default}"
     },
     {
       "file": "site/H5GamesAds/H5GamesAds-01.js",
@@ -9242,12 +9264,13 @@
       "area": "site",
       "capture": "assets/H5GamesAds-cgmFpTvU.js",
       "title": "H5GamesAds — final export table (not sliced)",
-      "desc": "Lines 276-276. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 276-276. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/H5GamesAds-cgmFpTvU.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 276,
       "endLine": 276,
       "sourceFile": "readable/assets/H5GamesAds-cgmFpTvU.pretty.js",
       "firstLine": "export { N as a, k as c, A as i, r as n, v as o, I as r, P as s, e as t };",
-      "lastLine": "export { N as a, k as c, A as i, r as n, v as o, I as r, P as s, e as t };"
+      "lastLine": "export { N as a, k as c, A as i, r as n, v as o, I as r, P as s, e as t };",
+      "text": "export{N as a,k as c,A as i,r as n,v as o,I as r,P as s,e as t}"
     },
     {
       "file": "game/HighSeaModeManager/HighSeaModeManager-01.js",
@@ -9278,12 +9301,13 @@
       "area": "game",
       "capture": "assets/HighSeaModeManager-BEvC6iXw.js",
       "title": "HighSeaModeManager — final export table (not sliced)",
-      "desc": "Lines 1717-1717. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 1717-1717. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/HighSeaModeManager-BEvC6iXw.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 1717,
       "endLine": 1717,
       "sourceFile": "readable/assets/HighSeaModeManager-BEvC6iXw.pretty.js",
       "firstLine": "export { R as default };",
-      "lastLine": "export { R as default };"
+      "lastLine": "export { R as default };",
+      "text": "export{R as default}"
     },
     {
       "file": "site/init/init-01.js",
@@ -9314,12 +9338,13 @@
       "area": "site",
       "capture": "assets/installability-D42GZDjn.js",
       "title": "installability — final export table (not sliced)",
-      "desc": "Lines 40-40. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 40-40. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/installability-D42GZDjn.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 40,
       "endLine": 40,
       "sourceFile": "readable/assets/installability-D42GZDjn.pretty.js",
       "firstLine": "export { o as t };",
-      "lastLine": "export { o as t };"
+      "lastLine": "export { o as t };",
+      "text": "export{o as t}"
     },
     {
       "file": "game/IslandGenerator/IslandGenerator-01.js",
@@ -9372,12 +9397,13 @@
       "area": "game",
       "capture": "assets/IslandGenerator-DZNI3CSt.js",
       "title": "IslandGenerator — final export table (not sliced)",
-      "desc": "Lines 2455-2455. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 2455-2455. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/IslandGenerator-DZNI3CSt.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 2455,
       "endLine": 2455,
       "sourceFile": "readable/assets/IslandGenerator-DZNI3CSt.pretty.js",
       "firstLine": "export { ve as default };",
-      "lastLine": "export { ve as default };"
+      "lastLine": "export { ve as default };",
+      "text": "export{ve as default}"
     },
     {
       "file": "site/KeyboardManager/KeyboardManager-01.js",
@@ -9397,12 +9423,13 @@
       "area": "site",
       "capture": "assets/KeyboardManager-DVLZ3teY.js",
       "title": "KeyboardManager — final export table (not sliced)",
-      "desc": "Lines 221-221. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 221-221. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/KeyboardManager-DVLZ3teY.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 221,
       "endLine": 221,
       "sourceFile": "readable/assets/KeyboardManager-DVLZ3teY.pretty.js",
       "firstLine": "export { n as i, t as n, e as r, i as t };",
-      "lastLine": "export { n as i, t as n, e as r, i as t };"
+      "lastLine": "export { n as i, t as n, e as r, i as t };",
+      "text": "export{n as i,t as n,e as r,i as t}"
     },
     {
       "file": "routes/leaderboard/leaderboard-01.js",
@@ -9455,12 +9482,13 @@
       "area": "site",
       "capture": "assets/LocalCache-DHomYmcY.js",
       "title": "LocalCache — final export table (not sliced)",
-      "desc": "Lines 32-32. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 32-32. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/LocalCache-DHomYmcY.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 32,
       "endLine": 32,
       "sourceFile": "readable/assets/LocalCache-DHomYmcY.pretty.js",
       "firstLine": "export { e as t };",
-      "lastLine": "export { e as t };"
+      "lastLine": "export { e as t };",
+      "text": "export{e as t}"
     },
     {
       "file": "game/LogisticsManager/LogisticsManager-01.js",
@@ -9491,12 +9519,13 @@
       "area": "game",
       "capture": "assets/LogisticsManager-DugCgbD8.js",
       "title": "LogisticsManager — final export table (not sliced)",
-      "desc": "Lines 764-764. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 764-764. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/LogisticsManager-DugCgbD8.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 764,
       "endLine": 764,
       "sourceFile": "readable/assets/LogisticsManager-DugCgbD8.pretty.js",
       "firstLine": "export { v as buildDailyMissionSeed, y as default };",
-      "lastLine": "export { v as buildDailyMissionSeed, y as default };"
+      "lastLine": "export { v as buildDailyMissionSeed, y as default };",
+      "text": "export{v as buildDailyMissionSeed,y as default}"
     },
     {
       "file": "game/LogisticsUI/LogisticsUI-01.js",
@@ -9527,12 +9556,13 @@
       "area": "game",
       "capture": "assets/LogisticsUI-DWG9W15h.js",
       "title": "LogisticsUI — final export table (not sliced)",
-      "desc": "Lines 615-615. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 615-615. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/LogisticsUI-DWG9W15h.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 615,
       "endLine": 615,
       "sourceFile": "readable/assets/LogisticsUI-DWG9W15h.pretty.js",
       "firstLine": "export { v as default };",
-      "lastLine": "export { v as default };"
+      "lastLine": "export { v as default };",
+      "text": "export{v as default}"
     },
     {
       "file": "vendor/assets/modulepreload-polyfill-Dezn_h7o.js",
@@ -9587,12 +9617,13 @@
       "area": "game",
       "capture": "assets/MultiplayerManager-CgzUu3MG.js",
       "title": "MultiplayerManager — final export table (not sliced)",
-      "desc": "Lines 533-533. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 533-533. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/MultiplayerManager-CgzUu3MG.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 533,
       "endLine": 533,
       "sourceFile": "readable/assets/MultiplayerManager-CgzUu3MG.pretty.js",
       "firstLine": "export { m as default };",
-      "lastLine": "export { m as default };"
+      "lastLine": "export { m as default };",
+      "text": "export{m as default}"
     },
     {
       "file": "site/OneSignalPushNotifications/OneSignalPushNotifications-01.js",
@@ -9623,12 +9654,13 @@
       "area": "site",
       "capture": "assets/OneSignalPushNotifications-C5QrvXEE.js",
       "title": "OneSignalPushNotifications — final export table (not sliced)",
-      "desc": "Lines 380-380. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 380-380. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/OneSignalPushNotifications-C5QrvXEE.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 380,
       "endLine": 380,
       "sourceFile": "readable/assets/OneSignalPushNotifications-C5QrvXEE.pretty.js",
       "firstLine": "export { b as n, y as t };",
-      "lastLine": "export { b as n, y as t };"
+      "lastLine": "export { b as n, y as t };",
+      "text": "export{b as n,y as t}"
     },
     {
       "file": "game/PerformanceMonitor/PerformanceMonitor-01.js",
@@ -9648,12 +9680,13 @@
       "area": "game",
       "capture": "assets/PerformanceMonitor-CwOrhyRP.js",
       "title": "PerformanceMonitor — final export table (not sliced)",
-      "desc": "Lines 232-232. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 232-232. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/PerformanceMonitor-CwOrhyRP.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 232,
       "endLine": 232,
       "sourceFile": "readable/assets/PerformanceMonitor-CwOrhyRP.pretty.js",
       "firstLine": "export { t as default };",
-      "lastLine": "export { t as default };"
+      "lastLine": "export { t as default };",
+      "text": "export{t as default}"
     },
     {
       "file": "game/PirateHuntManager/PirateHuntManager-01.js",
@@ -9673,12 +9706,13 @@
       "area": "game",
       "capture": "assets/PirateHuntManager-B5ipnDt7.js",
       "title": "PirateHuntManager — final export table (not sliced)",
-      "desc": "Lines 193-193. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 193-193. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/PirateHuntManager-B5ipnDt7.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 193,
       "endLine": 193,
       "sourceFile": "readable/assets/PirateHuntManager-B5ipnDt7.pretty.js",
       "firstLine": "export { u as default };",
-      "lastLine": "export { u as default };"
+      "lastLine": "export { u as default };",
+      "text": "export{u as default}"
     },
     {
       "file": "site/PlayerNameStorage/PlayerNameStorage-01.js",
@@ -9698,12 +9732,13 @@
       "area": "site",
       "capture": "assets/PlayerNameStorage-Q3p2umqg.js",
       "title": "PlayerNameStorage — final export table (not sliced)",
-      "desc": "Lines 75-86. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 75-86. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/PlayerNameStorage-Q3p2umqg.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 75,
       "endLine": 86,
       "sourceFile": "readable/assets/PlayerNameStorage-Q3p2umqg.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{p as a,a as c,e as i,l,g as n,f as o,h as r,d as s,m as t,c as u}"
     },
     {
       "file": "game/Portal/Portal-01.js",
@@ -9723,12 +9758,13 @@
       "area": "game",
       "capture": "assets/Portal-DAOSX3nf.js",
       "title": "Portal — final export table (not sliced)",
-      "desc": "Lines 214-214. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 214-214. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/Portal-DAOSX3nf.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 214,
       "endLine": 214,
       "sourceFile": "readable/assets/Portal-DAOSX3nf.pretty.js",
       "firstLine": "export { d as default };",
-      "lastLine": "export { d as default };"
+      "lastLine": "export { d as default };",
+      "text": "export{d as default}"
     },
     {
       "file": "game/portalDefinitions/portalDefinitions-01.js",
@@ -9748,12 +9784,13 @@
       "area": "game",
       "capture": "assets/portalDefinitions-CAxa3Tbw.js",
       "title": "portalDefinitions — final export table (not sliced)",
-      "desc": "Lines 8-8. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 8-8. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/portalDefinitions-CAxa3Tbw.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 8,
       "endLine": 8,
       "sourceFile": "readable/assets/portalDefinitions-CAxa3Tbw.pretty.js",
       "firstLine": "export { e as t };",
-      "lastLine": "export { e as t };"
+      "lastLine": "export { e as t };",
+      "text": "export{e as t}"
     },
     {
       "file": "site/posthogAuth/posthogAuth-01.js",
@@ -9773,12 +9810,13 @@
       "area": "site",
       "capture": "assets/posthogAuth-6WDf5lnM.js",
       "title": "posthogAuth — final export table (not sliced)",
-      "desc": "Lines 73-73. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 73-73. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/posthogAuth-6WDf5lnM.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 73,
       "endLine": 73,
       "sourceFile": "readable/assets/posthogAuth-6WDf5lnM.pretty.js",
       "firstLine": "export { u as t };",
-      "lastLine": "export { u as t };"
+      "lastLine": "export { u as t };",
+      "text": "export{u as t}"
     },
     {
       "file": "site/PostHogCapture/PostHogCapture-01.js",
@@ -9798,12 +9836,13 @@
       "area": "site",
       "capture": "assets/PostHogCapture-DUxqoMcu.js",
       "title": "PostHogCapture — final export table (not sliced)",
-      "desc": "Lines 101-101. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 101-101. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/PostHogCapture-DUxqoMcu.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 101,
       "endLine": 101,
       "sourceFile": "readable/assets/PostHogCapture-DUxqoMcu.pretty.js",
       "firstLine": "export { u as n, f as r, e as t };",
-      "lastLine": "export { u as n, f as r, e as t };"
+      "lastLine": "export { u as n, f as r, e as t };",
+      "text": "export{u as n,f as r,e as t}"
     },
     {
       "file": "site/preload-helper/preload-helper-01.js",
@@ -9823,12 +9862,13 @@
       "area": "site",
       "capture": "assets/preload-helper-CYTkKql0.js",
       "title": "preload-helper — final export table (not sliced)",
-      "desc": "Lines 186-186. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 186-186. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/preload-helper-CYTkKql0.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 186,
       "endLine": 186,
       "sourceFile": "readable/assets/preload-helper-CYTkKql0.pretty.js",
       "firstLine": "export { r as n, i as r, u as t };",
-      "lastLine": "export { r as n, i as r, u as t };"
+      "lastLine": "export { r as n, i as r, u as t };",
+      "text": "export{r as n,i as r,u as t}"
     },
     {
       "file": "site/profileClient/profileClient-01.js",
@@ -9848,12 +9888,13 @@
       "area": "site",
       "capture": "assets/profileClient-Ce6d7RD4.js",
       "title": "profileClient — final export table (not sliced)",
-      "desc": "Lines 213-225. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 213-225. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/profileClient-Ce6d7RD4.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 213,
       "endLine": 225,
       "sourceFile": "readable/assets/profileClient-Ce6d7RD4.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{p as a,m as c,j as d,C as i,A as l,O as n,l as o,T as r,E as s,f as t,w as u}"
     },
     {
       "file": "routes/race/race-01.js",
@@ -9895,12 +9936,13 @@
       "area": "game",
       "capture": "assets/RaceConfig-BiFwKzq8.js",
       "title": "RaceConfig — final export table (not sliced)",
-      "desc": "Lines 152-152. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 152-152. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/RaceConfig-BiFwKzq8.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 152,
       "endLine": 152,
       "sourceFile": "readable/assets/RaceConfig-BiFwKzq8.pretty.js",
       "firstLine": "export { t as i, a as n, i as r, o as t };",
-      "lastLine": "export { t as i, a as n, i as r, o as t };"
+      "lastLine": "export { t as i, a as n, i as r, o as t };",
+      "text": "export{t as i,a as n,i as r,o as t}"
     },
     {
       "file": "game/RenderOrder/RenderOrder-01.js",
@@ -9920,12 +9962,13 @@
       "area": "game",
       "capture": "assets/RenderOrder-CTE7PEm0.js",
       "title": "RenderOrder — final export table (not sliced)",
-      "desc": "Lines 8-8. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 8-8. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/RenderOrder-CTE7PEm0.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 8,
       "endLine": 8,
       "sourceFile": "readable/assets/RenderOrder-CTE7PEm0.pretty.js",
       "firstLine": "export { e as t };",
-      "lastLine": "export { e as t };"
+      "lastLine": "export { e as t };",
+      "text": "export{e as t}"
     },
     {
       "file": "site/routeContext/routeContext-01.js",
@@ -9978,12 +10021,13 @@
       "area": "site",
       "capture": "assets/routeContext-D1HYUwP9.js",
       "title": "routeContext — final export table (not sliced)",
-      "desc": "Lines 991-1008. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 991-1008. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/routeContext-D1HYUwP9.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 991,
       "endLine": 1008,
       "sourceFile": "readable/assets/routeContext-D1HYUwP9.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{$ as a,te as c,x as d,b as f,s as g,c as h,D as i,j as l,l as m,k as n,ne as o,w as p,E as r,A as s,O as t,T as u}"
     },
     {
       "file": "site/RuntimeEnvironment/RuntimeEnvironment-01.js",
@@ -10003,12 +10047,13 @@
       "area": "site",
       "capture": "assets/RuntimeEnvironment-BAaLbeCv.js",
       "title": "RuntimeEnvironment — final export table (not sliced)",
-      "desc": "Lines 106-106. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 106-106. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/RuntimeEnvironment-BAaLbeCv.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 106,
       "endLine": 106,
       "sourceFile": "readable/assets/RuntimeEnvironment-BAaLbeCv.pretty.js",
       "firstLine": "export { v as a, y as i, h as n, g as o, _ as r, b as t };",
-      "lastLine": "export { v as a, y as i, h as n, g as o, _ as r, b as t };"
+      "lastLine": "export { v as a, y as i, h as n, g as o, _ as r, b as t };",
+      "text": "export{v as a,y as i,h as n,g as o,_ as r,b as t}"
     },
     {
       "file": "site/SailorProfileLinks/SailorProfileLinks-01.js",
@@ -10028,12 +10073,13 @@
       "area": "site",
       "capture": "assets/SailorProfileLinks-CkEgGITb.js",
       "title": "SailorProfileLinks — final export table (not sliced)",
-      "desc": "Lines 25-25. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 25-25. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/SailorProfileLinks-CkEgGITb.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 25,
       "endLine": 25,
       "sourceFile": "readable/assets/SailorProfileLinks-CkEgGITb.pretty.js",
       "firstLine": "export { n, t };",
-      "lastLine": "export { n, t };"
+      "lastLine": "export { n, t };",
+      "text": "export{n,t}"
     },
     {
       "file": "site/site-header/site-header-01.js",
@@ -10064,12 +10110,13 @@
       "area": "game",
       "capture": "assets/SeaCreatures-C5ijwC34.js",
       "title": "SeaCreatures — final export table (not sliced)",
-      "desc": "Lines 272-272. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 272-272. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/SeaCreatures-C5ijwC34.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 272,
       "endLine": 272,
       "sourceFile": "readable/assets/SeaCreatures-C5ijwC34.pretty.js",
       "firstLine": "export { f as default };",
-      "lastLine": "export { f as default };"
+      "lastLine": "export { f as default };",
+      "text": "export{f as default}"
     },
     {
       "file": "game/SettingsMenu/SettingsMenu-01.js",
@@ -10100,12 +10147,13 @@
       "area": "game",
       "capture": "assets/SettingsMenu-DL9R7A1C.js",
       "title": "SettingsMenu — final export table (not sliced)",
-      "desc": "Lines 935-935. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 935-935. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/SettingsMenu-DL9R7A1C.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 935,
       "endLine": 935,
       "sourceFile": "readable/assets/SettingsMenu-DL9R7A1C.pretty.js",
       "firstLine": "export { f as default };",
-      "lastLine": "export { f as default };"
+      "lastLine": "export { f as default };",
+      "text": "export{f as default}"
     },
     {
       "file": "game/SharedTextureLoader/SharedTextureLoader-01.js",
@@ -10125,12 +10173,13 @@
       "area": "game",
       "capture": "assets/SharedTextureLoader-BkelxMVX.js",
       "title": "SharedTextureLoader — final export table (not sliced)",
-      "desc": "Lines 17-17. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 17-17. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/SharedTextureLoader-BkelxMVX.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 17,
       "endLine": 17,
       "sourceFile": "readable/assets/SharedTextureLoader-BkelxMVX.pretty.js",
       "firstLine": "export { r as t };",
-      "lastLine": "export { r as t };"
+      "lastLine": "export { r as t };",
+      "text": "export{r as t}"
     },
     {
       "file": "game/signConfigs/signConfigs-01.js",
@@ -10150,12 +10199,13 @@
       "area": "game",
       "capture": "assets/signConfigs-BxvGsz9k.js",
       "title": "signConfigs — final export table (not sliced)",
-      "desc": "Lines 359-359. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 359-359. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/signConfigs-BxvGsz9k.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 359,
       "endLine": 359,
       "sourceFile": "readable/assets/signConfigs-BxvGsz9k.pretty.js",
       "firstLine": "export { e as t };",
-      "lastLine": "export { e as t };"
+      "lastLine": "export { e as t };",
+      "text": "export{e as t}"
     },
     {
       "file": "game/TargetColumn/TargetColumn-01.js",
@@ -10175,12 +10225,13 @@
       "area": "game",
       "capture": "assets/TargetColumn-DnYYEURe.js",
       "title": "TargetColumn — final export table (not sliced)",
-      "desc": "Lines 32-32. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 32-32. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/TargetColumn-DnYYEURe.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 32,
       "endLine": 32,
       "sourceFile": "readable/assets/TargetColumn-DnYYEURe.pretty.js",
       "firstLine": "export { a as default };",
-      "lastLine": "export { a as default };"
+      "lastLine": "export { a as default };",
+      "text": "export{a as default}"
     },
     {
       "file": "game/TrackGenerator/TrackGenerator-01.js",
@@ -10200,12 +10251,13 @@
       "area": "game",
       "capture": "assets/TrackGenerator-CFnrWNiH.js",
       "title": "TrackGenerator — final export table (not sliced)",
-      "desc": "Lines 216-216. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 216-216. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/TrackGenerator-CFnrWNiH.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 216,
       "endLine": 216,
       "sourceFile": "readable/assets/TrackGenerator-CFnrWNiH.pretty.js",
       "firstLine": "export { e as t };",
-      "lastLine": "export { e as t };"
+      "lastLine": "export { e as t };",
+      "text": "export{e as t}"
     },
     {
       "file": "game/TutorialManager/TutorialManager-01.js",
@@ -10236,12 +10288,13 @@
       "area": "game",
       "capture": "assets/TutorialManager-iD72X4OM.js",
       "title": "TutorialManager — final export table (not sliced)",
-      "desc": "Lines 1161-1161. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 1161-1161. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/TutorialManager-iD72X4OM.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 1161,
       "endLine": 1161,
       "sourceFile": "readable/assets/TutorialManager-iD72X4OM.pretty.js",
       "firstLine": "export { g as default };",
-      "lastLine": "export { g as default };"
+      "lastLine": "export { g as default };",
+      "text": "export{g as default}"
     },
     {
       "file": "game/VectorUtils/VectorUtils-01.js",
@@ -10261,12 +10314,13 @@
       "area": "game",
       "capture": "assets/VectorUtils-ZPUW1jx-.js",
       "title": "VectorUtils — final export table (not sliced)",
-      "desc": "Lines 28-28. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 28-28. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/VectorUtils-ZPUW1jx-.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 28,
       "endLine": 28,
       "sourceFile": "readable/assets/VectorUtils-ZPUW1jx-.pretty.js",
       "firstLine": "export { t };",
-      "lastLine": "export { t };"
+      "lastLine": "export { t };",
+      "text": "export{t}"
     },
     {
       "file": "game/WorldAdPopupManager/WorldAdPopupManager-01.js",
@@ -10286,12 +10340,13 @@
       "area": "game",
       "capture": "assets/WorldAdPopupManager-WzG-fNUY.js",
       "title": "WorldAdPopupManager — final export table (not sliced)",
-      "desc": "Lines 223-223. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 223-223. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/WorldAdPopupManager-WzG-fNUY.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 223,
       "endLine": 223,
       "sourceFile": "readable/assets/WorldAdPopupManager-WzG-fNUY.pretty.js",
       "firstLine": "export { s as t };",
-      "lastLine": "export { s as t };"
+      "lastLine": "export { s as t };",
+      "text": "export{s as t}"
     },
     {
       "file": "game/WorldDefinitionBuilder/WorldDefinitionBuilder-01.js",
@@ -10344,12 +10399,13 @@
       "area": "game",
       "capture": "assets/WorldDefinitionBuilder-CjRtTnhK.js",
       "title": "WorldDefinitionBuilder — final export table (not sliced)",
-      "desc": "Lines 1268-1268. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 1268-1268. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/WorldDefinitionBuilder-CjRtTnhK.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 1268,
       "endLine": 1268,
       "sourceFile": "readable/assets/WorldDefinitionBuilder-CjRtTnhK.pretty.js",
       "firstLine": "export { c as a, p as i, C as n, l as o, m as r, te as t };",
-      "lastLine": "export { c as a, p as i, C as n, l as o, m as r, te as t };"
+      "lastLine": "export { c as a, p as i, C as n, l as o, m as r, te as t };",
+      "text": "export{c as a,p as i,C as n,l as o,m as r,te as t}"
     },
     {
       "file": "game/WorldInteractionEvents/WorldInteractionEvents-01.js",
@@ -10369,12 +10425,13 @@
       "area": "game",
       "capture": "assets/WorldInteractionEvents-L1ARfoSs.js",
       "title": "WorldInteractionEvents — final export table (not sliced)",
-      "desc": "Lines 13-13. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 13-13. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/WorldInteractionEvents-L1ARfoSs.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 13,
       "endLine": 13,
       "sourceFile": "readable/assets/WorldInteractionEvents-L1ARfoSs.pretty.js",
       "firstLine": "export { t };",
-      "lastLine": "export { t };"
+      "lastLine": "export { t };",
+      "text": "export{t}"
     },
     {
       "file": "game/WorldSignAsset/WorldSignAsset-01.js",
@@ -10394,12 +10451,13 @@
       "area": "game",
       "capture": "assets/WorldSignAsset-yHPgCsa-.js",
       "title": "WorldSignAsset — final export table (not sliced)",
-      "desc": "Lines 2-2. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 2-2. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/WorldSignAsset-yHPgCsa-.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 2,
       "endLine": 2,
       "sourceFile": "readable/assets/WorldSignAsset-yHPgCsa-.pretty.js",
       "firstLine": "export { e as t };",
-      "lastLine": "export { e as t };"
+      "lastLine": "export { e as t };",
+      "text": "export{e as t}"
     },
     {
       "file": "game/Yacht/Yacht-01.js",
@@ -10419,12 +10477,13 @@
       "area": "game",
       "capture": "assets/Yacht-OEQr2DjX.js",
       "title": "Yacht — final export table (not sliced)",
-      "desc": "Lines 91-91. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.",
+      "desc": "Lines 91-91. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign. The tail records the served chunk's own export statement (assets/Yacht-OEQr2DjX.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 91,
       "endLine": 91,
       "sourceFile": "readable/assets/Yacht-OEQr2DjX.pretty.js",
       "firstLine": "export { a as default };",
-      "lastLine": "export { a as default };"
+      "lastLine": "export { a as default };",
+      "text": "export{a as default}"
     },
     {
       "file": "pwa/pwa-worker-01.js",

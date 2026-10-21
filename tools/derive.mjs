@@ -182,6 +182,56 @@ function markers(text, n = 2) {
 }
 const markerText = (ms) => ms.map(([w, c]) => `${w}(${c})`).join(", ");
 
+// ── the served chunk's own export statement (the export gate's tail) ────
+/**
+ * The public names of an `export { … }` list: the ALIAS, not the local — the
+ * alias is the name the chunk exports.
+ */
+function exportListNames(text) {
+  const out = new Set();
+  for (const m of text.matchAll(/export\s*\{([^}]*)\}/g)) {
+    for (const part of m[1].split(",")) {
+      const seg = part.trim();
+      if (!seg) continue;
+      const as = seg.split(/\s+as\s+/);
+      out.add((as.length === 2 ? as[1] : seg).trim());
+    }
+  }
+  return out;
+}
+
+/**
+ * The SERVED chunk's own export statement — the capture-side text the reading
+ * copy's rendered table must still match.
+ *
+ * A skipped tail carries no file: the export list at the end of a module
+ * references bindings declared in the earlier slices, so it does not parse
+ * alone and the layer never fabricates it. The public-export-name gate
+ * therefore has no derived text for that table and reports it UNCHECKED —
+ * unless the tail records one. `text` is that text: the served chunk's own
+ * export statement, so the two sides of the gate's comparison are two
+ * DIFFERENT files (the served chunk's raw statement and the reading copy's
+ * rendering of it) instead of the pristine compared with itself.
+ *
+ * The statement is matched by its PUBLIC NAMES, so a fragment of a string that
+ * happens to contain `export {` is never mistaken for it, and nothing is
+ * invented: when the served chunk carries no statement with the tail's names,
+ * the tail stays a plain skipped record and the gate keeps reporting it
+ * unchecked.
+ */
+function captureExportStatement(captureText, tailText) {
+  const want = exportListNames(tailText);
+  if (!want.size) return null;
+  let found = null;
+  for (const m of captureText.matchAll(/export\s*\{[^}]*\}/g)) {
+    const names = exportListNames(m[0]);
+    if (names.size !== want.size) continue;
+    if (![...want].every((n) => names.has(n))) continue;
+    found = m[0];
+  }
+  return found;
+}
+
 // ── windowize: cut only at statement starts; ≤350 lines ────────────────
 function windowize(stmts) {
   const out = [];
@@ -570,12 +620,26 @@ async function main() {
       !/\bfrom\b/.test(lastStmt.text)
     ) {
       const areaInfo0 = areaOf(rel);
+      // The SERVED chunk's own export statement: the tail records it as its
+      // text, so the export gate compares the reading copy's rendered table
+      // against the served chunk instead of the pristine with itself. The
+      // statement is matched by its PUBLIC NAMES, so a fragment of a string
+      // that happens to contain `export {` is never mistaken for it, and
+      // nothing is invented — when the served chunk carries no statement with
+      // the tail's names the tail stays a plain skipped record and the gate
+      // keeps reporting that table unchecked.
+      const served = captureExportStatement(text, lastStmt.text);
       claim(stmts.length - 1, stmts.length - 1, {
         kind: "skip",
         file: `skipped/${areaInfo0.srcDir}/${base}-tail-export.js`,
         title: `${base} — final export table (not sliced)`,
-        desc: `Lines ${lastStmt.startLine}-${lastStmt.endLine}. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.`,
+        desc: `Lines ${lastStmt.startLine}-${lastStmt.endLine}. The chunk's final export {…} table — the exported bindings live in the earlier slices, and the table itself must stay pristine (it is readable-layer text), so it is indexed only and its local names are excluded from the rename campaign.${
+          served
+            ? ` The tail records the served chunk's own export statement (${rel}) as its text — the statement the reading copy's table must still match.`
+            : ""
+        }`,
         capture: rel,
+        ...(served ? { text: served } : {}),
       });
     }
 
@@ -661,6 +725,7 @@ async function main() {
           sourceFile,
           firstLine: lines[b.A - 1],
           lastLine: lines[b.B - 1],
+          ...(b.text ? { text: b.text } : {}),
         });
       }
     }
