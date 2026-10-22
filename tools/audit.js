@@ -623,23 +623,26 @@ for (const s of sections) {
 
   // ── vendor rule: wholeFile sections carry the recorded shape ──────────
   const textOf = (sec) => getLines(path.join(proj, sec.sourceFile)).slice(sec.startLine - 1, sec.endLine).join("\n");
+  // The vendor sections are named by their READING COPY (the section's own
+  // `file`): it is the derived text the export-name gate compares the served
+  // chunk against, and it is the file the content guard reads.
   const VENDOR_GUARDS = [
-    ["vendor/assets/three.module-BgyKfsEV.js", /WebGLRenderer/, /__THREE__/],
-    ["vendor/assets/GLTFLoader-C2oC7w8g.js", /GLTFLoader/, /KHR_/],
-    ["vendor/assets/DRACOLoader-XlKGmd74.js", /DRACOLoader/, /draco_decoder/],
-    ["vendor/assets/MTLLoader-Dw3w9IRM.js", /^import/m, /mtllib/],
-    ["vendor/assets/MTLLoader-Dw3w9IRM.js", /usemtl/, /materialLibraries/],
-    ["vendor/assets/draco/draco_decoder.js", /DracoDecoder|DecoderBuffer/, /emscripten|_malloc|HEAP/],
-    ["vendor/assets/draco/draco_wasm_wrapper.js", /\$jscomp/, /DracoDecoderModule/],
-    ["vendor/maplibre/maplibre-gl-worker.mjs", /maplibre|MapLibre/i, /Worker|worker/],
-    ["vendor/maplibre/maplibre-gl-shared.mjs", /maplibre|MapLibre/i, /export/],
-    ["vendor/assets/world-DPn3WgXw.js", /1\.9\.4/, /maplibregl/],
-    ["vendor/assets/world-DPn3WgXw.js", /nominatim/, /_leaflet_id/],
-    ["vendor/assets/auto-CBo2XcXh.js", /CategoryScale/, /TimeSeriesScale/],
-    ["vendor/assets/chunk-QTnfLwEv.js", /__esModule/, /Object\.create/],
-    ["vendor/assets/defineProperty-BbfpZ9Tg.js", /@babel\/helpers - typeof/, /Symbol\.toPrimitive/],
-    ["vendor/assets/modulepreload-polyfill-Dezn_h7o.js", /modulepreload/i, /MutationObserver|createElement/],
-    ["vendor/assets/GoogleTilesLoader-Ba1pGT7V.js", /TilesRendererBase/, /unloadPriorityCallback/],
+    ["readable/assets/three.module-BgyKfsEV.pretty.js", /WebGLRenderer/, /__THREE__/],
+    ["readable/assets/GLTFLoader-C2oC7w8g.pretty.js", /GLTFLoader/, /KHR_/],
+    ["readable/assets/DRACOLoader-XlKGmd74.pretty.js", /DRACOLoader/, /draco_decoder/],
+    ["readable/assets/MTLLoader-Dw3w9IRM.pretty.js", /^import/m, /mtllib/],
+    ["readable/assets/MTLLoader-Dw3w9IRM.pretty.js", /usemtl/, /materialLibraries/],
+    ["readable/assets/draco/draco_decoder.pretty.js", /DracoDecoder|DecoderBuffer/, /emscripten|_malloc|HEAP/],
+    ["readable/assets/draco/draco_wasm_wrapper.pretty.js", /\$jscomp/, /DracoDecoderModule/],
+    ["readable/maplibre/maplibre-gl-worker.pretty.js", /maplibre|MapLibre/i, /Worker|worker/],
+    ["readable/maplibre/maplibre-gl-shared.pretty.js", /maplibre|MapLibre/i, /export/],
+    ["readable/assets/world-DPn3WgXw.pretty.js", /1\.9\.4/, /maplibregl/],
+    ["readable/assets/world-DPn3WgXw.pretty.js", /nominatim/, /_leaflet_id/],
+    ["readable/assets/auto-CBo2XcXh.pretty.js", /CategoryScale/, /TimeSeriesScale/],
+    ["readable/assets/chunk-QTnfLwEv.pretty.js", /__esModule/, /Object\.create/],
+    ["readable/assets/defineProperty-BbfpZ9Tg.pretty.js", /@babel\/helpers - typeof/, /Symbol\.toPrimitive/],
+    ["readable/assets/modulepreload-polyfill-Dezn_h7o.pretty.js", /modulepreload/i, /MutationObserver|createElement/],
+    ["readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js", /TilesRendererBase/, /unloadPriorityCallback/],
   ];
   for (const [file, reA, reB] of VENDOR_GUARDS) {
     const sec = sections.find((s) => s.file === file);

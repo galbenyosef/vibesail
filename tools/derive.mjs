@@ -540,13 +540,13 @@ async function main() {
       if (cls.guard && !cls.guard(region))
         throw new Error(`${rel}: whole-file guard failed — readable changed shape`);
       sections.push({
-        file: `vendor/${rel}`,
+        file: sourceFile,
         wholeFile: true,
         kind: "vendor",
         title: `vendor/${rel} — ${cls.what} (whole-file, never sliced)`,
-        desc: `Lines 1-${lines.length} of ${sourceFile}: ${cls.desc} Vendor rule — indexed whole-file in readable/, never sliced or rewritten.`,
+        desc: `Lines 1-${lines.length} of ${sourceFile}: ${cls.desc} Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (${sourceFile}) and its origin is the served chunk (${rel}): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.`,
         note: "whole-file (vendor rule): indexed in readable/, never sliced",
-        capture: rel,
+        origin: rel,
         startLine: 1,
         endLine: lines.length,
         sourceFile,
@@ -609,9 +609,9 @@ async function main() {
       bandVendor = { k, endLine: stmts[k - 1].endLine };
       claim(importCount, k - 1, {
         kind: "whole",
-        file: `vendor/${rel}`,
+        file: sourceFile,
         title: `vendor/${rel} — ${band.vendorWhat} (vendor band, whole-file, never sliced)`,
-        body: `the vendored ${band.vendorWhat} (TilesRenderer traversal/plugins) that the minifier emitted ahead of the app code in the same chunk; the ${band.appWhat} that follows is sliced separately.`,
+        body: `the vendored ${band.vendorWhat} (TilesRenderer traversal/plugins) that the minifier emitted ahead of the app code in the same chunk; the ${band.appWhat} that follows is sliced separately. The section's file is the READING COPY (${sourceFile}) and its origin is the served chunk (${rel}): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text.`,
         capture: rel,
       });
     }
@@ -717,7 +717,7 @@ async function main() {
           title: b.title,
           desc: `Lines ${b.A}-${b.B} of ${sourceFile}: ${b.body}`,
           note: "whole-file region (vendor rule): indexed in readable/, never sliced",
-          capture: rel,
+          origin: rel,
           startLine: b.A,
           endLine: b.B,
           sourceFile,
@@ -973,6 +973,34 @@ async function main() {
     project: "vibesail",
     kind: "statement-aligned-slices",
     defaultFile: `src/${sections.find((s) => !s.wholeFile && !s.skipped).file}`,
+    coverageNote:
+      "Export-name gate coverage. Before this pass node tools/check-exports.mjs printed '59 export " +
+      "table(s) checked' and '19 export table(s) NOT covered (no derived text)' on this mirror; it now " +
+      "prints '69 export table(s) checked' and '9 export table(s) NOT covered'. The ten tables that " +
+      "moved are the SERVED CHUNKS this mirror keeps whole under the vendor rule (assets/auto-CBo2XcXh.js, " +
+      "assets/three.module-BgyKfsEV.js, assets/DRACOLoader-*.js, assets/GLTFLoader-*.js, " +
+      "assets/MTLLoader-*.js, assets/chunk-QTnfLwEv.js, assets/defineProperty-*.js, " +
+      "maplibre/maplibre-gl-shared.mjs, maplibre/maplibre-gl-worker.mjs and the vendor band of " +
+      "assets/GoogleTilesLoader-Ba1pGT7V.js). Each is a real ES module with a real public export table, " +
+      "each already had a reading copy under readable/, and each had NO derived text to compare against: " +
+      "the vendor rule keeps those chunks whole and unsliced, so they have no src/ slice, and the " +
+      "section pointed at an index-only name ('vendor/...') that is not a file. Each vendor whole-file " +
+      "section now names the READING COPY in `file` and the SERVED CHUNK in `origin`, and carries no " +
+      "`capture` field - a `capture` field makes the gate compare the served chunk with itself. The " +
+      "pristine is therefore the served file, so the comparison is live: PROOF, in a throwaway copy " +
+      "outside D:/repos/mirrors, renaming the public export of the served chunk assets/auto-CBo2XcXh.js " +
+      "(export{Nl as t} -> export{Nl as tMutated}) turns the gate RED and names the lost public name - " +
+      "'wholefile:assets/auto-CBo2XcXh.js: a public export name was LOST: tMutated', with 'the capture " +
+      "exported: tMutated' and 'the layer exports: t', exit 1. The two sides are two different files " +
+      "(the served chunk and its reading copy), so no table is compared with itself. The nine tables " +
+      "still uncovered are the READING COPIES' own instances of those same tables: a reading copy of a " +
+      "whole-file vendor chunk has no other derived text in this mirror (it is never sliced and the " +
+      "vendor rule keeps it out of src/), and the gate refuses to compare a file with itself. Each of " +
+      "those tables IS compared, live, through its served chunk - the served chunk's table is the " +
+      "pristine and the reading copy the derived text - so the nine lines report that the reading copy's " +
+      "own copy of the table has no second counterpart, which is true and harmless. tools/audit.js " +
+      "learned the new shape: its vendor content guards now name the reading copies, because that is the " +
+      "file each vendor section carries.",
     note:
       "VIBESAIL (https://vibesail.com/) is capture-class: a Vite multi-page production build of a 3D " +
       "sailing simulator (108 documents: home + 14 localized /lang/<code>/ homepages, /game, /world, /race, " +

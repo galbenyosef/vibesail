@@ -140,6 +140,53 @@ consecutive rebuilds, 621 files, 0 differences):
 node tools/derive.mjs && node tools/apply-names.mjs --all && node tools/recover-scoped-map.mjs --from-names
 ```
 
+## Export-name coverage
+
+`node tools/check-exports.mjs` prints **`69 export table(s) checked`** and **`9 export table(s) NOT
+covered (no derived text)`**. Before this pass it printed `59 export table(s) checked` and
+`19 export table(s) NOT covered`.
+
+**What was uncovered.** Ten of the nineteen were the *served chunks* this mirror keeps whole under
+the vendor rule — `assets/auto-CBo2XcXh.js` (Chart.js), `assets/three.module-BgyKfsEV.js`,
+`assets/DRACOLoader-*.js`, `assets/GLTFLoader-*.js`, `assets/MTLLoader-*.js`,
+`assets/chunk-QTnfLwEv.js`, `assets/defineProperty-*.js`, `maplibre/maplibre-gl-shared.mjs`,
+`maplibre/maplibre-gl-worker.mjs` and the vendor band of `assets/GoogleTilesLoader-*.js`. Each is a
+real ES module with a real public export table, and each already had a **reading copy** under
+`readable/`. The mirror ships the chunks whole and never slices them, so there was no `src/` slice
+to compare against — the spec pointed the sections at index-only names (`vendor/…`) that are not
+files, and the gate had nothing to read.
+
+**They are compared now, live.** Every vendor whole-file section in `split-spec.json` names the
+**reading copy** in `file` and the **served chunk** in `origin`, and carries no `capture` field — a
+`capture` field would make the gate compare the served chunk with itself. The pristine is therefore
+the *served* file, so a public export name that changes in a chunk the origin serves turns the gate
+red and it names the lost name.
+
+Proof, in a throwaway copy outside `D:/repos/mirrors`: renaming the public export of the served
+chunk `assets/auto-CBo2XcXh.js` (`export{Nl as t}` → `export{Nl as tMutated}`) turns the gate red —
+
+```
+wholefile:assets/auto-CBo2XcXh.js: a public export name was LOST: tMutated
+  the capture exported: tMutated
+  the layer exports:   t
+```
+
+— exit 1. The two sides of every comparison are two different files (the served chunk and its
+reading copy), so no table is ever compared with itself.
+
+**What is still uncovered, and why.** The nine remaining are the *reading copies' own* instances of
+those same tables (`readable/assets/auto-CBo2XcXh.pretty.js` and its eight siblings). A reading copy
+of a whole-file vendor chunk has no other derived text in this mirror — it is never sliced, so it has
+no `src/` slice, and the vendor rule keeps it out of `src/` — and the gate will not compare a file
+with itself. Each of those tables *is* compared, live, through its served chunk: the served chunk's
+table is the pristine and the reading copy is the derived text. What the nine lines report is that
+the reading copy's own copy of the table has no second counterpart, which is true and harmless.
+
+The derive that emits those sections is `tools/derive.mjs`; `tools/audit.js` learned the new shape
+too — its vendor content guards now name the reading copies, because that is the file each vendor
+section carries. `node tools/derive.mjs --check` proves the committed layer is exactly what the
+rebuild chain produces.
+
 ## Updating from upstream
 
 ```

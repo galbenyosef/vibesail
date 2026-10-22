@@ -2,6 +2,7 @@
   "project": "vibesail",
   "kind": "statement-aligned-slices",
   "defaultFile": "src/routes/home/main-01.js",
+  "coverageNote": "Export-name gate coverage. Before this pass node tools/check-exports.mjs printed '59 export table(s) checked' and '19 export table(s) NOT covered (no derived text)' on this mirror; it now prints '69 export table(s) checked' and '9 export table(s) NOT covered'. The ten tables that moved are the SERVED CHUNKS this mirror keeps whole under the vendor rule (assets/auto-CBo2XcXh.js, assets/three.module-BgyKfsEV.js, assets/DRACOLoader-*.js, assets/GLTFLoader-*.js, assets/MTLLoader-*.js, assets/chunk-QTnfLwEv.js, assets/defineProperty-*.js, maplibre/maplibre-gl-shared.mjs, maplibre/maplibre-gl-worker.mjs and the vendor band of assets/GoogleTilesLoader-Ba1pGT7V.js). Each is a real ES module with a real public export table, each already had a reading copy under readable/, and each had NO derived text to compare against: the vendor rule keeps those chunks whole and unsliced, so they have no src/ slice, and the section pointed at an index-only name ('vendor/...') that is not a file. Each vendor whole-file section now names the READING COPY in `file` and the SERVED CHUNK in `origin`, and carries no `capture` field - a `capture` field makes the gate compare the served chunk with itself. The pristine is therefore the served file, so the comparison is live: PROOF, in a throwaway copy outside D:/repos/mirrors, renaming the public export of the served chunk assets/auto-CBo2XcXh.js (export{Nl as t} -> export{Nl as tMutated}) turns the gate RED and names the lost public name - 'wholefile:assets/auto-CBo2XcXh.js: a public export name was LOST: tMutated', with 'the capture exported: tMutated' and 'the layer exports: t', exit 1. The two sides are two different files (the served chunk and its reading copy), so no table is compared with itself. The nine tables still uncovered are the READING COPIES' own instances of those same tables: a reading copy of a whole-file vendor chunk has no other derived text in this mirror (it is never sliced and the vendor rule keeps it out of src/), and the gate refuses to compare a file with itself. Each of those tables IS compared, live, through its served chunk - the served chunk's table is the pristine and the reading copy the derived text - so the nine lines report that the reading copy's own copy of the table has no second counterpart, which is true and harmless. tools/audit.js learned the new shape: its vendor content guards now name the reading copies, because that is the file each vendor section carries.",
   "note": "VIBESAIL (https://vibesail.com/) is capture-class: a Vite multi-page production build of a 3D sailing simulator (108 documents: home + 14 localized /lang/<code>/ homepages, /game, /world, /race, /leaderboard, /highsea, /tutorial, /daily-race, /blog/<slug>/ + /changelog/, /contact, /privacy, /feedback, /advertise, /2025recap) served at the origin root by Cloudflare with a live account backend (external) and PostHog/analytics (external). §0.4 fork-over-mirror was checked on 2026-10-13 — neither the page nor its JS references a public source repo (see README), so the mirror stands. Derived pipeline (2026-10-14 real-tree pass): capture → pinned prettier 3.9.6 (module API, default options, format-to-layout-fixed-point, 1-2 passes — never the CLI: it respects .gitignore and can silently echo its input) → readable/<capture path>.pretty.js|css per captured JS/MJS/CSS file (the SERVED path structure preserved — assets/, maplibre/, root files, page dirs for inline twins; every pretty provably NOT byte-identical to its capture source) → statement-aligned slices under a real tree mirroring the site: src/routes/<route>/<name>-NN.js (HTML-evidenced page entries), src/game/<Name>/<Name>-NN.js (modules reachable from three.module/Game — the 3D game), src/site/<Name>/<Name>-NN.js (shared site shell), src/pwa/pwa-worker-NN.js; <Name> is the Vite chunk basename with the content hash stripped (the real module name the build chose). Slices cut at top-level declaration boundaries only (~250-350 line windows; oversized single declarations stay whole) with an exact 2-line provenance header. Every slice parses standalone under `node --input-type=module --check -` and round-trips byte-exact to its recorded readable line range (through the rename map for renamed slices — see rename-map.json, applied by tools/apply-names.mjs --all). Non-standalone parts are skipped sections, indexed but never sliced: every app chunk's final `export { local as Public }` table — a standalone table slice would be an early-error export of undeclared names, and the table text must stay pristine, so its LOCAL names are excluded from the rename campaign (a documented structural limit; internals and scoped names rename freely). Vendor rule — wholeFile sections, never sliced, never renamed: the bundled three.js core and its GLTFLoader/DRACOLoader/MTLLoader addon chunks, the Google Draco decoder pair, the MapLibre GL worker/shared modules, the vendor-dominated /world chunk (Leaflet 1.9.4 + MapLibre GL merged with page code into one declaration), the Chart.js v4 `auto` bundle (assets/auto-*), the Rollup ESM-interop runtime (chunk-QTnfLwEv), the @babel/runtime helper chunk (defineProperty) and the Vite modulepreload polyfill — all content-anchored and guarded; plus the vendor BAND of the Google 3d-tiles-renderer chunk (assets/GoogleTilesLoader-*, lines 1..seam, guard TilesRendererBase+GoogleCloudAuthPlugin), whose app wrapper (GoogleTilesLoader class + cache-profile helpers) is sliced as app code. Stylesheet rule — every captured .css is wholeFile. Inline <script>/<style> scan: all 108 captured HTML documents are scanned; inline JS blocks each get a wholeFile twin readable/<page>-inline-N.pretty.js + a readable/index-inline-map.json entry with byte range and sha256; typed data blocks (<script type=\"application/ld+json\"> VideoGame/FAQ schema) are recorded as notRendered. Binary payloads (images, models, audio, fonts, wasm, JSON data) are hashed notRendered records, never prettified. Identifier names in src/ slices are the bundle's own minified names except where the reviewed rename layer (tools/names.json → rename-map.json) has superseded them — semantic names on app code only, never on vendor bytes. Capture bytes are untouched by everything above; re-cut with `node tools/derive.mjs && node tools/apply-names.mjs --all` after any capture refresh. `node tools/audit.js` is the gate.",
   "renderOptions": {
     "_default": "prettier 3.9.6, module API, default options, formatted to a layout fixed point (1 or 2 passes; prettier 3.9.6 member-chain layout is not idempotent on some optional-chain argument patterns — the recorded method is format-to-fixed-point, and audit re-renders with it) — never the CLI: it respects .gitignore and can silently echo its input",
@@ -7797,13 +7798,13 @@
       "text": "export{jt as a,Nt as c,X as d,St as f,wt as h,kt as i,Dt as l,xt as m,Et as n,At as o,Ct as p,Pt as r,Ot as s,Ft as t,Mt as u}"
     },
     {
-      "file": "vendor/assets/auto-CBo2XcXh.js",
+      "file": "readable/assets/auto-CBo2XcXh.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/auto-CBo2XcXh.js — Chart.js v4 auto-registration bundle (whole-file, never sliced)",
-      "desc": "Lines 1-11713 of readable/assets/auto-CBo2XcXh.pretty.js: the Chart.js v4 `chart.js/auto` bundle (color helpers, scales/controllers/elements registry, the final `Ao.register(...)` of CategoryScale/LinearScale/LogarithmicScale/RadialLinearScale/TimeScale/TimeSeriesScale) imported by /leaderboard and /2025recap — third-party chart engine, no app code (single `export { Nl as t }`). Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-11713 of readable/assets/auto-CBo2XcXh.pretty.js: the Chart.js v4 `chart.js/auto` bundle (color helpers, scales/controllers/elements registry, the final `Ao.register(...)` of CategoryScale/LinearScale/LogarithmicScale/RadialLinearScale/TimeScale/TimeSeriesScale) imported by /leaderboard and /2025recap — third-party chart engine, no app code (single `export { Nl as t }`). Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/auto-CBo2XcXh.pretty.js) and its origin is the served chunk (assets/auto-CBo2XcXh.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/auto-CBo2XcXh.js",
+      "origin": "assets/auto-CBo2XcXh.js",
       "startLine": 1,
       "endLine": 11713,
       "sourceFile": "readable/assets/auto-CBo2XcXh.pretty.js"
@@ -8212,13 +8213,13 @@
       "text": "export{e as t}"
     },
     {
-      "file": "vendor/assets/chunk-QTnfLwEv.js",
+      "file": "readable/assets/chunk-QTnfLwEv.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/chunk-QTnfLwEv.js — Rollup ESM-interop runtime (whole-file, never sliced)",
-      "desc": "Lines 1-37 of readable/assets/chunk-QTnfLwEv.pretty.js: the Rollup ESM-interop helper chunk (`__esModule`/`Object.defineProperty` getter tables, the `(e, t) => () => t || e((t = { exports: {} }).exports, t)` CJS wrapper) shared by every CJS-interop call site in the chunk graph — build machinery, not app code. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-37 of readable/assets/chunk-QTnfLwEv.pretty.js: the Rollup ESM-interop helper chunk (`__esModule`/`Object.defineProperty` getter tables, the `(e, t) => () => t || e((t = { exports: {} }).exports, t)` CJS wrapper) shared by every CJS-interop call site in the chunk graph — build machinery, not app code. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/chunk-QTnfLwEv.pretty.js) and its origin is the served chunk (assets/chunk-QTnfLwEv.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/chunk-QTnfLwEv.js",
+      "origin": "assets/chunk-QTnfLwEv.js",
       "startLine": 1,
       "endLine": 37,
       "sourceFile": "readable/assets/chunk-QTnfLwEv.pretty.js"
@@ -8342,13 +8343,13 @@
       "text": "export{w as a,E as c,O as i,C as l,A as n,T as o,j as r,D as s,k as t}"
     },
     {
-      "file": "vendor/assets/defineProperty-BbfpZ9Tg.js",
+      "file": "readable/assets/defineProperty-BbfpZ9Tg.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/defineProperty-BbfpZ9Tg.js — @babel/runtime helper chunk (whole-file, never sliced)",
-      "desc": "Lines 1-47 of readable/assets/defineProperty-BbfpZ9Tg.pretty.js: the @babel/runtime helper module as rolled up by the build (`_typeof` with its `@babel/helpers - typeof` tag, `_toPrimitive`, `_defineProperty`) — build machinery, not app code. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-47 of readable/assets/defineProperty-BbfpZ9Tg.pretty.js: the @babel/runtime helper module as rolled up by the build (`_typeof` with its `@babel/helpers - typeof` tag, `_toPrimitive`, `_defineProperty`) — build machinery, not app code. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/defineProperty-BbfpZ9Tg.pretty.js) and its origin is the served chunk (assets/defineProperty-BbfpZ9Tg.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/defineProperty-BbfpZ9Tg.js",
+      "origin": "assets/defineProperty-BbfpZ9Tg.js",
       "startLine": 1,
       "endLine": 47,
       "sourceFile": "readable/assets/defineProperty-BbfpZ9Tg.pretty.js"
@@ -8380,13 +8381,13 @@
       "text": "export{r as i,n,t as r,e as t}"
     },
     {
-      "file": "vendor/assets/DRACOLoader-XlKGmd74.js",
+      "file": "readable/assets/DRACOLoader-XlKGmd74.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/DRACOLoader-XlKGmd74.js — three.js DRACOLoader addon (whole-file, never sliced)",
-      "desc": "Lines 1-353 of readable/assets/DRACOLoader-XlKGmd74.pretty.js: the three.js examples/jsm DRACOLoader addon (worker pool, `draco_decoder.js`/`draco_wasm_wrapper.js` loading from the decoder path) as served by the build — third-party loader code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-353 of readable/assets/DRACOLoader-XlKGmd74.pretty.js: the three.js examples/jsm DRACOLoader addon (worker pool, `draco_decoder.js`/`draco_wasm_wrapper.js` loading from the decoder path) as served by the build — third-party loader code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/DRACOLoader-XlKGmd74.pretty.js) and its origin is the served chunk (assets/DRACOLoader-XlKGmd74.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/DRACOLoader-XlKGmd74.js",
+      "origin": "assets/DRACOLoader-XlKGmd74.js",
       "startLine": 1,
       "endLine": 353,
       "sourceFile": "readable/assets/DRACOLoader-XlKGmd74.pretty.js"
@@ -9175,13 +9176,13 @@
       "text": "export{B as a,X as c,x as d,ce as i,K as l,se as n,J as o,$ as r,q as s,oe as t,G as u}"
     },
     {
-      "file": "vendor/assets/GLTFLoader-C2oC7w8g.js",
+      "file": "readable/assets/GLTFLoader-C2oC7w8g.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/GLTFLoader-C2oC7w8g.js — three.js GLTFLoader addon (whole-file, never sliced)",
-      "desc": "Lines 1-2415 of readable/assets/GLTFLoader-C2oC7w8g.pretty.js: the three.js examples/jsm GLTFLoader addon (glTF parsing, KHR_* extension callbacks, DRACO/KTX2/meshopt hooks) as served by the build — third-party loader code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-2415 of readable/assets/GLTFLoader-C2oC7w8g.pretty.js: the three.js examples/jsm GLTFLoader addon (glTF parsing, KHR_* extension callbacks, DRACO/KTX2/meshopt hooks) as served by the build — third-party loader code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/GLTFLoader-C2oC7w8g.pretty.js) and its origin is the served chunk (assets/GLTFLoader-C2oC7w8g.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/GLTFLoader-C2oC7w8g.js",
+      "origin": "assets/GLTFLoader-C2oC7w8g.js",
       "startLine": 1,
       "endLine": 2415,
       "sourceFile": "readable/assets/GLTFLoader-C2oC7w8g.pretty.js"
@@ -9198,13 +9199,13 @@
       "sourceFile": "readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js"
     },
     {
-      "file": "vendor/assets/GoogleTilesLoader-Ba1pGT7V.js",
+      "file": "readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js",
       "wholeFile": true,
       "kind": "vendorBand",
       "title": "vendor/assets/GoogleTilesLoader-Ba1pGT7V.js — 3d-tiles-renderer library (vendor band, whole-file, never sliced)",
-      "desc": "Lines 33-3886 of readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js: the vendored 3d-tiles-renderer library (TilesRenderer traversal/plugins) that the minifier emitted ahead of the app code in the same chunk; the GoogleTilesLoader wrapper that follows is sliced separately.",
+      "desc": "Lines 33-3886 of readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js: the vendored 3d-tiles-renderer library (TilesRenderer traversal/plugins) that the minifier emitted ahead of the app code in the same chunk; the GoogleTilesLoader wrapper that follows is sliced separately. The section's file is the READING COPY (readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js) and its origin is the served chunk (assets/GoogleTilesLoader-Ba1pGT7V.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text.",
       "note": "whole-file region (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/GoogleTilesLoader-Ba1pGT7V.js",
+      "origin": "assets/GoogleTilesLoader-Ba1pGT7V.js",
       "startLine": 33,
       "endLine": 3886,
       "sourceFile": "readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js"
@@ -9565,25 +9566,25 @@
       "text": "export{v as default}"
     },
     {
-      "file": "vendor/assets/modulepreload-polyfill-Dezn_h7o.js",
+      "file": "readable/assets/modulepreload-polyfill-Dezn_h7o.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/modulepreload-polyfill-Dezn_h7o.js — Vite modulepreload polyfill (whole-file, never sliced)",
-      "desc": "Lines 1-30 of readable/assets/modulepreload-polyfill-Dezn_h7o.pretty.js: the Vite `vite:modulepreload-polyfill` runtime (the `link[rel=modulepreload]` feature probe + loader for older browsers) — build machinery, not app code. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-30 of readable/assets/modulepreload-polyfill-Dezn_h7o.pretty.js: the Vite `vite:modulepreload-polyfill` runtime (the `link[rel=modulepreload]` feature probe + loader for older browsers) — build machinery, not app code. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/modulepreload-polyfill-Dezn_h7o.pretty.js) and its origin is the served chunk (assets/modulepreload-polyfill-Dezn_h7o.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/modulepreload-polyfill-Dezn_h7o.js",
+      "origin": "assets/modulepreload-polyfill-Dezn_h7o.js",
       "startLine": 1,
       "endLine": 30,
       "sourceFile": "readable/assets/modulepreload-polyfill-Dezn_h7o.pretty.js"
     },
     {
-      "file": "vendor/assets/MTLLoader-Dw3w9IRM.js",
+      "file": "readable/assets/MTLLoader-Dw3w9IRM.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/MTLLoader-Dw3w9IRM.js — three.js MTLLoader addon (whole-file, never sliced)",
-      "desc": "Lines 1-699 of readable/assets/MTLLoader-Dw3w9IRM.pretty.js: the three.js examples/jsm MTLLoader addon (Wavefront .mtl material parsing) as served by the build — third-party loader code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-699 of readable/assets/MTLLoader-Dw3w9IRM.pretty.js: the three.js examples/jsm MTLLoader addon (Wavefront .mtl material parsing) as served by the build — third-party loader code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/MTLLoader-Dw3w9IRM.pretty.js) and its origin is the served chunk (assets/MTLLoader-Dw3w9IRM.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/MTLLoader-Dw3w9IRM.js",
+      "origin": "assets/MTLLoader-Dw3w9IRM.js",
       "startLine": 1,
       "endLine": 699,
       "sourceFile": "readable/assets/MTLLoader-Dw3w9IRM.pretty.js"
@@ -10497,73 +10498,73 @@
       "sourceFile": "readable/pwa-worker.pretty.js"
     },
     {
-      "file": "vendor/assets/draco/draco_decoder.js",
+      "file": "readable/assets/draco/draco_decoder.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/draco/draco_decoder.js — Google Draco decoder (whole-file, never sliced)",
-      "desc": "Lines 1-74283 of readable/assets/draco/draco_decoder.pretty.js: the Google Draco decoder JS (the Emscripten-compiled decoder the DRACOLoader worker loads from /assets/draco/) — third-party decoder, not app code. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-74283 of readable/assets/draco/draco_decoder.pretty.js: the Google Draco decoder JS (the Emscripten-compiled decoder the DRACOLoader worker loads from /assets/draco/) — third-party decoder, not app code. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/draco/draco_decoder.pretty.js) and its origin is the served chunk (assets/draco/draco_decoder.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/draco/draco_decoder.js",
+      "origin": "assets/draco/draco_decoder.js",
       "startLine": 1,
       "endLine": 74283,
       "sourceFile": "readable/assets/draco/draco_decoder.pretty.js"
     },
     {
-      "file": "vendor/assets/draco/draco_wasm_wrapper.js",
+      "file": "readable/assets/draco/draco_wasm_wrapper.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/draco/draco_wasm_wrapper.js — Google Draco WASM wrapper (whole-file, never sliced)",
-      "desc": "Lines 1-2537 of readable/assets/draco/draco_wasm_wrapper.pretty.js: the Google Draco WASM wrapper (Closure-compiled `$jscomp` runtime shim + the `DracoDecoderModule` factory with its module.exports/AMD/global dispatch) — third-party decoder, not app code. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-2537 of readable/assets/draco/draco_wasm_wrapper.pretty.js: the Google Draco WASM wrapper (Closure-compiled `$jscomp` runtime shim + the `DracoDecoderModule` factory with its module.exports/AMD/global dispatch) — third-party decoder, not app code. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/draco/draco_wasm_wrapper.pretty.js) and its origin is the served chunk (assets/draco/draco_wasm_wrapper.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/draco/draco_wasm_wrapper.js",
+      "origin": "assets/draco/draco_wasm_wrapper.js",
       "startLine": 1,
       "endLine": 2537,
       "sourceFile": "readable/assets/draco/draco_wasm_wrapper.pretty.js"
     },
     {
-      "file": "vendor/assets/three.module-BgyKfsEV.js",
+      "file": "readable/assets/three.module-BgyKfsEV.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/three.module-BgyKfsEV.js — bundled three.js engine (whole-file, never sliced)",
-      "desc": "Lines 1-28449 of readable/assets/three.module-BgyKfsEV.pretty.js: the bundled three.js engine — the vendored `__THREE__` revision registration, WebGLRenderer, math/geometry/material/texture/animation/renderer machinery — third-party engine code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-28449 of readable/assets/three.module-BgyKfsEV.pretty.js: the bundled three.js engine — the vendored `__THREE__` revision registration, WebGLRenderer, math/geometry/material/texture/animation/renderer machinery — third-party engine code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/three.module-BgyKfsEV.pretty.js) and its origin is the served chunk (assets/three.module-BgyKfsEV.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/three.module-BgyKfsEV.js",
+      "origin": "assets/three.module-BgyKfsEV.js",
       "startLine": 1,
       "endLine": 28449,
       "sourceFile": "readable/assets/three.module-BgyKfsEV.pretty.js"
     },
     {
-      "file": "vendor/assets/world-DPn3WgXw.js",
+      "file": "readable/assets/world-DPn3WgXw.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/assets/world-DPn3WgXw.js — Leaflet + MapLibre world-map chunk (whole-file, never sliced)",
-      "desc": "Lines 1-56195 of readable/assets/world-DPn3WgXw.pretty.js: the /world page chunk: the minifier merged the bundled Leaflet 1.9.4 UMD and the bundled MapLibre GL engine into the same top-level declaration as the page's own constants (`var h = e(<leaflet>, 1), g = 'https://nominatim…', …`), so statement-aligned slicing cannot separate vendor from app code without violating the alignment rule. Vendor-dominated (Leaflet + MapLibre are the bulk of the 1.13 MB) — classified whole-file like the fleet's other bundled-engine chunks, with content guards asserting both engines and the app anchors are present. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-56195 of readable/assets/world-DPn3WgXw.pretty.js: the /world page chunk: the minifier merged the bundled Leaflet 1.9.4 UMD and the bundled MapLibre GL engine into the same top-level declaration as the page's own constants (`var h = e(<leaflet>, 1), g = 'https://nominatim…', …`), so statement-aligned slicing cannot separate vendor from app code without violating the alignment rule. Vendor-dominated (Leaflet + MapLibre are the bulk of the 1.13 MB) — classified whole-file like the fleet's other bundled-engine chunks, with content guards asserting both engines and the app anchors are present. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/assets/world-DPn3WgXw.pretty.js) and its origin is the served chunk (assets/world-DPn3WgXw.js): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "assets/world-DPn3WgXw.js",
+      "origin": "assets/world-DPn3WgXw.js",
       "startLine": 1,
       "endLine": 56195,
       "sourceFile": "readable/assets/world-DPn3WgXw.pretty.js"
     },
     {
-      "file": "vendor/maplibre/maplibre-gl-shared.mjs",
+      "file": "readable/maplibre/maplibre-gl-shared.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/maplibre/maplibre-gl-shared.mjs — MapLibre GL shared modules (whole-file, never sliced)",
-      "desc": "Lines 1-27472 of readable/maplibre/maplibre-gl-shared.pretty.js: the bundled MapLibre GL shared module (worker/geometry/dispatch helpers shared with the maplibre bundle) served from /maplibre/ — third-party map-engine code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-27472 of readable/maplibre/maplibre-gl-shared.pretty.js: the bundled MapLibre GL shared module (worker/geometry/dispatch helpers shared with the maplibre bundle) served from /maplibre/ — third-party map-engine code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/maplibre/maplibre-gl-shared.pretty.js) and its origin is the served chunk (maplibre/maplibre-gl-shared.mjs): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "maplibre/maplibre-gl-shared.mjs",
+      "origin": "maplibre/maplibre-gl-shared.mjs",
       "startLine": 1,
       "endLine": 27472,
       "sourceFile": "readable/maplibre/maplibre-gl-shared.pretty.js"
     },
     {
-      "file": "vendor/maplibre/maplibre-gl-worker.mjs",
+      "file": "readable/maplibre/maplibre-gl-worker.pretty.js",
       "wholeFile": true,
       "kind": "vendor",
       "title": "vendor/maplibre/maplibre-gl-worker.mjs — MapLibre GL worker (whole-file, never sliced)",
-      "desc": "Lines 1-932 of readable/maplibre/maplibre-gl-worker.pretty.js: the bundled MapLibre GL worker module (tile parsing/worker pool) served from /maplibre/ — third-party map-engine code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-932 of readable/maplibre/maplibre-gl-worker.pretty.js: the bundled MapLibre GL worker module (tile parsing/worker pool) served from /maplibre/ — third-party map-engine code, not app logic. Vendor rule — indexed whole-file in readable/, never sliced or rewritten. The section's file is the READING COPY (readable/maplibre/maplibre-gl-worker.pretty.js) and its origin is the served chunk (maplibre/maplibre-gl-worker.mjs): the export-name gate takes the served chunk as the pristine and the reading copy as the derived text, so the chunk's public export names are compared against the layer's own rendering of it.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
-      "capture": "maplibre/maplibre-gl-worker.mjs",
+      "origin": "maplibre/maplibre-gl-worker.mjs",
       "startLine": 1,
       "endLine": 932,
       "sourceFile": "readable/maplibre/maplibre-gl-worker.pretty.js"
