@@ -16,7 +16,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
+import { resolvePinnedPrettier, prettierNotFoundMessage } from "./engine/prettier.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const proj = path.resolve(here, "..");
@@ -49,30 +50,19 @@ const ASSET_EXT = /\.(glb|gltf|png|jpg|jpeg|webp|avif|ktx2|mp3|ogg|wav|json|wasm
 // ── pinned prettier (module API) for AST-grade literal extraction ────────
 // The hand lexer desynchronizes on regex literals containing quotes, so JS
 // literals come from the babel AST when the pinned prettier is importable,
-// with the lexer as fallback. Same pinned version the derived layers use.
+// with the lexer as fallback. Same pinned version the derived layers use, and
+// the same ONE resolution order (tools/engine/prettier.mjs): prettier 3.9.6 is
+// VENDORED in this mirror at tools/vendor/prettier/, so the AST scanner does
+// not depend on some other machine's node_modules.
 const PINNED = "3.9.6";
-async function loadPrettier() {
-  const candidates = [
-    process.env.PRETTIER_MJS,
-    path.join(proj, "node_modules", "prettier", "index.mjs"),
-    "D:/repos/mirrors/metropolygonia/node_modules/prettier/index.mjs",
-  ].filter(Boolean);
-  for (const c of candidates) {
-    if (!fs.existsSync(c)) continue;
-    try {
-      const pkg = JSON.parse(fs.readFileSync(path.join(path.dirname(c), "package.json"), "utf8"));
-      if (pkg.version !== PINNED) continue;
-      const mod = (await import(pathToFileURL(c).href)).default;
-      if (mod.version === PINNED) return mod;
-    } catch (e) {
-      if (process.env.CS_DEBUG_PARSE) console.error(`prettier candidate failed (${c}):`, e && e.message);
-      /* try next */
-    }
-  }
-  return null;
+const prettierFound = await resolvePinnedPrettier(proj);
+const prettierMod = prettierFound.mod;
+if (prettierMod) {
+  console.log(`capture: literal scanner = babel AST via pinned prettier ${PINNED}`);
+} else {
+  console.log(`capture: literal scanner = lexer fallback (prettier not importable)`);
+  console.error(prettierNotFoundMessage(proj, prettierFound.tried));
 }
-const prettierMod = await loadPrettier();
-console.log(`capture: literal scanner = ${prettierMod ? `babel AST via pinned prettier ${PINNED}` : "lexer fallback (prettier not importable)"}`);
 
 function astLiterals(ast) {
   const out = [];

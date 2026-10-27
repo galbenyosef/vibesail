@@ -68,7 +68,8 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
+import { resolvePinnedPrettier, prettierNotFoundMessage } from "./engine/prettier.mjs";
 // ── --check: prove the committed derived layer is current, writing NOTHING ─
 // This tool used to ignore its command line entirely, so `node tools/derive.mjs
 // --check` was a full in-place re-derivation: it rewrote readable/ + src/ +
@@ -127,24 +128,14 @@ const ROUTES = {
 };
 
 // ── pinned prettier (module API, exactly 3.9.6) ─────────────────────────
+// The resolution order lives in tools/engine/prettier.mjs — the mirror's ONE
+// order, shared with tools/audit.js, tools/capture.mjs and the AST backend.
+// prettier 3.9.6 is vendored in this mirror at tools/vendor/prettier/, so the
+// derive never has to reach into another mirror's tree.
 async function loadPrettier() {
-  const candidates = [
-    process.env.PRETTIER_MJS,
-    path.join(proj, "node_modules", "prettier", "index.mjs"),
-    "D:/repos/mirrors/metropolygonia/node_modules/prettier/index.mjs",
-  ].filter(Boolean);
-  for (const c of candidates) {
-    if (!fs.existsSync(c)) continue;
-    try {
-      const pkg = JSON.parse(fs.readFileSync(path.join(path.dirname(c), "package.json"), "utf8"));
-      if (pkg.version !== PINNED) continue;
-      const mod = (await import(pathToFileURL(c).href)).default;
-      if (mod.version === PINNED) return { mod, at: c };
-    } catch {
-      /* try next */
-    }
-  }
-  throw new Error(`pinned prettier ${PINNED} not found (set PRETTIER_MJS to its index.mjs)`);
+  const found = await resolvePinnedPrettier(proj);
+  if (!found.mod) throw new Error(prettierNotFoundMessage(proj, found.tried));
+  return { mod: found.mod, at: found.path };
 }
 
 // layout fixed point: prettier 3.9.6's member-chain layout is not idempotent on

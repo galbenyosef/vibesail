@@ -730,29 +730,23 @@ for (const s of sections) {
     }
   }
 
-  // ── best-effort: re-render every pretty with the pinned prettier 3.9.6 ─
-  const prettierCandidates = [
-    process.env.PRETTIER_MJS,
-    path.join(proj, "node_modules", "prettier", "index.mjs"),
-    "D:/repos/mirrors/metropolygonia/node_modules/prettier/index.mjs",
-  ].filter(Boolean);
-  function loadPinnedPrettier() {
-    for (const c of prettierCandidates) {
-      if (!fs.existsSync(c)) continue;
-      try {
-        const pkg = JSON.parse(fs.readFileSync(path.join(path.dirname(c), "package.json"), "utf8"));
-        if (pkg.version !== PINNED) continue;
-        return c;
-      } catch {
-        /* keep looking */
-      }
-    }
-    return null;
-  }
-  let renderNote = `prettier ${PINNED} not importable — renderOptions recorded, re-render check skipped`;
-  const prettierPath = loadPinnedPrettier();
-  if (prettierPath) {
-    const prettier = (await import(pathToFileURL(prettierPath).href)).default;
+  // ── re-render every pretty with the pinned prettier 3.9.6 ──────────────
+  // The resolution order is the mirror's ONE order (tools/engine/prettier.mjs):
+  // prettier 3.9.6 is VENDORED in this mirror at tools/vendor/prettier/, so the
+  // re-render check cannot silently disappear because some other machine's
+  // node_modules went missing. If it cannot be resolved that is a PROBLEM, not
+  // a skipped check — the "provably derived" claim rests on this re-render.
+  const { resolvePinnedPrettier } = await import("./engine/prettier.mjs");
+  const prettierFound = await resolvePinnedPrettier(proj);
+  let renderNote = `prettier ${PINNED} not resolvable — re-render check did not run`;
+  if (!prettierFound.mod) {
+    problem(
+      `pinned prettier ${PINNED} is not resolvable — the re-render check did not run ` +
+        `(${prettierFound.tried.map((t) => `${t.path}: ${t.why}`).join("; ")}). ` +
+        `Recovery: git -C ${proj} checkout -- tools/vendor/prettier`,
+    );
+  } else {
+    const prettier = prettierFound.mod;
     const renderFix = async (text, parser) => {
       const p1 = await prettier.format(text, { parser });
       const p2 = await prettier.format(p1, { parser });

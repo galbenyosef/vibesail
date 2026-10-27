@@ -50,7 +50,8 @@ External at runtime (never captured, never backfilled — documented gaps):
 ## Layout
 
 - `.upstream/manifest.json` — sha256 for every captured file
-- `readable/` — prettified derived layer (pinned prettier 3.9.6), now mirroring the
+- `readable/` — prettified derived layer (pinned prettier 3.9.6, vendored in
+  `tools/vendor/prettier/`), now mirroring the
   **served path structure**: 87 JS pretties (`readable/assets/*.pretty.js`,
   `readable/maplibre/*.pretty.js`, `readable/pwa-worker.pretty.js`), 15 CSS pretties and
   339 inline-block twins under their page directory (`readable/<page>/…-inline-N.pretty.js`)
@@ -63,7 +64,14 @@ External at runtime (never captured, never backfilled — documented gaps):
   `src/pwa/`. `<Name>` is the Vite chunk basename with the content hash stripped (the
   real module name the build chose)
 - `rename-map.json` — the recorded semantic rename layer (per-slice word-boundary +
-  token-index maps), applied by `tools/apply-all-names.mjs` from `tools/names.json`
+  token-index maps), applied by `tools/apply-names.mjs` from `tools/names.json`
+- `tools/engine/prettier.mjs` — the mirror's **one** pinned-prettier resolution order
+  (`$PRETTIER_MJS` → the vendored copy → a local `node_modules`), shared by the derive,
+  the audit, the capture scanner and the AST backend
+- `tools/vendor/prettier/` — **prettier 3.9.6 vendored in this mirror** (module API,
+  byte-identical to the published npm tarball; see its `VENDOR-README.md`). Every
+  derived byte is rendered by this copy, so no tool reaches into another mirror's
+  `node_modules/`
 - `tools/capture.mjs` — capture crawler (sitemap seeds → closure to fixpoint)
 - `tools/derive.mjs` — rebuild `readable/` + `src/` + `split-spec.json`
 - `tools/apply-names.mjs` — apply the reviewed rename rules (per slice or chunk-wide)
