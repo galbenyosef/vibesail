@@ -130,6 +130,16 @@ Then open `http://localhost:3000/` (or `/game` for the game). The 3D game,
 sail physics, tutorial and world map run fully from the mirror; account,
 leaderboard and geo-model features call the external backends above.
 
+## Boot test (2026-10-27)
+
+- Entry: `http://127.0.0.1:5008/game` served by `tools/serve.mjs` with the network blocked (`MAP * 127.0.0.1`).
+- Outcome: **rendered** — the 3D sailing game loaded with the boat on the water among islands; clicking **Start Tutorial** entered the tutorial HUD ("Tap anywhere to start the tutorial", rudder/sail controls).
+- Evidence: body 503 chars; canvas 1262x568 (or none); 0 console errors; 0 failed
+  same-origin requests, 11 blocked cross-origin; screenshot `docs/boot-2026-10-27.png`.
+- Gaps seen: none. The boot confirms the README's claim that the game runs fully
+  from the mirror; the only offline losses were external analytics/ad/geo
+  endpoints and the multiplayer WebSocket (expected, blocked cross-origin).
+
 ## Verify
 
 ```
