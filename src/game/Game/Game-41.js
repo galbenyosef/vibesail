@@ -1,479 +1,476 @@
-// Game 41 — boat
-// Lines 20488-20964 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var COLLISION_RESPONSE_CONFIG = {
-    enabled: !0,
-    response: {
-      speedLossMultiplier: 0.72,
-      speedLossCooldownSeconds: 0.85,
-      spawnGracePeriodSeconds: 10,
-    },
-    boat: { lengthScale: 0.92, widthScale: 0.72 },
-    tiles: {
-      enabled: !0,
-      proximityRadius: 80,
-      rayCount: 5,
-      pushbackDistance: 2,
-    },
-    island: {
-      enabled: !0,
-      seaLevelLocal: null,
-      simplifyTolerance: 1.5,
-      minLoopArea: 50,
-    },
-  },
-  Hc = 0.35,
-  COLLISION_DEBUG_COLORS = {
-    player: 3396095,
-    playerColliding: 16729156,
-    remoteBoat: 3407752,
-    island: 16768307,
-    dock: 16746547,
-    cargoShip: 2056095,
-    floatingWorldProp: 11570431,
-  },
-  CollisionManager = class {
-    constructor({ boat: e, world: t, multiplayer: n }) {
-      ((this.boat = e),
-        (this.world = t),
-        (this.multiplayer = n),
-        (this.system = new Bc()),
-        (this.playerBody = null),
-        (this.remoteBoatBodies = new Map()),
-        (this.dockBodies = []),
-        (this.islandBodies = []),
-        (this.cargoShipBodies = new Map()),
-        (this.floatingWorldPropBodies = new Map()),
-        (this._registeredDocks = new WeakSet()),
-        (this._registeredIslands = new WeakSet()),
-        (this._lastStaticDockCount = -1),
-        (this._lastStaticIslandCount = -1),
-        (this._lastPenaltyTime = -1 / 0),
-        (this._elapsedTime = 0),
-        (this.speedPenaltyEnabled = !0),
-        (this._raycaster = new ae()),
-        (this._rayOrigin = new M()),
-        (this._rayDir = new M()),
-        (this._frameCount = 0),
-        (this._lastDebugVisible = !1),
-        (this._debugGroup = null),
-        (this._collidingBodies = new Set()),
-        this._initPlayerBody());
-    }
-    _initPlayerBody() {
-      let e = this._getBoatDimensions(this.boat);
-      e &&
-        ((this.playerBody = this.system.createBox(
-          { x: 0, y: 0 },
-          e.halfWidth * 2,
-          e.halfLength * 2,
-          { isCentered: !0 },
-        )),
-        (this.playerBody.userData = { type: `player` }));
-    }
-    _getBoatDimensions(e) {
-      let t = e?.model?.hullLength,
-        n = e?.model?.hullWidth;
-      return !Number.isFinite(t) || !Number.isFinite(n)
-        ? null
-        : {
-            halfLength: t * COLLISION_RESPONSE_CONFIG.boat.lengthScale * 0.5,
-            halfWidth: n * COLLISION_RESPONSE_CONFIG.boat.widthScale * 0.5,
-          };
-    }
-    registerDock(e) {
-      if (!e || this._registeredDocks.has(e)) return 0;
-      let t = e.mesh ?? e.getMesh?.();
-      if (!t) return 0;
-      let n = e.constructor.getConfig?.() || { LENGTH: 20, WIDTH: 10 },
-        r = t.position,
-        i = t.rotation.y,
-        a = this.system.createBox({ x: r.x, y: r.z }, n.WIDTH, n.LENGTH, {
-          isStatic: !0,
-          isCentered: !0,
-          angle: -i,
+// Game 41 — push
+// Lines 20062-20535 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+function Fc() {
+  return Pc
+    ? Mc.exports
+    : ((Pc = 1),
+      (function (e, t) {
+        (function (t, n) {
+          e.exports = n();
+        })(Nc, function () {
+          var e = {};
+          function t(e, t) {
+            ((this.x = e || 0), (this.y = t || 0));
+          }
+          ((e.Vector = t),
+            (e.V = t),
+            (t.prototype.copy = t.prototype.copy =
+              function (e) {
+                return ((this.x = e.x), (this.y = e.y), this);
+              }),
+            (t.prototype.clone = t.prototype.clone =
+              function () {
+                return new t(this.x, this.y);
+              }),
+            (t.prototype.perp = t.prototype.perp =
+              function () {
+                var e = this.x;
+                return ((this.x = this.y), (this.y = -e), this);
+              }),
+            (t.prototype.rotate = t.prototype.rotate =
+              function (e) {
+                var t = this.x,
+                  n = this.y;
+                return (
+                  (this.x = t * Math.cos(e) - n * Math.sin(e)),
+                  (this.y = t * Math.sin(e) + n * Math.cos(e)),
+                  this
+                );
+              }),
+            (t.prototype.reverse = t.prototype.reverse =
+              function () {
+                return ((this.x = -this.x), (this.y = -this.y), this);
+              }),
+            (t.prototype.normalize = t.prototype.normalize =
+              function () {
+                var e = this.len();
+                return (e > 0 && ((this.x /= e), (this.y /= e)), this);
+              }),
+            (t.prototype.add = t.prototype.add =
+              function (e) {
+                return ((this.x += e.x), (this.y += e.y), this);
+              }),
+            (t.prototype.sub = t.prototype.sub =
+              function (e) {
+                return ((this.x -= e.x), (this.y -= e.y), this);
+              }),
+            (t.prototype.scale = t.prototype.scale =
+              function (e, t) {
+                return ((this.x *= e), (this.y *= t === void 0 ? e : t), this);
+              }),
+            (t.prototype.project = t.prototype.project =
+              function (e) {
+                var t = this.dot(e) / e.len2();
+                return ((this.x = t * e.x), (this.y = t * e.y), this);
+              }),
+            (t.prototype.projectN = t.prototype.projectN =
+              function (e) {
+                var t = this.dot(e);
+                return ((this.x = t * e.x), (this.y = t * e.y), this);
+              }),
+            (t.prototype.reflect = t.prototype.reflect =
+              function (e) {
+                var t = this.x,
+                  n = this.y;
+                return (
+                  this.project(e).scale(2),
+                  (this.x -= t),
+                  (this.y -= n),
+                  this
+                );
+              }),
+            (t.prototype.reflectN = t.prototype.reflectN =
+              function (e) {
+                var t = this.x,
+                  n = this.y;
+                return (
+                  this.projectN(e).scale(2),
+                  (this.x -= t),
+                  (this.y -= n),
+                  this
+                );
+              }),
+            (t.prototype.dot = t.prototype.dot =
+              function (e) {
+                return this.x * e.x + this.y * e.y;
+              }),
+            (t.prototype.len2 = t.prototype.len2 =
+              function () {
+                return this.dot(this);
+              }),
+            (t.prototype.len = t.prototype.len =
+              function () {
+                return Math.sqrt(this.len2());
+              }));
+          function n(e, n) {
+            ((this.pos = e || new t()),
+              (this.r = n || 0),
+              (this.offset = new t()));
+          }
+          ((e.Circle = n),
+            (n.prototype.getAABBAsBox = n.prototype.getAABBAsBox =
+              function () {
+                var e = this.r;
+                return new i(
+                  this.pos.clone().add(this.offset).sub(new t(e, e)),
+                  e * 2,
+                  e * 2,
+                );
+              }),
+            (n.prototype.getAABB = n.prototype.getAABB =
+              function () {
+                return this.getAABBAsBox().toPolygon();
+              }),
+            (n.prototype.setOffset = n.prototype.setOffset =
+              function (e) {
+                return ((this.offset = e), this);
+              }));
+          function r(e, n) {
+            ((this.pos = e || new t()),
+              (this.angle = 0),
+              (this.offset = new t()),
+              this.setPoints(n || []));
+          }
+          ((e.Polygon = r),
+            (r.prototype.setPoints = r.prototype.setPoints =
+              function (e) {
+                if (!this.points || this.points.length !== e.length) {
+                  var n,
+                    r = (this.calcPoints = []),
+                    i = (this.edges = []),
+                    a = (this.normals = []);
+                  for (n = 0; n < e.length; n++) {
+                    var o = e[n],
+                      s = n < e.length - 1 ? e[n + 1] : e[0];
+                    if (o !== s && o.x === s.x && o.y === s.y) {
+                      (e.splice(n, 1), --n);
+                      continue;
+                    }
+                    (r.push(new t()), i.push(new t()), a.push(new t()));
+                  }
+                }
+                return ((this.points = e), this._recalc(), this);
+              }),
+            (r.prototype.setAngle = r.prototype.setAngle =
+              function (e) {
+                return ((this.angle = e), this._recalc(), this);
+              }),
+            (r.prototype.setOffset = r.prototype.setOffset =
+              function (e) {
+                return ((this.offset = e), this._recalc(), this);
+              }),
+            (r.prototype.rotate = r.prototype.rotate =
+              function (e) {
+                for (var t = this.points, n = t.length, r = 0; r < n; r++)
+                  t[r].rotate(e);
+                return (this._recalc(), this);
+              }),
+            (r.prototype.translate = r.prototype.translate =
+              function (e, t) {
+                for (var n = this.points, r = n.length, i = 0; i < r; i++)
+                  ((n[i].x += e), (n[i].y += t));
+                return (this._recalc(), this);
+              }),
+            (r.prototype._recalc = function () {
+              var e = this.calcPoints,
+                t = this.edges,
+                n = this.normals,
+                r = this.points,
+                i = this.offset,
+                a = this.angle,
+                o = r.length,
+                s;
+              for (s = 0; s < o; s++) {
+                var c = e[s].copy(r[s]);
+                ((c.x += i.x), (c.y += i.y), a !== 0 && c.rotate(a));
+              }
+              for (s = 0; s < o; s++) {
+                var l = e[s],
+                  u = s < o - 1 ? e[s + 1] : e[0],
+                  d = t[s].copy(u).sub(l);
+                n[s].copy(d).perp().normalize();
+              }
+              return this;
+            }),
+            (r.prototype.getAABBAsBox = r.prototype.getAABBAsBox =
+              function () {
+                for (
+                  var e = this.calcPoints,
+                    n = e.length,
+                    r = e[0].x,
+                    a = e[0].y,
+                    o = e[0].x,
+                    s = e[0].y,
+                    c = 1;
+                  c < n;
+                  c++
+                ) {
+                  var l = e[c];
+                  (l.x < r ? (r = l.x) : l.x > o && (o = l.x),
+                    l.y < a ? (a = l.y) : l.y > s && (s = l.y));
+                }
+                return new i(this.pos.clone().add(new t(r, a)), o - r, s - a);
+              }),
+            (r.prototype.getAABB = r.prototype.getAABB =
+              function () {
+                return this.getAABBAsBox().toPolygon();
+              }),
+            (r.prototype.getCentroid = r.prototype.getCentroid =
+              function () {
+                for (
+                  var e = this.calcPoints,
+                    n = e.length,
+                    r = 0,
+                    i = 0,
+                    a = 0,
+                    o = 0;
+                  o < n;
+                  o++
+                ) {
+                  var s = e[o],
+                    c = o === n - 1 ? e[0] : e[o + 1],
+                    l = s.x * c.y - c.x * s.y;
+                  ((r += (s.x + c.x) * l), (i += (s.y + c.y) * l), (a += l));
+                }
+                return ((a *= 3), (r /= a), (i /= a), new t(r, i));
+              }));
+          function i(e, n, r) {
+            ((this.pos = e || new t()), (this.w = n || 0), (this.h = r || 0));
+          }
+          ((e.Box = i),
+            (i.prototype.toPolygon = i.prototype.toPolygon =
+              function () {
+                var e = this.pos,
+                  n = this.w,
+                  i = this.h;
+                return new r(new t(e.x, e.y), [
+                  new t(),
+                  new t(n, 0),
+                  new t(n, i),
+                  new t(0, i),
+                ]);
+              }));
+          function a() {
+            ((this.a = null),
+              (this.b = null),
+              (this.overlapN = new t()),
+              (this.overlapV = new t()),
+              this.clear());
+          }
+          ((e.Response = a),
+            (a.prototype.clear = a.prototype.clear =
+              function () {
+                return (
+                  (this.aInB = !0),
+                  (this.bInA = !0),
+                  (this.overlap = Number.MAX_VALUE),
+                  this
+                );
+              }));
+          for (var o = [], s = 0; s < 10; s++) o.push(new t());
+          for (var c = [], s = 0; s < 5; s++) c.push([]);
+          var l = new a(),
+            u = new i(new t(), 1e-6, 1e-6).toPolygon();
+          function d(e, t, n) {
+            for (
+              var r = Number.MAX_VALUE,
+                i = -Number.MAX_VALUE,
+                a = e.length,
+                o = 0;
+              o < a;
+              o++
+            ) {
+              var s = e[o].dot(t);
+              (s < r && (r = s), s > i && (i = s));
+            }
+            ((n[0] = r), (n[1] = i));
+          }
+          function f(e, t, n, r, i, a) {
+            var s = c.pop(),
+              l = c.pop(),
+              u = o.pop().copy(t).sub(e),
+              f = u.dot(i);
+            if (
+              (d(n, i, s),
+              d(r, i, l),
+              (l[0] += f),
+              (l[1] += f),
+              s[0] > l[1] || l[0] > s[1])
+            )
+              return (o.push(u), c.push(s), c.push(l), !0);
+            if (a) {
+              var p = 0;
+              if (s[0] < l[0])
+                if (((a.aInB = !1), s[1] < l[1]))
+                  ((p = s[1] - l[0]), (a.bInA = !1));
+                else {
+                  var m = s[1] - l[0],
+                    h = l[1] - s[0];
+                  p = m < h ? m : -h;
+                }
+              else if (((a.bInA = !1), s[1] > l[1]))
+                ((p = s[0] - l[1]), (a.aInB = !1));
+              else {
+                var m = s[1] - l[0],
+                  h = l[1] - s[0];
+                p = m < h ? m : -h;
+              }
+              var g = Math.abs(p);
+              g < a.overlap &&
+                ((a.overlap = g),
+                a.overlapN.copy(i),
+                p < 0 && a.overlapN.reverse());
+            }
+            return (o.push(u), c.push(s), c.push(l), !1);
+          }
+          e.isSeparatingAxis = f;
+          function p(e, t) {
+            var n = e.len2(),
+              r = t.dot(e);
+            return r < 0 ? m : r > n ? g : h;
+          }
+          var m = -1,
+            h = 0,
+            g = 1;
+          function _(e, t) {
+            var n = o.pop().copy(e).sub(t.pos).sub(t.offset),
+              r = t.r * t.r,
+              i = n.len2();
+            return (o.push(n), i <= r);
+          }
+          e.pointInCircle = _;
+          function v(e, t) {
+            (u.pos.copy(e), l.clear());
+            var n = S(u, t, l);
+            return (n && (n = l.aInB), n);
+          }
+          e.pointInPolygon = v;
+          function y(e, t, n) {
+            var r = o.pop().copy(t.pos).add(t.offset).sub(e.pos).sub(e.offset),
+              i = e.r + t.r,
+              a = i * i,
+              s = r.len2();
+            if (s > a) return (o.push(r), !1);
+            if (n) {
+              var c = Math.sqrt(s);
+              ((n.a = e),
+                (n.b = t),
+                (n.overlap = i - c),
+                n.overlapN.copy(r.normalize()),
+                n.overlapV.copy(r).scale(n.overlap),
+                (n.aInB = e.r <= t.r && c <= t.r - e.r),
+                (n.bInA = t.r <= e.r && c <= e.r - t.r));
+            }
+            return (o.push(r), !0);
+          }
+          e.testCircleCircle = y;
+          function b(e, t, n) {
+            for (
+              var r = o.pop().copy(t.pos).add(t.offset).sub(e.pos),
+                i = t.r,
+                a = i * i,
+                s = e.calcPoints,
+                c = s.length,
+                l = o.pop(),
+                u = o.pop(),
+                d = 0;
+              d < c;
+              d++
+            ) {
+              var f = d === c - 1 ? 0 : d + 1,
+                h = d === 0 ? c - 1 : d - 1,
+                _ = 0,
+                v = null;
+              (l.copy(e.edges[d]),
+                u.copy(r).sub(s[d]),
+                n && u.len2() > a && (n.aInB = !1));
+              var y = p(l, u);
+              if (y === m) {
+                l.copy(e.edges[h]);
+                var b = o.pop().copy(r).sub(s[h]);
+                if (((y = p(l, b)), y === g)) {
+                  var x = u.len();
+                  if (x > i)
+                    return (o.push(r), o.push(l), o.push(u), o.push(b), !1);
+                  n && ((n.bInA = !1), (v = u.normalize()), (_ = i - x));
+                }
+                o.push(b);
+              } else if (y === g) {
+                if (
+                  (l.copy(e.edges[f]),
+                  u.copy(r).sub(s[f]),
+                  (y = p(l, u)),
+                  y === m)
+                ) {
+                  var x = u.len();
+                  if (x > i) return (o.push(r), o.push(l), o.push(u), !1);
+                  n && ((n.bInA = !1), (v = u.normalize()), (_ = i - x));
+                }
+              } else {
+                var S = l.perp().normalize(),
+                  x = u.dot(S);
+                if (x > 0 && Math.abs(x) > i)
+                  return (o.push(r), o.push(S), o.push(u), !1);
+                n &&
+                  ((v = S),
+                  (_ = i - x),
+                  (x >= 0 || _ < 2 * i) && (n.bInA = !1));
+              }
+              v &&
+                n &&
+                Math.abs(_) < Math.abs(n.overlap) &&
+                ((n.overlap = _), n.overlapN.copy(v));
+            }
+            return (
+              n &&
+                ((n.a = e),
+                (n.b = t),
+                n.overlapV.copy(n.overlapN).scale(n.overlap)),
+              o.push(r),
+              o.push(l),
+              o.push(u),
+              !0
+            );
+          }
+          e.testPolygonCircle = b;
+          function x(e, t, n) {
+            var r = b(t, e, n);
+            if (r && n) {
+              var i = n.a,
+                a = n.aInB;
+              (n.overlapN.reverse(),
+                n.overlapV.reverse(),
+                (n.a = n.b),
+                (n.b = i),
+                (n.aInB = n.bInA),
+                (n.bInA = a));
+            }
+            return r;
+          }
+          e.testCirclePolygon = x;
+          function S(e, t, n) {
+            for (
+              var r = e.calcPoints,
+                i = r.length,
+                a = t.calcPoints,
+                o = a.length,
+                s = 0;
+              s < i;
+              s++
+            )
+              if (f(e.pos, t.pos, r, a, e.normals[s], n)) return !1;
+            for (var s = 0; s < o; s++)
+              if (f(e.pos, t.pos, r, a, t.normals[s], n)) return !1;
+            return (
+              n &&
+                ((n.a = e),
+                (n.b = t),
+                n.overlapV.copy(n.overlapN).scale(n.overlap)),
+              !0
+            );
+          }
+          return ((e.testPolygonPolygon = S), e);
         });
-      return (
-        (a.userData = { type: `dock`, dock: e }),
-        this.dockBodies.push(a),
-        this._registeredDocks.add(e),
-        1
-      );
-    }
-    registerIsland(e) {
-      if (
-        !e ||
-        this._registeredIslands.has(e) ||
-        !COLLISION_RESPONSE_CONFIG.island.enabled ||
-        typeof e.computeCollisionContours != `function`
-      )
-        return 0;
-      let t = COLLISION_RESPONSE_CONFIG.island,
-        n = 0,
-        r = e.computeCollisionContours({
-          seaLevelLocal: t.seaLevelLocal,
-          simplifyTolerance: t.simplifyTolerance,
-          minLoopArea: t.minLoopArea,
-        });
-      for (let t of r) {
-        let r = t.map((e) => ({ x: e.x, y: e.z }));
-        try {
-          let t = this.system.createPolygon({ x: 0, y: 0 }, r, {
-            isStatic: !0,
-          });
-          ((t.userData = { type: `island`, island: e }),
-            this.islandBodies.push(t),
-            n++);
-        } catch {}
-      }
-      return (this._registeredIslands.add(e), n);
-    }
-    registerStaticBodies() {
-      let e = this.world?.getDocks?.() || [];
-      if (e.length !== this._lastStaticDockCount) {
-        for (let t of e) this.registerDock(t);
-        this._lastStaticDockCount = e.length;
-      }
-      let t = this.world?.islandGenerator?.getIslandInstances?.() || [];
-      if (t.length !== this._lastStaticIslandCount) {
-        for (let e of t) this.registerIsland(e);
-        this._lastStaticIslandCount = t.length;
-      }
-    }
-    update(e) {
-      if (
-        !COLLISION_RESPONSE_CONFIG.enabled ||
-        ((this._elapsedTime += e),
-        this._frameCount++,
-        this.registerStaticBodies(),
-        this._syncPlayerBody(),
-        this._syncRemoteBoatBodies(),
-        this._syncCargoShipBodies(),
-        this._syncFloatingWorldPropBodies(),
-        !this.playerBody)
-      )
-        return;
-      let t = 0,
-        n = 0,
-        r = !1;
-      this._collidingBodies.clear();
-      let i = this._elapsedTime < COLLISION_RESPONSE_CONFIG.response.spawnGracePeriodSeconds;
-      if (
-        (this.system.checkOne(this.playerBody, (e) => {
-          let a = e.b === this.playerBody ? e.a : e.b;
-          if (a?.userData?.type === `player`) return;
-          let o = a?.userData?.type;
-          if (i && o === `remote_boat`) return;
-          let s = e.overlapV;
-          !s ||
-            (!s.x && !s.y) ||
-            ((t -= s.x), (n -= s.y), (r = !0), this._collidingBodies.add(a));
-        }),
-        COLLISION_RESPONSE_CONFIG.tiles.enabled && this._frameCount % 3 == 0)
-      ) {
-        let e = this._checkTileCollision();
-        e && ((t += e.x), (n += e.z), (r = !0));
-      }
-      (r && this._applyCollisionResponse(t, n), this._syncDebugOverlays(r));
-    }
-    _syncPlayerBody() {
-      if (!this.playerBody || !this.boat?.dynamics) return;
-      let e = this.boat.dynamics.position,
-        t = this.boat.dynamics.rotation?.y ?? 0;
-      (this.playerBody.setPosition(e.x, e.z), this.playerBody.setAngle(-t));
-    }
-    _syncRemoteBoatBodies() {
-      if (!this.multiplayer) return;
-      let e = this.multiplayer.getRemoteBoats?.() || {},
-        t = new Set();
-      for (let n in e) {
-        let r = e[n];
-        if (!r) continue;
-        if (this.multiplayer.isRemoteBoatCollisionReady?.(r, n) === !1) {
-          let e = this.remoteBoatBodies.get(n);
-          e && (this.system.remove(e), this.remoteBoatBodies.delete(n));
-          continue;
-        }
-        t.add(n);
-        let i = this.remoteBoatBodies.get(n);
-        if (!i) {
-          let e = this._getBoatDimensions(r);
-          if (!e) continue;
-          ((i = this.system.createBox(
-            { x: 0, y: 0 },
-            e.halfWidth * 2,
-            e.halfLength * 2,
-            { isCentered: !0 },
-          )),
-            (i.userData = { type: `remote_boat`, clientId: n }),
-            this.remoteBoatBodies.set(n, i));
-        }
-        let a = r.getPosition?.(),
-          o = r.getRotation?.();
-        a && o && (i.setPosition(a.x, a.z), i.setAngle(-o.y));
-      }
-      for (let [e, n] of this.remoteBoatBodies)
-        t.has(e) || (this.system.remove(n), this.remoteBoatBodies.delete(e));
-    }
-    _syncCargoShipBodies() {
-      this._syncFootprintBodies(
-        this.cargoShipBodies,
-        this.world?.getCargoShips?.() || [],
-        `cargo_ship`,
-      );
-    }
-    _syncFloatingWorldPropBodies() {
-      this._syncFootprintBodies(
-        this.floatingWorldPropBodies,
-        this.world?.getFloatingWorldProps?.() || [],
-        `floating_world_prop`,
-      );
-    }
-    _syncFootprintBodies(e, t, n) {
-      let r = new Set();
-      for (let i of t) {
-        let t = i?.getCollisionFootprint?.(),
-          a = e.get(i);
-        if (!t) {
-          a && (this.system.remove(a), e.delete(i));
-          continue;
-        }
-        r.add(i);
-        let o = t.width,
-          s = t.length,
-          c = a;
-        ((!c || c.userData?.width !== o || c.userData?.length !== s) &&
-          (c && this.system.remove(c),
-          (c = this.system.createBox({ x: 0, y: 0 }, o, s, { isCentered: !0 })),
-          (c.userData = { type: n, object: i, width: o, length: s }),
-          e.set(i, c)),
-          c.setPosition(t.center.x, t.center.z),
-          c.setAngle(-t.rotationY));
-      }
-      for (let [t, n] of e) r.has(t) || (this.system.remove(n), e.delete(t));
-    }
-    _checkTileCollision() {
-      let e = this.world?.googleTilesLoader?.tiles?.group;
-      if (!e) return null;
-      let t = this.boat?.dynamics?.position;
-      if (!t) return null;
-      let n = this._getBoatDimensions(this.boat);
-      if (!n) return null;
-      let r = this.boat.dynamics.rotation?.y ?? 0,
-        i = COLLISION_RESPONSE_CONFIG.tiles,
-        a = Math.sin(r),
-        o = Math.cos(r),
-        s = Math.cos(r),
-        c = -Math.sin(r),
-        l = [
-          { x: t.x + a * n.halfLength, z: t.z + o * n.halfLength },
-          {
-            x: t.x + a * n.halfLength - s * n.halfWidth,
-            z: t.z + o * n.halfLength - c * n.halfWidth,
-          },
-          {
-            x: t.x + a * n.halfLength + s * n.halfWidth,
-            z: t.z + o * n.halfLength + c * n.halfWidth,
-          },
-          { x: t.x - s * n.halfWidth, z: t.z - c * n.halfWidth },
-          { x: t.x + s * n.halfWidth, z: t.z + c * n.halfWidth },
-        ],
-        u = [
-          { x: a, z: o },
-          { x: a, z: o },
-          { x: a, z: o },
-          { x: -s, z: -c },
-          { x: s, z: c },
-        ],
-        d = 0,
-        f = 0,
-        p = !1,
-        m = Math.min(i.rayCount, l.length);
-      for (let n = 0; n < m; n++) {
-        let r = l[n],
-          a = u[n];
-        (this._rayOrigin.set(r.x, t.y + 1, r.z),
-          this._rayDir.set(a.x, 0, a.z).normalize(),
-          this._raycaster.set(this._rayOrigin, this._rayDir),
-          (this._raycaster.far = i.proximityRadius));
-        let o = this._raycaster.intersectObject(e, !0);
-        if (o.length > 0 && o[0].distance < i.pushbackDistance) {
-          let e = i.pushbackDistance - o[0].distance;
-          ((d -= a.x * e), (f -= a.z * e), (p = !0));
-        }
-      }
-      return p ? { x: d, z: f } : null;
-    }
-    _applyCollisionResponse(e, t) {
-      let n = this.boat?.dynamics;
-      if (
-        !n ||
-        ((n.position.x += e),
-        (n.position.z += t),
-        this.boat.model?.boatGroup?.position?.set?.(
-          n.position.x,
-          n.position.y,
-          n.position.z,
-        ),
-        !this.speedPenaltyEnabled)
-      )
-        return;
-      let r = COLLISION_RESPONSE_CONFIG.response;
-      this._elapsedTime - this._lastPenaltyTime >= r.speedLossCooldownSeconds &&
-        ((n.speed *= r.speedLossMultiplier),
-        n.velocity?.multiplyScalar?.(r.speedLossMultiplier),
-        (this._lastPenaltyTime = this._elapsedTime));
-    }
-    _isDebugVisible() {
-      return this.boat?.model?.getVectorMode?.() === 4;
-    }
-    _clearDebugOverlays() {
-      this._debugGroup &&
-        (this._debugGroup.traverse((e) => {
-          (e.geometry?.dispose?.(), e.material?.dispose?.());
-        }),
-        this.world?.scene?.remove?.(this._debugGroup),
-        (this._debugGroup = null));
-    }
-    _bodyToWorldPoints(e) {
-      let t = e.pos,
-        n = e.calcPoints;
-      if (!n || !t) return null;
-      let r = [];
-      for (let e = 0; e < n.length; e++)
-        r.push(new M(t.x + n[e].x, Hc, t.y + n[e].y));
-      return r;
-    }
-    _createDebugLoop(e, t) {
-      return new _e(
-        new Ie().setFromPoints(e),
-        new k({ color: t, transparent: !0, opacity: 0.85, depthTest: !1 }),
-      );
-    }
-    _syncDebugOverlays(e) {
-      if (!this._isDebugVisible()) {
-        this._lastDebugVisible &&
-          (this._clearDebugOverlays(), (this._lastDebugVisible = !1));
-        return;
-      }
-      ((this._lastDebugVisible = !0), this._clearDebugOverlays());
-      let t = new D();
-      if (((t.name = `collision-debug-overlays`), this.playerBody)) {
-        let n = this._bodyToWorldPoints(this.playerBody);
-        n &&
-          t.add(this._createDebugLoop(n, e ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.player));
-      }
-      for (let e of this.remoteBoatBodies.values()) {
-        let n = this._bodyToWorldPoints(e);
-        if (n) {
-          let r = this._collidingBodies.has(e);
-          t.add(
-            this._createDebugLoop(n, r ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.remoteBoat),
-          );
-        }
-      }
-      for (let e of this.cargoShipBodies.values()) {
-        let n = this._bodyToWorldPoints(e);
-        if (n) {
-          let r = this._collidingBodies.has(e);
-          t.add(
-            this._createDebugLoop(n, r ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.cargoShip),
-          );
-        }
-      }
-      for (let e of this.floatingWorldPropBodies.values()) {
-        let n = this._bodyToWorldPoints(e);
-        if (n) {
-          let r = this._collidingBodies.has(e);
-          t.add(
-            this._createDebugLoop(
-              n,
-              r ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.floatingWorldProp,
-            ),
-          );
-        }
-      }
-      for (let e of this.islandBodies) {
-        let n = this._bodyToWorldPoints(e);
-        if (n) {
-          let r = this._collidingBodies.has(e);
-          t.add(this._createDebugLoop(n, r ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.island));
-        }
-      }
-      for (let e of this.dockBodies) {
-        let n = this._bodyToWorldPoints(e);
-        if (n) {
-          let r = this._collidingBodies.has(e);
-          t.add(this._createDebugLoop(n, r ? COLLISION_DEBUG_COLORS.playerColliding : COLLISION_DEBUG_COLORS.dock));
-        }
-      }
-      (this.world?.scene?.add?.(t), (this._debugGroup = t));
-    }
-    dispose() {
-      this._clearDebugOverlays();
-      for (let e of this.cargoShipBodies.values()) this.system.remove(e);
-      this.cargoShipBodies.clear();
-      for (let e of this.floatingWorldPropBodies.values())
-        this.system.remove(e);
-      this.floatingWorldPropBodies.clear();
-      for (let e of this.remoteBoatBodies.values()) this.system.remove(e);
-      this.remoteBoatBodies.clear();
-      for (let e of this.dockBodies) this.system.remove(e);
-      ((this.dockBodies = []),
-        (this._registeredDocks = new WeakSet()),
-        (this._lastStaticDockCount = -1));
-      for (let e of this.islandBodies) this.system.remove(e);
-      ((this.islandBodies = []),
-        (this._registeredIslands = new WeakSet()),
-        (this._lastStaticIslandCount = -1),
-        this.playerBody &&
-          (this.system.remove(this.playerBody), (this.playerBody = null)));
-    }
-  },
-  YEAR_MS = 365 * 24 * 60 * 60 * 1e3,
-  Kc = Object.freeze({ boat: 3e3, variant: 1e3 }),
-  DEFAULT_BOAT_PRESET_ID = `venice`,
-  BOAT_STORE_CATALOG = Object.freeze({
-    venice: Object.freeze({
-      storeState: `unlockable`,
-      unlockPolicy: Object.freeze({ type: `coins`, price: Kc.boat }),
-    }),
-    triangle: Object.freeze({
-      storeState: `unlockable`,
-      unlockPolicy: Object.freeze({ type: `coins`, price: Kc.boat }),
-    }),
-    arrow: Object.freeze({
-      storeState: `unlockable`,
-      unlockPolicy: Object.freeze({ type: `coins`, price: Kc.boat }),
-    }),
-    layla: Object.freeze({
-      storeState: `unlockable`,
-      unlockPolicy: Object.freeze({ type: `coins`, price: Kc.boat }),
-    }),
-    miria: Object.freeze({
-      storeState: `unlockable`,
-      unlockPolicy: Object.freeze({ type: `coins`, price: Kc.boat }),
-    }),
-    meme: Object.freeze({
-      storeState: `unlockable`,
-      unlockPolicy: Object.freeze({ type: `coins`, price: Kc.boat }),
-    }),
-    metal: Object.freeze({
-      storeState: `unlockable`,
-      unlockPolicy: Object.freeze({ type: `coins`, price: Kc.boat }),
-    }),
-  }),
-  BoatCatalogIndex = class {
-    constructor(e = BOAT_STORE_CATALOG) {
-      this.entries = new Map(Object.entries(e));
-    }
-    hasEntry(e) {
-      return this.entries.has(e);
-    }
-    getEntry(e) {
-      let t = this.entries.get(e);
-      return t ? { ...t } : null;
-    }
-    getBoatIds() {
-      return Array.from(this.entries.keys());
-    }
-  };
+      })(Mc),
+      Mc.exports);
+}

@@ -1,353 +1,349 @@
-// Game 06 — uniforms
-// Lines 1272-1622 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var SkyTextureLoader = class {
-    constructor(e = {}) {
-      ((this._imageName = e.image || `tropical_day.jpg`),
-        (this._exposure = Number.isFinite(e.exposure) ? e.exposure : 1),
-        (this._rotationDeg = Number.isFinite(e.rotation) ? e.rotation : 296),
-        (this._texture = null));
-      let t = new me(9e3, 64, 32);
-      (t.scale(-1, 1, 1),
-        (this.material = new Le({
-          color: 16777215,
-          side: 0,
-          depthWrite: !1,
-          fog: !1,
-          toneMapped: !0,
-        })),
-        (this.mesh = new N(t, this.material)),
-        (this.mesh.frustumCulled = !1),
-        (this.mesh.renderOrder = -1e3),
-        (this.mesh.userData.kind = `sky`),
-        (this.mesh.userData.skyModel = `sky-image`),
-        (this.mesh.rotation.y = P.degToRad(this._rotationDeg)),
-        this._loadTexture(this._imageName));
+// Game 06 — math
+// Lines 1396-1742 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+var WaterSurface = { value: new N(0.4, 0.7, 0.2).normalize() },
+  WaveModel = { value: new P(1, 0.96, 0.88) },
+  TWO_PI = { value: new P(0.62, 0.66, 0.74) },
+  Un = null,
+  FLOAT_EPSILON = null,
+  GerstnerWaves = null,
+  z = null,
+  SKY_MODELS = !1,
+  SKY_MODEL_IDS = { value: 0 },
+  SKY_PRESETS = [],
+  SKY_CONTROL_SECTIONS = class {
+    constructor(e) {
+      ((this.scene = e),
+        (this.boundary = 7e3),
+        (this.windSpeed = 0.1),
+        (this.clusterPositions = []));
     }
-    _loadTexture(e) {
-      let t = a(`/textures/sky/${e}`);
-      new ge().load(
-        t,
-        (e) => {
-          ((e.colorSpace = O),
-            (e.minFilter = ce),
-            (e.needsUpdate = !0),
-            this._texture && this._texture !== e && this._texture.dispose(),
-            (this._texture = e),
-            (this.material.map = e),
-            (this.material.needsUpdate = !0),
-            this.setExposure(this._exposure));
-        },
-        void 0,
-        (e) => {
-          console.error(`[ImageSky] failed to load ${t}`, e);
-        },
-      );
-    }
-    setParameters(e = {}) {
-      (e.image &&
-        e.image !== this._imageName &&
-        ((this._imageName = e.image), this._loadTexture(this._imageName)),
-        e.rotation !== void 0 &&
-          ((this._rotationDeg = e.rotation),
-          (this.mesh.rotation.y = P.degToRad(this._rotationDeg))),
-        e.exposure !== void 0 && this.setExposure(e.exposure));
-    }
-    setExposure(e) {
-      this._exposure = P.clamp(Number(e) || 1, 0.05, 4);
-      let t = this._exposure;
-      this.material.color.setRGB(t, t, t);
-    }
-    update(e) {
-      if (!e || !this.mesh) return;
-      let t = e.position || e;
-      t?.x !== void 0 && this.mesh.position.set(t.x, t.y, t.z);
-    }
-    dispose() {
-      (this.mesh?.removeFromParent?.(),
-        this.material?.map?.dispose?.(),
-        this.material?.dispose?.(),
-        this.mesh?.geometry?.dispose?.(),
-        (this._texture = null),
-        (this.mesh = null),
-        (this.material = null));
-    }
-  },
-  bn = class extends N {
-    constructor(e, t = {}) {
-      (super(e), (this.isWater = !0));
-      let n = this,
-        r = t.textureWidth === void 0 ? 512 : t.textureWidth,
-        i = t.textureHeight === void 0 ? 512 : t.textureHeight,
-        a = t.clipBias === void 0 ? 0 : t.clipBias,
-        o = t.alpha === void 0 ? 1 : t.alpha,
-        s = t.time === void 0 ? 0 : t.time,
-        c = t.waterNormals === void 0 ? null : t.waterNormals,
-        l =
-          t.sunDirection === void 0
-            ? new M(0.70707, 0.70707, 0)
-            : t.sunDirection,
-        u = new j(t.sunColor === void 0 ? 16777215 : t.sunColor),
-        d = new j(t.waterColor === void 0 ? 8355711 : t.waterColor),
-        f = t.eye === void 0 ? new M(0, 0, 0) : t.eye,
-        p = t.distortionScale === void 0 ? 20 : t.distortionScale,
-        m = t.side === void 0 ? 0 : t.side,
-        h = t.fog === void 0 ? !1 : t.fog,
-        g = new ze(),
-        _ = new M(),
-        v = new M(),
-        y = new M(),
-        b = new Se(),
-        x = new M(0, 0, -1),
-        S = new ye(),
-        C = new M(),
-        T = new M(),
-        E = new ye(),
-        D = new Se(),
-        O = new w(),
-        k = new Ne(r, i, { type: ee }),
-        te = {
-          name: `MirrorShader`,
-          uniforms: Fe.merge([
-            Pe.fog,
-            Pe.lights,
-            {
-              normalSampler: { value: null },
-              mirrorSampler: { value: null },
-              alpha: { value: 1 },
-              time: { value: 0 },
-              size: { value: 1 },
-              distortionScale: { value: 20 },
-              textureMatrix: { value: new Se() },
-              sunColor: { value: new j(8355711) },
-              sunDirection: { value: new M(0.70707, 0.70707, 0) },
-              eye: { value: new M() },
-              waterColor: { value: new j(5592405) },
-            },
-          ]),
-          vertexShader: `
-				uniform mat4 textureMatrix;
-				uniform float time;
-
-				varying vec4 mirrorCoord;
-				varying vec4 worldPosition;
-
-				#include <common>
-				#include <fog_pars_vertex>
-				#include <shadowmap_pars_vertex>
-				#include <logdepthbuf_pars_vertex>
-
-				void main() {
-					mirrorCoord = modelMatrix * vec4( position, 1.0 );
-					worldPosition = mirrorCoord.xyzw;
-					mirrorCoord = textureMatrix * mirrorCoord;
-					vec4 mvPosition =  modelViewMatrix * vec4( position, 1.0 );
-					gl_Position = projectionMatrix * mvPosition;
-
-				#include <beginnormal_vertex>
-				#include <defaultnormal_vertex>
-				#include <logdepthbuf_vertex>
-				#include <fog_vertex>
-				#include <shadowmap_vertex>
-			}`,
-          fragmentShader: `
-				uniform sampler2D mirrorSampler;
-				uniform float alpha;
-				uniform float time;
-				uniform float size;
-				uniform float distortionScale;
-				uniform sampler2D normalSampler;
-				uniform vec3 sunColor;
-				uniform vec3 sunDirection;
-				uniform vec3 eye;
-				uniform vec3 waterColor;
-
-				varying vec4 mirrorCoord;
-				varying vec4 worldPosition;
-
-				vec4 getNoise( vec2 uv ) {
-					vec2 uv0 = ( uv / 103.0 ) + vec2(time / 17.0, time / 29.0);
-					vec2 uv1 = uv / 107.0-vec2( time / -19.0, time / 31.0 );
-					vec2 uv2 = uv / vec2( 8907.0, 9803.0 ) + vec2( time / 101.0, time / 97.0 );
-					vec2 uv3 = uv / vec2( 1091.0, 1027.0 ) - vec2( time / 109.0, time / -113.0 );
-					vec4 noise = texture2D( normalSampler, uv0 ) +
-						texture2D( normalSampler, uv1 ) +
-						texture2D( normalSampler, uv2 ) +
-						texture2D( normalSampler, uv3 );
-					return noise * 0.5 - 1.0;
-				}
-
-				void sunLight( const vec3 surfaceNormal, const vec3 eyeDirection, float shiny, float spec, float diffuse, inout vec3 diffuseColor, inout vec3 specularColor ) {
-					vec3 reflection = normalize( reflect( -sunDirection, surfaceNormal ) );
-					float direction = max( 0.0, dot( eyeDirection, reflection ) );
-					specularColor += pow( direction, shiny ) * sunColor * spec;
-					diffuseColor += max( dot( sunDirection, surfaceNormal ), 0.0 ) * sunColor * diffuse;
-				}
-
-				#include <common>
-				#include <packing>
-				#include <bsdfs>
-				#include <fog_pars_fragment>
-				#include <logdepthbuf_pars_fragment>
-				#include <lights_pars_begin>
-				#include <shadowmap_pars_fragment>
-				#include <shadowmask_pars_fragment>
-
-				void main() {
-
-					#include <logdepthbuf_fragment>
-					vec4 noise = getNoise( worldPosition.xz * size );
-					vec3 surfaceNormal = normalize( noise.xzy * vec3( 1.5, 1.0, 1.5 ) );
-
-					vec3 diffuseLight = vec3(0.0);
-					vec3 specularLight = vec3(0.0);
-
-					vec3 worldToEye = eye-worldPosition.xyz;
-					vec3 eyeDirection = normalize( worldToEye );
-					sunLight( surfaceNormal, eyeDirection, 100.0, 2.0, 0.5, diffuseLight, specularLight );
-
-					float distance = length(worldToEye);
-
-					vec2 distortion = surfaceNormal.xz * ( 0.001 + 1.0 / distance ) * distortionScale;
-					vec3 reflectionSample = vec3( texture2D( mirrorSampler, mirrorCoord.xy / mirrorCoord.w + distortion ) );
-
-					float theta = max( dot( eyeDirection, surfaceNormal ), 0.0 );
-					float rf0 = 0.02;
-					float reflectance = rf0 + ( 1.0 - rf0 ) * pow( ( 1.0 - theta ), 5.0 );
-					vec3 scatter = max( 0.0, dot( surfaceNormal, eyeDirection ) ) * waterColor;
-					vec3 albedo = mix( ( sunColor * diffuseLight * 0.3 + scatter ) * getShadowMask(), reflectionSample + specularLight, reflectance );
-					vec3 outgoingLight = albedo;
-					gl_FragColor = vec4( outgoingLight, alpha );
-
-					#include <tonemapping_fragment>
-					#include <colorspace_fragment>
-					#include <fog_fragment>	
-				}`,
-        },
-        A = new ue({
-          name: te.name,
-          uniforms: Fe.clone(te.uniforms),
-          vertexShader: te.vertexShader,
-          fragmentShader: te.fragmentShader,
-          lights: !0,
-          side: m,
-          fog: h,
-        });
-      ((A.uniforms.mirrorSampler.value = k.texture),
-        (A.uniforms.textureMatrix.value = D),
-        (A.uniforms.alpha.value = o),
-        (A.uniforms.time.value = s),
-        (A.uniforms.normalSampler.value = c),
-        (A.uniforms.sunColor.value = u),
-        (A.uniforms.waterColor.value = d),
-        (A.uniforms.sunDirection.value = l),
-        (A.uniforms.distortionScale.value = p),
-        (A.uniforms.eye.value = f),
-        (n.material = A),
-        (n.onBeforeRender = function (e, t, r) {
-          if (
-            (v.setFromMatrixPosition(n.matrixWorld),
-            y.setFromMatrixPosition(r.matrixWorld),
-            b.extractRotation(n.matrixWorld),
-            _.set(0, 0, 1),
-            _.applyMatrix4(b),
-            C.subVectors(v, y),
-            C.dot(_) > 0)
-          )
-            return;
-          (C.reflect(_).negate(),
-            C.add(v),
-            b.extractRotation(r.matrixWorld),
-            x.set(0, 0, -1),
-            x.applyMatrix4(b),
-            x.add(y),
-            T.subVectors(v, x),
-            T.reflect(_).negate(),
-            T.add(v),
-            O.position.copy(C),
-            O.up.set(0, 1, 0),
-            O.up.applyMatrix4(b),
-            O.up.reflect(_),
-            O.lookAt(T),
-            (O.far = r.far),
-            O.updateMatrixWorld(),
-            O.projectionMatrix.copy(r.projectionMatrix),
-            D.set(0.5, 0, 0, 0.5, 0, 0.5, 0, 0.5, 0, 0, 0.5, 0.5, 0, 0, 0, 1),
-            D.multiply(O.projectionMatrix),
-            D.multiply(O.matrixWorldInverse),
-            g.setFromNormalAndCoplanarPoint(_, v),
-            g.applyMatrix4(O.matrixWorldInverse),
-            S.set(g.normal.x, g.normal.y, g.normal.z, g.constant));
-          let i = O.projectionMatrix;
-          ((E.x = (Math.sign(S.x) + i.elements[8]) / i.elements[0]),
-            (E.y = (Math.sign(S.y) + i.elements[9]) / i.elements[5]),
-            (E.z = -1),
-            (E.w = (1 + i.elements[10]) / i.elements[14]),
-            S.multiplyScalar(2 / S.dot(E)),
-            (i.elements[2] = S.x),
-            (i.elements[6] = S.y),
-            (i.elements[10] = S.z + 1 - a),
-            (i.elements[14] = S.w),
-            f.setFromMatrixPosition(r.matrixWorld));
-          let o = e.getRenderTarget(),
-            s = e.xr.enabled,
-            c = e.shadowMap.autoUpdate;
-          ((n.visible = !1),
-            (e.xr.enabled = !1),
-            (e.shadowMap.autoUpdate = !1),
-            e.setRenderTarget(k),
-            e.state.buffers.depth.setMask(!0),
-            e.autoClear === !1 && e.clear(),
-            e.render(t, O),
-            (n.visible = !0),
-            (e.xr.enabled = s),
-            (e.shadowMap.autoUpdate = c),
-            e.setRenderTarget(o));
-          let l = r.viewport;
-          l !== void 0 && e.state.viewport(l);
+    init(e = 28, t = 4e3) {
+      ((this.boundary = t),
+        Un || (Un = new E(1, 1)),
+        new x().load(a(`/textures/cloud.avif`), (n) => {
+          ((GerstnerWaves = n),
+            this._createMaterial(),
+            this._generateCloudInstances(e, t),
+            this._createInstancedMesh(),
+            (SKY_MODELS = !0));
         }));
     }
+    _createMaterial() {
+      ((FLOAT_EPSILON = new ke({
+        map: GerstnerWaves,
+        transparent: !0,
+        opacity: 0.32,
+        depthWrite: !1,
+        blending: 1,
+        side: 2,
+        fog: !0,
+      })),
+        (FLOAT_EPSILON.onBeforeCompile = (e) => {
+          ((e.uniforms.time = SKY_MODEL_IDS),
+            (e.uniforms.uCloudSunDir = WaterSurface),
+            (e.uniforms.uCloudLitColor = WaveModel),
+            (e.uniforms.uCloudShadowColor = TWO_PI),
+            Object.assign(e.uniforms, R),
+            (e.vertexShader =
+              `
+                uniform float time;
+                
+                // Per-instance attributes
+                attribute float aOscPhase;
+                attribute float aOscSpeed;
+                attribute float aBaseRotZ;
+                
+                varying vec3 vWorldPosition;
+                varying vec3 vWorldNormal;
+                varying vec2 vCloudUv;
+            ` + e.vertexShader),
+            (e.vertexShader = e.vertexShader.replace(
+              `#include <begin_vertex>`,
+              `
+                vec3 transformed = vec3(position);
+                
+                // Oscillation: rotate around Z axis
+                float oscAngle = aBaseRotZ + 0.03 * sin(aOscPhase + aOscSpeed * time);
+                float c = cos(oscAngle);
+                float s = sin(oscAngle);
+                transformed.xy = mat2(c, -s, s, c) * transformed.xy;
+                `,
+            )),
+            (e.vertexShader = e.vertexShader.replace(
+              `#include <project_vertex>`,
+              `
+                vWorldPosition = (modelMatrix * instanceMatrix * vec4(transformed, 1.0)).xyz;
+                vWorldNormal = normalize(mat3(modelMatrix) * mat3(instanceMatrix) * normal);
+                vCloudUv = uv;
+                #include <project_vertex>
+                `,
+            )),
+            (e.fragmentShader =
+              `
+                uniform vec3 uCloudSunDir;
+                uniform vec3 uCloudLitColor;
+                uniform vec3 uCloudShadowColor;
+                varying vec3 vWorldPosition;
+                varying vec3 vWorldNormal;
+                varying vec2 vCloudUv;
+                ${Pn}
+                ${Fn}
+            ` + e.fragmentShader),
+            (e.fragmentShader = e.fragmentShader.replace(
+              `#include <fog_fragment>`,
+              `
+                vec3 viewDir = normalize(cameraPosition - vWorldPosition);
+                float dotProd = abs(dot(normalize(vWorldNormal), viewDir));
+                float baseOpacity = 0.4;
+                float minOpacity = 0.1;
+                gl_FragColor.a *= minOpacity + (baseOpacity - minOpacity) * dotProd;
+
+                vec3 toCloud = normalize(vWorldPosition - cameraPosition);
+                vec3 sun = normalize(uCloudSunDir);
+                float ndl = abs(dot(normalize(vWorldNormal), sun));
+                float crown = smoothstep(0.08, 0.86, vCloudUv.y);
+                float lit = mix(0.28, 1.0, smoothstep(0.0, 0.82, ndl));
+                vec3 cool = mix(uCloudShadowColor, vec3(0.70, 0.75, 0.82), 0.4);
+                vec3 warm = mix(vec3(0.98, 0.97, 0.94), uCloudLitColor, 0.5);
+                vec3 cloudShade = mix(cool, warm, lit * crown + (1.0 - crown) * 0.22);
+                float rim = smoothstep(0.05, 0.45, gl_FragColor.a) * (1.0 - smoothstep(0.25, 0.85, gl_FragColor.a));
+                float sunFacing = pow(max(dot(toCloud, sun), 0.0), 2.4);
+                cloudShade += warm * rim * (0.2 + sunFacing);
+                gl_FragColor.rgb *= cloudShade;
+
+                #include <fog_fragment>
+                gl_FragColor.rgb = horizonHaze(gl_FragColor.rgb, vWorldPosition);
+                `,
+            )));
+        }));
+    }
+    _generateCloudInstances(e, t) {
+      ((SKY_PRESETS.length = 0), (this.clusterPositions = []));
+      let n = Math.floor(e / 3);
+      for (let e = 0; e < 6; e++) {
+        let r = e / 5,
+          i = t * (0.2 + r ** 1.5 * 2.5),
+          a = r ** 1.2,
+          o = 200 + 400 * a,
+          s;
+        s = e >= 4 ? Math.floor(n * 2) : e >= 2 ? Math.floor(n * 1.5) : n;
+        for (let t = 0; t < s; t++) {
+          let n = (t / s) * Math.PI * 2,
+            r = i * (0.9 + Math.random() * 0.2),
+            c = new N(
+              Math.cos(n) * r,
+              o + Math.random() * 100 * (1 + a),
+              Math.sin(n) * r,
+            ),
+            l = Math.max(0.05, 0.2 - e * 0.04);
+          ((c.x += (Math.random() - 0.5) * i * l),
+            (c.z += (Math.random() - 0.5) * i * l));
+          let u = 0.8 + (e / 5) ** 2 * 1.2,
+            d = (0.8 + Math.random() * 0.4) * u,
+            f = e >= 4 ? 2 : 1;
+          for (let e = 0; e < f; e++) {
+            let t = c.clone();
+            e > 0 &&
+              ((t.x += (Math.random() - 0.5) * 100),
+              (t.z += (Math.random() - 0.5) * 100),
+              (t.y += (Math.random() - 0.5) * 50));
+            let n = this.clusterPositions.length;
+            (this.clusterPositions.push({
+              position: t.clone(),
+              rotation: Math.random() * Math.PI * 2,
+            }),
+              this._generateClusterPlanes(t, d, n));
+          }
+        }
+      }
+    }
+    _generateClusterPlanes(e, t, n) {
+      let r = 3 + Math.floor(Math.random() * 2);
+      for (let i = 0; i <= r; i++) {
+        let r = i === 0 ? 1 : 0.5 + Math.random() * 0.4,
+          a =
+            i === 0
+              ? new N()
+              : new N(
+                  (Math.random() - 0.5) * 300,
+                  (Math.random() - 0.5) * 60,
+                  (Math.random() - 0.5) * 300,
+                ),
+          o = (Math.PI * 2) / 4;
+        for (let i = 0; i < 4; i++) {
+          let s = o * i,
+            c = new N(
+              Math.cos(s) * 20,
+              (Math.random() - 0.5) * 10 + Math.random() * 5,
+              Math.sin(s) * 20,
+            ),
+            l = 1.6 * t * 200 * r * (0.85 + Math.random() * 0.3),
+            u = new Ge(),
+            d = new oe(),
+            f = new N(),
+            p = new N(l, l * 0.6, 1);
+          (f.copy(e).add(a).add(c),
+            d.setFromEuler(new S(0, s, 0)),
+            u.compose(f, d, p),
+            SKY_PRESETS.push({
+              matrix: u,
+              oscPhase: Math.random() * Math.PI * 2,
+              oscSpeed: 0.5 + Math.random() * 0.8,
+              baseRotZ: 0,
+              clusterIndex: n,
+            }));
+        }
+      }
+    }
+    _createInstancedMesh() {
+      let e = SKY_PRESETS.length;
+      ((z = new A(Un, FLOAT_EPSILON, e)),
+        (z.userData.kind = `cloud`),
+        (z.frustumCulled = !1));
+      let t = new Float32Array(e),
+        n = new Float32Array(e),
+        r = new Float32Array(e);
+      for (let i = 0; i < e; i++) {
+        let e = SKY_PRESETS[i];
+        (z.setMatrixAt(i, e.matrix),
+          (t[i] = e.oscPhase),
+          (n[i] = e.oscSpeed),
+          (r[i] = e.baseRotZ));
+      }
+      (z.geometry.setAttribute(`aOscPhase`, new _e(t, 1)),
+        z.geometry.setAttribute(`aOscSpeed`, new _e(n, 1)),
+        z.geometry.setAttribute(`aBaseRotZ`, new _e(r, 1)),
+        (z.instanceMatrix.needsUpdate = !0),
+        this.scene.add(z),
+        console.debug(`CloudSystem: ${e} cloud planes → 1 draw call`));
+    }
+    update(e, t) {
+      if (!SKY_MODELS || !z) return;
+      SKY_MODEL_IDS.value += t;
+      let n = this.boundary,
+        r = !1;
+      for (let i = 0; i < this.clusterPositions.length; i++) {
+        let a = this.clusterPositions[i];
+        ((a.position.x += e.x * this.windSpeed * t),
+          (a.position.z += e.z * this.windSpeed * t));
+        let o = !1;
+        (Math.abs(a.position.x) > n &&
+          ((a.position.x = -Math.sign(a.position.x) * (n - 50)), (o = !0)),
+          Math.abs(a.position.z) > n &&
+            ((a.position.z = -Math.sign(a.position.z) * (n - 50)), (o = !0)),
+          o && (r = !0));
+      }
+      r && this._updateWrappedInstances();
+    }
+    _updateWrappedInstances() {
+      new Ge();
+      let e = new N(),
+        t = new oe(),
+        n = new N();
+      for (let r = 0; r < SKY_PRESETS.length; r++) {
+        let i = SKY_PRESETS[r];
+        (this.clusterPositions[i.clusterIndex],
+          i.matrix.decompose(e, t, n),
+          z.setMatrixAt(r, i.matrix));
+      }
+      z.instanceMatrix.needsUpdate = !0;
+    }
+    dispose() {
+      (z && (this.scene.remove(z), z.dispose(), (z = null)),
+        Un && (Un.dispose(), (Un = null)),
+        FLOAT_EPSILON && (FLOAT_EPSILON.dispose(), (FLOAT_EPSILON = null)),
+        GerstnerWaves && (GerstnerWaves.dispose(), (GerstnerWaves = null)),
+        (SKY_PRESETS.length = 0),
+        (this.clusterPositions = []),
+        (SKY_MODELS = !1));
+    }
   },
-  EFFECT_SECTIONS = Object.freeze([
-    {
-      title: `Passes`,
-      toggles: Object.freeze([
-        [`planarReflect`, `fxPlanarReflect`, `Planar Reflect`],
-        [`refraction`, `fxRefraction`, `Refraction`],
-        [`seafloor`, `fxSeafloor`, `Seafloor`],
-      ]),
-    },
-    {
-      title: `Normals`,
-      toggles: Object.freeze([
-        [`waveNormals`, `fxWaveNormals`, `Wave (Gerstner)`],
-        [`detailNormals`, `fxDetailNormals`, `Detail (texture)`],
-        [`proceduralRipples`, `fxProceduralRipples`, `Procedural Ripples`],
-      ]),
-    },
-    {
-      title: `Foam`,
-      toggles: Object.freeze([
-        [`foam`, `fxFoam`, `Break Foam`],
-        [`crestFoam`, `fxCrestFoam`, `Crest Foam`],
-        [`shoreFoam`, `fxShoreFoam`, `Shore Foam`],
-        [`contactFoam`, `fxContactFoam`, `Boat / Contact`],
-      ]),
-    },
-    {
-      title: `Shading`,
-      toggles: Object.freeze([
-        [`crestGlow`, `fxCrestGlow`, `Crest Glow`],
-        [`fresnel`, `fxFresnel`, `Fresnel`],
-        [`glints`, `fxGlints`, `Sun Glints`],
-      ]),
-    },
-  ]),
-  EFFECT_TOGGLE_IDS = Object.freeze(EFFECT_SECTIONS.flatMap((e) => e.toggles)),
-  DEFAULT_EFFECT_STATE = Object.freeze({
-    ...Object.fromEntries(EFFECT_TOGGLE_IDS.map(([e]) => [e, !0])),
-    proceduralRipples: !1,
-    foam: !1,
-    crestFoam: !1,
-    shoreFoam: !1,
-    contactFoam: !1,
-  });
+  Xn = class e {
+    static updateTime(e) {
+      SKY_MODEL_IDS.value += e;
+    }
+    constructor(e, t = new N(), n = 1) {
+      ((this.scene = e),
+        (this.position = t),
+        (this.scale = n),
+        (this.group = new ie()),
+        (this.meshes = []),
+        (this.materials = []));
+    }
+    init() {}
+    update(e, t) {}
+    dispose() {}
+    static createClouds(t, n = 4e3, r = 28) {
+      return (e._system || (e._system = new SKY_CONTROL_SECTIONS(t)), e._system.init(r, n), []);
+    }
+    static setVisible(e) {
+      z && (z.visible = !!e);
+    }
+    static setOpacityScale(e) {
+      FLOAT_EPSILON &&
+        ((FLOAT_EPSILON.opacity =
+          0.32 * (Number.isFinite(e) ? Math.max(0, Math.min(1.5, e)) : 1)),
+        (FLOAT_EPSILON.needsUpdate = !0));
+    }
+    static setSun(e, t) {
+      e &&
+        (WaterSurface.value.set(e.x || 0, e.y || 0, e.z || 0),
+        WaterSurface.value.lengthSq() > 1e-8 && WaterSurface.value.normalize());
+      let n = t?.sunTint;
+      Array.isArray(n) &&
+        WaveModel.value.setRGB(
+          Math.min(1, 0.72 + n[0] * 0.28),
+          Math.min(1, 0.74 + n[1] * 0.22),
+          Math.min(1, 0.78 + n[2] * 0.14),
+        );
+      let r = t?.zenith;
+      Array.isArray(r) &&
+        TWO_PI.value.setRGB(
+          Math.min(1, 0.36 + r[0] * 0.4),
+          Math.min(1, 0.42 + r[1] * 0.4),
+          Math.min(1, 0.52 + r[2] * 0.45),
+        );
+    }
+    static updateAll(t, n) {
+      e._system && e._system.update(t, n);
+    }
+    static disposeAll() {
+      e._system && (e._system.dispose(), (e._system = null));
+    }
+  };
+(Xe(Xn, `_system`, null), Xe(Xn, `commonUniforms`, { time: SKY_MODEL_IDS }));
+function Zn(e, t = 296) {
+  let n = Number(e),
+    r = Number.isFinite(t) ? t : 296;
+  return Number.isFinite(n) && n < 0 ? (r + 180) % 360 : r;
+}
+var SCENE_TYPES = { ISLANDS: `islands`, OCEAN: `ocean`, GEO: `geo` };
+(({ ...SCENE_TYPES }), SCENE_TYPES.GEO, SCENE_TYPES.OCEAN);
+var Qn = o.nyc,
+  sceneLocationContext = (() => {
+    if (typeof window > `u`) return null;
+    try {
+      return i(window.location);
+    } catch {
+      return null;
+    }
+  })(),
+  $n = sceneLocationContext?.scene === l.GEO || sceneLocationContext?.scene === l.OCEAN ? c(sceneLocationContext) : null,
+  er = Number.isFinite($n?.height),
+  tr = 10;
+function nr(e) {
+  if (!Array.isArray(e) || e.length === 0) return null;
+  let t = [...e].sort((e, t) => e - t),
+    n = Math.floor(t.length / 2);
+  return t.length % 2 == 0 ? (t[n - 1] + t[n]) / 2 : t[n];
+}
+function rr(e = o, t = tr) {
+  let n = nr(
+    Object.values(e).flatMap((e) =>
+      Object.values(e?.locations ?? {})
+        .map((e) => e?.height)
+        .filter((e) => Number.isFinite(e) && e < 0),
+    ),
+  );
+  return Number.isFinite(n) ? n - t : -5;
+}

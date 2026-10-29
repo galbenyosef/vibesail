@@ -1,11 +1,11 @@
 // BoatModel 06 — rotation
-// Lines 1968-3531 of readable/assets/BoatModel-Cf2RVdWT.pretty.js (statement-aligned).
-var Je = class {
+// Lines 1975-3538 of readable/assets/BoatModel-Z2nOAZAK.pretty.js (statement-aligned).
+var Xe = class {
   static preload(t) {
     if (!t) return Promise.resolve();
     let n = e(t);
-    return boatTextureSets.has(n)
-      ? boatTextureSets.get(n)
+    return B.has(n)
+      ? B.get(n)
       : (console.debug(`Preloading boat model: ${n}`),
         Ie(n).catch((e) => {
           throw (console.warn(`Failed to preload boat model: ${n}`, e), e);
@@ -23,15 +23,15 @@ var Je = class {
       (this._waterBlockerMeshes = []),
       (this._waterBlockerDebugVisible =
         this.waterBlockerConfig?.debugWireframe === !0));
-    let n = t.appearance || {},
-      r = Ge(this.spec.hull, t?.hull?.textureSet);
+    let r = t.appearance || {},
+      i = Ke(this.spec.hull, t?.hull?.textureSet);
     if (
-      ((this.hullTextureSet = X(this.spec.hull, t?.hull?.textureSet)),
-      (this.hullTextureOverrides = Ke({ textures: r })),
-      n.hull &&
-        (typeof n.hull.tint == `number` &&
-          Ne(n.hull.tint, `appearance.hull.tint`),
-        n.hull.tint === null &&
+      ((this.hullTextureSet = qe(this.spec.hull, t?.hull?.textureSet)),
+      (this.hullTextureOverrides = Je({ textures: i })),
+      r.hull &&
+        (typeof r.hull.tint == `number` &&
+          Ne(r.hull.tint, `appearance.hull.tint`),
+        r.hull.tint === null &&
           (this.usePBR !== !0 || this.hullType !== `glb`)))
     ) {
       let e = Error(
@@ -39,35 +39,35 @@ var Je = class {
       );
       throw ((e.name = `BoatAppearanceError`), e);
     }
-    (n.mast?.color !== void 0 && B(n.mast.color, `appearance.mast.color`),
-      n.boom?.color !== void 0 && B(n.boom.color, `appearance.boom.color`),
-      n.sails?.main?.color !== void 0 &&
-        B(n.sails.main.color, `appearance.sails.main.color`),
-      n.sails?.jib?.color !== void 0 &&
-        B(n.sails.jib.color, `appearance.sails.jib.color`),
-      n.rudder?.color !== void 0 &&
-        B(n.rudder.color, `appearance.rudder.color`),
-      n.keel?.color !== void 0 && B(n.keel.color, `appearance.keel.color`),
-      (this.hullTint = n?.hull?.tint),
+    (r.mast?.color !== void 0 && H(r.mast.color, `appearance.mast.color`),
+      r.boom?.color !== void 0 && H(r.boom.color, `appearance.boom.color`),
+      r.sails?.main?.color !== void 0 &&
+        H(r.sails.main.color, `appearance.sails.main.color`),
+      r.sails?.jib?.color !== void 0 &&
+        H(r.sails.jib.color, `appearance.sails.jib.color`),
+      r.rudder?.color !== void 0 &&
+        H(r.rudder.color, `appearance.rudder.color`),
+      r.keel?.color !== void 0 && H(r.keel.color, `appearance.keel.color`),
+      (this.hullTint = r?.hull?.tint),
       (this.hullColor =
         typeof this.hullTint == `number`
           ? this.hullTint
-          : (n?.boom?.color ?? n?.mast?.color)),
-      (this.sailColor = n?.sails?.main?.color),
-      (this.jibColor = n?.sails?.jib?.color),
-      (this.boomColor = n?.boom?.color),
-      (this.mastColor = n?.mast?.color),
-      (this.rudderColor = n?.rudder?.color),
-      (this.keelColor = n?.keel?.color),
-      (this.mainSailText = n?.sails?.main?.text ?? ``),
-      (this.jibSailText = n?.sails?.jib?.text ?? ``),
-      (this._structureMaterial = new x({
+          : (r?.boom?.color ?? r?.mast?.color)),
+      (this.sailColor = r?.sails?.main?.color),
+      (this.jibColor = r?.sails?.jib?.color),
+      (this.boomColor = r?.boom?.color),
+      (this.mastColor = r?.mast?.color),
+      (this.rudderColor = r?.rudder?.color),
+      (this.keelColor = r?.keel?.color),
+      (this.mainSailText = r?.sails?.main?.text ?? ``),
+      (this.jibSailText = r?.sails?.jib?.text ?? ``),
+      (this._structureMaterial = new C({
         color: this.hullColor,
         transparent: this.isGhost,
         opacity: this.isGhost ? 0.4 : 1,
         side: this.isGhost ? 2 : 0,
       })),
-      (this._textureLoader = new g()),
+      (this._textureLoader = new n()),
       (this._rudderMaterial = null),
       (this._keelMaterial = null),
       (this.countryCode = t.flagCode || null),
@@ -81,7 +81,7 @@ var Je = class {
       (this._initialHullLoadPromise = Promise.resolve()),
       this.createBoatModel(),
       (this.debugVisuals = null),
-      this.isRemoteBoat || (this.debugVisuals = new ForceVectorDebug(this, this.boatGroup)));
+      this.isRemoteBoat || (this.debugVisuals = new COUNTRY_CODE_ALIASES(this, this.boatGroup)));
   }
   getColors() {
     return {
@@ -109,14 +109,14 @@ var Je = class {
   }
   getAvailableHullTextureSets() {
     let e = this.spec?.hull?.textureSets;
-    if (!V(e)) return [];
+    if (!U(e)) return [];
     let t = [];
     for (let [n, r] of Object.entries(e))
-      V(r) &&
+      U(r) &&
         t.push({
           id: n,
           label:
-            V(r) && typeof r.label == `string` && r.label.trim().length > 0
+            U(r) && typeof r.label == `string` && r.label.trim().length > 0
               ? r.label
               : n,
         });
@@ -124,14 +124,14 @@ var Je = class {
   }
   getAvailableHullModelVariants() {
     let e = this.spec?.hull?.modelVariants;
-    return V(e)
+    return U(e)
       ? Object.entries(e).reduce((e, [t, n]) => {
-          let r = W(t);
+          let r = G(t);
           if (!r) return e;
           let i = q(n);
           return (
             i &&
-              (V(n) && typeof n.label == `string` && n.label.trim().length > 0
+              (U(n) && typeof n.label == `string` && n.label.trim().length > 0
                 ? e.push({ id: r, label: n.label.trim(), path: i })
                 : e.push({ id: r, label: r, path: i })),
             e
@@ -140,7 +140,7 @@ var Je = class {
       : [];
   }
   async setHullModelVariant(e) {
-    let t = We(this.spec.hull, e, { requireExisting: !0 });
+    let t = Y(this.spec.hull, e, { requireExisting: !0 });
     if (!t) {
       let t = typeof e == `string` ? e : JSON.stringify(e),
         n = Error(
@@ -150,7 +150,7 @@ var Je = class {
     }
     let n = ++this._hullVariantLoadToken,
       r = J(this.spec.hull, e, { requireExisting: !0 }) || e,
-      i = He(this.spec.hull, r) || this.hullTransform,
+      i = We(this.spec.hull, r) || this.hullTransform,
       a = null;
     try {
       if (
@@ -182,30 +182,30 @@ var Je = class {
   }
   async _reloadHullModel(e, t = {}) {
     let { commit: n = !0, hullTransform: r } = t,
-      i = new a(),
-      o = null;
+      i = new c(),
+      a = null;
     try {
       if (e.toLowerCase().endsWith(`.glb`))
-        o = await this.loadCustomHull(e, {
+        a = await this.loadCustomHull(e, {
           targetGroup: i,
           setAsCurrent: !1,
           emitLoaded: !1,
           hullTransform: r,
         });
       else if (e.toLowerCase().endsWith(`.obj`))
-        o = await this.loadCustomHullObj(e, this.customHullMtlPath, {
+        a = await this.loadCustomHullObj(e, this.customHullMtlPath, {
           targetGroup: i,
           setAsCurrent: !1,
           emitLoaded: !1,
           hullTransform: r,
         });
       else throw Error(`[BoatModel] Unsupported hull model format "${e}"`);
-      if (!o) throw Error(`[BoatModel] Failed to load hull model from "${e}"`);
-      if (!n) return o;
+      if (!a) throw Error(`[BoatModel] Failed to load hull model from "${e}"`);
+      if (!n) return a;
       (this._clearCurrentHull(),
         (this.customHullPath = e),
-        (this.hullObject = o),
-        this.structureGroup.add(o),
+        (this.hullObject = a),
+        this.structureGroup.add(a),
         this._refreshWaterBlockerMeshes(),
         window.dispatchEvent(new CustomEvent(`boatHullLoaded`)));
     } catch (e) {
@@ -257,8 +257,8 @@ var Je = class {
   }
   setHullTextureSet(e) {
     let t = e != null && String(e).trim().length > 0,
-      n = U(e),
-      r = Ge(this.spec.hull, e);
+      n = W(e),
+      r = Ke(this.spec.hull, e);
     if (t && r === null && n !== `empty`) {
       let t = typeof e == `string` ? e : JSON.stringify(e);
       throw Error(
@@ -266,8 +266,8 @@ var Je = class {
       );
     }
     return (
-      (this.hullTextureSet = X(this.spec.hull, e)),
-      (this.hullTextureOverrides = Ke({ textures: r })),
+      (this.hullTextureSet = qe(this.spec.hull, e)),
+      (this.hullTextureOverrides = Je({ textures: r })),
       this.applyHullTextureOverrides(
         this.texturedHullMaterial,
         this.hullTextureOverrides,
@@ -276,8 +276,8 @@ var Je = class {
     );
   }
   setHullColor(e) {
-    (B(e, `appearance.hull.tint`), (this.hullTint = e), (this.hullColor = e));
-    let t = new _(e);
+    (H(e, `appearance.hull.tint`), (this.hullTint = e), (this.hullColor = e));
+    let t = new ae(e);
     (this._structureMaterial &&
       (this._structureMaterial.color.copy(t),
       (this._structureMaterial.needsUpdate = !0)),
@@ -300,26 +300,26 @@ var Je = class {
         (this.texturedHullMaterial.needsUpdate = !0));
       return;
     }
-    (B(e, `appearance.hull.tint`),
+    (H(e, `appearance.hull.tint`),
       typeof e == `number` && this.setHullColor(e));
   }
   setSailColor(e) {
-    (B(e, `appearance.sails.main.color`),
+    (H(e, `appearance.sails.main.color`),
       (this.sailColor = e),
       this.sailRig && this.sailRig.setSailColor(e));
   }
   setJibColor(e) {
-    (B(e, `appearance.sails.jib.color`),
+    (H(e, `appearance.sails.jib.color`),
       (this.jibColor = e),
       this.sailRig && this.sailRig.setJibColor(e));
   }
   setBoomColor(e) {
-    (B(e, `appearance.boom.color`),
+    (H(e, `appearance.boom.color`),
       (this.boomColor = e),
       this.sailRig && this.sailRig.setBoomColor(e));
   }
   setMastColor(e) {
-    (B(e, `appearance.mast.color`),
+    (H(e, `appearance.mast.color`),
       (this.mastColor = e),
       this.sailRig && this.sailRig.setMastColor(e));
   }
@@ -338,12 +338,12 @@ var Je = class {
     );
   }
   setRudderColor(e) {
-    (B(e, `appearance.rudder.color`), (this.rudderColor = e));
+    (H(e, `appearance.rudder.color`), (this.rudderColor = e));
     let t = this._ensureStructurePartMaterial(`_rudderMaterial`, e);
     this.rudder && (this.rudder.material = t);
   }
   setKeelColor(e) {
-    (B(e, `appearance.keel.color`), (this.keelColor = e));
+    (H(e, `appearance.keel.color`), (this.keelColor = e));
     let t = this._ensureStructurePartMaterial(`_keelMaterial`, e);
     this.keel &&
       this.keel.traverse((e) => {
@@ -359,7 +359,7 @@ var Je = class {
         this.sailRig.setSailTexture(null);
         return;
       }
-      let e = SailTextures.createSailTexture(this.mainSailText);
+      let e = M.createSailTexture(this.mainSailText);
       this.sailRig.setSailTexture(e);
     }
   }
@@ -372,7 +372,7 @@ var Je = class {
         this.sailRig.setJibTexture(null);
         return;
       }
-      let e = SailTextures.createSailTexture(this.jibSailText);
+      let e = M.createSailTexture(this.jibSailText);
       this.sailRig.setJibTexture(e);
     }
   }
@@ -477,7 +477,7 @@ var Je = class {
         (t.needsUpdate = !0));
       return;
     }
-    let l = (t) =>
+    let c = (t) =>
         new Promise((n) => {
           this._textureLoader.load(
             e(t),
@@ -486,48 +486,48 @@ var Je = class {
             () => n(null),
           );
         }),
-      u = (e, n) => {
+      l = (e, n) => {
         if (!n) return;
         let r = t[e] || null;
         (r && r !== n && a(r),
           (t[e] = n),
           i.add(n),
           (n.flipY = !1),
-          (e === `map` || e === `emissiveMap`) && (n.colorSpace = c));
+          (e === `map` || e === `emissiveMap`) && (n.colorSpace = oe));
       },
       {
-        baseColor: d,
-        metallicRoughness: f,
-        normal: p,
-        roughness: m,
-        ao: h,
-        occlusion: g,
-        emissive: _,
+        baseColor: u,
+        metallicRoughness: d,
+        normal: f,
+        roughness: p,
+        ao: m,
+        occlusion: h,
+        emissive: g,
       } = n,
-      v = new Set();
-    (d && v.add(`map`),
-      _ && v.add(`emissiveMap`),
-      p && v.add(`normalMap`),
-      (f || m) && (v.add(`roughnessMap`), v.add(`metalnessMap`)),
-      (h || g) && v.add(`aoMap`),
+      _ = new Set();
+    (u && _.add(`map`),
+      g && _.add(`emissiveMap`),
+      f && _.add(`normalMap`),
+      (d || p) && (_.add(`roughnessMap`), _.add(`metalnessMap`)),
+      (m || h) && _.add(`aoMap`),
       r.forEach((e) => {
-        v.has(e) || o(e);
+        _.has(e) || o(e);
       }),
       (t.needsUpdate = !0));
-    let y = [];
-    (d && y.push(l(d).then((e) => u(`map`, e))),
-      _ && y.push(l(_).then((e) => u(`emissiveMap`, e))),
-      p && y.push(l(p).then((e) => u(`normalMap`, e))));
-    let b = f || m;
-    b &&
-      y.push(
-        l(b).then((e) => {
-          (u(`roughnessMap`, e), u(`metalnessMap`, e));
+    let v = [];
+    (u && v.push(c(u).then((e) => l(`map`, e))),
+      g && v.push(c(g).then((e) => l(`emissiveMap`, e))),
+      f && v.push(c(f).then((e) => l(`normalMap`, e))));
+    let y = d || p;
+    y &&
+      v.push(
+        c(y).then((e) => {
+          (l(`roughnessMap`, e), l(`metalnessMap`, e));
         }),
       );
-    let x = h || g;
-    (x && y.push(l(x).then((e) => u(`aoMap`, e))),
-      Promise.all(y).then(() => {
+    let b = m || h;
+    (b && v.push(c(b).then((e) => l(`aoMap`, e))),
+      Promise.all(v).then(() => {
         t.needsUpdate = !0;
       }));
   }
@@ -675,9 +675,9 @@ var Je = class {
       r.length > 0 &&
       (this.keelFin?.geometry && this.keelFin.geometry.dispose(),
       this.keelBulb?.geometry && this.keelBulb.geometry.dispose(),
-      this.keelFin && (this.keelFin.geometry = Re(r)),
+      this.keelFin && (this.keelFin.geometry = Be(r)),
       this.keelBulb &&
-        ((this.keelBulb.geometry = ze(r)),
+        ((this.keelBulb.geometry = Ve(r)),
         this.keelBulb.position.set(
           0,
           -Math.max(0.1, Number(r.height) || 1),
@@ -694,7 +694,7 @@ var Je = class {
     let t = e.hull || {};
     this.hullType = t.type;
     let n = Object.prototype.hasOwnProperty.call(t, `modelVariant`),
-      r = V(t.modelVariants),
+      r = U(t.modelVariants),
       i = n ? t.modelVariant : r ? t.defaultHullVariant : null,
       a = J(t, i, { requireExisting: r });
     if (r && !a) {
@@ -706,7 +706,7 @@ var Je = class {
     }
     if (
       ((this.hullModelVariant = a || null),
-      (this.customHullPath = We(t, this.hullModelVariant, {
+      (this.customHullPath = Y(t, this.hullModelVariant, {
         requireExisting: r,
       })),
       this.hullType !== `procedural` && !this.customHullPath)
@@ -720,9 +720,9 @@ var Je = class {
       (this.hullWidth = o.width),
       (this.hullDepth = o.depth),
       (this.hullBevelThickness = o.bevelThickness),
-      (this.hullTransform = He(t, this.hullModelVariant) || t.transform),
+      (this.hullTransform = We(t, this.hullModelVariant) || t.transform),
       (this.usePBR = !!t.usePBR),
-      (this.waterBlockerConfig = qe(t)),
+      (this.waterBlockerConfig = Ye(t)),
       (this.payloadMount = $(e.payloadMount, this.hullLength)),
       (this.rudderSpec = e.rudder || null),
       (this.rudderBaseRotationY = Number(e?.rudder?.rotation?.y) || 0),
@@ -732,11 +732,11 @@ var Je = class {
     ((this.mastHeight = s.mastHeight),
       (this.mastThickness = s.mastThickness),
       (this.flagSize = s.flagSize),
-      (this.mastBasePos = new S().copy(c.mastBase)),
-      (this.forestayStemPos = new S().copy(c.forestayStem)),
-      (this.mainSheetAnchorPos = new S().copy(c.mainSheetAnchor)),
-      (this.jibClewPos = new S().copy(s.jibClewPosition)),
-      (this.jibSheetAnchorPos = new S().copy(s.jibSheetAnchor)),
+      (this.mastBasePos = new w().copy(c.mastBase)),
+      (this.forestayStemPos = new w().copy(c.forestayStem)),
+      (this.mainSheetAnchorPos = new w().copy(c.mainSheetAnchor)),
+      (this.jibClewPos = new w().copy(s.jibClewPosition)),
+      (this.jibSheetAnchorPos = new w().copy(s.jibSheetAnchor)),
       (this.jibStayOffset = s.jibStayOffset),
       (this.sailLength = s.sailLength),
       (this.boomLength = s.boomLength),
@@ -744,17 +744,17 @@ var Je = class {
       (this.boomThickness = s.boomThickness));
   }
   createBoatModel() {
-    ((this.boatGroup = new a()),
+    ((this.boatGroup = new c()),
       (this.boatGroup.rotation.order = `YXZ`),
       this.scene.add(this.boatGroup),
-      (this.structureGroup = new a()),
+      (this.structureGroup = new c()),
       this.boatGroup.add(this.structureGroup));
     let e = this.createHull();
     ((this._initialHullLoadPromise = Promise.resolve(e).catch((e) => {
       (console.error(`[BoatModel] Failed to initialize custom hull:`, e),
         window.dispatchEvent(new CustomEvent(`boatHullLoaded`)));
     })),
-      (this.sailRig = new SailRig(this.boatGroup, {
+      (this.sailRig = new _e(this.boatGroup, {
         mastHeight: this.mastHeight,
         mastThickness: this.mastThickness,
         mastBase: this.mastBasePos,
@@ -786,36 +786,36 @@ var Je = class {
         (this.axesHelper.visible = !1),
         this.boatGroup.add(this.axesHelper)));
   }
-  update(e, t = 0.016) {
-    let n = e.getState ? e.getState() : e;
-    (this.boatGroup.position.copy(n.position),
-      (this.boatGroup.rotation.y = n.rotation),
-      (this.boatGroup.rotation.x = n.pitchAngle || e.rotation?.x || 0),
-      (this.boatGroup.rotation.z = n.heelAngle || 0));
-    let r = this.debugSailAngle === null ? n.sailAngle : this.debugSailAngle,
-      i =
+  update(e, t = 0.016, n = null) {
+    let r = e.getState ? e.getState() : e;
+    (this.boatGroup.position.copy(r.position),
+      (this.boatGroup.rotation.y = r.rotation),
+      (this.boatGroup.rotation.x = r.pitchAngle || e.rotation?.x || 0),
+      (this.boatGroup.rotation.z = r.heelAngle || 0));
+    let i = this.debugSailAngle === null ? r.sailAngle : this.debugSailAngle,
+      a =
         this.debugSailAngle === null
-          ? (n.jibAngle ?? n.sailAngle * 0.8)
+          ? (r.jibAngle ?? r.sailAngle * 0.8)
           : this.debugSailAngle;
     (this.sailRig &&
-      (this.sailRig.updateAngles(r, i, n.visualPressure, n.visualLuffing),
+      (this.sailRig.updateAngles(i, a, r.visualPressure, r.visualLuffing),
       this.sailRig.updateAnimations()),
       this.rudder &&
         (this.rudder.rotation.y =
-          (this.rudderBaseRotationY || 0) + (n.rudderAngle || 0)));
-    let a =
-      n.apparentWindDirection?.lengthSq?.() > 1e-12
-        ? n.apparentWindDirection
-        : n.windDirection;
-    ((a?.lengthSq ? a.lengthSq() > 1e-12 : a) &&
-      this.updateFlagDirection(a, n.rotation),
-      this.debugVisuals && this.debugVisuals.update(e, n),
+          (this.rudderBaseRotationY || 0) + (r.rudderAngle || 0)));
+    let o =
+      r.apparentWindDirection?.lengthSq?.() > 1e-12
+        ? r.apparentWindDirection
+        : r.windDirection;
+    ((o?.lengthSq ? o.lengthSq() > 1e-12 : o) &&
+      this.updateFlagDirection(o, r.rotation),
+      this.debugVisuals && this.debugVisuals.update(n || e, r),
       this._updateDroppedCargoPayload(t));
   }
   createCargoPayloadVisual() {
     if (!this.boatGroup || this.isGhost || this.isRemoteBoat) return null;
     if (this.cargoPayloadGroup) return this.cargoPayloadGroup;
-    let e = new a();
+    let e = new c();
     return (
       (e.name = `cargo-payload`),
       (e.visible = !1),
@@ -825,11 +825,11 @@ var Je = class {
         visualStyle: `wooden-crate`,
       }),
       (this._cargoPayloadMaterials = {
-        crate: new x({ color: 10119734 }),
-        trim: new x({ color: 6044190 }),
-        strap: new x({ color: 2503224 }),
-        label: new x({ color: 16181185 }),
-        accent: new x({ color: 3114330 }),
+        crate: new C({ color: 10119734 }),
+        trim: new C({ color: 6044190 }),
+        strap: new C({ color: 2503224 }),
+        label: new C({ color: 16181185 }),
+        accent: new C({ color: 3114330 }),
       }),
       [
         this._createCargoCrate({
@@ -857,13 +857,13 @@ var Je = class {
     rotation: r = {},
     hasLabel: i = !1,
   }) {
-    let o = new a();
-    ((o.name = e),
-      (o.userData.visualStyle = `wooden-crate`),
-      o.position.set(n.x || 0, n.y || 0, n.z || 0),
-      o.rotation.set(r.x || 0, r.y || 0, r.z || 0));
-    let s = this._cargoPayloadMaterials,
-      c = t.x / 2,
+    let a = new c();
+    ((a.name = e),
+      (a.userData.visualStyle = `wooden-crate`),
+      a.position.set(n.x || 0, n.y || 0, n.z || 0),
+      a.rotation.set(r.x || 0, r.y || 0, r.z || 0));
+    let o = this._cargoPayloadMaterials,
+      s = t.x / 2,
       l = t.y / 2,
       u = t.z / 2,
       d = u + 0.013,
@@ -871,28 +871,28 @@ var Je = class {
       p = 0.038,
       m = Math.max(0.045, t.x * 0.055),
       h = Math.max(0.045, t.y * 0.075),
-      g = new C(new y(t.x, t.y, t.z), s.crate);
-    ((g.name = `${e}-body`), g.position.set(0, l, 0), o.add(g));
+      g = new x(new y(t.x, t.y, t.z), o.crate);
+    ((g.name = `${e}-body`), g.position.set(0, l, 0), a.add(g));
     let _ = (t, n, r, i = {}) => {
-        let a = new C(new y(n.x, n.y, n.z), s.trim);
+        let s = new x(new y(n.x, n.y, n.z), o.trim);
         return (
-          (a.name = `${e}-${t}`),
-          a.position.set(r.x, r.y, r.z),
-          a.rotation.set(i.x || 0, i.y || 0, i.z || 0),
-          o.add(a),
-          a
+          (s.name = `${e}-${t}`),
+          s.position.set(r.x, r.y, r.z),
+          s.rotation.set(i.x || 0, i.y || 0, i.z || 0),
+          a.add(s),
+          s
         );
       },
       v = (e, n, r = 1) => {
         (_(
           `${e}-left-post`,
           { x: m, y: t.y + 0.035, z: p },
-          { x: -c + m, y: l, z: n },
+          { x: -s + m, y: l, z: n },
         ),
           _(
             `${e}-right-post`,
             { x: m, y: t.y + 0.035, z: p },
-            { x: c - m, y: l, z: n },
+            { x: s - m, y: l, z: n },
           ),
           _(
             `${e}-top-rail`,
@@ -914,7 +914,7 @@ var Je = class {
       (v(`front`, d, 1),
       v(`back`, f, -1),
       [-1, 1].forEach((e) => {
-        let n = e * (c + 0.013);
+        let n = e * (s + 0.013);
         (_(
           `side-${e < 0 ? `left` : `right`}-top-rail`,
           { x: p, y: h, z: t.z * 0.78 },
@@ -928,18 +928,18 @@ var Je = class {
       }),
       i)
     ) {
-      let n = new C(new y(t.x * 0.34, t.y * 0.22, 0.018), s.label);
+      let n = new x(new y(t.x * 0.34, t.y * 0.22, 0.018), o.label);
       ((n.name = `${e}-label`),
         n.position.set(t.x * 0.18, l, d + 0.028),
-        o.add(n),
+        a.add(n),
         [-0.045, 0.045].forEach((n, r) => {
-          let i = new C(new y(t.x * 0.22, 0.024, 0.022), s.accent);
+          let i = new x(new y(t.x * 0.22, 0.024, 0.022), o.accent);
           ((i.name = `${e}-label-mark-${r + 1}`),
             i.position.set(t.x * 0.18, l + n, d + 0.044),
-            o.add(i));
+            a.add(i));
         }));
     }
-    return o;
+    return a;
   }
   _setCargoPayloadTone(e = {}) {
     if (!this._cargoPayloadMaterials?.crate) return;
@@ -971,7 +971,7 @@ var Je = class {
   dropCargoPayload(e = null, t = {}) {
     let n = this.cargoPayloadGroup || this.createCargoPayloadVisual();
     if (!n || !this.scene) return !1;
-    let r = new S();
+    let r = new w();
     n.visible && typeof n.getWorldPosition == `function`
       ? n.getWorldPosition(r)
       : e
@@ -1050,7 +1050,7 @@ var Je = class {
     let i = n.floatSeconds,
       a = n.sinkSeconds,
       o = Math.max(0, n.elapsedSeconds - i),
-      s = w.clamp(o / a, 0, 1),
+      s = b.clamp(o / a, 0, 1),
       c = s * s * (3 - 2 * s),
       l = Math.sin(n.elapsedSeconds * Me + n.bobPhase) * je * (1 - s);
     ((t.position.y = n.waterLevel + l - n.sinkDepth * c),
@@ -1098,7 +1098,7 @@ var Je = class {
     );
   }
   getCargoPayloadMount() {
-    return H(this.payloadMount || $(null, this.hullLength));
+    return Re(this.payloadMount || $(null, this.hullLength));
   }
   getCargoPayloadVisible() {
     return !!this.cargoPayloadGroup?.visible;
@@ -1119,7 +1119,7 @@ var Je = class {
   }
   updateFlagDirection(e, t) {
     if (!this.sailRig || !this.sailRig.flag || !e) return;
-    let n = e.clone().applyAxisAngle(new S(0, 1, 0), -t);
+    let n = e.clone().applyAxisAngle(new w(0, 1, 0), -t);
     !n.lengthSq ||
       n.lengthSq() <= 1e-12 ||
       (this.sailRig.flag.rotation.y = Math.atan2(-n.z, n.x));
@@ -1146,17 +1146,17 @@ var Je = class {
           ? this.loadCustomHullObj(this.customHullPath, this.customHullMtlPath)
           : Promise.resolve();
     let e = this.hullLength / 2,
-      t = new k();
+      t = new a();
     (t.moveTo(0, -e),
       t.lineTo(0, e),
       t.lineTo(this.hullWidth / 2, -e),
       t.lineTo(0, -e));
-    let n = new k();
+    let n = new a();
     (n.moveTo(0, -e),
       n.lineTo(0, e),
       n.lineTo(-this.hullWidth / 2, -e),
       n.lineTo(0, -e));
-    let i = {
+    let r = {
         steps: 1,
         depth: this.hullDepth,
         bevelEnabled: !0,
@@ -1164,10 +1164,10 @@ var Je = class {
         bevelSize: 0.5,
         bevelSegments: 2,
       },
-      a = new r(t, i),
-      o = new r(n, i),
-      s = new C(a, this._structureMaterial),
-      c = new C(o, this._structureMaterial);
+      i = new u(t, r),
+      o = new u(n, r),
+      s = new x(i, this._structureMaterial),
+      c = new x(o, this._structureMaterial);
     if (
       ((s.rotation.x = -Math.PI / 2),
       (s.rotation.z = Math.PI),
@@ -1321,9 +1321,9 @@ var Je = class {
     if (!e || !e.isMesh || !e.geometry) return null;
     if (e.userData?.waterBlockerWireframeHelper)
       return e.userData.waterBlockerWireframeHelper;
-    let t = new h(
-      new i(e.geometry),
-      new l({ color: 62975, transparent: !0, opacity: 0.75, depthTest: !1 }),
+    let t = new d(
+      new te(e.geometry),
+      new m({ color: 62975, transparent: !0, opacity: 0.75, depthTest: !1 }),
     );
     return (
       (t.name = `water_blocker_wireframe`),
@@ -1371,16 +1371,16 @@ var Je = class {
           (e.stencilWrite = !0),
           (e.stencilRef = 1),
           (e.stencilFunc = 519),
-          (e.stencilFail = o),
-          (e.stencilZFail = u),
-          (e.stencilZPass = o),
+          (e.stencilFail = f),
+          (e.stencilZFail = o),
+          (e.stencilZPass = f),
           (e.needsUpdate = !0));
       }),
       e.userData || (e.userData = {}),
       (e.userData.waterBlocker = !0),
       (e.castShadow = !1),
       (e.receiveShadow = !1),
-      (e.renderOrder = re.WATER_BLOCKER_STENCIL),
+      (e.renderOrder = se.WATER_BLOCKER_STENCIL),
       (e.visible = this._shouldShowWaterBlockerMeshes()));
   }
   loadCustomHullObj(t, n, r = {}) {
@@ -1392,8 +1392,8 @@ var Je = class {
       } = r,
       c = e(t),
       l = n ? e(n) : null,
-      u = new oe(),
-      d = new se(),
+      u = new ue(),
+      d = new de(),
       f = () => {
         window.dispatchEvent(new CustomEvent(`boatHullLoaded`));
       },
@@ -1442,7 +1442,7 @@ var Je = class {
         `_rudderMaterial`,
         this.rudderColor,
       );
-    this.rudder = new C(new y(e.width, e.height, e.length), t);
+    this.rudder = new x(new y(e.width, e.height, e.length), t);
     let n =
       this.rudderSpec.offsetZ === void 0
         ? -this.hullLength / 2 + 0.5
@@ -1453,11 +1453,11 @@ var Je = class {
     if (!this.keelSpec || !this.keelSpec.show) return;
     let e = this.keelSpec.dimensions || {},
       t = this._ensureStructurePartMaterial(`_keelMaterial`, this.keelColor);
-    ((this.keel = new a()),
+    ((this.keel = new c()),
       (this.keel.name = `keel`),
-      (this.keelFin = new C(Re(e), t)),
+      (this.keelFin = new x(Be(e), t)),
       (this.keelFin.name = `keelFin`),
-      (this.keelBulb = new C(ze(e), t)),
+      (this.keelBulb = new x(Ve(e), t)),
       (this.keelBulb.name = `keelBulb`),
       this.keelBulb.position.set(0, -Math.max(0.1, Number(e.height) || 1), 0),
       this.keel.add(this.keelFin, this.keelBulb),
@@ -1491,10 +1491,10 @@ var Je = class {
   }
   loadFlagTexture() {
     if (!this.countryCode) return;
-    let e = L(this.countryCode),
-      t = Ee(),
+    let e = R(this.countryCode),
+      t = z(),
       n = (e, r = !0) => {
-        le(e)
+        pe(e)
           .then((e) => {
             ((this.flagTexture = e),
               this.sailRig && this.sailRig.setFlagTexture(e));
@@ -1537,17 +1537,17 @@ var Je = class {
     this.debugSailAngle = e;
   }
   createAxesHelperWithLabels(e = 10) {
-    let t = new a(),
+    let t = new c(),
       n = { x: 16724787, y: 3407667, z: 3355647 },
       r = (t, n) =>
-        new T(
-          new E().setFromPoints([new S(0, 0, 0), t.clone().multiplyScalar(e)]),
-          new l({ color: n, depthTest: !1, transparent: !0, opacity: 0.8 }),
+        new g(
+          new T().setFromPoints([new w(0, 0, 0), t.clone().multiplyScalar(e)]),
+          new m({ color: n, depthTest: !1, transparent: !0, opacity: 0.8 }),
         );
     return (
-      t.add(r(new S(1, 0, 0), n.x)),
-      t.add(r(new S(0, 1, 0), n.y)),
-      t.add(r(new S(0, 0, 1), n.z)),
+      t.add(r(new w(1, 0, 0), n.x)),
+      t.add(r(new w(0, 1, 0), n.y)),
+      t.add(r(new w(0, 0, 1), n.z)),
       t
     );
   }

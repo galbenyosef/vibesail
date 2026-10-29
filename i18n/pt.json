@@ -185,11 +185,6 @@
     "copy_link": "Copiar link",
     "copied": "Copiado!",
     "reward": "+${amount}",
-    "verification_unavailable_later": "Verificação indisponível. Feche e tente novamente mais tarde.",
-    "running_cloudflare_check": "Executando verificação Cloudflare...",
-    "complete_cloudflare_check": "Conclua a verificação Cloudflare abaixo para continuar.",
-    "verification_failed_retry": "Falha na verificação. Tente novamente ou feche.",
-    "verification_unavailable_retry": "Verificação indisponível. Tente novamente ou feche.",
     "submitting_record": "Enviando recorde...",
     "submit_failed": "Falha ao enviar o recorde. Tente novamente.",
     "submit_failed_again": "Falha ao enviar o recorde. Tente novamente.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "Mudar para {next}",
     "double_reward_cta": "Assista a um anúncio para dobrar (+${amount})",
     "double_reward_watching": "Exibindo anúncio...",
-    "double_reward_done": "Dobrado para +${amount}",
-    "double_reward_skipped": "Anúncio ignorado. Recompensa inalterada."
+    "double_reward_skipped": "Anúncio ignorado. Recompensa inalterada.",
+    "double_reward_cancel_note": "Fechar ou pular o vídeo cancela a recompensa extra.",
+    "double_reward_race_label": "Corrida",
+    "double_reward_reward_label": "Recompensa",
+    "double_reward_ad_label": "Anúncio",
+    "double_reward_total_label": "Total"
   },
   "mobile": {
     "rudder": "LEME",
@@ -264,7 +263,6 @@
     "page_title": "Explore o Mundo | VibeSail",
     "title": "Escolha suas águas",
     "subtitle": "Escolha um local ou toque em qualquer lugar na água para zarpar em 3D fotorrealista.",
-    "set_sail": "Zarpar",
-    "link_simulator": "Navegue no simulador de barcos"
+    "set_sail": "Zarpar"
   }
 }

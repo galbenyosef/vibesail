@@ -185,11 +185,6 @@
     "copy_link": "लिंक कॉपी करें",
     "copied": "कॉपी हो गया!",
     "reward": "+${amount}",
-    "verification_unavailable_later": "सत्यापन उपलब्ध नहीं है। बंद करें और बाद में फिर कोशिश करें।",
-    "running_cloudflare_check": "Cloudflare जाँच चल रही है...",
-    "complete_cloudflare_check": "जारी रखने के लिए नीचे Cloudflare जाँच पूरी करें।",
-    "verification_failed_retry": "सत्यापन असफल। फिर कोशिश करें या बंद करें।",
-    "verification_unavailable_retry": "सत्यापन उपलब्ध नहीं। फिर कोशिश करें या बंद करें।",
     "submitting_record": "रिकॉर्ड जमा हो रहा है...",
     "submit_failed": "रिकॉर्ड जमा नहीं हो सका। फिर कोशिश करें।",
     "submit_failed_again": "रिकॉर्ड जमा नहीं हो सका। फिर से कोशिश करें।",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "{next} पर स्विच करें",
     "double_reward_cta": "दोगुना करने के लिए विज्ञापन देखें (+${amount})",
     "double_reward_watching": "विज्ञापन दिखाया जा रहा है...",
-    "double_reward_done": "+${amount} तक दोगुना",
-    "double_reward_skipped": "विज्ञापन छोड़ दिया गया। इनाम वही रहा।"
+    "double_reward_skipped": "विज्ञापन छोड़ दिया गया। इनाम वही रहा।",
+    "double_reward_cancel_note": "वीडियो बंद करने या छोड़ने पर अतिरिक्त इनाम रद्द हो जाता है.",
+    "double_reward_race_label": "रेस",
+    "double_reward_reward_label": "इनाम",
+    "double_reward_ad_label": "विज्ञापन",
+    "double_reward_total_label": "कुल"
   },
   "mobile": {
     "rudder": "रडर",
@@ -264,7 +263,6 @@
     "page_title": "दुनिया का अन्वेषण करें | VibeSail",
     "title": "अपने जलमार्ग चुनें",
     "subtitle": "कोई स्थान चुनें या पानी पर कहीं भी टैप करके फोटो-रियलिस्टिक 3D में यात्रा शुरू करें।",
-    "set_sail": "पाल खोलें",
-    "link_simulator": "बोट सिम्युलेटर में पाल चलाएँ"
+    "set_sail": "पाल खोलें"
   }
 }

@@ -1,23 +1,23 @@
 // HighSeaModeManager 01 — degtorad
-// Lines 1-128 of readable/assets/HighSeaModeManager-BEvC6iXw.pretty.js (statement-aligned).
+// Lines 1-128 of readable/assets/HighSeaModeManager-CSga6NhB.pretty.js (statement-aligned).
 import { s as e } from "./PlayerNameStorage-Q3p2umqg.js";
-import { O as t, in as n, ot as r } from "./three.module-BgyKfsEV.js";
+import { A as t, ct as n, sn as r } from "./three.module-CUNolavI.js";
 import {
-  b as i,
-  h as a,
-  l as o,
-  m as s,
-  p as c,
-  x as l,
-  y as u,
-} from "./Game-CrsSKcAK.js";
-import { i as d, n as f, t as p } from "./DataModels-DjmBwyzI.js";
+  S as i,
+  b as a,
+  g as o,
+  h as s,
+  l as c,
+  m as l,
+  x as u,
+} from "./Game-BK-SaWAR.js";
+import { i as d, n as f, t as p } from "./DataModels-CogLxOKo.js";
 import { i as m } from "./KeyboardManager-DVLZ3teY.js";
 import { n as h, t as g } from "./GhostReplayModel-B8EqTWpz.js";
 var _ = 3.2,
   v = 0.25,
   y = 1e-4,
-  b = r.degToRad(30),
+  b = n.degToRad(30),
   HOLD_COURSE_HINT = `Hold course through the swell.`,
   HIGH_SEA_BUOY_POPUP_ID = `high-sea-buoy-popup`,
   HIGH_SEA_WARNING_BANNER_ID = `high-sea-warning-banner`,
@@ -71,8 +71,8 @@ var _ = 3.2,
     },
     dynamics: {
       allowUnclampedWaveRoll: !0,
-      maxWaveRoll: r.degToRad(40),
-      maxWavePitch: r.degToRad(22),
+      maxWaveRoll: n.degToRad(40),
+      maxWavePitch: n.degToRad(22),
       wavePitchResponseRate: 3.4,
       waveRollResponseRate: 3.7,
       waveYawGain: 0.24,
@@ -87,9 +87,9 @@ var _ = 3.2,
       maxVerticalAcceleration: 55,
     },
     fail: {
-      rollWarningRad: r.degToRad(32),
-      capsizeRollRad: r.degToRad(48),
-      instantCapsizeRollRad: r.degToRad(60),
+      rollWarningRad: n.degToRad(32),
+      capsizeRollRad: n.degToRad(48),
+      instantCapsizeRollRad: n.degToRad(60),
       capsizeHoldSeconds: 0.9,
       submersionDeckOffset: 1,
       requiredSubmergedPoints: 3,
@@ -125,6 +125,6 @@ function I(e, t = null) {
     : t;
 }
 function L(e) {
-  let t = r.degToRad(e);
-  return new n(Math.sin(t), 0, Math.cos(t)).normalize();
+  let t = n.degToRad(e);
+  return new r(Math.sin(t), 0, Math.cos(t)).normalize();
 }

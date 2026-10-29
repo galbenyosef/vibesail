@@ -1,694 +1,350 @@
-// Game 43 — rules
-// Lines 21110-21801 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var BoatInventory = class {
-    constructor(e = {}) {
-      ((this.rules = e.rules || new BoatCatalog()),
-        (this.storage = e.storage || Bt),
-        (this.storageKey = e.storageKey || `sail_boat_inventory_v1`),
-        (this.storageTtlMs = Number.isFinite(e.storageTtlMs)
-          ? e.storageTtlMs
-          : YEAR_MS),
-        (this.listeners = new Set()),
-        (this.state = el(
-          this.storage.getWithTTL(this.storageKey) || {},
-          this.rules,
-        )),
-        this._persist());
-    }
-    subscribe(e) {
-      return typeof e == `function`
-        ? (this.listeners.add(e), () => this.listeners.delete(e))
-        : () => {};
-    }
-    _emitChange() {
-      let e = this.getState();
-      this.listeners.forEach((t) => t(e));
-    }
-    _persist() {
-      this.storage.setWithTTL(this.storageKey, this.state, this.storageTtlMs);
-    }
-    _saveAndEmit() {
-      (this._persist(), this._emitChange());
-    }
-    getState() {
-      return Zc(this.state);
-    }
-    isBoatOwned(e) {
-      let t = X(e);
-      return t ? this.state.ownedBoatIds.includes(t) : !1;
-    }
-    isVariantOwned(e, t) {
-      let n = X(e),
-        r = X(t);
-      return !n ||
-        !r ||
-        !this.rules.isKnownVariant(n, r) ||
-        !this.isBoatOwned(n)
-        ? !1
-        : this.rules.getDefaultVariantId(n) === r
-          ? !0
-          : (this.state.ownedVariantIdsByBoat[n] || []).includes(r);
-    }
-    getEquippedBoatId() {
-      return this.state.equippedBoatId;
-    }
-    getEquippedVariantId(e = this.state.equippedBoatId) {
-      let t = X(e);
-      if (!t || !this.rules.isKnownBoat(t)) return null;
-      let n = X(this.state.equippedVariantByBoat[t]);
-      if (n && this.isVariantOwned(t, n)) return n;
-      let r = this.rules.getDefaultVariantId(t);
-      return r && this.isVariantOwned(t, r) ? r : null;
-    }
-    getVariantOptions(e) {
-      let t = X(e);
-      return t ? this.rules.getHullVariantOptions(t) : [];
-    }
-    unlockBoat(e) {
-      let t = X(e);
-      return !t || !this.rules.isKnownBoat(t)
-        ? { ok: !1, reason: `unknown-boat` }
-        : this.isBoatOwned(t)
-          ? { ok: !1, reason: `already-owned` }
-          : (this.state.ownedBoatIds.push(t),
-            (this.state.ownedBoatIds = Array.from(
-              new Set(this.state.ownedBoatIds),
-            )),
-            this._saveAndEmit(),
-            { ok: !0, reason: `unlocked`, boatId: t });
-    }
-    unlockVariant(e, t) {
-      let n = X(e),
-        r = X(t);
-      if (!n || !r || !this.rules.isKnownVariant(n, r))
-        return { ok: !1, reason: `unknown-variant` };
-      if (!this.isBoatOwned(n)) return { ok: !1, reason: `boat-not-owned` };
-      if (this.isVariantOwned(n, r)) return { ok: !1, reason: `already-owned` };
-      let i = this.state.ownedVariantIdsByBoat[n] || [];
-      return (
-        (this.state.ownedVariantIdsByBoat[n] = Array.from(new Set([...i, r]))),
-        this._saveAndEmit(),
-        { ok: !0, reason: `unlocked`, boatId: n, variantId: r }
-      );
-    }
-    equipBoat(e, t = null) {
-      let n = X(e);
-      if (!this.isBoatOwned(n)) return { ok: !1, reason: `boat-not-owned` };
-      let r = this._resolveOwnedVariantForBoat(n, t);
-      return (
-        (this.state.equippedBoatId = n),
-        r
-          ? (this.state.equippedVariantByBoat[n] = r)
-          : delete this.state.equippedVariantByBoat[n],
-        this._saveAndEmit(),
-        { ok: !0, boatId: n, variantId: r }
-      );
-    }
-    equipVariant(e, t) {
-      let n = X(e),
-        r = X(t);
-      return this.isVariantOwned(n, r)
-        ? ((this.state.equippedBoatId = n),
-          (this.state.equippedVariantByBoat[n] = r),
-          this._saveAndEmit(),
-          { ok: !0, boatId: n, variantId: r })
-        : { ok: !1, reason: `variant-not-owned` };
-    }
-    _resolveOwnedVariantForBoat(e, t = null) {
-      let n = X(t);
-      return n && this.isVariantOwned(e, n) ? n : this.getEquippedVariantId(e);
-    }
-  },
-  GameplayLoadoutQueue = class {
-    constructor(e = {}) {
-      ((this.inventory = e.inventory),
-        (this.rules = e.rules),
-        (this.windowRef = e.windowRef || (typeof window < `u` ? window : null)),
-        (this.pendingOverrideKey =
-          e.pendingOverrideKey || `sail_boat_inventory_pending_v1`));
-    }
-    queuePendingGameplayLoadout(e = {}) {
-      let t = this.windowRef?.sessionStorage;
-      if (!t?.setItem) return;
-      let n = { boatId: X(e.boatId), variantId: X(e.variantId) };
-      t.setItem(this.pendingOverrideKey, JSON.stringify(n));
-    }
-    consumePendingGameplayLoadout() {
-      let e = this.windowRef?.sessionStorage;
-      if (!e?.getItem || !e?.removeItem) return null;
-      let t = e.getItem(this.pendingOverrideKey);
-      if (!t) return null;
-      e.removeItem(this.pendingOverrideKey);
-      try {
-        let e = JSON.parse(t);
-        return { boatId: X(e?.boatId), variantId: X(e?.variantId) };
-      } catch {
-        return null;
-      }
-    }
-    resolveGameplayLoadout({
-      requestedBoatId: e = null,
-      requestedVariantId: t = null,
-    } = {}) {
-      let n = this.consumePendingGameplayLoadout(),
-        r = X(n?.boatId),
-        i = X(e),
-        a = X(n?.variantId),
-        o = X(t),
-        s = (() => {
-          if (
-            r &&
-            this.rules.canUseBoatInGameplay(r, {
-              owned: this.inventory.isBoatOwned(r),
-            })
-          )
-            return r;
-          if (
-            i &&
-            this.rules.canUseBoatInGameplay(i, {
-              owned: this.inventory.isBoatOwned(i),
-            })
-          )
-            return i;
-          let e = this.inventory.getEquippedBoatId();
-          return e &&
-            this.rules.canUseBoatInGameplay(e, {
-              owned: this.inventory.isBoatOwned(e),
-            })
-            ? e
-            : this.rules.getDefaultOwnedBoatId();
-        })();
-      return {
-        boatId: s,
-        variantId:
-          a &&
-          this.rules.canUseVariantInGameplay(s, a, {
-            owned: this.inventory.isVariantOwned(s, a),
-          })
-            ? a
-            : o &&
-                this.rules.canUseVariantInGameplay(s, o, {
-                  owned: this.inventory.isVariantOwned(s, o),
-                })
-              ? o
-              : this.inventory.getEquippedVariantId(s),
-      };
-    }
-  },
-  BoatShopController = class {
-    constructor(e = {}) {
-      ((this.rules = e.rules || new BoatCatalog({ isDevMode: e.isDevMode === !0 })),
-        (this.store = e.store || new BoatInventory({ ...e, rules: this.rules })),
-        (this.loadoutResolver =
-          e.loadoutResolver ||
-          new GameplayLoadoutQueue({
-            inventory: this.store,
-            rules: this.rules,
-            windowRef: e.windowRef,
-            pendingOverrideKey: e.pendingOverrideKey,
-          })));
-    }
-    subscribe(e) {
-      return this.store.subscribe(e);
-    }
-    getState() {
-      return this.store.getState();
-    }
-    getVisibleBoatIds() {
-      return this.rules.getVisibleBoatIds();
-    }
-    getCatalogEntries() {
-      return this.getVisibleBoatIds()
-        .filter((e) => this.rules.isKnownBoat(e))
-        .map((e) => {
-          let t = this.rules.getPresetMeta(e);
-          return {
-            id: e,
-            label: t.label || e,
-            description: t.description || ``,
-            storeState: this.rules.getStoreState(e),
-            unlockPolicy: this.rules.getUnlockPolicy(e),
-            variants: this.rules.getHullVariantOptions(e),
-            defaultVariantId: this.rules.getDefaultVariantId(e),
-            owned: this.isBoatOwned(e),
-            equipped: this.getEquippedBoatId() === e,
-            equippedVariantId: this.getEquippedVariantId(e),
-          };
-        });
-    }
-    isBoatOwned(e) {
-      return this.store.isBoatOwned(e);
-    }
-    isVariantOwned(e, t) {
-      return this.store.isVariantOwned(e, t);
-    }
-    getEquippedBoatId() {
-      return this.store.getEquippedBoatId();
-    }
-    getEquippedVariantId(e) {
-      return this.store.getEquippedVariantId(e);
-    }
-    getVariantOptions(e) {
-      return this.store.getVariantOptions(e);
-    }
-    canUseBoatInGameplay(e) {
-      return this.rules.canUseBoatInGameplay(e, { owned: this.isBoatOwned(e) });
-    }
-    canUseVariantInGameplay(e, t) {
-      return this.rules.canUseVariantInGameplay(e, t, {
-        owned: this.isVariantOwned(e, t),
-      });
-    }
-    buyBoat(e, t = {}) {
-      if (!this.rules.isKnownBoat(e)) return { ok: !1, reason: `unknown-boat` };
-      if (!this.rules.isBoatUnlockable(e))
-        return { ok: !1, reason: `not-unlockable` };
-      if (this.isBoatOwned(e)) return { ok: !1, reason: `already-owned` };
-      let n = this.rules.getUnlockPolicy(e);
-      if (n?.type !== `coins`)
-        return { ok: !1, reason: `unsupported-unlock-policy` };
-      let r = typeof t.spend == `function` ? t.spend : null;
-      return r && r(n.price ?? this.rules.getBoatPrice()) !== !0
-        ? { ok: !1, reason: `insufficient-funds` }
-        : this.store.unlockBoat(e);
-    }
-    buyVariant(e, t, n = {}) {
-      if (!this.rules.isKnownVariant(e, t))
-        return { ok: !1, reason: `unknown-variant` };
-      if (!this.isBoatOwned(e)) return { ok: !1, reason: `boat-not-owned` };
-      if (this.isVariantOwned(e, t)) return { ok: !1, reason: `already-owned` };
-      let r = typeof n.spend == `function` ? n.spend : null;
-      return r && r(this.rules.getVariantPrice()) !== !0
-        ? { ok: !1, reason: `insufficient-funds` }
-        : this.store.unlockVariant(e, t);
-    }
-    equipBoat(e, t = null) {
-      return this.store.equipBoat(e, t);
-    }
-    equipVariant(e, t) {
-      return this.store.equipVariant(e, t);
-    }
-    queuePendingGameplayLoadout(e = {}) {
-      return this.loadoutResolver.queuePendingGameplayLoadout(e);
-    }
-    consumePendingGameplayLoadout() {
-      return this.loadoutResolver.consumePendingGameplayLoadout();
-    }
-    resolveGameplayLoadout(e = {}) {
-      return this.loadoutResolver.resolveGameplayLoadout(e);
-    }
-  },
-  BoatShopPresenter = class {
-    constructor(e = {}) {
-      ((this.inventory = e.inventory),
-        (this.getBalance =
-          typeof e.getBalance == `function` ? e.getBalance : () => 0),
-        (this.subscribeBalanceChange =
-          typeof e.subscribeBalanceChange == `function`
-            ? e.subscribeBalanceChange
-            : () => null),
-        (this.spendCoins =
-          typeof e.spendCoins == `function` ? e.spendCoins : () => !1),
-        (this.requestGameplayLoadout =
-          typeof e.requestGameplayLoadout == `function`
-            ? e.requestGameplayLoadout
-            : () => {}),
-        (this.onPurchase =
-          typeof e.onPurchase == `function` ? e.onPurchase : null));
-    }
-    subscribeCatalog(e) {
-      return this.inventory?.subscribe?.(e) || (() => {});
-    }
-    subscribeBalance(e) {
-      if (typeof e != `function`) return () => {};
-      let t = this.subscribeBalanceChange(e);
-      return typeof t == `function` ? t : null;
-    }
-    getCatalogEntries() {
-      return this.inventory?.getCatalogEntries?.() || [];
-    }
-    isVariantOwned(e, t) {
-      return this.inventory?.isVariantOwned?.(e, t) === !0;
-    }
-    getEquippedBoatId() {
-      return this.inventory?.getEquippedBoatId?.() || null;
-    }
-    getEquippedVariantId(e) {
-      return this.inventory?.getEquippedVariantId?.(e) || null;
-    }
-    purchaseOrEquip(e = {}) {
-      let t = e.boatId || null,
-        n = e.variantId || null,
-        r = this.getCatalogEntries().find((e) => e.id === t);
-      if (!r) return { ok: !1, reason: `unknown-boat` };
-      let i = !1,
-        a = !1;
-      if (!r.owned) {
-        if (r.storeState !== `unlockable`)
-          return { ok: !1, reason: `not-unlockable` };
-        let e = this.inventory?.buyBoat?.(t, {
-          spend: (e) => this.spendCoins(e) === !0,
-        });
-        if (!e?.ok) return e || { ok: !1, reason: `purchase-failed` };
-        i = !0;
-      }
-      if (n && !this.isVariantOwned(t, n)) {
-        let e = this.inventory?.buyVariant?.(t, n, {
-          spend: (e) => this.spendCoins(e) === !0,
-        });
-        if (!e?.ok) return e || { ok: !1, reason: `purchase-failed` };
-        a = !0;
-      }
-      let o = n
-        ? this.inventory?.equipVariant?.(t, n)
-        : this.inventory?.equipBoat?.(t, null);
-      if (!o?.ok) return o || { ok: !1, reason: `equip-failed` };
-      if (i || a) {
-        let e = n ? r.variants.find((e) => e.id === n) : null,
-          s = i && a ? `boat_and_skin` : i ? `boat` : `skin`;
-        this.onPurchase?.({
-          boatId: t,
-          boatLabel: r.label || t,
-          variantId: (a && (o.variantId || n)) || null,
-          variantLabel: (a && e?.label) || null,
-          purchasedBoat: i,
-          purchasedVariant: a,
-          purchaseKind: s,
-        });
+// Game 43 — start
+// Lines 20881-21228 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+function $c(e, t, n, r, i) {
+  let a = [t, n];
+  for (; a.length;) {
+    if (((n = a.pop()), (t = a.pop()), n - t <= r)) continue;
+    let o = t + Math.ceil((n - t) / r / 2) * r;
+    (Ic(e, o, t, n, i), a.push(t, o, o, n));
+  }
+}
+function el(e, t, n, r) {
+  let i = t[0] - e[0],
+    a = t[1] - e[1],
+    o = r[0] - n[0],
+    s = r[1] - n[1];
+  if (o * a - s * i === 0) return !1;
+  let c = (i * (n[1] - e[1]) + a * (e[0] - n[0])) / (o * a - s * i),
+    l = (o * (e[1] - n[1]) + s * (n[0] - e[0])) / (s * i - o * a);
+  return c >= 0 && c <= 1 && l >= 0 && l <= 1;
+}
+function BoatInventory(e, t, n) {
+  return (t[0] - e[0]) * (n[1] - e[1]) - (n[0] - e[0]) * (t[1] - e[1]);
+}
+function GameplayLoadoutQueue(e, t, n) {
+  return BoatInventory(e, t, n) > 0;
+}
+function BoatShopController(e, t, n) {
+  return BoatInventory(e, t, n) >= 0;
+}
+function BoatShopPresenter(e, t, n) {
+  return BoatInventory(e, t, n) < 0;
+}
+function MINIMAP_ZOOM_CONFIG(e, t, n) {
+  return BoatInventory(e, t, n) <= 0;
+}
+function WorldMapController(e, t) {
+  let n = t[0] - e[0],
+    r = t[1] - e[1];
+  return n * n + r * r;
+}
+function J(e, t) {
+  let n = e.length;
+  return e[t < 0 ? (t % n) + n : t % n];
+}
+function sl(e, t, n, r) {
+  for (let i = n; i < r; i++) e.push(t[i]);
+}
+function cl(e, t) {
+  return BoatShopPresenter(J(e, t - 1), J(e, t), J(e, t + 1));
+}
+function ll(e, t, n) {
+  for (let r = 0; r !== e.length; ++r)
+    if (
+      !(
+        r === t ||
+        r === n ||
+        (r + 1) % e.length === t ||
+        (r + 1) % e.length === n
+      ) &&
+      el(J(e, t), J(e, n), J(e, r), J(e, r + 1))
+    )
+      return !1;
+  return !0;
+}
+function ul(e) {
+  let t = e,
+    n;
+  for (n = 0; n < t.length - 1; n++)
+    for (let e = 0; e < n - 1; e++)
+      if (el(t[n], t[n + 1], t[e], t[e + 1])) return !1;
+  for (n = 1; n < t.length - 2; n++)
+    if (el(t[0], t[t.length - 1], t[n], t[n + 1])) return !1;
+  return !0;
+}
+function dl(e, t, n, r, i) {
+  i === void 0 && (i = 0);
+  let a = t[1] - e[1],
+    o = e[0] - t[0],
+    s = a * e[0] + o * e[1],
+    c = r[1] - n[1],
+    l = n[0] - r[0],
+    u = c * n[0] + l * n[1],
+    d = a * l - c * o;
+  return pl(d, 0, i) ? [0, 0] : [(l * s - o * u) / d, (a * u - c * s) / d];
+}
+function fl(e, t, n, r, i, a, o) {
+  (t === void 0 && (t = []),
+    n === void 0 && (n = []),
+    r === void 0 && (r = []),
+    i === void 0 && (i = 25),
+    a === void 0 && (a = 100),
+    o === void 0 && (o = 0));
+  let s = [0, 0],
+    c = [0, 0],
+    l = [0, 0],
+    u = 0,
+    d = 0,
+    f = 0,
+    p = 0,
+    m = 0,
+    h = 0,
+    g = 0,
+    _ = [],
+    v = [],
+    y = e,
+    b = e;
+  if (b.length < 3) return t;
+  if ((o++, o > a))
+    return (console.warn(`quickDecomp: max level (` + a + `) reached.`), t);
+  for (let x = 0; x < e.length; ++x)
+    if (cl(y, x)) {
+      (n.push(y[x]), (u = d = Number.MAX_VALUE));
+      for (let t = 0; t < e.length; ++t)
+        (GameplayLoadoutQueue(J(y, x - 1), J(y, x), J(y, t)) &&
+          MINIMAP_ZOOM_CONFIG(J(y, x - 1), J(y, x), J(y, t - 1)) &&
+          ((l = dl(J(y, x - 1), J(y, x), J(y, t), J(y, t - 1))),
+          BoatShopPresenter(J(y, x + 1), J(y, x), l) &&
+            ((f = WorldMapController(y[x], l)), f < d && ((d = f), (c = l), (h = t)))),
+          GameplayLoadoutQueue(J(y, x + 1), J(y, x), J(y, t + 1)) &&
+            MINIMAP_ZOOM_CONFIG(J(y, x + 1), J(y, x), J(y, t)) &&
+            ((l = dl(J(y, x + 1), J(y, x), J(y, t), J(y, t + 1))),
+            GameplayLoadoutQueue(J(y, x - 1), J(y, x), l) &&
+              ((f = WorldMapController(y[x], l)), f < u && ((u = f), (s = l), (m = t)))));
+      if (h === (m + 1) % e.length)
+        ((l[0] = (c[0] + s[0]) / 2),
+          (l[1] = (c[1] + s[1]) / 2),
+          r.push(l),
+          x < m
+            ? (sl(_, y, x, m + 1),
+              _.push(l),
+              v.push(l),
+              h !== 0 && sl(v, y, h, y.length),
+              sl(v, y, 0, x + 1))
+            : (x !== 0 && sl(_, y, x, y.length),
+              sl(_, y, 0, m + 1),
+              _.push(l),
+              v.push(l),
+              sl(v, y, h, x + 1)));
+      else {
+        if ((h > m && (m += e.length), (p = Number.MAX_VALUE), m < h)) return t;
+        for (let t = h; t <= m; ++t)
+          BoatShopController(J(y, x - 1), J(y, x), J(y, t)) &&
+            MINIMAP_ZOOM_CONFIG(J(y, x + 1), J(y, x), J(y, t)) &&
+            ((f = WorldMapController(J(y, x), J(y, t))),
+            f < p && ll(y, x, t) && ((p = f), (g = t % e.length)));
+        x < g
+          ? (sl(_, y, x, g + 1),
+            g !== 0 && sl(v, y, g, b.length),
+            sl(v, y, 0, x + 1))
+          : (x !== 0 && sl(_, y, x, b.length),
+            sl(_, y, 0, g + 1),
+            sl(v, y, g, x + 1));
       }
       return (
-        this.requestGameplayLoadout({
-          boatId: t,
-          variantId: o.variantId || null,
-        }),
-        {
-          ok: !0,
-          boatId: t,
-          variantId: o.variantId || null,
-          purchasedBoat: i,
-          purchasedVariant: a,
-        }
+        _.length < v.length
+          ? (fl(_, t, n, r, i, a, o), fl(v, t, n, r, i, a, o))
+          : (fl(v, t, n, r, i, a, o), fl(_, t, n, r, i, a, o)),
+        t
       );
     }
+  return (t.push(e), t);
+}
+function pl(e, t, n) {
+  return (n === void 0 && (n = 0), (n = n || 0), Math.abs(e - t) <= n);
+}
+var ml;
+(function (e) {
+  ((e.Ellipse = `Ellipse`),
+    (e.Circle = `Circle`),
+    (e.Polygon = `Polygon`),
+    (e.Box = `Box`),
+    (e.Line = `Line`),
+    (e.Point = `Point`));
+})(ml || (ml = {}));
+var Y;
+(function (e) {
+  ((e[(e.Ellipse = 32)] = `Ellipse`),
+    (e[(e.Circle = 16)] = `Circle`),
+    (e[(e.Polygon = 8)] = `Polygon`),
+    (e[(e.Box = 4)] = `Box`),
+    (e[(e.Line = 2)] = `Line`),
+    (e[(e.Point = 1)] = `Point`));
+})(Y || (Y = {}));
+var hl = (e, t) => {
+    for (let n = 0, r = e.length; n < r; n++) t(e[n], n);
   },
-  MINIMAP_ZOOM_CONFIG = Object.freeze({
-    minZoom: 0.075,
-    maxZoom: 6,
-    initialZoom: 0.3,
-    zoomSpeed: 0.0015,
-    dragSpeed: 1,
-    height: 920,
-    frustumSize: 560,
-    followSmoothing: 0.08,
-    inertiaDecay: 0.92,
-  }),
-  WorldMapController = class {
-    constructor(e, t, n = {}) {
-      ((this.camera = e),
-        (this.domElement = t),
-        (this.center =
-          n.center instanceof M ? n.center.clone() : new M(0, 0, 0)),
-        (this.minZoom = n.minZoom ?? MINIMAP_ZOOM_CONFIG.minZoom),
-        (this.maxZoom = n.maxZoom ?? MINIMAP_ZOOM_CONFIG.maxZoom),
-        (this.zoomSpeed = n.zoomSpeed ?? MINIMAP_ZOOM_CONFIG.zoomSpeed),
-        (this.dragSpeed = n.dragSpeed ?? MINIMAP_ZOOM_CONFIG.dragSpeed),
-        (this.height = n.height ?? MINIMAP_ZOOM_CONFIG.height),
-        (this.frustumSize = n.frustumSize ?? MINIMAP_ZOOM_CONFIG.frustumSize),
-        (this.followTarget = n.followTarget ?? null),
-        (this.followSmoothing = n.followSmoothing ?? MINIMAP_ZOOM_CONFIG.followSmoothing),
-        (this.isDragging = !1),
-        (this.lastPointerX = 0),
-        (this.lastPointerY = 0),
-        (this.targetZoom = this.clampZoom(n.initialZoom ?? MINIMAP_ZOOM_CONFIG.initialZoom)),
-        (this.currentZoom = this.targetZoom),
-        (this.zoomLerpSpeed = 8),
-        (this.velocityX = 0),
-        (this.velocityZ = 0),
-        (this.inertiaDecay = n.inertiaDecay ?? MINIMAP_ZOOM_CONFIG.inertiaDecay),
-        (this.lastPinchDistance = null),
-        (this.lastPinchMidpoint = null),
-        this._setupCamera(),
-        this._bindEvents());
-    }
-    _setupCamera() {
-      let e = window.innerWidth / window.innerHeight;
-      ((this.camera.left = (-this.frustumSize * e) / 2),
-        (this.camera.right = (this.frustumSize * e) / 2),
-        (this.camera.top = this.frustumSize / 2),
-        (this.camera.bottom = -this.frustumSize / 2),
-        (this.camera.near = 0.1),
-        (this.camera.far = this.height + 500),
-        this.camera.position.set(this.center.x, this.height, this.center.z),
-        this.camera.up.set(0, 0, -1),
-        this.camera.lookAt(this.center.x, 0, this.center.z),
-        (this.camera.zoom = this.currentZoom),
-        this.camera.updateProjectionMatrix());
-    }
-    centerOn(e, t, n = !0) {
-      n
-        ? (this._animateTarget = new M(e, 0, t))
-        : (this.center.set(e, 0, t), this._updateCameraPosition());
-    }
-    setZoom(e, t = !0) {
-      let n = this.clampZoom(e);
-      t
-        ? (this.targetZoom = n)
-        : ((this.targetZoom = n),
-          (this.currentZoom = n),
-          (this.camera.zoom = n),
-          this.camera.updateProjectionMatrix());
-    }
-    clampZoom(e) {
-      return Math.min(this.maxZoom, Math.max(this.minZoom, e));
-    }
-    getWorldUnitsPerPixel() {
-      return (
-        (this.camera.top - this.camera.bottom) /
-        this.camera.zoom /
-        window.innerHeight
-      );
-    }
-    panByPixels(e, t) {
-      let n = this.getWorldUnitsPerPixel(),
-        r = -e * n * this.dragSpeed,
-        i = -t * n * this.dragSpeed;
-      ((this.center.x += r),
-        (this.center.z += i),
-        (this.velocityX = r),
-        (this.velocityZ = i),
-        this._updateCameraPosition());
-    }
-    _bindEvents() {
-      ((this._onPointerDown = this._handlePointerDown.bind(this)),
-        (this._onPointerMove = this._handlePointerMove.bind(this)),
-        (this._onPointerUp = this._handlePointerUp.bind(this)),
-        (this._onTouchStart = this._handleTouchStart.bind(this)),
-        (this._onTouchMove = this._handleTouchMove.bind(this)),
-        (this._onTouchEnd = this._handleTouchEnd.bind(this)),
-        (this._onWheel = this._handleWheel.bind(this)),
-        (this.domElement.style.touchAction = `none`),
-        this.domElement.addEventListener(`pointerdown`, this._onPointerDown),
-        window.addEventListener(`pointermove`, this._onPointerMove),
-        window.addEventListener(`pointerup`, this._onPointerUp),
-        window.addEventListener(`pointercancel`, this._onPointerUp),
-        this.domElement.addEventListener(`touchstart`, this._onTouchStart, {
-          passive: !1,
-        }),
-        this.domElement.addEventListener(`touchmove`, this._onTouchMove, {
-          passive: !1,
-        }),
-        this.domElement.addEventListener(`touchend`, this._onTouchEnd, {
-          passive: !1,
-        }),
-        this.domElement.addEventListener(`touchcancel`, this._onTouchEnd, {
-          passive: !1,
-        }),
-        this.domElement.addEventListener(`wheel`, this._onWheel, {
-          passive: !1,
-        }));
-    }
-    _handlePointerDown(e) {
-      e.pointerType !== `touch` &&
-        e.button === 0 &&
-        ((this.isDragging = !0),
-        (this.velocityX = 0),
-        (this.velocityZ = 0),
-        (this.lastPointerX = e.clientX),
-        (this.lastPointerY = e.clientY),
-        (this._animateTarget = null),
-        this.domElement.setPointerCapture &&
-          e.pointerId != null &&
-          this.domElement.setPointerCapture(e.pointerId));
-    }
-    _handlePointerMove(e) {
-      if (e.pointerType === `touch` || !this.isDragging) return;
-      let t = e.clientX - this.lastPointerX,
-        n = e.clientY - this.lastPointerY;
-      ((this.lastPointerX = e.clientX),
-        (this.lastPointerY = e.clientY),
-        this.panByPixels(t, n));
-    }
-    _handlePointerUp(e) {
-      if (
-        e.pointerType !== `touch` &&
-        ((this.isDragging = !1),
-        this.domElement.releasePointerCapture && e.pointerId != null)
-      )
-        try {
-          this.domElement.releasePointerCapture(e.pointerId);
-        } catch {}
-    }
-    _getTouchDistance(e, t) {
-      return !e || !t
-        ? null
-        : Math.hypot(t.clientX - e.clientX, t.clientY - e.clientY);
-    }
-    _getTouchMidpoint(e, t) {
-      return !e || !t
-        ? null
-        : { x: (e.clientX + t.clientX) / 2, y: (e.clientY + t.clientY) / 2 };
-    }
-    _handleTouchStart(e) {
-      if (
-        (e.preventDefault(),
-        (this._animateTarget = null),
-        e.touches.length === 1)
-      ) {
-        let t = e.touches[0];
-        ((this.isDragging = !0),
-          (this.velocityX = 0),
-          (this.velocityZ = 0),
-          (this.lastPointerX = t.clientX),
-          (this.lastPointerY = t.clientY),
-          (this.lastPinchDistance = null),
-          (this.lastPinchMidpoint = null));
-        return;
-      }
-      if (e.touches.length >= 2) {
-        let [t, n] = e.touches;
-        ((this.isDragging = !1),
-          (this.lastPinchDistance = this._getTouchDistance(t, n)),
-          (this.lastPinchMidpoint = this._getTouchMidpoint(t, n)));
-      }
-    }
-    _handleTouchMove(e) {
-      if ((e.preventDefault(), e.touches.length >= 2)) {
-        let [t, n] = e.touches,
-          r = this._getTouchDistance(t, n),
-          i = this._getTouchMidpoint(t, n);
-        if (r && this.lastPinchDistance) {
-          let e = r / this.lastPinchDistance;
-          this.targetZoom = this.clampZoom(this.targetZoom * e);
-        }
-        (i &&
-          this.lastPinchMidpoint &&
-          this.panByPixels(
-            i.x - this.lastPinchMidpoint.x,
-            i.y - this.lastPinchMidpoint.y,
-          ),
-          (this.lastPinchDistance = r),
-          (this.lastPinchMidpoint = i));
-        return;
-      }
-      if (e.touches.length === 1 && this.isDragging) {
-        let t = e.touches[0],
-          n = t.clientX - this.lastPointerX,
-          r = t.clientY - this.lastPointerY;
-        ((this.lastPointerX = t.clientX),
-          (this.lastPointerY = t.clientY),
-          this.panByPixels(n, r));
-      }
-    }
-    _handleTouchEnd(e) {
-      if ((e.preventDefault(), e.touches.length === 1)) {
-        let t = e.touches[0];
-        ((this.isDragging = !0),
-          (this.lastPointerX = t.clientX),
-          (this.lastPointerY = t.clientY),
-          (this.lastPinchDistance = null),
-          (this.lastPinchMidpoint = null));
-        return;
-      }
-      e.touches.length === 0 &&
-        ((this.isDragging = !1),
-        (this.lastPinchDistance = null),
-        (this.lastPinchMidpoint = null));
-    }
-    _handleWheel(e) {
-      e.preventDefault();
-      let t = this.targetZoom * (1 - e.deltaY * this.zoomSpeed);
-      this.targetZoom = this.clampZoom(t);
-    }
-    update(e) {
-      if (Math.abs(this.currentZoom - this.targetZoom) > 0.001) {
-        let t = 1 - Math.exp(-this.zoomLerpSpeed * e);
-        ((this.currentZoom += (this.targetZoom - this.currentZoom) * t),
-          (this.camera.zoom = this.currentZoom),
-          this.camera.updateProjectionMatrix());
-      } else
-        this.currentZoom !== this.targetZoom &&
-          ((this.currentZoom = this.targetZoom),
-          (this.camera.zoom = this.currentZoom),
-          this.camera.updateProjectionMatrix());
-      if (
-        (this.isDragging ||
-          ((Math.abs(this.velocityX) > 0.01 ||
-            Math.abs(this.velocityZ) > 0.01) &&
-            ((this.center.x += this.velocityX),
-            (this.center.z += this.velocityZ),
-            (this.velocityX *= this.inertiaDecay),
-            (this.velocityZ *= this.inertiaDecay),
-            this._updateCameraPosition())),
-        this._animateTarget)
-      ) {
-        let t = this._animateTarget.x - this.center.x,
-          n = this._animateTarget.z - this.center.z;
-        if (Math.abs(t) < 0.5 && Math.abs(n) < 0.5)
-          ((this.center.x = this._animateTarget.x),
-            (this.center.z = this._animateTarget.z),
-            (this._animateTarget = null));
-        else {
-          let r = 1 - Math.exp(-5 * e);
-          ((this.center.x += t * r), (this.center.z += n * r));
-        }
-        this._updateCameraPosition();
-      }
-      if (this.followTarget) {
-        let e = this.followTarget.position,
-          t = e.x - this.center.x,
-          n = e.z - this.center.z;
-        ((this.center.x += t * this.followSmoothing),
-          (this.center.z += n * this.followSmoothing),
-          this._updateCameraPosition());
-      }
-      this.camera.position.y = this.height;
-    }
-    onWindowResize() {
-      let e = window.innerWidth / window.innerHeight;
-      ((this.camera.left = (-this.frustumSize * e) / 2),
-        (this.camera.right = (this.frustumSize * e) / 2),
-        (this.camera.top = this.frustumSize / 2),
-        (this.camera.bottom = -this.frustumSize / 2),
-        this.camera.updateProjectionMatrix());
-    }
-    _updateCameraPosition() {
-      (this.camera.position.set(this.center.x, this.height, this.center.z),
-        this.camera.lookAt(this.center.x, 0, this.center.z));
-    }
-    dispose() {
-      (this.domElement.removeEventListener(`pointerdown`, this._onPointerDown),
-        window.removeEventListener(`pointermove`, this._onPointerMove),
-        window.removeEventListener(`pointerup`, this._onPointerUp),
-        window.removeEventListener(`pointercancel`, this._onPointerUp),
-        this.domElement.removeEventListener(`touchstart`, this._onTouchStart),
-        this.domElement.removeEventListener(`touchmove`, this._onTouchMove),
-        this.domElement.removeEventListener(`touchend`, this._onTouchEnd),
-        this.domElement.removeEventListener(`touchcancel`, this._onTouchEnd),
-        this.domElement.removeEventListener(`wheel`, this._onWheel));
-    }
+  gl = (e, t) => {
+    for (let n = 0, r = e.length; n < r; n++) if (t(e[n], n)) return !0;
+    return !1;
   },
-  sl = e({
-    createGameplayModeManager: () => ll,
-    default: () => ll,
-    normalizeGameplayMode: () => cl,
-  });
+  _l = (e, t) => {
+    for (let n = 0, r = e.length; n < r; n++) if (!t(e[n], n)) return !1;
+    return !0;
+  },
+  vl = (e, t) => {
+    let n = [];
+    for (let r = 0, i = e.length; r < i; r++) {
+      let i = e[r];
+      t(i, r) && n.push(i);
+    }
+    return n;
+  },
+  yl = (e, t) => {
+    let n = e.length,
+      r = Array(n);
+    for (let i = 0; i < n; i++) r[i] = t(e[i], i);
+    return r;
+  };
+function bl({ calcPoints: e, pos: t }) {
+  return yl(e, ({ x: e, y: n }) => ({ x: e + t.x, y: n + t.y }));
+}
+function xl(e) {
+  return e.isConvex || e.typeGroup !== Y.Polygon ? [e] : e.convexPolygons;
+}
+function Sl(e, t) {
+  return _l(bl(e), (e) => q.pointInCircle(e, t));
+}
+function Cl(e, t) {
+  return gl(xl(t), (t) => q.pointInPolygon(e, t));
+}
+function wl(e, t) {
+  return _l(bl(e), (e) => Cl(e, t));
+}
+function Tl(e, t) {
+  let n = e.pos.x,
+    r = e.pos.y,
+    i = t.pos.x,
+    a = t.pos.y,
+    o = e.r,
+    s = t.r,
+    c = Math.sqrt((n - i) * (n - i) + (r - a) * (r - a));
+  return c + s === o || c + s < o;
+}
+function El(e, t) {
+  if (e.r === 0 || !Cl(e.pos, t)) return !1;
+  let n = bl(t);
+  return !(
+    gl(n, (t) => q.pointInCircle(t, e)) ||
+    gl(
+      n,
+      (t, r) =>
+        Dl({ start: r ? n[r - 1] : n[n.length - 1], end: t }, e).length > 0,
+    )
+  );
+}
+function Dl(e, { pos: t, r: n }) {
+  let r = { x: e.end.x - e.start.x, y: e.end.y - e.start.y },
+    i = { x: e.start.x - t.x, y: e.start.y - t.y },
+    a = (r.x * i.x + r.y * i.y) * -2,
+    o = (r.x * r.x + r.y * r.y) * 2,
+    s = Math.sqrt(a * a - (i.x * i.x + i.y * i.y - n * n) * o * 2);
+  if (isNaN(s)) return [];
+  let c = (a - s) / o,
+    l = (a + s) / o,
+    u = [];
+  return (
+    c <= 1 &&
+      c >= 0 &&
+      u.push({ x: e.start.x + r.x * c, y: e.start.y + r.y * c }),
+    l <= 1 &&
+      l >= 0 &&
+      u.push({ x: e.start.x + r.x * l, y: e.start.y + r.y * l }),
+    u
+  );
+}
+function Ol(e, t) {
+  let n = e.end.x - e.start.x,
+    r = e.end.y - e.start.y,
+    i = n * (t.end.y - t.start.y) - (t.end.x - t.start.x) * r;
+  if (Math.abs(i) < 2 ** -52) return;
+  let a =
+      ((t.end.y - t.start.y) * (t.end.x - e.start.x) +
+        (t.start.x - t.end.x) * (t.end.y - e.start.y)) /
+      i,
+    o =
+      ((e.start.y - e.end.y) * (t.end.x - e.start.x) +
+        n * (t.end.y - e.start.y)) /
+      i;
+  if (!(a < 0 || a > 1 || o < 0 || o > 1))
+    return { x: e.start.x + a * n, y: e.start.y + a * r };
+}
+function kl(e, { calcPoints: t, pos: n }) {
+  let r = [];
+  return (
+    hl(t, (i, a) => {
+      let o = a ? t[a - 1] : t[t.length - 1],
+        s = Ol(e, {
+          start: { x: o.x + n.x, y: o.y + n.y },
+          end: { x: i.x + n.x, y: i.y + n.y },
+        });
+      s && r.push(s);
+    }),
+    r
+  );
+}
+function Al(e, t) {
+  let n = [],
+    r = e.pos.x,
+    i = e.pos.y,
+    a = e.r,
+    o = t.pos.x,
+    s = t.pos.y,
+    c = t.r,
+    l = o - r,
+    u = s - i,
+    d = Math.sqrt(l * l + u * u);
+  if (d > a + c || d < Math.abs(a - c) || d === 0) return n;
+  let f = (a * a - c * c + d * d) / (2 * d),
+    p = Math.sqrt(a * a - f * f),
+    m = r + (l * f) / d,
+    h = i + (u * f) / d,
+    g = { x: m + (p * u) / d, y: h - (p * l) / d };
+  n.push(g);
+  let _ = { x: m - (p * u) / d, y: h + (p * l) / d };
+  return (n.push(_), n);
+}
+var jl = {
+  satCircleCircle: q.testCircleCircle,
+  satCirclePolygon: q.testCirclePolygon,
+  satPolygonCircle: q.testPolygonCircle,
+  satPolygonPolygon: q.testPolygonPolygon,
+  inCircleCircle: Tl,
+  inCirclePolygon: El,
+  inPolygonCircle: Sl,
+  inPolygonPolygon: wl,
+};
+function Ml(e, t) {
+  let n = [];
+  return (
+    hl(
+      Object.values(Y).filter((e) => typeof e == `number`),
+      (r) => {
+        n[r] = r === Y.Circle ? jl[`${t}${e}Circle`] : jl[`${t}${e}Polygon`];
+      },
+    ),
+    n
+  );
+}
+var Nl = Ml(ml.Circle, `sat`),
+  Pl = Ml(ml.Circle, `in`),
+  Fl = Ml(ml.Polygon, `sat`),
+  Il = Ml(ml.Polygon, `in`);
+(Math.PI / 180, 180 / Math.PI);
+var Ll = 1e-9;
+function Rl(e, t, n = Ll) {
+  return Math.abs(e - t) < n;
+}
+function zl(e, t) {
+  return Rl(e.x, t.x) && Rl(e.y, t.y);
+}

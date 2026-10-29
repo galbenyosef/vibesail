@@ -185,11 +185,6 @@
     "copy_link": "Salin tautan",
     "copied": "Disalin!",
     "reward": "+${amount}",
-    "verification_unavailable_later": "Verifikasi tidak tersedia. Tutup dan coba lagi nanti.",
-    "running_cloudflare_check": "Menjalankan pemeriksaan Cloudflare...",
-    "complete_cloudflare_check": "Selesaikan pemeriksaan Cloudflare di bawah untuk melanjutkan.",
-    "verification_failed_retry": "Verifikasi gagal. Coba lagi atau tutup.",
-    "verification_unavailable_retry": "Verifikasi tidak tersedia. Coba lagi atau tutup.",
     "submitting_record": "Mengirim rekor...",
     "submit_failed": "Gagal mengirim rekor. Coba lagi.",
     "submit_failed_again": "Gagal mengirim rekor. Silakan coba lagi.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "Beralih ke {next}",
     "double_reward_cta": "Tonton iklan untuk menggandakan (+${amount})",
     "double_reward_watching": "Menampilkan iklan...",
-    "double_reward_done": "Digandakan menjadi +${amount}",
-    "double_reward_skipped": "Iklan dilewati. Hadiah tidak berubah."
+    "double_reward_skipped": "Iklan dilewati. Hadiah tidak berubah.",
+    "double_reward_cancel_note": "Menutup atau melewati video membatalkan hadiah tambahan.",
+    "double_reward_race_label": "Balapan",
+    "double_reward_reward_label": "Hadiah",
+    "double_reward_ad_label": "Iklan",
+    "double_reward_total_label": "Total"
   },
   "mobile": {
     "rudder": "KEMUDI",
@@ -264,7 +263,6 @@
     "page_title": "Jelajahi Dunia | VibeSail",
     "title": "Pilih Perairan Anda",
     "subtitle": "Pilih lokasi atau ketuk di mana saja di air untuk mulai berlayar dalam 3D fotorealistis.",
-    "set_sail": "Mulai Berlayar",
-    "link_simulator": "Berlayar di simulator perahu"
+    "set_sail": "Mulai Berlayar"
   }
 }

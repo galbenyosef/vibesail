@@ -185,11 +185,6 @@
     "copy_link": "نسخ الرابط",
     "copied": "تم النسخ!",
     "reward": "+${amount}",
-    "verification_unavailable_later": "التحقق غير متاح. أغلق وأعد المحاولة لاحقاً.",
-    "running_cloudflare_check": "جارٍ فحص Cloudflare...",
-    "complete_cloudflare_check": "أكمل فحص Cloudflare أدناه للمتابعة.",
-    "verification_failed_retry": "فشل التحقق. أعد المحاولة أو أغلق.",
-    "verification_unavailable_retry": "التحقق غير متاح. أعد المحاولة أو أغلق.",
     "submitting_record": "جارٍ إرسال الرقم القياسي...",
     "submit_failed": "فشل إرسال الرقم القياسي. أعد المحاولة.",
     "submit_failed_again": "فشل إرسال الرقم القياسي. حاول مرة أخرى.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "التبديل إلى {next}",
     "double_reward_cta": "شاهد إعلانًا للمضاعفة (+${amount})",
     "double_reward_watching": "جارٍ عرض الإعلان...",
-    "double_reward_done": "تضاعف إلى +${amount}",
-    "double_reward_skipped": "تم تخطي الإعلان. المكافأة دون تغيير."
+    "double_reward_skipped": "تم تخطي الإعلان. المكافأة دون تغيير.",
+    "double_reward_cancel_note": "إغلاق الفيديو أو تخطيه يلغي المكافأة الإضافية.",
+    "double_reward_race_label": "سباق",
+    "double_reward_reward_label": "مكافأة",
+    "double_reward_ad_label": "إعلان",
+    "double_reward_total_label": "المجموع"
   },
   "mobile": {
     "rudder": "الدفة",
@@ -264,7 +263,6 @@
     "page_title": "استكشف العالم | VibeSail",
     "title": "اختر مياهك",
     "subtitle": "اختر موقعاً أو اضغط في أي مكان على الماء لتبحر في عالم ثلاثي الأبعاد واقعي.",
-    "set_sail": "أبحر الآن",
-    "link_simulator": "أبحر بها في محاكي القوارب"
+    "set_sail": "أبحر الآن"
   }
 }

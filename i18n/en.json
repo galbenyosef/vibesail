@@ -186,11 +186,6 @@
     "copied": "Copied!",
     "reward": "+${amount}",
     "rank_for_today": "Rank #{rank} for today",
-    "verification_unavailable_later": "Verification unavailable. Please close and retry later.",
-    "running_cloudflare_check": "Running Cloudflare check...",
-    "complete_cloudflare_check": "Complete the Cloudflare check below to continue.",
-    "verification_failed_retry": "Verification failed. Retry or close.",
-    "verification_unavailable_retry": "Verification unavailable. Retry or close.",
     "submitting_record": "Submitting record...",
     "submit_failed": "Failed to submit record. Please retry.",
     "submit_failed_again": "Failed to submit record. Please try again.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "Switch to {next}",
     "double_reward_cta": "Watch an ad to double (+${amount})",
     "double_reward_watching": "Showing ad...",
-    "double_reward_done": "Doubled to +${amount}",
-    "double_reward_skipped": "Ad skipped. Reward unchanged."
+    "double_reward_skipped": "Ad skipped. Reward unchanged.",
+    "double_reward_cancel_note": "Closing or skipping the video cancels the extra reward.",
+    "double_reward_race_label": "Race",
+    "double_reward_reward_label": "Reward",
+    "double_reward_ad_label": "Ad",
+    "double_reward_total_label": "Total"
   },
   "mobile": {
     "rudder": "RUDDER",
@@ -264,7 +263,6 @@
     "page_title": "Sailing World Map: Cities and Harbors | VibeSail",
     "title": "Choose Your Waters",
     "subtitle": "Pick a location or tap anywhere on the water to set sail in photorealistic 3D.",
-    "set_sail": "Set Sail",
-    "link_simulator": "Sail them in the boat simulator"
+    "set_sail": "Set Sail"
   }
 }

@@ -1,5 +1,5 @@
 // DataModels 03 — tofixed
-// Lines 1441-1633 of readable/assets/DataModels-DjmBwyzI.pretty.js (statement-aligned).
+// Lines 1529-1727 of readable/assets/DataModels-CogLxOKo.pretty.js (statement-aligned).
 function w(e, t, n = 200, r = ``) {
   let i = String(e || ``).trim() || `Sailor`,
     a = String(r || ``).trim(),
@@ -13,16 +13,16 @@ function w(e, t, n = 200, r = ``) {
 function T({
   name: e,
   prefix: t = ``,
-  color: r = `#ffffff`,
+  color: n = `#ffffff`,
   maxTextWidth: a = 200,
   canvasWidth: o = 256,
-  canvasHeight: s = 64,
-  scale: c = [10, 2.5, 1],
+  canvasHeight: c = 64,
+  scale: l = [10, 2.5, 1],
 } = {}) {
   let u = document.createElement(`canvas`),
     d = u.getContext(`2d`);
   ((u.width = o),
-    (u.height = s),
+    (u.height = c),
     d.clearRect(0, 0, u.width, u.height),
     (d.font = `bold 22px Arial`));
   let f = w(e, d, a, t);
@@ -31,13 +31,13 @@ function T({
     (d.strokeStyle = `rgba(0, 0, 0, 0.8)`),
     (d.lineWidth = 4),
     d.strokeText(f, u.width / 2, u.height / 2),
-    (d.fillStyle = r || `#ffffff`),
+    (d.fillStyle = n || `#ffffff`),
     d.fillText(f, u.width / 2, u.height / 2));
-  let p = new n(
-    new l({ map: new i(u), transparent: !0, depthTest: !1, depthWrite: !1 }),
+  let p = new i(
+    new r({ map: new s(u), transparent: !0, depthTest: !1, depthWrite: !1 }),
   );
   return (
-    p.scale.set(c[0], c[1], c[2]),
+    p.scale.set(l[0], l[1], l[2]),
     (p.renderOrder = 999),
     (p.userData.boatNameLabelText = f),
     (p.userData.kind = `boat_name_label`),
@@ -58,12 +58,17 @@ function D(e, t = null) {
   (r && typeof r.dispose == `function` && r.dispose(),
     n && typeof n.dispose == `function` && n.dispose());
 }
-function O(e, t) {
+function O(e, t, n = []) {
+  let r = [e];
+  if (Array.isArray(n)) for (let e of n) Array.isArray(e) && r.push(e);
   if (e.length >= 5e3) {
     let t = e.length - 1,
       n = 1;
-    for (let r = 2; r < t; r += 2) ((e[n] = e[r]), (n += 1));
-    ((e[n] = e[t]), (e.length = n + 1));
+    for (let e = 2; e < t; e += 2) {
+      for (let t of r) t[n] = t[e];
+      n += 1;
+    }
+    for (let e of r) ((e[n] = e[t]), (e.length = n + 1));
   }
   e.push(t);
 }
@@ -149,7 +154,7 @@ var k = class e {
   },
   j = class {
     static encodePosition(e) {
-      return {
+      let t = {
         p: [
           Math.round(e.position.x * 100) / 100,
           Math.round(e.position.z * 100) / 100,
@@ -160,18 +165,19 @@ var k = class e {
         vp: Math.round((e.visualPressure || 0) * 100) / 100,
         vl: Math.round((e.visualLuffing || 0) * 100) / 100,
       };
+      return (Number.isInteger(e.tick) && (t.k = e.tick), t);
     }
     static decodePosition(e) {
-      return !e || !e.p || !Array.isArray(e.p)
-        ? null
-        : {
-            position: { x: e.p[0], z: e.p[1] },
-            rotation: e.r,
-            sailAngle: e.s,
-            heelAngle: e.h,
-            visualPressure: e.vp || 0,
-            visualLuffing: e.vl || 0,
-          };
+      if (!e || !e.p || !Array.isArray(e.p)) return null;
+      let t = {
+        position: { x: e.p[0], z: e.p[1] },
+        rotation: e.r,
+        sailAngle: e.s,
+        heelAngle: e.h,
+        visualPressure: e.vp || 0,
+        visualLuffing: e.vl || 0,
+      };
+      return (Number.isInteger(e.k) && (t.tick = e.k), t);
     }
     static encodeAppearance(t, n, r, i = null) {
       let a = {};

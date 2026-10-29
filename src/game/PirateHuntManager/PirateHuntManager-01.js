@@ -1,18 +1,18 @@
 // PirateHuntManager 01 — particles
-// Lines 1-192 of readable/assets/PirateHuntManager-B5ipnDt7.pretty.js (statement-aligned).
+// Lines 1-192 of readable/assets/PirateHuntManager-D-ZOVSO4.pretty.js (statement-aligned).
 import {
-  Dt as e,
-  Ot as t,
-  in as n,
-  l as r,
+  At as e,
+  kt as t,
+  l as n,
+  sn as r,
   u as i,
-} from "./three.module-BgyKfsEV.js";
-import { b as a, c as o, p as s } from "./Game-CrsSKcAK.js";
+} from "./three.module-CUNolavI.js";
+import { c as a, m as o, x as s } from "./Game-BK-SaWAR.js";
 var BurstEffect = class {
   constructor(e) {
     ((this.scene = e),
       (this._activeFX = []),
-      (this._gravity = new n(0, -9.81, 0)));
+      (this._gravity = new r(0, -9.81, 0)));
   }
   spawnBurst(a, o) {
     let {
@@ -32,14 +32,14 @@ var BurstEffect = class {
         (h[e * 3 + 1] = a.y),
         (h[e * 3 + 2] = a.z),
         g.push(
-          new n(
+          new r(
             (Math.random() - 0.5) * c,
             Math.random() * (u - l) + l,
             (Math.random() - 0.5) * c,
           ),
         ));
-    m.setAttribute(`position`, new r(h, 3));
-    let _ = new e(m, new t({ color: f, size: d, transparent: !0, opacity: 1 }));
+    m.setAttribute(`position`, new n(h, 3));
+    let _ = new t(m, new e({ color: f, size: d, transparent: !0, opacity: 1 }));
     (this.scene.add(_),
       this._activeFX.push({
         particles: _,
@@ -89,14 +89,14 @@ var u = class {
       (this.multiplayerManager = n),
       (this.cannonSystem = r),
       (this.audioManager = i),
-      (this.config = o.pirate),
-      (this.fxConfig = o.fx),
+      (this.config = a.pirate),
+      (this.fxConfig = a.fx),
       (this.pirates = new Map()),
-      (this.events = new s(`Pirate`)),
+      (this.events = new o(`Pirate`)),
       (this.on = this.events.on.bind(this.events)),
       (this.off = this.events.off.bind(this.events)),
       (this.particleFX = new BurstEffect(e)),
-      (this.overlaySystem = a()));
+      (this.overlaySystem = s()));
   }
   update(e) {
     (this._updatePirateTracking(),

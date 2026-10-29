@@ -1,6 +1,6 @@
 // PerformanceMonitor 01 — isvisible
-// Lines 1-231 of readable/assets/PerformanceMonitor-CwOrhyRP.pretty.js (statement-aligned).
-import { b as e } from "./Game-CrsSKcAK.js";
+// Lines 1-231 of readable/assets/PerformanceMonitor-Ckz1oJ3g.pretty.js (statement-aligned).
+import { x as e } from "./Game-BK-SaWAR.js";
 var t = class {
   constructor(t, n, r = {}) {
     ((this.renderer = t),

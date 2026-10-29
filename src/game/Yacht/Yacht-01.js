@@ -1,9 +1,9 @@
 // Yacht 01 — orbitangle
-// Lines 1-90 of readable/assets/Yacht-OEQr2DjX.pretty.js (statement-aligned).
+// Lines 1-90 of readable/assets/Yacht-DS-m91Pv.pretty.js (statement-aligned).
 import { h as e } from "./routeContext-D1HYUwP9.js";
-import { F as t } from "./three.module-BgyKfsEV.js";
-import { r as n } from "./WorldDefinitionBuilder-CjRtTnhK.js";
-import { n as r, t as i } from "./MTLLoader-Dw3w9IRM.js";
+import { L as t } from "./three.module-CUNolavI.js";
+import { r as n } from "./WorldDefinitionBuilder-Bu5XtOsC.js";
+import { n as r, t as i } from "./MTLLoader-C86AYmNc.js";
 var a = class {
   constructor(t, n = `softgen`, r = { x: 0, y: 0, z: 0 }) {
     ((this.scene = t),

@@ -1,5 +1,5 @@
 // signConfigs 01 — image
-// Lines 1-358 of readable/assets/signConfigs-BxvGsz9k.pretty.js (statement-aligned).
+// Lines 1-357 of readable/assets/signConfigs-BUxGu07P.pretty.js (statement-aligned).
 var e = {
   VibeSail: {
     image: `/assets/world-signs/vibesail.webp`,
@@ -17,7 +17,6 @@ Open to ideas!`,
   VibeTapper: {
     image: `/assets/world-signs/vibetapper.webp`,
     name: `Vibe Tapper`,
-    dimensions: { width: 45, height: 18, thickness: 2.5 },
     popupContent: {
       title: `Vibe Tapper`,
       text: `Match 3 items of the same shape, clear the board, and complete levels in a quick browser puzzle game.`,

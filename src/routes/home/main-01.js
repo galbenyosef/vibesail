@@ -1,36 +1,36 @@
 // main 01 — appendchild
-// Lines 1-303 of readable/assets/main-DT7pZ34g.pretty.js (statement-aligned).
+// Lines 1-303 of readable/assets/main-Dfkg0YAF.pretty.js (statement-aligned).
 const __vite__mapDeps = (
   i,
   m = __vite__mapDeps,
   d = m.f ||
     (m.f = [
-      "assets/Game-CrsSKcAK.js",
+      "assets/Game-BK-SaWAR.js",
       "assets/defineProperty-BbfpZ9Tg.js",
       "assets/chunk-QTnfLwEv.js",
       "assets/preload-helper-CYTkKql0.js",
       "assets/GhostReplayModel-B8EqTWpz.js",
       "assets/KeyboardManager-DVLZ3teY.js",
-      "assets/DataModels-DjmBwyzI.js",
-      "assets/BoatModel-Cf2RVdWT.js",
+      "assets/DataModels-CogLxOKo.js",
+      "assets/BoatModel-Z2nOAZAK.js",
       "assets/routeContext-D1HYUwP9.js",
       "assets/RenderOrder-CTE7PEm0.js",
-      "assets/GeometryGuards-BGRyriw5.js",
-      "assets/three.module-BgyKfsEV.js",
-      "assets/SharedTextureLoader-BkelxMVX.js",
-      "assets/DRACOLoader-XlKGmd74.js",
-      "assets/GLTFLoader-C2oC7w8g.js",
-      "assets/MTLLoader-Dw3w9IRM.js",
+      "assets/GeometryGuards-B5mb6RRe.js",
+      "assets/three.module-CUNolavI.js",
+      "assets/SharedTextureLoader-D5Sv4mlJ.js",
+      "assets/DRACOLoader-DuamzO37.js",
+      "assets/GLTFLoader-Cf6urCJj.js",
+      "assets/MTLLoader-C86AYmNc.js",
       "assets/PlayerNameStorage-Q3p2umqg.js",
-      "assets/VectorUtils-ZPUW1jx-.js",
+      "assets/VectorUtils-Cra0vQSd.js",
       "assets/RaceConfig-BiFwKzq8.js",
       "assets/RuntimeEnvironment-BAaLbeCv.js",
       "assets/TrackGenerator-CFnrWNiH.js",
       "assets/countries-DfpOqyPC.js",
-      "assets/WorldDefinitionBuilder-CjRtTnhK.js",
+      "assets/WorldDefinitionBuilder-Bu5XtOsC.js",
       "assets/Bearing-Bz8gc2k9.js",
       "assets/cargoShipDefinitions-DOR3sdqr.js",
-      "assets/signConfigs-BxvGsz9k.js",
+      "assets/signConfigs-BUxGu07P.js",
       "assets/GeoMath-B_Iby49-.js",
       "assets/H5GamesAds-cgmFpTvU.js",
       "assets/OneSignalPushNotifications-C5QrvXEE.js",
@@ -290,7 +290,7 @@ function mountBackgroundGame({ windowRef: t = window, documentRef: n = document 
     whenIdle(async () => {
       let { default: n } = await e(
         async () => {
-          let { default: e } = await import(`./Game-CrsSKcAK.js`).then(
+          let { default: e } = await import(`./Game-BK-SaWAR.js`).then(
             (e) => e.n,
           );
           return { default: e };

@@ -185,11 +185,6 @@
     "copy_link": "Копировать ссылку",
     "copied": "Скопировано!",
     "reward": "+${amount}",
-    "verification_unavailable_later": "Проверка недоступна. Закройте и повторите позже.",
-    "running_cloudflare_check": "Проверка Cloudflare…",
-    "complete_cloudflare_check": "Пройдите проверку Cloudflare ниже, чтобы продолжить.",
-    "verification_failed_retry": "Проверка не удалась. Повторите или закройте.",
-    "verification_unavailable_retry": "Проверка недоступна. Повторите или закройте.",
     "submitting_record": "Отправка результата…",
     "submit_failed": "Не удалось отправить результат. Повторите.",
     "submit_failed_again": "Не удалось отправить результат. Попробуйте ещё раз.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "Переключить на {next}",
     "double_reward_cta": "Посмотрите рекламу, чтобы удвоить (+${amount})",
     "double_reward_watching": "Показ рекламы...",
-    "double_reward_done": "Удвоено до +${amount}",
-    "double_reward_skipped": "Реклама пропущена. Награда без изменений."
+    "double_reward_skipped": "Реклама пропущена. Награда без изменений.",
+    "double_reward_cancel_note": "Закрытие или пропуск видео отменяет дополнительную награду.",
+    "double_reward_race_label": "Гонка",
+    "double_reward_reward_label": "Награда",
+    "double_reward_ad_label": "Реклама",
+    "double_reward_total_label": "Итого"
   },
   "mobile": {
     "rudder": "РУЛЬ",
@@ -264,7 +263,6 @@
     "page_title": "Исследуйте мир | VibeSail",
     "title": "Выберите свои воды",
     "subtitle": "Выберите место или нажмите в любую точку воды, чтобы выйти в море в фотореалистичном 3D.",
-    "set_sail": "Выйти в море",
-    "link_simulator": "Плывите в симуляторе лодки"
+    "set_sail": "Выйти в море"
   }
 }

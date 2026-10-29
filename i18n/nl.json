@@ -185,11 +185,6 @@
     "copy_link": "Link kopiëren",
     "copied": "Gekopieerd!",
     "reward": "+${amount}",
-    "verification_unavailable_later": "Verificatie niet beschikbaar. Sluit en probeer later opnieuw.",
-    "running_cloudflare_check": "Cloudflare-controle bezig...",
-    "complete_cloudflare_check": "Voltooi de Cloudflare-controle hieronder om door te gaan.",
-    "verification_failed_retry": "Verificatie mislukt. Opnieuw of sluiten.",
-    "verification_unavailable_retry": "Verificatie niet beschikbaar. Opnieuw of sluiten.",
     "submitting_record": "Record indienen...",
     "submit_failed": "Record indienen mislukt. Probeer opnieuw.",
     "submit_failed_again": "Record indienen mislukt. Probeer opnieuw.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "Overschakelen naar {next}",
     "double_reward_cta": "Bekijk een advertentie om te verdubbelen (+${amount})",
     "double_reward_watching": "Advertentie wordt getoond...",
-    "double_reward_done": "Verdubbeld naar +${amount}",
-    "double_reward_skipped": "Advertentie overgeslagen. Beloning ongewijzigd."
+    "double_reward_skipped": "Advertentie overgeslagen. Beloning ongewijzigd.",
+    "double_reward_cancel_note": "De video sluiten of overslaan annuleert de extra beloning.",
+    "double_reward_race_label": "Race",
+    "double_reward_reward_label": "Beloning",
+    "double_reward_ad_label": "Advertentie",
+    "double_reward_total_label": "Totaal"
   },
   "mobile": {
     "rudder": "ROER",
@@ -264,7 +263,6 @@
     "page_title": "Verken de wereld | VibeSail",
     "title": "Kies je wateren",
     "subtitle": "Kies een locatie of tik ergens op het water om uit te varen in fotorealistisch 3D.",
-    "set_sail": "Uitvaren",
-    "link_simulator": "Zeil ze in de bootsimulator"
+    "set_sail": "Uitvaren"
   }
 }

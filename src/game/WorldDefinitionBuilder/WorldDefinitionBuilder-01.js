@@ -1,5 +1,5 @@
 // WorldDefinitionBuilder 01 — islands
-// Lines 1-94 of readable/assets/WorldDefinitionBuilder-CjRtTnhK.pretty.js (statement-aligned).
+// Lines 1-94 of readable/assets/WorldDefinitionBuilder-Bu5XtOsC.pretty.js (statement-aligned).
 import { r as e, t } from "./chunk-QTnfLwEv.js";
 var n = `procedural-horizon`,
   r = [

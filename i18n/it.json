@@ -185,11 +185,6 @@
     "copy_link": "Copia link",
     "copied": "Copiato!",
     "reward": "+${amount}",
-    "verification_unavailable_later": "Verifica non disponibile. Chiudi e riprova più tardi.",
-    "running_cloudflare_check": "Verifica Cloudflare in corso...",
-    "complete_cloudflare_check": "Completa la verifica Cloudflare qui sotto per continuare.",
-    "verification_failed_retry": "Verifica non riuscita. Riprova o chiudi.",
-    "verification_unavailable_retry": "Verifica non disponibile. Riprova o chiudi.",
     "submitting_record": "Invio del record...",
     "submit_failed": "Invio del record non riuscito. Riprova.",
     "submit_failed_again": "Invio del record non riuscito. Riprova.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "Passa a {next}",
     "double_reward_cta": "Guarda un annuncio per raddoppiare (+${amount})",
     "double_reward_watching": "Annuncio in corso...",
-    "double_reward_done": "Raddoppiato a +${amount}",
-    "double_reward_skipped": "Annuncio saltato. Premio invariato."
+    "double_reward_skipped": "Annuncio saltato. Premio invariato.",
+    "double_reward_cancel_note": "Chiudere o saltare il video annulla la ricompensa extra.",
+    "double_reward_race_label": "Gara",
+    "double_reward_reward_label": "Ricompensa",
+    "double_reward_ad_label": "Annuncio",
+    "double_reward_total_label": "Totale"
   },
   "mobile": {
     "rudder": "TIMONE",
@@ -264,7 +263,6 @@
     "page_title": "Esplora il Mondo | VibeSail",
     "title": "Scegli le tue acque",
     "subtitle": "Scegli un luogo o tocca un punto qualsiasi sull'acqua per salpare in 3D fotorealistico.",
-    "set_sail": "Salpa",
-    "link_simulator": "Naviga nel simulatore di barche"
+    "set_sail": "Salpa"
   }
 }

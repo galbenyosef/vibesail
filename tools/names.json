@@ -1,6 +1,6 @@
 {
   "chunks": {
-    "readable/assets/main-DT7pZ34g.pretty.js": [
+    "readable/assets/main-Dfkg0YAF.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -46,7 +46,7 @@
         }
       }
     ],
-    "readable/assets/game-DaugXgrE.pretty.js": [
+    "readable/assets/game-wg-D5X70.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -86,7 +86,7 @@
         }
       }
     ],
-    "readable/assets/Game-CrsSKcAK.pretty.js": [
+    "readable/assets/Game-BK-SaWAR.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -381,7 +381,7 @@
         }
       }
     ],
-    "readable/assets/BoatModel-Cf2RVdWT.pretty.js": [
+    "readable/assets/BoatModel-Z2nOAZAK.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -409,7 +409,7 @@
         }
       }
     ],
-    "readable/assets/DataModels-DjmBwyzI.pretty.js": [
+    "readable/assets/DataModels-CogLxOKo.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -454,7 +454,7 @@
         }
       }
     ],
-    "readable/assets/BoatShop-SaUBreAv.pretty.js": [
+    "readable/assets/BoatShop-SpknYdP-.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -463,7 +463,7 @@
         }
       }
     ],
-    "readable/assets/Blimp-CsqFvrq-.pretty.js": [
+    "readable/assets/Blimp-CBxX7-Aq.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -472,7 +472,7 @@
         }
       }
     ],
-    "readable/assets/Birds-DHEcQo9w.pretty.js": [
+    "readable/assets/Birds-C0RXzqnf.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -483,7 +483,7 @@
         }
       }
     ],
-    "readable/assets/CargoShip-DSMEqWta.pretty.js": [
+    "readable/assets/CargoShip-Da4OGSKb.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -493,7 +493,7 @@
         }
       }
     ],
-    "readable/assets/FloatingWorldProp--a8_muYf.pretty.js": [
+    "readable/assets/FloatingWorldProp-C5Dibl-5.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -630,7 +630,7 @@
         }
       }
     ],
-    "readable/assets/advertise-BI8u_-IP.pretty.js": [
+    "readable/assets/advertise-JgD2U5Yf.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -641,7 +641,7 @@
         }
       }
     ],
-    "readable/assets/daily-race-replay-DM0sgZc-.pretty.js": [
+    "readable/assets/daily-race-replay-DCNw-lUz.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -653,7 +653,7 @@
         }
       }
     ],
-    "readable/assets/HighSeaModeManager-BEvC6iXw.pretty.js": [
+    "readable/assets/HighSeaModeManager-CSga6NhB.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -669,7 +669,7 @@
         }
       }
     ],
-    "readable/assets/IslandGenerator-DZNI3CSt.pretty.js": [
+    "readable/assets/IslandGenerator-CwFNo9L2.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -688,7 +688,7 @@
         }
       }
     ],
-    "readable/assets/LogisticsManager-DugCgbD8.pretty.js": [
+    "readable/assets/LogisticsManager-Bb1kkPAa.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -698,7 +698,7 @@
         }
       }
     ],
-    "readable/assets/LogisticsUI-DWG9W15h.pretty.js": [
+    "readable/assets/LogisticsUI-DK7Azuhh.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -714,7 +714,7 @@
         }
       }
     ],
-    "readable/assets/MultiplayerManager-CgzUu3MG.pretty.js": [
+    "readable/assets/MultiplayerManager-DyxhSkD5.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -735,7 +735,7 @@
         }
       }
     ],
-    "readable/assets/PirateHuntManager-B5ipnDt7.pretty.js": [
+    "readable/assets/PirateHuntManager-D-ZOVSO4.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -743,7 +743,7 @@
         }
       }
     ],
-    "readable/assets/SeaCreatures-C5ijwC34.pretty.js": [
+    "readable/assets/SeaCreatures-CaBHRx9G.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -751,7 +751,7 @@
         }
       }
     ],
-    "readable/assets/TutorialManager-iD72X4OM.pretty.js": [
+    "readable/assets/TutorialManager-DID0rjsE.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -839,7 +839,7 @@
         }
       }
     ],
-    "readable/assets/SharedTextureLoader-BkelxMVX.pretty.js": [
+    "readable/assets/SharedTextureLoader-D5Sv4mlJ.pretty.js": [
       {
         "scope": null,
         "renames": {
@@ -855,7 +855,7 @@
         }
       }
     ],
-    "readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js": [
+    "readable/assets/GoogleTilesLoader-DfxqQWNC.pretty.js": [
       {
         "scope": null,
         "renames": {

@@ -185,11 +185,6 @@
     "copy_link": "Copier le lien",
     "copied": "Copié !",
     "reward": "+${amount}",
-    "verification_unavailable_later": "Vérification indisponible. Fermez et réessayez plus tard.",
-    "running_cloudflare_check": "Vérification Cloudflare…",
-    "complete_cloudflare_check": "Complétez la vérification Cloudflare ci-dessous pour continuer.",
-    "verification_failed_retry": "Échec de la vérification. Réessayez ou fermez.",
-    "verification_unavailable_retry": "Vérification indisponible. Réessayez ou fermez.",
     "submitting_record": "Envoi du record…",
     "submit_failed": "Échec de l’envoi du record. Veuillez réessayer.",
     "submit_failed_again": "Échec de l’envoi du record. Veuillez réessayer.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "Passer à {next}",
     "double_reward_cta": "Regarder une pub pour doubler (+${amount})",
     "double_reward_watching": "Affichage de la pub...",
-    "double_reward_done": "Doublé à +${amount}",
-    "double_reward_skipped": "Pub ignorée. Récompense inchangée."
+    "double_reward_skipped": "Pub ignorée. Récompense inchangée.",
+    "double_reward_cancel_note": "Fermer ou passer la vidéo annule la récompense en plus.",
+    "double_reward_race_label": "Course",
+    "double_reward_reward_label": "Récompense",
+    "double_reward_ad_label": "Pub",
+    "double_reward_total_label": "Total"
   },
   "mobile": {
     "rudder": "GOUVERNAIL",
@@ -264,7 +263,6 @@
     "page_title": "Explorez le monde | VibeSail",
     "title": "Choisissez vos eaux",
     "subtitle": "Choisissez un lieu ou touchez n'importe où sur l'eau pour naviguer en 3D photoréaliste.",
-    "set_sail": "Prendre la mer",
-    "link_simulator": "Naviguez-y dans le simulateur de bateau"
+    "set_sail": "Prendre la mer"
   }
 }

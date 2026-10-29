@@ -1,5 +1,5 @@
 // WorldDefinitionBuilder 02 — next
-// Lines 95-850 of readable/assets/WorldDefinitionBuilder-CjRtTnhK.pretty.js (statement-aligned).
+// Lines 95-850 of readable/assets/WorldDefinitionBuilder-Bu5XtOsC.pretty.js (statement-aligned).
 var p = [
     {
       category: `front-line`,
@@ -16,16 +16,16 @@ var p = [
       islands: [
         { size: 1.1, trees: 10, sponsor: `VibeSail` },
         { size: 0.85, trees: 5 },
-        { size: 1.15, trees: 6, sponsor: `FerrySimulator` },
-        { size: 1, trees: 10, sponsor: `VibeTapper` },
+        { size: 1.1, trees: 6, sponsor: `FerrySimulator` },
+        { size: 1.1, trees: 10, sponsor: `VibeTapper` },
         { size: 0.85, trees: 5 },
         { size: 1.05, trees: 11 },
-        { size: 1.2, trees: 10, sponsor: `VibeSail` },
+        { size: 1.1, trees: 10, sponsor: `VibeSail` },
         { size: 0.9, trees: 5 },
         { size: 0.85, trees: 5 },
-        { size: 1, trees: 10, sponsor: `VibeSail` },
+        { size: 1.1, trees: 10, sponsor: `VibeSail` },
         { size: 0.75, trees: 5 },
-        { size: 1, trees: 10, sponsor: `ThreeJsEval` },
+        { size: 1.1, trees: 10, sponsor: `ThreeJsEval` },
         { size: 0.9, trees: 5 },
         { size: 0.8, trees: 4 },
       ],

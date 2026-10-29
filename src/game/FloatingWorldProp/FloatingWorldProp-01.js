@@ -1,21 +1,21 @@
 // FloatingWorldProp 01 — isfinite
-// Lines 1-172 of readable/assets/FloatingWorldProp--a8_muYf.pretty.js (statement-aligned).
+// Lines 1-172 of readable/assets/FloatingWorldProp-C5Dibl-5.pretty.js (statement-aligned).
 import { g as e, h as t } from "./routeContext-D1HYUwP9.js";
 import {
-  At as n,
-  F as r,
-  O as i,
-  Rt as a,
-  _ as o,
-  in as s,
+  A as n,
+  L as r,
+  Mt as i,
+  Vt as a,
+  ct as o,
+  dt as s,
   l as c,
-  lt as l,
-  ot as u,
-  s as d,
-  u as f,
-} from "./three.module-BgyKfsEV.js";
-import { t as p } from "./GLTFLoader-C2oC7w8g.js";
-import { t as m } from "./DRACOLoader-XlKGmd74.js";
+  s as l,
+  sn as u,
+  u as d,
+  v as f,
+} from "./three.module-CUNolavI.js";
+import { t as p } from "./GLTFLoader-Cf6urCJj.js";
+import { t as m } from "./DRACOLoader-DuamzO37.js";
 var FLOATING_PROP_DEFAULTS = Object.freeze({
     count: 40,
     color: 16777215,
@@ -58,17 +58,17 @@ function y(e, t = FLOATING_PROP_DEFAULTS.horizontalBias) {
       i = Math.hypot(e, t, r);
     if (i > 1e-5) return { x: e / i, y: t / i, z: r / i };
   }
-  let r = u.clamp(Number.isFinite(t) ? t : FLOATING_PROP_DEFAULTS.horizontalBias, 0, 1),
+  let r = o.clamp(Number.isFinite(t) ? t : FLOATING_PROP_DEFAULTS.horizontalBias, 0, 1),
     i = Number.isFinite(e?.x) ? e.x : 0,
     a = Number.isFinite(e?.z) ? e.z : 0,
-    o = Math.hypot(i, a);
-  if (o < 0.001) return { x: 0.12, y: 0.99, z: 0.05 };
-  let s = i / o,
-    c = a / o,
-    l = Math.sqrt(Math.max(0, 1 - r * r)),
-    d = s * r,
-    f = l,
-    p = c * r,
+    s = Math.hypot(i, a);
+  if (s < 0.001) return { x: 0.12, y: 0.99, z: 0.05 };
+  let c = i / s,
+    l = a / s,
+    u = Math.sqrt(Math.max(0, 1 - r * r)),
+    d = c * r,
+    f = u,
+    p = l * r,
     m = Math.hypot(d, f, p) || 1;
   return { x: d / m, y: f / m, z: p / m };
 }
@@ -96,7 +96,7 @@ function x(e) {
   let t = e === !0 ? {} : typeof e == `object` ? e : null;
   if (!t) return null;
   let n = Number.isFinite(t.horizontalBias)
-      ? u.clamp(t.horizontalBias, 0, 1)
+      ? o.clamp(t.horizontalBias, 0, 1)
       : FLOATING_PROP_DEFAULTS.horizontalBias,
     r =
       Array.isArray(t.emitters) && t.emitters.length > 0
@@ -135,7 +135,7 @@ function x(e) {
       t.emitterJitter && typeof t.emitterJitter == `object`
         ? t.emitterJitter
         : FLOATING_PROP_DEFAULTS.emitterJitter,
-    o = {
+    s = {
       x: Number.isFinite(a.x) ? Math.max(0, a.x) : FLOATING_PROP_DEFAULTS.emitterJitter.x,
       y: Number.isFinite(a.y) ? Math.max(0, a.y) : FLOATING_PROP_DEFAULTS.emitterJitter.y,
       z: Number.isFinite(a.z) ? Math.max(0, a.z) : FLOATING_PROP_DEFAULTS.emitterJitter.z,
@@ -143,7 +143,7 @@ function x(e) {
   return {
     count: i,
     color: v(t.color, FLOATING_PROP_DEFAULTS.color),
-    opacity: Number.isFinite(t.opacity) ? u.clamp(t.opacity, 0, 1) : FLOATING_PROP_DEFAULTS.opacity,
+    opacity: Number.isFinite(t.opacity) ? o.clamp(t.opacity, 0, 1) : FLOATING_PROP_DEFAULTS.opacity,
     size: Number.isFinite(t.size) ? Math.max(0.5, t.size) : FLOATING_PROP_DEFAULTS.size,
     sizeGrowth: Number.isFinite(t.sizeGrowth)
       ? Math.max(0, t.sizeGrowth)
@@ -168,7 +168,7 @@ function x(e) {
       ? Math.max(0, t.windDrift)
       : FLOATING_PROP_DEFAULTS.windDrift,
     wobble: Number.isFinite(t.wobble) ? Math.max(0, t.wobble) : FLOATING_PROP_DEFAULTS.wobble,
-    emitterJitter: o,
+    emitterJitter: s,
     emitters: r,
   };
 }

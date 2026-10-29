@@ -185,11 +185,6 @@
     "copy_link": "Link kopieren",
     "copied": "Kopiert!",
     "reward": "+${amount}",
-    "verification_unavailable_later": "Verifizierung nicht verfügbar. Bitte schließen und später erneut versuchen.",
-    "running_cloudflare_check": "Cloudflare-Prüfung läuft...",
-    "complete_cloudflare_check": "Schließe die Cloudflare-Prüfung unten ab, um fortzufahren.",
-    "verification_failed_retry": "Verifizierung fehlgeschlagen. Erneut versuchen oder schließen.",
-    "verification_unavailable_retry": "Verifizierung nicht verfügbar. Erneut versuchen oder schließen.",
     "submitting_record": "Rekord wird eingereicht...",
     "submit_failed": "Rekord konnte nicht eingereicht werden. Bitte erneut versuchen.",
     "submit_failed_again": "Rekord konnte nicht eingereicht werden. Bitte erneut versuchen.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "Auf {next} wechseln",
     "double_reward_cta": "Werbung ansehen und verdoppeln (+${amount})",
     "double_reward_watching": "Werbung wird angezeigt...",
-    "double_reward_done": "Verdoppelt auf +${amount}",
-    "double_reward_skipped": "Werbung übersprungen. Belohnung unverändert."
+    "double_reward_skipped": "Werbung übersprungen. Belohnung unverändert.",
+    "double_reward_cancel_note": "Schließen oder Überspringen des Videos streicht die Extra-Belohnung.",
+    "double_reward_race_label": "Rennen",
+    "double_reward_reward_label": "Belohnung",
+    "double_reward_ad_label": "Werbung",
+    "double_reward_total_label": "Gesamt"
   },
   "mobile": {
     "rudder": "RUDER",
@@ -264,7 +263,6 @@
     "page_title": "Entdecke die Welt | VibeSail",
     "title": "Wähle deine Gewässer",
     "subtitle": "Wähle einen Ort oder tippe irgendwo aufs Wasser, um in fotorealistischem 3D in See zu stechen.",
-    "set_sail": "In See stechen",
-    "link_simulator": "Segle sie im Bootssimulator"
+    "set_sail": "In See stechen"
   }
 }

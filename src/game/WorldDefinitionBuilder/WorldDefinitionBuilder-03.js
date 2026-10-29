@@ -1,5 +1,5 @@
 // WorldDefinitionBuilder 03 — math
-// Lines 851-1125 of readable/assets/WorldDefinitionBuilder-CjRtTnhK.pretty.js (statement-aligned).
+// Lines 851-1125 of readable/assets/WorldDefinitionBuilder-Bu5XtOsC.pretty.js (statement-aligned).
 function O(e, t) {
   return (e || []).map((e) => ({
     ...e,

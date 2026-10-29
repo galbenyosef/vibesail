@@ -1,5 +1,5 @@
 // main 02 — getelementbyid
-// Lines 304-431 of readable/assets/main-DT7pZ34g.pretty.js (statement-aligned).
+// Lines 304-431 of readable/assets/main-Dfkg0YAF.pretty.js (statement-aligned).
 function initEmailSoftAskPrompt(e = {}) {
   let t = e.documentRef || document,
     n = t.getElementById(`email-updates-soft-ask`);

@@ -1,6 +1,6 @@
 // LogisticsUI 01 — detail
-// Lines 1-50 of readable/assets/LogisticsUI-DWG9W15h.pretty.js (statement-aligned).
-import { b as e, g as t } from "./Game-CrsSKcAK.js";
+// Lines 1-50 of readable/assets/LogisticsUI-DK7Azuhh.pretty.js (statement-aligned).
+import { _ as e, x as t } from "./Game-BK-SaWAR.js";
 import { t as n } from "./KeyboardManager-DVLZ3teY.js";
 import { a as r } from "./GeoMath-B_Iby49-.js";
 var DOCKING_BANNER_ID = `logistics-docking-banner`,

@@ -1,476 +1,640 @@
-// Game 35 — push
-// Lines 18546-19019 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-function ss() {
-  return os
-    ? is.exports
-    : ((os = 1),
-      (function (e, t) {
-        (function (t, n) {
-          e.exports = n();
-        })(as, function () {
-          var e = {};
-          function t(e, t) {
-            ((this.x = e || 0), (this.y = t || 0));
-          }
-          ((e.Vector = t),
-            (e.V = t),
-            (t.prototype.copy = t.prototype.copy =
-              function (e) {
-                return ((this.x = e.x), (this.y = e.y), this);
-              }),
-            (t.prototype.clone = t.prototype.clone =
-              function () {
-                return new t(this.x, this.y);
-              }),
-            (t.prototype.perp = t.prototype.perp =
-              function () {
-                var e = this.x;
-                return ((this.x = this.y), (this.y = -e), this);
-              }),
-            (t.prototype.rotate = t.prototype.rotate =
-              function (e) {
-                var t = this.x,
-                  n = this.y;
-                return (
-                  (this.x = t * Math.cos(e) - n * Math.sin(e)),
-                  (this.y = t * Math.sin(e) + n * Math.cos(e)),
-                  this
-                );
-              }),
-            (t.prototype.reverse = t.prototype.reverse =
-              function () {
-                return ((this.x = -this.x), (this.y = -this.y), this);
-              }),
-            (t.prototype.normalize = t.prototype.normalize =
-              function () {
-                var e = this.len();
-                return (e > 0 && ((this.x /= e), (this.y /= e)), this);
-              }),
-            (t.prototype.add = t.prototype.add =
-              function (e) {
-                return ((this.x += e.x), (this.y += e.y), this);
-              }),
-            (t.prototype.sub = t.prototype.sub =
-              function (e) {
-                return ((this.x -= e.x), (this.y -= e.y), this);
-              }),
-            (t.prototype.scale = t.prototype.scale =
-              function (e, t) {
-                return ((this.x *= e), (this.y *= t === void 0 ? e : t), this);
-              }),
-            (t.prototype.project = t.prototype.project =
-              function (e) {
-                var t = this.dot(e) / e.len2();
-                return ((this.x = t * e.x), (this.y = t * e.y), this);
-              }),
-            (t.prototype.projectN = t.prototype.projectN =
-              function (e) {
-                var t = this.dot(e);
-                return ((this.x = t * e.x), (this.y = t * e.y), this);
-              }),
-            (t.prototype.reflect = t.prototype.reflect =
-              function (e) {
-                var t = this.x,
-                  n = this.y;
-                return (
-                  this.project(e).scale(2),
-                  (this.x -= t),
-                  (this.y -= n),
-                  this
-                );
-              }),
-            (t.prototype.reflectN = t.prototype.reflectN =
-              function (e) {
-                var t = this.x,
-                  n = this.y;
-                return (
-                  this.projectN(e).scale(2),
-                  (this.x -= t),
-                  (this.y -= n),
-                  this
-                );
-              }),
-            (t.prototype.dot = t.prototype.dot =
-              function (e) {
-                return this.x * e.x + this.y * e.y;
-              }),
-            (t.prototype.len2 = t.prototype.len2 =
-              function () {
-                return this.dot(this);
-              }),
-            (t.prototype.len = t.prototype.len =
-              function () {
-                return Math.sqrt(this.len2());
-              }));
-          function n(e, n) {
-            ((this.pos = e || new t()),
-              (this.r = n || 0),
-              (this.offset = new t()));
-          }
-          ((e.Circle = n),
-            (n.prototype.getAABBAsBox = n.prototype.getAABBAsBox =
-              function () {
-                var e = this.r;
-                return new i(
-                  this.pos.clone().add(this.offset).sub(new t(e, e)),
-                  e * 2,
-                  e * 2,
-                );
-              }),
-            (n.prototype.getAABB = n.prototype.getAABB =
-              function () {
-                return this.getAABBAsBox().toPolygon();
-              }),
-            (n.prototype.setOffset = n.prototype.setOffset =
-              function (e) {
-                return ((this.offset = e), this);
-              }));
-          function r(e, n) {
-            ((this.pos = e || new t()),
-              (this.angle = 0),
-              (this.offset = new t()),
-              this.setPoints(n || []));
-          }
-          ((e.Polygon = r),
-            (r.prototype.setPoints = r.prototype.setPoints =
-              function (e) {
-                if (!this.points || this.points.length !== e.length) {
-                  var n,
-                    r = (this.calcPoints = []),
-                    i = (this.edges = []),
-                    a = (this.normals = []);
-                  for (n = 0; n < e.length; n++) {
-                    var o = e[n],
-                      s = n < e.length - 1 ? e[n + 1] : e[0];
-                    if (o !== s && o.x === s.x && o.y === s.y) {
-                      (e.splice(n, 1), --n);
-                      continue;
-                    }
-                    (r.push(new t()), i.push(new t()), a.push(new t()));
-                  }
-                }
-                return ((this.points = e), this._recalc(), this);
-              }),
-            (r.prototype.setAngle = r.prototype.setAngle =
-              function (e) {
-                return ((this.angle = e), this._recalc(), this);
-              }),
-            (r.prototype.setOffset = r.prototype.setOffset =
-              function (e) {
-                return ((this.offset = e), this._recalc(), this);
-              }),
-            (r.prototype.rotate = r.prototype.rotate =
-              function (e) {
-                for (var t = this.points, n = t.length, r = 0; r < n; r++)
-                  t[r].rotate(e);
-                return (this._recalc(), this);
-              }),
-            (r.prototype.translate = r.prototype.translate =
-              function (e, t) {
-                for (var n = this.points, r = n.length, i = 0; i < r; i++)
-                  ((n[i].x += e), (n[i].y += t));
-                return (this._recalc(), this);
-              }),
-            (r.prototype._recalc = function () {
-              var e = this.calcPoints,
-                t = this.edges,
-                n = this.normals,
-                r = this.points,
-                i = this.offset,
-                a = this.angle,
-                o = r.length,
-                s;
-              for (s = 0; s < o; s++) {
-                var c = e[s].copy(r[s]);
-                ((c.x += i.x), (c.y += i.y), a !== 0 && c.rotate(a));
-              }
-              for (s = 0; s < o; s++) {
-                var l = e[s],
-                  u = s < o - 1 ? e[s + 1] : e[0],
-                  d = t[s].copy(u).sub(l);
-                n[s].copy(d).perp().normalize();
-              }
-              return this;
-            }),
-            (r.prototype.getAABBAsBox = r.prototype.getAABBAsBox =
-              function () {
-                for (
-                  var e = this.calcPoints,
-                    n = e.length,
-                    r = e[0].x,
-                    a = e[0].y,
-                    o = e[0].x,
-                    s = e[0].y,
-                    c = 1;
-                  c < n;
-                  c++
-                ) {
-                  var l = e[c];
-                  (l.x < r ? (r = l.x) : l.x > o && (o = l.x),
-                    l.y < a ? (a = l.y) : l.y > s && (s = l.y));
-                }
-                return new i(this.pos.clone().add(new t(r, a)), o - r, s - a);
-              }),
-            (r.prototype.getAABB = r.prototype.getAABB =
-              function () {
-                return this.getAABBAsBox().toPolygon();
-              }),
-            (r.prototype.getCentroid = r.prototype.getCentroid =
-              function () {
-                for (
-                  var e = this.calcPoints,
-                    n = e.length,
-                    r = 0,
-                    i = 0,
-                    a = 0,
-                    o = 0;
-                  o < n;
-                  o++
-                ) {
-                  var s = e[o],
-                    c = o === n - 1 ? e[0] : e[o + 1],
-                    l = s.x * c.y - c.x * s.y;
-                  ((r += (s.x + c.x) * l), (i += (s.y + c.y) * l), (a += l));
-                }
-                return ((a *= 3), (r /= a), (i /= a), new t(r, i));
-              }));
-          function i(e, n, r) {
-            ((this.pos = e || new t()), (this.w = n || 0), (this.h = r || 0));
-          }
-          ((e.Box = i),
-            (i.prototype.toPolygon = i.prototype.toPolygon =
-              function () {
-                var e = this.pos,
-                  n = this.w,
-                  i = this.h;
-                return new r(new t(e.x, e.y), [
-                  new t(),
-                  new t(n, 0),
-                  new t(n, i),
-                  new t(0, i),
-                ]);
-              }));
-          function a() {
-            ((this.a = null),
-              (this.b = null),
-              (this.overlapN = new t()),
-              (this.overlapV = new t()),
-              this.clear());
-          }
-          ((e.Response = a),
-            (a.prototype.clear = a.prototype.clear =
-              function () {
-                return (
-                  (this.aInB = !0),
-                  (this.bInA = !0),
-                  (this.overlap = Number.MAX_VALUE),
-                  this
-                );
-              }));
-          for (var o = [], s = 0; s < 10; s++) o.push(new t());
-          for (var c = [], s = 0; s < 5; s++) c.push([]);
-          var l = new a(),
-            u = new i(new t(), 1e-6, 1e-6).toPolygon();
-          function d(e, t, n) {
-            for (
-              var r = Number.MAX_VALUE,
-                i = -Number.MAX_VALUE,
-                a = e.length,
-                o = 0;
-              o < a;
-              o++
-            ) {
-              var s = e[o].dot(t);
-              (s < r && (r = s), s > i && (i = s));
-            }
-            ((n[0] = r), (n[1] = i));
-          }
-          function f(e, t, n, r, i, a) {
-            var s = c.pop(),
-              l = c.pop(),
-              u = o.pop().copy(t).sub(e),
-              f = u.dot(i);
-            if (
-              (d(n, i, s),
-              d(r, i, l),
-              (l[0] += f),
-              (l[1] += f),
-              s[0] > l[1] || l[0] > s[1])
-            )
-              return (o.push(u), c.push(s), c.push(l), !0);
-            if (a) {
-              var p = 0;
-              if (s[0] < l[0])
-                if (((a.aInB = !1), s[1] < l[1]))
-                  ((p = s[1] - l[0]), (a.bInA = !1));
-                else {
-                  var m = s[1] - l[0],
-                    h = l[1] - s[0];
-                  p = m < h ? m : -h;
-                }
-              else if (((a.bInA = !1), s[1] > l[1]))
-                ((p = s[0] - l[1]), (a.aInB = !1));
-              else {
-                var m = s[1] - l[0],
-                  h = l[1] - s[0];
-                p = m < h ? m : -h;
-              }
-              var g = Math.abs(p);
-              g < a.overlap &&
-                ((a.overlap = g),
-                a.overlapN.copy(i),
-                p < 0 && a.overlapN.reverse());
-            }
-            return (o.push(u), c.push(s), c.push(l), !1);
-          }
-          e.isSeparatingAxis = f;
-          function p(e, t) {
-            var n = e.len2(),
-              r = t.dot(e);
-            return r < 0 ? m : r > n ? g : h;
-          }
-          var m = -1,
-            h = 0,
-            g = 1;
-          function _(e, t) {
-            var n = o.pop().copy(e).sub(t.pos).sub(t.offset),
-              r = t.r * t.r,
-              i = n.len2();
-            return (o.push(n), i <= r);
-          }
-          e.pointInCircle = _;
-          function v(e, t) {
-            (u.pos.copy(e), l.clear());
-            var n = S(u, t, l);
-            return (n && (n = l.aInB), n);
-          }
-          e.pointInPolygon = v;
-          function y(e, t, n) {
-            var r = o.pop().copy(t.pos).add(t.offset).sub(e.pos).sub(e.offset),
-              i = e.r + t.r,
-              a = i * i,
-              s = r.len2();
-            if (s > a) return (o.push(r), !1);
-            if (n) {
-              var c = Math.sqrt(s);
-              ((n.a = e),
-                (n.b = t),
-                (n.overlap = i - c),
-                n.overlapN.copy(r.normalize()),
-                n.overlapV.copy(r).scale(n.overlap),
-                (n.aInB = e.r <= t.r && c <= t.r - e.r),
-                (n.bInA = t.r <= e.r && c <= e.r - t.r));
-            }
-            return (o.push(r), !0);
-          }
-          e.testCircleCircle = y;
-          function b(e, t, n) {
-            for (
-              var r = o.pop().copy(t.pos).add(t.offset).sub(e.pos),
-                i = t.r,
-                a = i * i,
-                s = e.calcPoints,
-                c = s.length,
-                l = o.pop(),
-                u = o.pop(),
-                d = 0;
-              d < c;
-              d++
-            ) {
-              var f = d === c - 1 ? 0 : d + 1,
-                h = d === 0 ? c - 1 : d - 1,
-                _ = 0,
-                v = null;
-              (l.copy(e.edges[d]),
-                u.copy(r).sub(s[d]),
-                n && u.len2() > a && (n.aInB = !1));
-              var y = p(l, u);
-              if (y === m) {
-                l.copy(e.edges[h]);
-                var b = o.pop().copy(r).sub(s[h]);
-                if (((y = p(l, b)), y === g)) {
-                  var x = u.len();
-                  if (x > i)
-                    return (o.push(r), o.push(l), o.push(u), o.push(b), !1);
-                  n && ((n.bInA = !1), (v = u.normalize()), (_ = i - x));
-                }
-                o.push(b);
-              } else if (y === g) {
-                if (
-                  (l.copy(e.edges[f]),
-                  u.copy(r).sub(s[f]),
-                  (y = p(l, u)),
-                  y === m)
-                ) {
-                  var x = u.len();
-                  if (x > i) return (o.push(r), o.push(l), o.push(u), !1);
-                  n && ((n.bInA = !1), (v = u.normalize()), (_ = i - x));
-                }
-              } else {
-                var S = l.perp().normalize(),
-                  x = u.dot(S);
-                if (x > 0 && Math.abs(x) > i)
-                  return (o.push(r), o.push(S), o.push(u), !1);
-                n &&
-                  ((v = S),
-                  (_ = i - x),
-                  (x >= 0 || _ < 2 * i) && (n.bInA = !1));
-              }
-              v &&
-                n &&
-                Math.abs(_) < Math.abs(n.overlap) &&
-                ((n.overlap = _), n.overlapN.copy(v));
-            }
-            return (
-              n &&
-                ((n.a = e),
-                (n.b = t),
-                n.overlapV.copy(n.overlapN).scale(n.overlap)),
-              o.push(r),
-              o.push(l),
-              o.push(u),
-              !0
-            );
-          }
-          e.testPolygonCircle = b;
-          function x(e, t, n) {
-            var r = b(t, e, n);
-            if (r && n) {
-              var i = n.a,
-                a = n.aInB;
-              (n.overlapN.reverse(),
-                n.overlapV.reverse(),
-                (n.a = n.b),
-                (n.b = i),
-                (n.aInB = n.bInA),
-                (n.bInA = a));
-            }
-            return r;
-          }
-          e.testCirclePolygon = x;
-          function S(e, t, n) {
-            for (
-              var r = e.calcPoints,
-                i = r.length,
-                a = t.calcPoints,
-                o = a.length,
-                s = 0;
-              s < i;
-              s++
-            )
-              if (f(e.pos, t.pos, r, a, e.normals[s], n)) return !1;
-            for (var s = 0; s < o; s++)
-              if (f(e.pos, t.pos, r, a, t.normals[s], n)) return !1;
-            return (
-              n &&
-                ((n.a = e),
-                (n.b = t),
-                n.overlapV.copy(n.overlapN).scale(n.overlap)),
-              !0
-            );
-          }
-          return ((e.testPolygonPolygon = S), e);
+// Game 35 — camera
+// Lines 17236-17873 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+var ec = new N(0, 1, 0),
+  tc = new N(),
+  nc = new N(),
+  rc = 0.5,
+  ic = class {
+    constructor(e, t, n, r = {}) {
+      ((this.scene = e),
+        (this.boat = t),
+        (this.domElement = n),
+        (this.isDevMode = typeof r.isDevMode == `boolean` ? r.isDevMode : h()),
+        (this.rememberPreference = r.rememberPreference !== !1),
+        (this.isMobile = ds.isMobile()),
+        (this.cameraSettings = {
+          fov: this.isMobile ? 75 : 64,
+          minDistance: 25,
+          maxDistance: this.isDevMode ? 1e3 : 140,
+          maxPolarAngle: this.isDevMode ? Math.PI : Math.PI / 2 - 0.1,
+          damping: !0,
+          dampingFactor: 0.05,
+          firstPerson: {
+            height: 4.5,
+            forwardOffset: -6,
+            fov: r.firstPersonFovOverride || (this.isMobile ? 95 : 85),
+            rotationSpeed: 0.003,
+          },
+          freeFlying: {
+            moveSpeed: 200,
+            rotationSpeed: 0.008,
+            fov: this.isMobile ? 90 : 80,
+          },
+          near: 0.1,
+          far: H.scene.cameraFar,
+          frustumCulling: !0,
+          orbitDampingSpeed: 2,
+        }),
+        (this.compositionSettings = { targetYOffset: 9 }),
+        (this.viewOffsetPixels = { x: 0, y: 0 }),
+        (this.cameraConfig = {
+          startDistance: 58,
+          positionFactors: { x: -0.5, y: 0.9, z: -0.7 },
+        }),
+        (this.camera = new ge(
+          this.cameraSettings.fov,
+          window.innerWidth / window.innerHeight,
+          this.cameraSettings.near,
+          this.cameraSettings.far,
+        )),
+        (this.camera.frustumCulled = this.cameraSettings.frustumCulling),
+        this.camera.position.set(0, 80, 70),
+        this.camera.lookAt(0, 0, 0),
+        (this.orbitControls = new Ds(this.camera, n)),
+        this.applyOrbitSettings(),
+        this.orbitControls.target.set(0, 0, 0),
+        (this.isFirstPerson = !1),
+        (this.isFreeFlying = !1));
+      let i = Xs();
+      ((this.firstPersonRotation = new S(i.x, i.y, 0, `YXZ`)),
+        (this.freeFlyingRotation = new S(0, 0, 0, `YXZ`)),
+        (this.isExternallyControlled = !1),
+        (this.isDragging = !1),
+        (this.lastX = 0),
+        (this.lastY = 0),
+        (this.savedOrbitLocalOffset = null),
+        (this.savedFirstPersonRotation = { x: i.x, y: i.y }),
+        (this.smoothedBoatRotationY = 0),
+        (this._modeBlend = null),
+        this.initializeCamera(),
+        (this.savedOrbitLocalOffset = this.getBoatLocalOrbitOffset()),
+        this.setupTouchAndMouseEvents(),
+        this.setupPreferencePersistence(),
+        this.rememberPreference && this.restorePreference());
+    }
+    _setWaterReflectionAnchor(e) {
+      e &&
+        (this.camera.userData || (this.camera.userData = {}),
+        this.camera.userData.waterReflectionAnchor ||
+          (this.camera.userData.waterReflectionAnchor = new N()),
+        this.camera.userData.waterReflectionAnchor.set(e.x, e.y, e.z));
+    }
+    setupTouchAndMouseEvents() {
+      let e = () => this.isFirstPerson || this.isFreeFlying,
+        t = (e) => (e.touches ? e.touches[0] : e);
+      (this.domElement.addEventListener(
+        `touchstart`,
+        (n) => {
+          if (!e()) return;
+          let r = t(n);
+          ((this.isDragging = !0),
+            (this.lastX = r.clientX),
+            (this.lastY = r.clientY));
+        },
+        { passive: !0 },
+      ),
+        this.domElement.addEventListener(
+          `touchmove`,
+          (n) => {
+            if (!e() || !this.isDragging) return;
+            let r = t(n);
+            this.handleRotation(r.clientX, r.clientY, this.isFreeFlying);
+          },
+          { passive: !0 },
+        ),
+        this.domElement.addEventListener(`mousedown`, (t) => {
+          e() &&
+            ((this.isDragging = !0),
+            (this.lastX = t.clientX),
+            (this.lastY = t.clientY));
+        }),
+        this.domElement.addEventListener(`mousemove`, (t) => {
+          !e() ||
+            !this.isDragging ||
+            this.handleRotation(t.clientX, t.clientY, this.isFreeFlying);
+        }),
+        [`touchend`, `mouseup`, `mouseleave`].forEach((e) => {
+          this.domElement.addEventListener(e, () => {
+            let e = this.isDragging;
+            ((this.isDragging = !1),
+              e &&
+                this.isFirstPerson &&
+                !this.isFreeFlying &&
+                this.persistPreference());
+          });
+        }));
+    }
+    handleRotation(e, t, n = !1) {
+      let r = e - this.lastX,
+        i = t - this.lastY,
+        a = n ? this.freeFlyingRotation : this.firstPersonRotation,
+        o = n
+          ? this.cameraSettings.freeFlying.rotationSpeed
+          : this.cameraSettings.firstPerson.rotationSpeed;
+      ((a.y -= r * o),
+        (a.x -= i * o),
+        (a.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, a.x))),
+        this._modeBlend || this.camera.rotation.copy(a),
+        (this.lastX = e),
+        (this.lastY = t));
+    }
+    setupCameraMode(e, t, n) {
+      ((this._modeBlend = null),
+        (this.orbitControls.enabled = e),
+        (this.camera.fov = t),
+        this.camera.updateProjectionMatrix(),
+        n && n());
+    }
+    toggleCameraMode() {
+      return (
+        this._beginModeBlend(!this.isFirstPerson),
+        this.persistPreference(),
+        this.getCameraMode()
+      );
+    }
+    _beginModeBlend(e) {
+      let t = this._captureBoatLocalPose(),
+        n = this._modeBlend != null;
+      (e
+        ? (n ||
+            (this.savedOrbitLocalOffset = this.cloneOrbitLocalOffset(
+              this.getBoatLocalOrbitOffset(),
+            )),
+          (this.isFirstPerson = !0),
+          this.applyFirstPersonRotation(this.savedFirstPersonRotation))
+        : ((this.savedFirstPersonRotation =
+            this.getFirstPersonRotationPreference()),
+          (this.isFirstPerson = !1)),
+        (this.orbitControls.enabled = !1),
+        (this._modeBlend = {
+          localPosition: t.localPosition,
+          localQuaternion: t.localQuaternion,
+          fov: t.fov,
+          elapsed: 0,
+        }));
+    }
+    _captureBoatLocalPose() {
+      let e = this._followBoatPosition(),
+        t = new oe().setFromAxisAngle(ec, -this._followBoatYaw());
+      return {
+        localPosition: this.camera.position.clone().sub(e).applyQuaternion(t),
+        localQuaternion: t.clone().multiply(this.camera.quaternion),
+        fov: this.camera.fov,
+      };
+    }
+    _worldPoseFromBoatLocal(e, t) {
+      let n = this._followBoatPosition(),
+        r = new oe().setFromAxisAngle(ec, this._followBoatYaw());
+      return {
+        position: e.clone().applyQuaternion(r).add(n),
+        quaternion: r.multiply(t),
+      };
+    }
+    _blendCameraPosition(e, t, n, r) {
+      let i = e.clone().sub(n),
+        a = t.clone().sub(n),
+        o = i.length(),
+        s = a.length();
+      if (o < 1e-4 || s < 1e-4) return e.clone().lerp(t, r);
+      let c = i.multiplyScalar(1 / o),
+        l = new oe().setFromUnitVectors(c, a.multiplyScalar(1 / s)),
+        u = o + (s - o) * r;
+      return n
+        .clone()
+        .addScaledVector(c.applyQuaternion(new oe().slerp(l, r)), u);
+    }
+    _updateModeBlend(e) {
+      let t = this._modeBlend;
+      t.elapsed += Number.isFinite(e) && e > 0 ? e : 0;
+      let n = t.elapsed + 1e-6 >= rc ? 1 : t.elapsed / rc,
+        r = n * n * (3 - 2 * n),
+        i = this._worldPoseFromBoatLocal(t.localPosition, t.localQuaternion),
+        a = this.isFirstPerson
+          ? this._firstPersonWorldPose()
+          : this._orbitWorldPose(this.savedOrbitLocalOffset),
+        o = this._followBoatPosition();
+      (this.camera.position.copy(
+        this._blendCameraPosition(i.position, a.position, o, r),
+      ),
+        this.camera.quaternion.slerpQuaternions(i.quaternion, a.quaternion, r),
+        (this.camera.fov = t.fov + (a.fov - t.fov) * r),
+        this.camera.updateProjectionMatrix(),
+        this._setWaterReflectionAnchor(o),
+        n >= 1 && this._finishModeBlend());
+    }
+    _finishModeBlend() {
+      let e = this.isFirstPerson;
+      if (((this._modeBlend = null), e)) {
+        this.setupCameraMode(!1, this.cameraSettings.firstPerson.fov, () => {
+          this.updateFirstPersonCamera();
         });
-      })(is),
-      is.exports);
-}
+        return;
+      }
+      this.setupCameraMode(!0, this.cameraSettings.fov, () => {
+        (this.savedOrbitLocalOffset &&
+          this.applyBoatLocalOrbitOffset(this.savedOrbitLocalOffset)) ||
+          (this.initializeCamera(),
+          (this.savedOrbitLocalOffset = this.getBoatLocalOrbitOffset()),
+          this.persistPreference());
+      });
+    }
+    toggleFreeFlyingCamera() {
+      return (
+        (this.isFreeFlying = !this.isFreeFlying),
+        this.isFreeFlying
+          ? ((this.isFirstPerson = !1),
+            this.setupCameraMode(!1, this.cameraSettings.freeFlying.fov, () => {
+              (this.initializeFreeFlyingCamera(),
+                this.freeFlyingRotation.set(0, 0, 0));
+            }))
+          : this.setupCameraMode(!0, this.cameraSettings.fov, () => {
+              this.restorePreference() || this.initializeCamera();
+            }),
+        !0
+      );
+    }
+    getCameraMode() {
+      return this.isFreeFlying
+        ? `freeFlying`
+        : this.isFirstPerson
+          ? `firstPerson`
+          : `orbit`;
+    }
+    shouldUpdateAfterBoat() {
+      return this.isFirstPerson === !0 || this._modeBlend != null;
+    }
+    initializeFreeFlyingCamera() {
+      (this.camera.position.set(0, 100, 200),
+        this.freeFlyingRotation.set(0, 0, 0),
+        this.camera.rotation.copy(this.freeFlyingRotation));
+    }
+    _followBoatPosition() {
+      return this.boat.getRenderPosition?.() || this.boat.getPosition();
+    }
+    _followBoatYaw() {
+      let e = this.boat.getRenderYaw?.();
+      return Number.isFinite(e) ? e : this.boat.getRotation().y;
+    }
+    initializeCamera() {
+      this._modeBlend = null;
+      let e = this._orbitWorldPose(null);
+      (this.orbitControls.target.copy(e.target),
+        this.camera.position.copy(e.position),
+        this.camera.lookAt(e.target),
+        this.orbitControls.update(),
+        (this.smoothedBoatRotationY = e.yaw),
+        this._setWaterReflectionAnchor(e.boatPosition));
+    }
+    getBoatLocalOrbitOffset() {
+      let e = this._followBoatYaw(),
+        t = this._followBoatPosition();
+      return this.camera.position
+        .clone()
+        .sub(t)
+        .applyEuler(new S(0, -e, 0));
+    }
+    cloneOrbitLocalOffset(e) {
+      let t = Js(e);
+      return t ? new N(t.x, t.y, t.z) : null;
+    }
+    applyBoatLocalOrbitOffset(e) {
+      if (!this.cloneOrbitLocalOffset(e)) return !1;
+      let t = this._orbitWorldPose(e);
+      return (
+        this.orbitControls.target.copy(t.target),
+        this.camera.position.copy(t.position),
+        this.orbitControls.update(),
+        (this.smoothedBoatRotationY = t.yaw),
+        this._setWaterReflectionAnchor(t.boatPosition),
+        !0
+      );
+    }
+    _orbitWorldPose(e) {
+      let t = this._followBoatYaw(),
+        n = this._followBoatPosition(),
+        r = this.cloneOrbitLocalOffset(e),
+        i = n.clone(),
+        a = this.compositionSettings.targetYOffset || 0;
+      a && (i.y += a);
+      let o;
+      if (r) o = n.clone().add(r.applyEuler(new S(0, t, 0)));
+      else {
+        let e = new N(
+          -Math.sin(t),
+          this.cameraConfig.positionFactors.y,
+          -Math.cos(t),
+        ).normalize();
+        ((o = n.clone().addScaledVector(e, this.cameraConfig.startDistance)),
+          i.add(new N(Math.sin(t) * 10, 0, Math.cos(t) * 10)));
+      }
+      return {
+        yaw: t,
+        boatPosition: n,
+        position: o,
+        target: i,
+        fov: this.cameraSettings?.fov,
+        quaternion: new oe().setFromRotationMatrix(new Ge().lookAt(o, i, ec)),
+      };
+    }
+    _firstPersonWorldPose() {
+      let e = this._followBoatYaw(),
+        t = this._followBoatPosition(),
+        n = new S(
+          this.firstPersonRotation.x,
+          this.firstPersonRotation.y + e,
+          0,
+          `YXZ`,
+        );
+      return {
+        position: t
+          .clone()
+          .add(
+            new N(
+              0,
+              this.cameraSettings.firstPerson.height,
+              this.cameraSettings.firstPerson.forwardOffset,
+            ).applyEuler(new S(0, e, 0)),
+          ),
+        rotation: n,
+        fov: this.cameraSettings.firstPerson.fov,
+        quaternion: new oe().setFromEuler(n),
+      };
+    }
+    captureRelativePose() {
+      let e = this.getFirstPersonRotationPreference();
+      return this.isFirstPerson && !this.isFreeFlying
+        ? {
+            mode: Hs,
+            orbitLocalOffset: this.cloneOrbitLocalOffset(
+              this.savedOrbitLocalOffset,
+            ),
+            firstPersonRotation: e,
+          }
+        : {
+            mode: Vs,
+            orbitLocalOffset: this.getBoatLocalOrbitOffset(),
+            firstPersonRotation: e,
+          };
+    }
+    applyRelativePose(e = null) {
+      if (
+        ((this._modeBlend = null),
+        (this.smoothedBoatRotationY = this.boat.getRotation().y),
+        !e)
+      )
+        return this.restorePreference() || (this.initializeCamera(), !0);
+      let t = this.cloneOrbitLocalOffset(e.orbitLocalOffset);
+      return (
+        t && (this.savedOrbitLocalOffset = t),
+        e.firstPersonRotation &&
+          (this.savedFirstPersonRotation = {
+            x: e.firstPersonRotation.x,
+            y: e.firstPersonRotation.y,
+          }),
+        e.mode === `firstPerson`
+          ? ((this.isFreeFlying = !1),
+            this.isFirstPerson
+              ? (this.applyFirstPersonRotation(this.savedFirstPersonRotation),
+                this.updateFirstPersonCamera())
+              : ((this.isFirstPerson = !0),
+                this.setupCameraMode(
+                  !1,
+                  this.cameraSettings.firstPerson.fov,
+                  () => {
+                    (this.applyFirstPersonRotation(
+                      this.savedFirstPersonRotation,
+                    ),
+                      this.updateFirstPersonCamera());
+                  },
+                )),
+            !0)
+          : ((this.isFreeFlying = !1),
+            this.isFirstPerson &&
+              ((this.isFirstPerson = !1),
+              this.setupCameraMode(!0, this.cameraSettings.fov)),
+            this.savedOrbitLocalOffset &&
+            this.applyBoatLocalOrbitOffset(this.savedOrbitLocalOffset)
+              ? !0
+              : this.restorePreference() || (this.initializeCamera(), !0))
+      );
+    }
+    getFirstPersonRotationPreference() {
+      return this.isFirstPerson
+        ? { x: this.firstPersonRotation.x, y: this.firstPersonRotation.y }
+        : this.savedFirstPersonRotation
+          ? {
+              x: this.savedFirstPersonRotation.x,
+              y: this.savedFirstPersonRotation.y,
+            }
+          : Xs();
+    }
+    applyFirstPersonRotation(e) {
+      let t = Ys(e) || Xs();
+      (this.firstPersonRotation.set(t.x, t.y, 0),
+        (this.savedFirstPersonRotation = { x: t.x, y: t.y }));
+    }
+    persistPreference() {
+      return !this.rememberPreference ||
+        this.isFreeFlying ||
+        (this.isFirstPerson
+          ? (this.savedFirstPersonRotation =
+              this.getFirstPersonRotationPreference())
+          : this._modeBlend ||
+            (this.savedOrbitLocalOffset = this.getBoatLocalOrbitOffset()),
+        !this.savedOrbitLocalOffset)
+        ? null
+        : $s({
+            mode: this.isFirstPerson ? Hs : Vs,
+            orbitLocalOffset: this.savedOrbitLocalOffset,
+            firstPersonRotation: this.getFirstPersonRotationPreference(),
+          });
+    }
+    restorePreference() {
+      if (!this.rememberPreference) return !1;
+      let e = Qs();
+      if (!e) return !1;
+      let t = this.cloneOrbitLocalOffset(e.orbitLocalOffset);
+      return (
+        t && (this.savedOrbitLocalOffset = t),
+        this.applyFirstPersonRotation(e.firstPersonRotation || Xs()),
+        (this.isFreeFlying = !1),
+        e.mode === `firstPerson`
+          ? ((this.isFirstPerson = !0),
+            this.setupCameraMode(
+              !1,
+              this.cameraSettings.firstPerson.fov,
+              () => {
+                this.updateFirstPersonCamera();
+              },
+            ),
+            !0)
+          : ((this.isFirstPerson = !1),
+            this.setupCameraMode(!0, this.cameraSettings.fov),
+            this.savedOrbitLocalOffset
+              ? this.applyBoatLocalOrbitOffset(this.savedOrbitLocalOffset)
+              : (this.initializeCamera(),
+                (this.savedOrbitLocalOffset = this.getBoatLocalOrbitOffset()),
+                !0))
+      );
+    }
+    setupPreferencePersistence() {
+      !this.orbitControls ||
+        typeof this.orbitControls.addEventListener != `function` ||
+        this.orbitControls.addEventListener(`end`, () => {
+          this.isFirstPerson ||
+            this.isFreeFlying ||
+            this.isExternallyControlled ||
+            this.persistPreference();
+        });
+    }
+    applyOrbitSettings() {
+      ((this.orbitControls.enableDamping = this.cameraSettings.damping),
+        (this.orbitControls.dampingFactor = this.cameraSettings.dampingFactor),
+        (this.orbitControls.minDistance = this.cameraSettings.minDistance),
+        (this.orbitControls.maxDistance = this.cameraSettings.maxDistance),
+        (this.orbitControls.maxPolarAngle = this.cameraSettings.maxPolarAngle),
+        (this.camera.fov = this.cameraSettings.fov),
+        this.camera.updateProjectionMatrix());
+    }
+    setOrbitDistanceBounds({ minDistance: e, maxDistance: t } = {}) {
+      let n = Number(e);
+      Number.isFinite(n) &&
+        (this.cameraSettings.minDistance = Math.max(0.1, n));
+      let r = Number(t);
+      (Number.isFinite(r) &&
+        (this.cameraSettings.maxDistance = Math.max(
+          this.cameraSettings.minDistance,
+          r,
+        )),
+        this.applyOrbitSettings());
+    }
+    onWindowResize() {
+      ((this.camera.aspect = window.innerWidth / window.innerHeight),
+        this._applyViewOffset());
+    }
+    _normalizeViewOffsetPx(e) {
+      let t = Number(e);
+      return Number.isFinite(t) ? Math.round(t) : 0;
+    }
+    _applyViewOffset() {
+      if (!this.camera) return;
+      let e = Math.max(
+          1,
+          Math.round(window?.innerWidth || this.domElement?.clientWidth || 1),
+        ),
+        t = Math.max(
+          1,
+          Math.round(window?.innerHeight || this.domElement?.clientHeight || 1),
+        ),
+        n = this._normalizeViewOffsetPx(this.viewOffsetPixels?.x),
+        r = this._normalizeViewOffsetPx(this.viewOffsetPixels?.y);
+      ((n !== 0 || r !== 0) && typeof this.camera.setViewOffset == `function`
+        ? this.camera.setViewOffset(e, t, n, r, e, t)
+        : typeof this.camera.clearViewOffset == `function` &&
+          this.camera.clearViewOffset(),
+        this.camera.updateProjectionMatrix());
+    }
+    setViewOffsetPixels(e = 0, t = 0) {
+      let n = this._normalizeViewOffsetPx(e),
+        r = this._normalizeViewOffsetPx(t),
+        i = this._normalizeViewOffsetPx(this.viewOffsetPixels?.x),
+        a = this._normalizeViewOffsetPx(this.viewOffsetPixels?.y);
+      (n === i && r === a) ||
+        ((this.viewOffsetPixels = { x: n, y: r }), this._applyViewOffset());
+    }
+    update(e, t = {}, n = e) {
+      if (this.isExternallyControlled) {
+        this._modeBlend = null;
+        return;
+      }
+      this.isFreeFlying
+        ? this.updateFreeFlyingCamera(e, t)
+        : this._modeBlend
+          ? this._updateModeBlend(e)
+          : this.isFirstPerson
+            ? this.updateFirstPersonCamera()
+            : this.updateOrbitCamera(n);
+    }
+    updateOrbitCamera(e) {
+      let t = this._followBoatPosition();
+      this._setWaterReflectionAnchor(t);
+      let n = this._followBoatYaw(),
+        r = tc.copy(this.camera.position).sub(this.orbitControls.target);
+      this.smoothedBoatRotationY === void 0 && (this.smoothedBoatRotationY = n);
+      let i = this.cameraSettings.orbitDampingSpeed,
+        a = n - this.smoothedBoatRotationY;
+      ((a = ((a + Math.PI) % (Math.PI * 2)) - Math.PI),
+        a < -Math.PI && (a += Math.PI * 2));
+      let o = 1 - Math.exp(-i * e),
+        s = a * o;
+      Math.abs(s) > 1e-5 &&
+        (r.applyAxisAngle(ec, s), (this.smoothedBoatRotationY += s));
+      let c = nc.copy(t),
+        l = this.compositionSettings.targetYOffset || 0;
+      l && (c.y += l);
+      let u = Math.min(1, e * 3);
+      (this.orbitControls.target.lerpVectors(this.orbitControls.target, c, u),
+        this.camera.position.copy(this.orbitControls.target).add(r),
+        this.orbitControls.update());
+    }
+    updateFirstPersonCamera() {
+      let e = this.boat.getRotation();
+      e && (e.y = this._followBoatYaw());
+      let t = this._firstPersonWorldPose();
+      (this._setWaterReflectionAnchor(this._followBoatPosition()),
+        this.camera.position.copy(t.position),
+        this.camera.rotation.copy(t.rotation));
+    }
+    updateFreeFlyingCamera(e, t) {
+      let n = this.cameraSettings.freeFlying.moveSpeed * e;
+      ((t.w || t.arrowup) && this.camera.translateZ(-n),
+        (t.s || t.arrowdown) && this.camera.translateZ(n),
+        (t.a || t.arrowleft) && this.camera.translateX(-n),
+        (t.d || t.arrowright) && this.camera.translateX(n),
+        this._setWaterReflectionAnchor(this.camera.position),
+        this.isDragging && this.handleRotation(this.lastX, this.lastY, !0));
+    }
+    getCamera() {
+      return this.camera;
+    }
+  },
+  ac = `sea-lookdev-panel-styles-v2`,
+  oc = `seaLookdev.openFolders`,
+  sc = Object.freeze([
+    `look`,
+    `sun`,
+    `clouds`,
+    `fog`,
+    `lights`,
+    `waves`,
+    `ripples`,
+    `reflections`,
+    `refraction`,
+    `foam`,
+    `sss`,
+    `glints`,
+    `color`,
+    `seabed`,
+    `bloom`,
+    `underwater`,
+    `scene`,
+  ]),
+  cc = Object.freeze({
+    look: `Look`,
+    sun: `Sun`,
+    lights: `Scene Lights`,
+    fog: `Horizon Haze`,
+    waves: `Waves`,
+    ripples: `Detail Ripples`,
+    reflections: `Reflections`,
+    refraction: `Refraction / Depth`,
+    foam: `Foam`,
+    sss: `Subsurface Scatter`,
+    glints: `Sun Glints`,
+    color: `Water Color`,
+    clouds: `Sky Clouds`,
+    seabed: `Seabed`,
+    bloom: `Bloom / Grade`,
+    underwater: `Underwater`,
+    scene: `Scene`,
+  });

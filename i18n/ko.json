@@ -185,11 +185,6 @@
     "copy_link": "링크 복사",
     "copied": "복사됨!",
     "reward": "+${amount}",
-    "verification_unavailable_later": "인증을 사용할 수 없습니다. 닫은 후 나중에 다시 시도하세요.",
-    "running_cloudflare_check": "Cloudflare 확인 중...",
-    "complete_cloudflare_check": "계속하려면 아래 Cloudflare 확인을 완료하세요.",
-    "verification_failed_retry": "인증에 실패했습니다. 다시 시도하거나 닫으세요.",
-    "verification_unavailable_retry": "인증을 사용할 수 없습니다. 다시 시도하거나 닫으세요.",
     "submitting_record": "기록 제출 중...",
     "submit_failed": "기록 제출에 실패했습니다. 다시 시도하세요.",
     "submit_failed_again": "기록 제출에 실패했습니다. 다시 시도하세요.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "{next}(으)로 전환",
     "double_reward_cta": "광고를 보고 2배로 받기 (+${amount})",
     "double_reward_watching": "광고 표시 중...",
-    "double_reward_done": "+${amount}(으)로 2배",
-    "double_reward_skipped": "광고를 건너뛰었습니다. 보상은 그대로입니다."
+    "double_reward_skipped": "광고를 건너뛰었습니다. 보상은 그대로입니다.",
+    "double_reward_cancel_note": "영상을 닫거나 건너뛰면 추가 보상이 취소됩니다.",
+    "double_reward_race_label": "레이스",
+    "double_reward_reward_label": "보상",
+    "double_reward_ad_label": "광고",
+    "double_reward_total_label": "합계"
   },
   "mobile": {
     "rudder": "러더",
@@ -264,7 +263,6 @@
     "page_title": "세계를 탐험하세요 | VibeSail",
     "title": "항해할 바다를 선택하세요",
     "subtitle": "위치를 선택하거나 바다 아무 곳이나 탭하여 포토리얼 3D로 출항하세요.",
-    "set_sail": "출항하기",
-    "link_simulator": "보트 시뮬레이터에서 항해하기"
+    "set_sail": "출항하기"
   }
 }

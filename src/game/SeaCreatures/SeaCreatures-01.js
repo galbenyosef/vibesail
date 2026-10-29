@@ -1,13 +1,13 @@
 // SeaCreatures 01 — math
-// Lines 1-271 of readable/assets/SeaCreatures-C5ijwC34.pretty.js (statement-aligned).
+// Lines 1-271 of readable/assets/SeaCreatures-CaBHRx9G.pretty.js (statement-aligned).
 import {
-  F as e,
-  Ut as t,
-  dt as n,
-  in as r,
-  lt as i,
-  y as a,
-} from "./three.module-BgyKfsEV.js";
+  Kt as e,
+  L as t,
+  b as n,
+  dt as r,
+  pt as i,
+  sn as a,
+} from "./three.module-CUNolavI.js";
 var SEA_CREATURE_CONFIG = {
     fish: {
       schoolCount: 2,
@@ -36,10 +36,10 @@ var SEA_CREATURE_CONFIG = {
       modelScale: 0.675,
     },
   },
-  s = new r(),
-  c = new r(),
-  l = new r(),
-  u = new r(0, 0, 1);
+  s = new a(),
+  c = new a(),
+  l = new a(),
+  u = new a(0, 0, 1);
 function d(e, t) {
   return e + Math.random() * (t - e);
 }
@@ -51,8 +51,8 @@ var f = class f {
       (this.getWaterHeight =
         typeof t.getWaterHeight == `function` ? t.getWaterHeight : null),
       (this.time = 0),
-      (this.originAnchor = new r()),
-      (this.playerAnchor = new r()),
+      (this.originAnchor = new a()),
+      (this.playerAnchor = new a()),
       (this.schools = []),
       (this.fishes = []),
       (this.shared = this.createSharedResources()),
@@ -60,12 +60,12 @@ var f = class f {
   }
   createSharedResources() {
     return {
-      fishBodyGeometry: new t(1, 16, 12),
-      fishHeadGeometry: new a(0.42, 0.9, 12),
-      fishTailGeometry: new a(0.2, 0.85, 8),
-      fishFinGeometry: new a(0.12, 0.38, 8),
-      fishBodyMaterial: new n({ color: 8361901 }),
-      fishFinMaterial: new n({ color: 7309208 }),
+      fishBodyGeometry: new e(1, 16, 12),
+      fishHeadGeometry: new n(0.42, 0.9, 12),
+      fishTailGeometry: new n(0.2, 0.85, 8),
+      fishFinGeometry: new n(0.12, 0.38, 8),
+      fishBodyMaterial: new i({ color: 8361901 }),
+      fishFinMaterial: new i({ color: 7309208 }),
     };
   }
   init() {
@@ -84,32 +84,32 @@ var f = class f {
     return Number.isFinite(n) ? n : 0;
   }
   createFishMesh() {
-    let t = SEA_CREATURE_CONFIG.fish,
-      n = new e(),
-      r = new i(this.shared.fishBodyGeometry, this.shared.fishBodyMaterial);
-    (r.scale.set(2.4, 0.84, 1.12), (r.rotation.y = Math.PI / 2), n.add(r));
-    let a = new i(this.shared.fishHeadGeometry, this.shared.fishBodyMaterial);
+    let e = SEA_CREATURE_CONFIG.fish,
+      n = new t(),
+      i = new r(this.shared.fishBodyGeometry, this.shared.fishBodyMaterial);
+    (i.scale.set(2.4, 0.84, 1.12), (i.rotation.y = Math.PI / 2), n.add(i));
+    let a = new r(this.shared.fishHeadGeometry, this.shared.fishBodyMaterial);
     (a.position.set(0, 0, 2), (a.rotation.x = Math.PI / 2), n.add(a));
-    let s = new i(this.shared.fishTailGeometry, this.shared.fishFinMaterial);
+    let s = new r(this.shared.fishTailGeometry, this.shared.fishFinMaterial);
     (s.position.set(0, 0.16, -2.08),
       s.rotation.set(Math.PI / 2, 0.55, 0),
       n.add(s));
-    let c = new i(this.shared.fishTailGeometry, this.shared.fishFinMaterial);
+    let c = new r(this.shared.fishTailGeometry, this.shared.fishFinMaterial);
     (c.position.set(0, -0.16, -2.08),
       c.rotation.set(Math.PI / 2, -0.55, 0),
       n.add(c));
-    let l = new i(this.shared.fishFinGeometry, this.shared.fishFinMaterial);
+    let l = new r(this.shared.fishFinGeometry, this.shared.fishFinMaterial);
     (l.position.set(0, 0.56, 0.1), (l.rotation.x = Math.PI), n.add(l));
-    let u = new i(this.shared.fishFinGeometry, this.shared.fishFinMaterial);
+    let u = new r(this.shared.fishFinGeometry, this.shared.fishFinMaterial);
     (u.position.set(-0.58, 0.02, 0.42),
       u.rotation.set(Math.PI * 0.5, 0, Math.PI * 0.7),
       n.add(u));
-    let d = new i(this.shared.fishFinGeometry, this.shared.fishFinMaterial);
+    let d = new r(this.shared.fishFinGeometry, this.shared.fishFinMaterial);
     return (
       d.position.set(0.58, 0.02, 0.42),
       d.rotation.set(Math.PI * 0.5, 0, -Math.PI * 0.7),
       n.add(d),
-      n.scale.setScalar(t.modelScale),
+      n.scale.setScalar(e.modelScale),
       (n.visible = !1),
       (n.userData.kind = `sea_creature`),
       (n.userData.skipWaterCapture = !0),
@@ -121,13 +121,13 @@ var f = class f {
       t = this.resolveAnchor();
     for (let n = 0; n < e.schoolCount; n++) {
       let n = d(0, Math.PI * 2),
-        i = d(e.schoolRadiusMin, e.schoolRadiusMax),
-        a = new r(t.x + Math.cos(n) * i, 0, t.z + Math.sin(n) * i),
+        r = d(e.schoolRadiusMin, e.schoolRadiusMax),
+        i = new a(t.x + Math.cos(n) * r, 0, t.z + Math.sin(n) * r),
         o = {
           baseAngle: n,
-          anchorRadius: i,
+          anchorRadius: r,
           angularSpeed: d(e.schoolAngularSpeedMin, e.schoolAngularSpeedMax),
-          center: a,
+          center: i,
           jumpCooldown: e.schoolJumpIntervalSeconds,
           jumpMemberCursor: 0,
           members: [],
@@ -148,10 +148,10 @@ var f = class f {
           isJumping: !1,
           phase: d(0, Math.PI * 2),
           clockwise: Math.random() > 0.5,
-          previousPosition: a.clone(),
-          jumpStart: new r(),
-          jumpDirection: new r(0, 0, 1),
-          heading: new r(0, 0, 1),
+          previousPosition: i.clone(),
+          jumpStart: new a(),
+          jumpDirection: new a(0, 0, 1),
+          heading: new a(0, 0, 1),
         };
         (o.members.push(n), this.fishes.push(n));
       }

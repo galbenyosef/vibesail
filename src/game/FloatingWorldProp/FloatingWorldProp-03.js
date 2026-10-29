@@ -1,5 +1,5 @@
 // FloatingWorldProp 03 — root
-// Lines 462-675 of readable/assets/FloatingWorldProp--a8_muYf.pretty.js (statement-aligned).
+// Lines 462-675 of readable/assets/FloatingWorldProp-C5Dibl-5.pretty.js (statement-aligned).
 var A = class {
   constructor(t, a = {}, o = {}) {
     ((this.scene = t),
@@ -26,31 +26,31 @@ var A = class {
       (this.bowOffset = { x: 0, z: 0 }),
       (this.sternOffset = { x: 0, z: 0 }),
       (this.buoyancySpan = 1),
-      (this._pitchAxis = new s(0, 0, 1)),
-      (this._pitchQuat = new n()),
-      (this._rollQuat = new n()),
-      (this._rollAxis = new s(1, 0, 0)),
+      (this._pitchAxis = new u(0, 0, 1)),
+      (this._pitchQuat = new i()),
+      (this._rollQuat = new i()),
+      (this._rollAxis = new u(1, 0, 0)),
       (this.collisionConfig = O(a.collision)),
       (this.collisionLength = 0),
       (this.collisionWidth = 0),
       (this.collisionRotationY = 0),
       (this.collisionOffsetX = 0),
       (this.collisionOffsetZ = 0),
-      (this.collisionCenter = new s()),
+      (this.collisionCenter = new u()),
       (this.collisionReady = !1));
-    let c = a.modelRotationDegrees || {};
-    ((this.baseRotation = new i(E(c.x), E(c.y), E(c.z))),
+    let s = a.modelRotationDegrees || {};
+    ((this.baseRotation = new n(E(s.x), E(s.y), E(s.z))),
       this.root.position.set(this.offsetX, 0, this.offsetZ),
       this.scene.add(this.root),
       (this.smoke = null));
-    let l = x(a.smoke);
-    (l && (this.smoke = new S(this.root, l)), this.loadModel());
+    let c = x(a.smoke);
+    (c && (this.smoke = new S(this.root, c)), this.loadModel());
   }
   setupBuoyancyPoints() {
     this.root.updateMatrixWorld(!0);
-    let e = new d().setFromObject(this.model),
-      t = e.getSize(new s()),
-      n = e.getCenter(new s()),
+    let e = new l().setFromObject(this.model),
+      t = e.getSize(new u()),
+      n = e.getCenter(new u()),
       r = 0.08;
     if (t.x >= t.z) {
       let e = Math.max(0.5, t.x * (0.5 - r)),
@@ -81,10 +81,10 @@ var A = class {
         Number.isFinite(Number(e.rotationYDegrees)),
       a = i ? Number(e.rotationYDegrees) : null,
       o = Number(e.offsetX),
-      c = Number(e.offsetZ);
+      s = Number(e.offsetZ);
     if (
       ((this.collisionOffsetX = Number.isFinite(o) ? o : 0),
-      (this.collisionOffsetZ = Number.isFinite(c) ? c : 0),
+      (this.collisionOffsetZ = Number.isFinite(s) ? s : 0),
       r)
     ) {
       ((this.collisionLength = t),
@@ -93,19 +93,19 @@ var A = class {
         (this.collisionReady = !0));
       return;
     }
-    let l = this.model.rotation.clone();
+    let c = this.model.rotation.clone();
     (this.model.rotation.set(0, 0, 0), this.model.updateMatrixWorld(!0));
-    let u = new d().setFromObject(this.model).getSize(new s());
-    (this.model.rotation.copy(l), this.model.updateMatrixWorld(!0));
+    let d = new l().setFromObject(this.model).getSize(new u());
+    (this.model.rotation.copy(c), this.model.updateMatrixWorld(!0));
     let f = [
-        { dir: new s(1, 0, 0), extent: u.x },
-        { dir: new s(0, 1, 0), extent: u.y },
-        { dir: new s(0, 0, 1), extent: u.z },
+        { dir: new u(1, 0, 0), extent: d.x },
+        { dir: new u(0, 1, 0), extent: d.y },
+        { dir: new u(0, 0, 1), extent: d.z },
       ].sort((e, t) => t.extent - e.extent),
       p = f[0],
       m = p.dir.clone().applyEuler(this.baseRotation);
     if (((m.y = 0), m.lengthSq() < 1e-6)) {
-      let e = new d().setFromObject(this.model).getSize(new s());
+      let e = new l().setFromObject(this.model).getSize(new u());
       ((this.collisionLength = e.z),
         (this.collisionWidth = e.x),
         (this.collisionRotationY = 0));
@@ -165,7 +165,7 @@ var A = class {
         (t.rotation.copy(this.baseRotation),
           t.scale.setScalar(this.scale),
           t.updateMatrixWorld(!0));
-        let n = new d().setFromObject(t).getCenter(new s());
+        let n = new l().setFromObject(t).getCenter(new u());
         ((t.position.x -= n.x),
           (t.position.y -= n.y),
           (t.position.z -= n.z),

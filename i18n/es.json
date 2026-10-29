@@ -185,11 +185,6 @@
     "copy_link": "Copiar enlace",
     "copied": "¡Copiado!",
     "reward": "+${amount}",
-    "verification_unavailable_later": "Verificación no disponible. Cierra e inténtalo más tarde.",
-    "running_cloudflare_check": "Ejecutando comprobación de Cloudflare…",
-    "complete_cloudflare_check": "Completa la comprobación de Cloudflare abajo para continuar.",
-    "verification_failed_retry": "Falló la verificación. Reintenta o cierra.",
-    "verification_unavailable_retry": "Verificación no disponible. Reintenta o cierra.",
     "submitting_record": "Enviando récord…",
     "submit_failed": "No se pudo enviar el récord. Inténtalo de nuevo.",
     "submit_failed_again": "No se pudo enviar el récord. Inténtalo de nuevo.",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "Cambiar a {next}",
     "double_reward_cta": "Mira un anuncio para duplicar (+${amount})",
     "double_reward_watching": "Mostrando anuncio...",
-    "double_reward_done": "Duplicado a +${amount}",
-    "double_reward_skipped": "Anuncio omitido. Recompensa sin cambios."
+    "double_reward_skipped": "Anuncio omitido. Recompensa sin cambios.",
+    "double_reward_cancel_note": "Cerrar o saltar el video cancela la recompensa extra.",
+    "double_reward_race_label": "Carrera",
+    "double_reward_reward_label": "Recompensa",
+    "double_reward_ad_label": "Anuncio",
+    "double_reward_total_label": "Total"
   },
   "mobile": {
     "rudder": "TIMÓN",
@@ -264,7 +263,6 @@
     "page_title": "Explora el Mundo | VibeSail",
     "title": "Elige tus aguas",
     "subtitle": "Elige un lugar o toca cualquier parte del agua para zarpar en 3D fotorrealista.",
-    "set_sail": "Zarpar",
-    "link_simulator": "Navega en el simulador de barcos"
+    "set_sail": "Zarpar"
   }
 }

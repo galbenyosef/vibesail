@@ -1,5 +1,5 @@
 // WorldDefinitionBuilder 04 — size
-// Lines 1126-1267 of readable/assets/WorldDefinitionBuilder-CjRtTnhK.pretty.js (statement-aligned).
+// Lines 1126-1267 of readable/assets/WorldDefinitionBuilder-Bu5XtOsC.pretty.js (statement-aligned).
 function Z(e, t, n) {
   let r = R(e.length, n),
     i = [...r].sort((t, n) => e[n].size - e[t].size),

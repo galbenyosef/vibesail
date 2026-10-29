@@ -1,18 +1,18 @@
 // Birds 01 — profile
-// Lines 1-269 of readable/assets/Birds-DHEcQo9w.pretty.js (statement-aligned).
+// Lines 1-269 of readable/assets/Birds-C0RXzqnf.pretty.js (statement-aligned).
 import {
-  F as e,
-  Nt as t,
-  dt as n,
-  in as r,
-  l as i,
-  lt as a,
-  ot as o,
-  u as s,
-  x as c,
-  xt as l,
-  y as u,
-} from "./three.module-BgyKfsEV.js";
+  Ct as e,
+  It as t,
+  L as n,
+  S as r,
+  b as i,
+  ct as a,
+  dt as o,
+  l as s,
+  pt as c,
+  sn as l,
+  u,
+} from "./three.module-CUNolavI.js";
 var BIRD_PALETTE_LIGHT = Object.freeze({
     bodyColor: 3093565,
     wingColor: 2435893,
@@ -27,10 +27,10 @@ var BIRD_PALETTE_LIGHT = Object.freeze({
   }),
   BIRD_MODES = Object.freeze({ FLYING: `flying`, PERCHED: `perched`, WATER: `water` });
 function m(e) {
-  let t = new s(),
+  let t = new u(),
     n = e.wingSpan || 1,
     r = e.wingSweep || 1,
-    a = new Float32Array([
+    i = new Float32Array([
       0,
       0,
       0,
@@ -48,7 +48,7 @@ function m(e) {
       -0.34 * r,
     ]);
   return (
-    t.setAttribute(`position`, new i(a, 3)),
+    t.setAttribute(`position`, new s(i, 3)),
     t.setIndex([0, 1, 2, 0, 2, 3, 0, 3, 4]),
     t.computeVertexNormals(),
     t
@@ -80,48 +80,48 @@ var BirdFlock = class {
       (this.assets = this.createAssets()));
   }
   createAssets() {
-    let e = new l(1, 0);
-    e.scale(
+    let t = new e(1, 0);
+    t.scale(
       this.profile.bodyScaleX,
       this.profile.bodyScaleY,
       this.profile.bodyScaleZ,
     );
-    let t = new l(0.34, 0);
-    t.scale(
+    let n = new e(0.34, 0);
+    n.scale(
       this.profile.headScaleX,
       this.profile.headScaleY,
       this.profile.headScaleZ,
     );
-    let r = new u(0.14, this.profile.beakLength, 4);
-    r.rotateX(-Math.PI / 2);
-    let i = new u(0.22, this.profile.tailLength, 4);
-    i.rotateX(Math.PI / 2);
-    let a = new c(0.024, 0.028, this.profile.legLength, 4),
-      o = new n({ color: this.palette.beakColor, flatShading: !0 });
+    let a = new i(0.14, this.profile.beakLength, 4);
+    a.rotateX(-Math.PI / 2);
+    let o = new i(0.22, this.profile.tailLength, 4);
+    o.rotateX(Math.PI / 2);
+    let s = new r(0.024, 0.028, this.profile.legLength, 4),
+      l = new c({ color: this.palette.beakColor, flatShading: !0 });
     return {
-      bodyGeometry: e,
-      headGeometry: t,
-      beakGeometry: r,
-      tailGeometry: i,
+      bodyGeometry: t,
+      headGeometry: n,
+      beakGeometry: a,
+      tailGeometry: o,
       wingGeometry: m(this.profile),
-      legGeometry: a,
-      bodyMaterial: new n({ color: this.palette.bodyColor, flatShading: !0 }),
-      wingMaterial: new n({
+      legGeometry: s,
+      bodyMaterial: new c({ color: this.palette.bodyColor, flatShading: !0 }),
+      wingMaterial: new c({
         color: this.palette.wingColor,
         flatShading: !0,
         side: 2,
       }),
-      accentMaterial: new n({
+      accentMaterial: new c({
         color: this.palette.accentColor,
         flatShading: !0,
       }),
-      beakMaterial: new n({ color: this.palette.beakColor, flatShading: !0 }),
-      legMaterial: o,
+      beakMaterial: new c({ color: this.palette.beakColor, flatShading: !0 }),
+      legMaterial: l,
     };
   }
-  createInstance(t = {}) {
+  createInstance(e = {}) {
     let {
-        random: n = Math.random,
+        random: t = Math.random,
         scaleMin: r = 0.85,
         scaleMax: i = 1.15,
         flapSpeedMin: s = 4.8,
@@ -130,7 +130,7 @@ var BirdFlock = class {
         flapAmplitudeDegMax: u = 25,
         wingRestDegMin: d = 8,
         wingRestDegMax: f = 13,
-      } = t,
+      } = e,
       {
         bodyGeometry: m,
         headGeometry: g,
@@ -146,31 +146,31 @@ var BirdFlock = class {
         beakMaterial: w,
         legMaterial: T,
       } = this.assets,
-      E = new e(),
-      D = new a(m, x);
+      E = new n(),
+      D = new o(m, x);
     E.add(D);
-    let O = new a(g, C);
+    let O = new o(g, C);
     (O.position.set(0, 0.13, 1.02), E.add(O));
-    let k = new a(_, w);
+    let k = new o(_, w);
     (k.position.set(0, 0.09, 1.38), E.add(k));
-    let A = new a(v, C);
+    let A = new o(v, C);
     (A.position.set(0, 0.02, -1.12), E.add(A));
-    let j = new e();
+    let j = new n();
     j.position.set(-0.2, 0.05, this.profile.wingRootZ);
-    let M = new a(y, S);
+    let M = new o(y, S);
     ((M.scale.x = -1), j.add(M), E.add(j));
-    let N = new e();
+    let N = new n();
     N.position.set(0.2, 0.05, this.profile.wingRootZ);
-    let P = new a(y, S);
+    let P = new o(y, S);
     (N.add(P), E.add(N));
-    let F = new e(),
-      I = new a(b, T);
+    let F = new n(),
+      I = new o(b, T);
     I.position.set(
       -this.profile.legSpreadX,
       this.profile.legHeightOffset,
       0.12,
     );
-    let L = new a(b, T);
+    let L = new o(b, T);
     (L.position.set(
       this.profile.legSpreadX,
       this.profile.legHeightOffset,
@@ -179,10 +179,10 @@ var BirdFlock = class {
       F.add(I),
       F.add(L),
       E.add(F));
-    let R = h(n, r, i);
+    let R = h(t, r, i);
     E.scale.set(R, R, R);
-    let z = h(n, 0, Math.PI * 2),
-      B = o.degToRad(h(n, d, f));
+    let z = h(t, 0, Math.PI * 2),
+      B = a.degToRad(h(t, d, f));
     return (
       (j.rotation.z = B),
       (N.rotation.z = -B),
@@ -194,10 +194,10 @@ var BirdFlock = class {
       (E.userData.beak = k),
       (E.userData.tail = A),
       (E.userData.flapAngle = z),
-      (E.userData.flapSpeed = h(n, s, c)),
-      (E.userData.flapAmplitude = o.degToRad(h(n, l, u))),
+      (E.userData.flapSpeed = h(t, s, c)),
+      (E.userData.flapAmplitude = a.degToRad(h(t, l, u))),
       (E.userData.wingRest = B),
-      (E.userData.glidePhase = h(n, 0, Math.PI * 2)),
+      (E.userData.glidePhase = h(t, 0, Math.PI * 2)),
       this.setMode(E, BIRD_MODES.FLYING),
       E
     );

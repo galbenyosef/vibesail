@@ -1,5 +1,5 @@
 // IslandGenerator 03 — colors
-// Lines 589-742 of readable/assets/IslandGenerator-DZNI3CSt.pretty.js (statement-aligned).
+// Lines 590-743 of readable/assets/IslandGenerator-CwFNo9L2.pretty.js (statement-aligned).
 var DEFAULT_TERRAIN_PROFILE = {
     heightMultiplier: 30,
     noiseFrequency: 0.03,
@@ -15,7 +15,7 @@ var DEFAULT_TERRAIN_PROFILE = {
       rock: 8616814,
     },
   },
-  TERRAIN_PROFILES = {
+  IslandTerrain = {
     default: DEFAULT_TERRAIN_PROFILE,
     harbor: {
       heightMultiplier: 24,
@@ -150,7 +150,7 @@ var DEFAULT_TERRAIN_PROFILE = {
       },
     },
   };
-function he(e) {
-  let t = typeof e == `string` ? TERRAIN_PROFILES[e] : e;
+function Dock(e) {
+  let t = typeof e == `string` ? IslandTerrain[e] : e;
   return { ...DEFAULT_TERRAIN_PROFILE, ...(t || {}), colors: { ...DEFAULT_TERRAIN_PROFILE.colors, ...(t?.colors || {}) } };
 }

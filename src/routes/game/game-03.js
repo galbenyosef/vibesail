@@ -1,13 +1,46 @@
-// game 03 — usegoogle
-// Lines 694-942 of readable/assets/game-DaugXgrE.pretty.js (statement-aligned).
-function Ke({
-  currentBuildInfo: e = BUILD_INFO,
+// game 03 — addeventlistener
+// Lines 665-946 of readable/assets/game-wg-D5X70.pretty.js (statement-aligned).
+function Ge({
+  currentBuildInfo: e = UPDATE_NOTICE_STORAGE_KEY,
   documentRef: t = document,
   enabled: n = !0,
   fetchImpl: r = fetch,
-  intervalMs: i = VERSION_POLL_INTERVAL_MS,
+  versionUrl: i = Z,
+  windowRef: a = window,
+} = {}) {
+  if (!n || typeof a?.addEventListener != `function`) return () => {};
+  let o = !1,
+    s = !1,
+    c = (n) => {
+      (n?.preventDefault?.(),
+        !(o || s) &&
+          ((s = !0),
+          We({
+            currentBuildInfo: e,
+            documentRef: t,
+            fetchImpl: r,
+            sessionStorageRef: Ie(a),
+            versionUrl: i,
+            windowRef: a,
+          }).finally(() => {
+            s = !1;
+          })));
+    };
+  return (
+    a.addEventListener(`vite:preloadError`, c),
+    () => {
+      o || ((o = !0), a.removeEventListener?.(`vite:preloadError`, c));
+    }
+  );
+}
+function Ke({
+  currentBuildInfo: e = UPDATE_NOTICE_STORAGE_KEY,
+  documentRef: t = document,
+  enabled: n = !0,
+  fetchImpl: r = fetch,
+  intervalMs: i = Ae,
   recoverStaleAssets: a = !0,
-  versionUrl: o = VERSION_MANIFEST_URL,
+  versionUrl: o = Z,
   windowRef: s = window,
 } = {}) {
   if (!n) return () => {};
@@ -59,11 +92,11 @@ var H5ADS_PROVIDER_STORAGE_VALUE = `h5ads`,
   H5ADS_PROVIDER_GOOGLE = `google`,
   H5ADS_REWARD_MIN_MS = 2e3,
   H5ADS_REWARD_MAX_MS = 8e3,
-  H5ADS_PREVIEW_OVERLAY_ID = `h5-ads-preview-overlay`,
-  H5ADS_PREVIEW_REWARD_WRAP_ID = `h5-ads-preview-reward-wrap`,
-  H5ADS_READY_EVENTS = Object.freeze([`worldPlayableLoaded`, `worldFullyLoaded`]),
-  H5ADS_PREVIEW_TRUTHY_VALUES = new Set([`preview`, `1`, `true`, `on`, `yes`]),
-  et = [
+  H5ADS_PREVIEW_REWARD_WRAP_ID = `h5-ads-preview-overlay`,
+  H5ADS_READY_EVENTS = `h5-ads-preview-reward-wrap`,
+  H5ADS_PREVIEW_TRUTHY_VALUES = Object.freeze([`worldPlayableLoaded`, `worldFullyLoaded`]),
+  et = new Set([`preview`, `1`, `true`, `on`, `yes`]),
+  tt = [
     `position:fixed`,
     `inset:0`,
     `z-index:20000`,
@@ -75,7 +108,7 @@ var H5ADS_PROVIDER_STORAGE_VALUE = `h5ads`,
     `box-sizing:border-box`,
     `font-family:system-ui,sans-serif`,
   ].join(`;`),
-  tt = [
+  nt = [
     `position:relative`,
     `width:min(92vw,420px)`,
     `background:#0f172a`,
@@ -86,26 +119,26 @@ var H5ADS_PROVIDER_STORAGE_VALUE = `h5ads`,
     `box-shadow:0 20px 60px rgba(0,0,0,0.7)`,
     `text-align:center`,
   ].join(`;`);
-function nt(e) {
+function rt(e) {
   return e instanceof URLSearchParams ? e : new URLSearchParams(e || ``);
 }
-function rt(e) {
-  return H5ADS_PREVIEW_TRUTHY_VALUES.has(
+function it(e) {
+  return et.has(
     String(e || ``)
       .trim()
       .toLowerCase(),
   );
 }
-function it(e) {
-  return rt(nt(e).get(H5ADS_PROVIDER_STORAGE_VALUE));
-}
 function at(e) {
-  return rt(nt(e).get(H5ADS_PROVIDER_GOOGLE));
+  return it(rt(e).get(H5ADS_PROVIDER_STORAGE_VALUE));
 }
-function ot(e = Date.now()) {
+function ot(e) {
+  return it(rt(e).get(H5ADS_PROVIDER_GOOGLE));
+}
+function st(e = Date.now()) {
   return `h5ads-preview:${e}`;
 }
-function st({ playMs: e = 900, timers: t = globalThis, overlay: n } = {}) {
+function ct({ playMs: e = 900, timers: t = globalThis, overlay: n } = {}) {
   return function ({
     beforeAd: r,
     afterAd: i,
@@ -149,24 +182,24 @@ function st({ playMs: e = 900, timers: t = globalThis, overlay: n } = {}) {
     });
   };
 }
-function ct(e, t) {
+function lt(e, t) {
   if (typeof e.offerRewardedAd == `function`) return e.offerRewardedAd;
   if (e.useGoogle) {
     let t = w(e.googleProviderOptions || {});
     return (e) => t.offer(e);
   }
-  return st({ playMs: e.playMs, timers: e.timers, overlay: t });
+  return ct({ playMs: e.playMs, timers: e.timers, overlay: t });
 }
-function lt({ amount: e, useGoogle: t, doc: n }) {
-  n.getElementById(H5ADS_PREVIEW_OVERLAY_ID)?.remove();
+function ut({ amount: e, useGoogle: t, doc: n }) {
+  n.getElementById(H5ADS_PREVIEW_REWARD_WRAP_ID)?.remove();
   let r = n.createElement(`div`);
   return (
-    (r.id = H5ADS_PREVIEW_OVERLAY_ID),
+    (r.id = H5ADS_PREVIEW_REWARD_WRAP_ID),
     r.setAttribute(`role`, `dialog`),
     r.setAttribute(`aria-label`, `H5 ads preview`),
-    r.setAttribute(`style`, et),
+    r.setAttribute(`style`, tt),
     (r.innerHTML = `
-        <div data-h5-ads-preview-panel="1" style="${tt}">
+        <div data-h5-ads-preview-panel="1" style="${nt}">
             <p style="margin:0 0 8px;color:#3dff8a;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">H5 ads preview</p>
             <p class="race-complete-reward" style="margin:0 0 10px;color:#8fd98f;font-size:28px;font-weight:700">+$${e}</p>
             <p style="margin:0 0 16px;color:#cfe3ff;font-size:14px;line-height:1.4">${t ? `Requesting a real Google rewarded ad. The Watch Ad button stays hidden until Google has fill.` : `Fake finish — click Watch an ad. Add &google=1 to this URL for a real Google fill.`}</p>
@@ -182,44 +215,44 @@ function lt({ amount: e, useGoogle: t, doc: n }) {
     r
   );
 }
-function ut(e, t = {}) {
+function dt(e, t = {}) {
   let n = t.document ?? (typeof document < `u` ? document : null);
   if (!n?.body)
     return (console.warn(`[h5-ads] preview: document not ready`), !1);
   let r = Number(t.rewardAmount) || 100,
-    i = lt({ amount: r, useGoogle: t.useGoogle === !0, doc: n }),
+    i = ut({ amount: r, useGoogle: t.useGoogle === !0, doc: n }),
     a = i.querySelector(`.race-complete-reward`),
     o = e?.ui?.race,
     s = !1,
     c = t.useGoogle === !0 && t.persistGrant !== !1;
   return (
-    S({
+    x({
       rewardAmount: r,
       onDoubleReward: () => {
         if (s) return 0;
         let e = Number(o?.logisticsManager?.addReward?.(r)) || 0;
         return ((s = !0), e > 0 ? e : r);
       },
-      offerRewardedAd: ct(t, i),
+      offerRewardedAd: lt(t, i),
       placement: `h5-ads-preview`,
-      completionKey: ot(t.now),
+      completionKey: st(t.now),
       rewardSelector: a,
-      wrapId: H5ADS_PREVIEW_REWARD_WRAP_ID,
+      wrapId: H5ADS_READY_EVENTS,
       persistGrant: c,
     }),
     !0
   );
 }
-function dt(e, t = {}) {
+function ft(e, t = {}) {
   let n = Number.isFinite(t.delayMs) ? t.delayMs : H5ADS_REWARD_MIN_MS,
     r = Number.isFinite(t.fallbackMs) ? t.fallbackMs : H5ADS_REWARD_MAX_MS,
-    i = t.events || H5ADS_READY_EVENTS,
+    i = t.events || H5ADS_PREVIEW_TRUTHY_VALUES,
     a = t.target ?? (typeof window < `u` ? window : null),
     o = t.timers || globalThis,
     s = !1,
     c = null,
     l = null,
-    u = () => (s || !ut(e, t.previewOptions) ? !1 : ((s = !0), f(), !0)),
+    u = () => (s || !dt(e, t.previewOptions) ? !1 : ((s = !0), f(), !0)),
     d = () => {
       s || c != null || (c = o.setTimeout(u, Math.max(0, n)));
     },
@@ -238,14 +271,14 @@ function dt(e, t = {}) {
     { tryOpen: u, cleanup: f }
   );
 }
-function ft(e, t = {}) {
+function pt(e, t = {}) {
   let n = t.location ?? (typeof window < `u` ? window.location : null);
-  if (!e || !it(n?.search)) return !1;
-  let r = { useGoogle: at(n?.search), ...(t.previewOptions || {}) };
+  if (!e || !at(n?.search)) return !1;
+  let r = { useGoogle: ot(n?.search), ...(t.previewOptions || {}) };
   return (
-    (e.previewH5RewardedAd = (t = {}) => ut(e, { ...r, ...t })),
-    dt(e, { ...t, previewOptions: r }),
+    (e.previewH5RewardedAd = (t = {}) => dt(e, { ...r, ...t })),
+    ft(e, { ...t, previewOptions: r }),
     !0
   );
 }
-var $ = supportsVersionProbe(window.location);
+var $ = F(window.location);

@@ -1,0 +1,110 @@
+.race-complete-double {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  width: 100%;
+  margin: 0.65rem 0 0;
+  display: flex;
+}
+.race-complete-double[hidden] {
+  display: none !important;
+}
+.race-complete-double-btn {
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  display: inline-flex;
+}
+.race-complete-double-btn[hidden] {
+  display: none !important;
+}
+.race-complete-body .race-complete-double:not([hidden]) {
+  z-index: 2;
+  position: sticky;
+  top: 8px;
+}
+.race-complete-reward[hidden],
+.logistics-completion-reward[hidden] {
+  display: none !important;
+}
+.race-complete-body .race-complete-double-btn {
+  min-height: 48px;
+  font-weight: 700;
+}
+.race-complete-double-ad-icon {
+  flex: none;
+  display: block;
+}
+.race-complete-double-ad-label {
+  text-align: center;
+  min-width: 0;
+}
+.race-complete-double-status {
+  color: #ffffffb8;
+  text-align: center;
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+.race-complete-double-status[data-tone="warning"] {
+  color: #ffd56a;
+}
+.race-complete-double-note {
+  color: #ffffff9e;
+  text-align: center;
+  max-width: 26rem;
+  margin: 0 0 2px;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+.race-complete-double-note[hidden] {
+  display: none !important;
+}
+.race-complete-double-receipt {
+  flex-direction: column;
+  width: 100%;
+  margin: 0 0 8px;
+  display: flex;
+}
+.race-complete-double-receipt[hidden] {
+  display: none !important;
+}
+.race-complete-double-row {
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 3px 0;
+  display: flex;
+}
+.race-complete-double-label {
+  color: #ffffff9e;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+}
+.race-complete-double-amount {
+  color: #8fd98f;
+  font-variant-numeric: tabular-nums;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.race-complete-double-total {
+  border-top: 1px solid #ffffff29;
+  margin-top: 4px;
+  padding-top: 8px;
+}
+.race-complete-double-total .race-complete-double-label {
+  color: #fff;
+  font-size: 13px;
+}
+.race-complete-double-total .race-complete-double-amount {
+  color: #fff;
+  font-size: 22px;
+}
+.race-complete-body .race-complete-double.race-complete-double-settled {
+  position: static;
+}

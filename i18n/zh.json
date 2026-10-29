@@ -185,11 +185,6 @@
     "copy_link": "复制链接",
     "copied": "已复制！",
     "reward": "+${amount}",
-    "verification_unavailable_later": "无法验证。请关闭后稍后再试。",
-    "running_cloudflare_check": "正在进行 Cloudflare 验证…",
-    "complete_cloudflare_check": "请完成下方的 Cloudflare 验证以继续。",
-    "verification_failed_retry": "验证失败。请重试或关闭。",
-    "verification_unavailable_retry": "无法验证。请重试或关闭。",
     "submitting_record": "正在提交成绩…",
     "submit_failed": "提交成绩失败。请重试。",
     "submit_failed_again": "提交成绩失败。请再试一次。",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "切换到{next}",
     "double_reward_cta": "观看广告即可翻倍（+${amount}）",
     "double_reward_watching": "正在播放广告...",
-    "double_reward_done": "已翻倍至 +${amount}",
-    "double_reward_skipped": "已跳过广告。奖励不变。"
+    "double_reward_skipped": "已跳过广告。奖励不变。",
+    "double_reward_cancel_note": "关闭或跳过视频会取消额外奖励。",
+    "double_reward_race_label": "比赛",
+    "double_reward_reward_label": "奖励",
+    "double_reward_ad_label": "广告",
+    "double_reward_total_label": "合计"
   },
   "mobile": {
     "rudder": "舵",
@@ -264,7 +263,6 @@
     "page_title": "探索世界 | VibeSail",
     "title": "选择你的航海水域",
     "subtitle": "选择一个地点或点击水面上的任意位置，在逼真的3D世界中扬帆起航。",
-    "set_sail": "启航",
-    "link_simulator": "在船只模拟器里航行"
+    "set_sail": "启航"
   }
 }

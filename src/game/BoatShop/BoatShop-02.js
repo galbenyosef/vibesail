@@ -1,9 +1,9 @@
 // BoatShop 02 — appendchild
-// Lines 234-679 of readable/assets/BoatShop-SaUBreAv.pretty.js (statement-aligned).
+// Lines 234-679 of readable/assets/BoatShop-SpknYdP-.pretty.js (statement-aligned).
 var S = class {
   constructor(e) {
     ((this.controller = e),
-      (this.overlaySystem = d()),
+      (this.overlaySystem = p()),
       (this.visible = !1),
       (this.currentBalance = 0),
       (this.preview = null),
@@ -38,7 +38,7 @@ var S = class {
       (s.className = `boat-shop-title`),
       o.appendChild(s));
     let c = document.createElement(`div`);
-    ((c.textContent = `Boat: ${b(p.boat)}  •  Extra skin: ${b(p.variant)}`),
+    ((c.textContent = `Boat: ${b(f.boat)}  •  Extra skin: ${b(f.variant)}`),
       (c.className = `boat-shop-sub`),
       o.appendChild(c));
     let l = document.createElement(`div`);
@@ -56,7 +56,7 @@ var S = class {
       d.appendChild(u),
       a.appendChild(o),
       a.appendChild(d));
-    let f = (e, t) => {
+    let p = (e, t) => {
         let n = document.createElement(`button`);
         return (
           (n.type = `button`),
@@ -74,8 +74,8 @@ var S = class {
           n
         );
       },
-      m = f(`‹`, `prev`),
-      h = f(`›`, `next`),
+      m = p(`‹`, `prev`),
+      h = p(`›`, `next`),
       g = document.createElement(`div`);
     g.className = `boat-shop-bottom-hud`;
     let _ = document.createElement(`div`);
@@ -277,7 +277,7 @@ var S = class {
         ? a.push(`Owned`)
         : e.storeState === `teaser`
           ? a.push(`Coming Soon`)
-          : a.push(b(e.unlockPolicy?.price || p.boat)),
+          : a.push(b(e.unlockPolicy?.price || f.boat)),
       e.variants.length > 0 && a.push(`${e.variants.length} skins`)),
       (this.elements.selectedSummary.textContent = a.join(`  •  `)));
   }
@@ -349,15 +349,15 @@ var S = class {
         ((t.textContent = `Coming Soon`), x(t, !0));
         return;
       }
-      let n = e.unlockPolicy?.price || p.boat;
+      let n = e.unlockPolicy?.price || f.boat;
       ((t.textContent = `Buy Boat • ${b(n)}`),
         x(t, this.currentBalance < n),
         t.disabled || t.classList.add(`affordable`));
       return;
     }
     if (n && !r) {
-      ((t.textContent = `Buy Skin • ${b(p.variant)}`),
-        x(t, this.currentBalance < p.variant),
+      ((t.textContent = `Buy Skin • ${b(f.variant)}`),
+        x(t, this.currentBalance < f.variant),
         t.disabled || t.classList.add(`affordable`));
       return;
     }

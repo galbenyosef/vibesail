@@ -31,8 +31,8 @@ world map of real cities (Google 3D tiles) with other sailors' boats on the
 water. Vite multi-page build whose game chunk carries the three.js renderer and
 model loaders. Captured whole — entry, all 108 pages, the full chunk graph, the
 model/texture/audio/font payloads, the Draco decoder, the MapLibre worker, the
-country-flag family and the i18n JSONs: 410 files, ~18.7 MB, byte-exact
-(`.upstream/manifest.json`).
+country-flag family and the i18n JSONs: 411 files, ~19.9 MB, byte-exact
+(`.upstream/manifest.json`; refreshed 2026-10-29).
 
 External at runtime (never captured, never backfilled — documented gaps):
 
@@ -55,7 +55,7 @@ External at runtime (never captured, never backfilled — documented gaps):
   **served path structure**: 87 JS pretties (`readable/assets/*.pretty.js`,
   `readable/maplibre/*.pretty.js`, `readable/pwa-worker.pretty.js`), 15 CSS pretties and
   339 inline-block twins under their page directory (`readable/<page>/…-inline-N.pretty.js`)
-- `src/` + `split-spec.json` — a **real tree** of 177 statement-aligned slices across
+- `src/` + `split-spec.json` — a **real tree** of 188 statement-aligned slices across
   74 app chunks: `src/routes/<route>/` (HTML-evidenced page entries: home, game, race,
   leaderboard, blog, blog-post, daily-race-replay, 2025recap, advertise, contact,
   feedback), `src/game/<Name>/` (41 modules reachable from three.js/Game: Game,
@@ -82,6 +82,9 @@ External at runtime (never captured, never backfilled — documented gaps):
 - `tools/audit.js` — integrity gate for the derived layers (`AUDIT PASS`)
 - `legacy/2026-10-14/` — the superseded flat derived layers (224 slices, `__`-flattened
   readable names, split-spec, derive v1)
+- `legacy/2026-10-29/capture/` — the 78 capture files the 2026-10-29 upstream rebuild
+  replaced or stopped serving (37 replaced, 41 rehashed away), preserved at their
+  served paths; git history is the rollback for everything else
 - `_mirror-report.json` — capture record (paths, 404s, external hosts)
 - `docs/` — boot + gameplay evidence screenshots
 
@@ -108,13 +111,14 @@ sits at the repo root — `/assets/x.js` → `assets/x.js`, `/game` →
   `assets/sponsored-locations/` (8), `assets/world-signs/` (31 signs),
   `assets/cities/` (11 city thumbnails), `assets/icons/` (PWA icons),
   `favicon.ico`
-- **data** — 22 file(s): `i18n/` (14 language JSONs + config.json),
-  `version.json`, `manifest.webmanifest`, `sitemap.xml`, `robots.txt`
-- **vendor** — 9 file(s): `assets/three.module-BgyKfsEV.js`,
-  `assets/GLTFLoader-C2oC7w8g.js`, `assets/DRACOLoader-XlKGmd74.js`,
-  `assets/MTLLoader-Dw3w9IRM.js`, `assets/draco/` (decoder js + wasm + wrapper),
+- **data** — 21 file(s): `i18n/` (14 language JSONs + config.json),
+  `version.json`, `manifest.webmanifest`, `sitemap.xml`, `robots.txt`,
+  `assets/geo/egm96-15.bin` (the EGM96 geoid grid the 2026-10-29 build added)
+- **vendor** — 9 file(s): `assets/three.module-CUNolavI.js`,
+  `assets/GLTFLoader-Cf6urCJj.js`, `assets/DRACOLoader-DuamzO37.js`,
+  `assets/MTLLoader-C86AYmNc.js`, `assets/draco/` (decoder js + wasm + wrapper),
   `maplibre/` (worker + shared); plus the vendor-dominated `/world` chunk
-  `assets/world-DPn3WgXw.js` (Leaflet 1.9.4 + MapLibre GL + app code, indexed
+  `assets/world-DPMIL7l5.js` (Leaflet 1.9.4 + MapLibre GL + app code, indexed
   whole-file — see split-spec.json)
 
 ## Run
@@ -129,6 +133,19 @@ npx serve .
 Then open `http://localhost:3000/` (or `/game` for the game). The 3D game,
 sail physics, tutorial and world map run fully from the mirror; account,
 leaderboard and geo-model features call the external backends above.
+
+## Boot test (2026-10-29, after the refresh)
+
+- Entry: `http://127.0.0.1:4726/game` served by `tools/serve.mjs` with the network blocked (`MAP * 127.0.0.1`).
+- Outcome: **rendered** — the refreshed build loaded with the boat on the water among islands (1.8 knots, heading 312°, wind +88°); clicking **Start Tutorial** entered the tutorial HUD ("Tap anywhere to start the tutorial", rudder/sail controls).
+- Evidence: body 417 chars; canvas 1262x568; 0 console errors; 0 failed
+  same-origin requests (96 server requests, all 200), 6 blocked cross-origin;
+  screenshot `docs/boot-2026-10-29-refresh.png`.
+- Gaps seen: none. The only offline losses were external analytics/ad/geo
+  endpoints (fonts.googleapis.com, api.vibesail.com, PostHog assets, GTM,
+  simple.vibesail.com, ahrefs) and the multiplayer WebSocket
+  (`wss://ws-server.vibesail.com`, closes 1006 → single-player mode), all
+  expected under the blocked-network rule.
 
 ## Boot test (2026-10-27)
 
@@ -151,8 +168,9 @@ node tools/check-exports.mjs                 # the derived layer still exports e
 node tools/derive.mjs --check          # the derived layer is current? (compares a fresh rebuild; writes NOTHING)
 ```
 
-A full rebuild is deterministic and byte-identical (verified 2026-10-14: two
-consecutive rebuilds, 621 files, 0 differences):
+A full rebuild is deterministic and byte-identical (re-verified 2026-10-29 by
+`node tools/derive.mjs --check`: a fresh rebuild chain matches the committed
+tree, 631 derived files, 0 differences):
 
 ```
 node tools/derive.mjs && node tools/apply-names.mjs --all && node tools/recover-scoped-map.mjs --from-names
@@ -165,7 +183,7 @@ covered (no derived text)`**. Before this pass it printed `59 export table(s) ch
 `19 export table(s) NOT covered`.
 
 **What was uncovered.** Ten of the nineteen were the *served chunks* this mirror keeps whole under
-the vendor rule — `assets/auto-CBo2XcXh.js` (Chart.js), `assets/three.module-BgyKfsEV.js`,
+the vendor rule — `assets/auto-CBo2XcXh.js` (Chart.js), `assets/three.module-CUNolavI.js`,
 `assets/DRACOLoader-*.js`, `assets/GLTFLoader-*.js`, `assets/MTLLoader-*.js`,
 `assets/chunk-QTnfLwEv.js`, `assets/defineProperty-*.js`, `maplibre/maplibre-gl-shared.mjs`,
 `maplibre/maplibre-gl-worker.mjs` and the vendor band of `assets/GoogleTilesLoader-*.js`. Each is a
@@ -216,6 +234,95 @@ The probe never rewrites the capture — a mirror is a point-in-time snapshot.
 fixpoint); a refresh means re-running it into a clean tree, copying replaced
 files to `legacy/<date>/` first, re-cutting the manifest, and re-deriving
 `readable/` + `src/` with `node tools/derive.mjs`.
+
+### 2026-10-29 refresh from the live origin
+
+The fleet drift probe found 37 of the 410 captured files changed upstream and 41
+no longer served (the upstream Vite build rehashed its chunk graph). The mirror
+was refreshed in a clean tree, files first.
+
+- **Probe** — `node tools/update.mjs` → `37 changed, 41 live-missing (of 410)`;
+  the JSON form (`.capture-tmp/probe.json`, scratch only) is what the refresh
+  diffed against.
+- **Preserved** — the 37 replaced and 41 dropped capture files were copied to
+  `legacy/2026-10-29/capture/<served path>` before anything was overwritten, so
+  every superseded byte is still on disk as well as in git history.
+- **Capture** — `node tools/capture.mjs --refresh --manifest` after removing
+  `.capture-tmp/state.json` (a fresh closure, so files gone upstream cannot
+  linger in the manifest). Result: **411 files, 20,836,139 bytes (~19.9 MB)**,
+  508 requests, 97 unreachable records (the same alternate-spelling 404 noise as
+  the first capture) and 14 external hosts. Added 42, dropped 41, changed 37.
+- **Added** — 41 rehashed chunk files plus one genuinely new runtime asset,
+  `assets/geo/egm96-15.bin` (the EGM96 geoid grid, now part of the chunk
+  closure). Changed: the 16 page documents that load the new chunks, the i18n
+  JSONs, `sitemap.xml` and `version.json`.
+- **Gone upstream (41 files, superseded by rehashed names — no feature dropped)**,
+  removed from the served tree after preserving them under
+  `legacy/2026-10-29/capture/`; none was replaced by a hand-written substitute:
+
+  ```
+  assets/Advertisement-D60LkU06.js        assets/PerformanceMonitor-CwOrhyRP.js
+  assets/Birds-DHEcQo9w.js                 assets/PirateHuntManager-B5ipnDt7.js
+  assets/Blimp-CsqFvrq-.js                 assets/Portal-DAOSX3nf.js
+  assets/BoatModel-Cf2RVdWT.js             assets/SeaCreatures-C5ijwC34.js
+  assets/BoatShop-SaUBreAv.js              assets/SettingsMenu-DL9R7A1C.js
+  assets/CannonSystem-8nVBpQ-O.js          assets/SharedTextureLoader-BkelxMVX.js
+  assets/CargoShip-DSMEqWta.js             assets/TargetColumn-DnYYEURe.js
+  assets/DRACOLoader-XlKGmd74.js           assets/TutorialManager-iD72X4OM.js
+  assets/DataModels-DjmBwyzI.js            assets/VectorUtils-ZPUW1jx-.js
+  assets/FloatingWorldProp--a8_muYf.js     assets/WorldDefinitionBuilder-CjRtTnhK.js
+  assets/GLTFLoader-C2oC7w8g.js            assets/Yacht-OEQr2DjX.js
+  assets/Game-CrsSKcAK.js                  assets/advertise-BI8u_-IP.js
+  assets/GeometryGuards-BGRyriw5.js        assets/daily-race-replay-DM0sgZc-.js
+  assets/GoogleTilesLoader-Ba1pGT7V.js     assets/game-DaugXgrE.js
+  assets/HighSeaModeManager-BEvC6iXw.js    assets/game-DnL7bd1B.css
+  assets/IslandGenerator-DZNI3CSt.js       assets/game-TtaQJEzj.css
+  assets/LogisticsManager-DugCgbD8.js      assets/main-DT7pZ34g.js
+  assets/LogisticsUI-DWG9W15h.js           assets/signConfigs-BxvGsz9k.js
+  assets/MTLLoader-Dw3w9IRM.js             assets/three.module-BgyKfsEV.js
+  assets/MultiplayerManager-CgzUu3MG.js    assets/world-B9kkcg8l.css
+                                           assets/world-DPn3WgXw.js
+  ```
+
+  Each has a current counterpart under a new content hash (e.g.
+  `Game-CrsSKcAK` → `Game-BK-SaWAR`, `three.module-BgyKfsEV` →
+  `three.module-CUNolavI`, `world-DPn3WgXw` → `world-DPMIL7l5`); the two
+  `game-*.css` files map to `game-BcEmz-ev.css` / `game-b1wtmtds.css`.
+- **Rekeyed tooling (per-build records)** — the derive, audit and
+  `tools/names.json` record chunk names by content hash, so the 38 rehashed
+  chunk references were remapped to the new build. Two latent tool bugs the new
+  code surfaced were fixed while doing it: `tools/derive.mjs` now ranks/compares
+  chunks by hash-stripped module name and its module-collision guard is
+  case-insensitive (Windows checkouts collided `site/game` with `site/Game`);
+  `tools/engine/rename-layer.mjs` no longer mistakes the consequent of a ternary
+  (`n * Ra : …`) for an object key when replaying a recorded rename.
+- **Re-derived** — `node tools/derive.mjs && node tools/apply-names.mjs --all &&
+  node tools/recover-scoped-map.mjs --from-names` → 441 readable files
+  (87 JS pretties, 15 CSS pretties, 426 JS parse clean, 339 inline twins),
+  188/188 statement-aligned src slices across 74 app chunks, 59 skipped
+  export-tail sections, 368 wholeFile/index-only sections, 295 notRendered data
+  blocks, 0 orphans. `rename-map.json` regenerated from scratch (not merged):
+  110 renamed slices — 86 flat maps, 58 index-pinned. The upstream build's new
+  export tables expose 9 Game-chunk and 2 BoatModel locals that the reviewed
+  rules used to rename; the writer now skips exported locals by policy
+  (`tools/apply-names.mjs`), so those keep the bundle's spelling and the public
+  API stays intact — 11 rules are skipped per build, no rule was deleted.
+- **Gates** — `verify.mjs` → `411 files checked, 0 problems`; `audit.js` →
+  `AUDIT PASS — 615 spec sections (188/188 src↔pretty round-trips byte-exact,
+  110 through the recorded rename map, 441/441 pretties tiled, 188/188 src slices
+  + 426/426 pretties parse standalone, 441/441 pretties re-render byte-exact,
+  427 index-only sections carry no src file, 763 recorded rename occurrences
+  (export-table locals protected), 433 inline content blocks, 237/241 imports
+  resolve (4 whitelisted machinery), capture manifest free of derived layers)`;
+  `verify-rename.mjs` on all 110 renamed slices → `reproduces slice: YES`,
+  `references ok: YES`, `bindings ok: YES`; `check-chunk.mjs` → `cross-slice
+  calls resolve: YES` for all 74 chunks, public export names preserved;
+  `check-exports.mjs` → `69 export table(s) checked`, `9 NOT covered`, `no public
+  export name lost`; `derive.mjs --check` → `DERIVE CHECK PASS`.
+- **Boot** — see the 2026-10-29 boot record above: rendered from the refreshed
+  capture with the network blocked.
+- **Notices** — `AUDIT.md` and the shared index are coordinator-owned and were
+  not touched; the fleet-status block below is the only shared surface updated.
 
 ### 2026-10-13 capture + readable/src derivation
 

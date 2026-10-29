@@ -311,7 +311,13 @@ export function applyRecord(text, rec) {
       prev && prev.t === "pun" && prev.v === "." && toks[i - 2] && toks[i - 2].t === "pun" && toks[i - 2].v === ".";
     if (prev && prev.t === "pun" && prev.v !== "?" && (prev.v === "." || prev.v === "?.") && !isSpread) continue;
     const next = toks[i + 1];
-    if (next && next.t === "pun" && next.v === ":" && !(prev && prev.t === "pun" && prev.v === "?")) continue;
+    // Object-literal key (`{ a: 1 }`, `{ x, a: 1 }`, class body) or a label: the
+    // colon starts the element, so the token before it is `{`, `,`, `;` or `}`.
+    // A ternary `cond ? a : b` also has `:` after `a`, but its previous token is
+    // an operator or a value (`n * Ra : …`), which must still be renamed.
+    const keyStart =
+      !prev || prev.t === "id" || prev.t === "kw" || (prev.t === "pun" && (prev.v === "{" || prev.v === "," || prev.v === ";" || prev.v === "}"));
+    if (next && next.t === "pun" && next.v === ":" && keyStart) continue;
     reps.push({ s: tk.s, e: tk.e, to: flat[tk.v] });
   }
   return spliceTokens(text, reps);

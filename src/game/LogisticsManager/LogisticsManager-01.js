@@ -1,10 +1,10 @@
 // LogisticsManager 01 — routetype
-// Lines 1-266 of readable/assets/LogisticsManager-DugCgbD8.pretty.js (statement-aligned).
+// Lines 1-266 of readable/assets/LogisticsManager-Bb1kkPAa.pretty.js (statement-aligned).
 import { r as e } from "./chunk-QTnfLwEv.js";
 import { r as t } from "./RuntimeEnvironment-BAaLbeCv.js";
-import { in as n, ot as r } from "./three.module-BgyKfsEV.js";
-import { D as i, u as a } from "./Game-CrsSKcAK.js";
-import { n as o } from "./WorldDefinitionBuilder-CjRtTnhK.js";
+import { ct as n, sn as r } from "./three.module-CUNolavI.js";
+import { j as i, u as a } from "./Game-BK-SaWAR.js";
+import { n as o } from "./WorldDefinitionBuilder-Bu5XtOsC.js";
 import { t as s } from "./KeyboardManager-DVLZ3teY.js";
 import { i as c } from "./RaceConfig-BiFwKzq8.js";
 import { t as l } from "./LocalCache-DHomYmcY.js";
@@ -61,35 +61,35 @@ var MissionGenerator = class {
       let e = this.world?.getDocks?.() || [];
       if (!Array.isArray(e) || e.length === 0) return;
       let t = this.world?.islandGenerator?.getIslandInstances?.() || [],
-        r = this._buildGenerationKey(e, t);
-      if (this._generated && r === this._generationKey) return;
+        n = this._buildGenerationKey(e, t);
+      if (this._generated && n === this._generationKey) return;
       this._dockMissions.clear();
       let i = e.map((e) => {
         try {
-          let t = new n();
+          let t = new r();
           return (e?.dockingCircle?.getWorldPosition(t), t);
         } catch {
           return null;
         }
       });
-      for (let n = 0; n < e.length; n++) {
-        let a = e[n];
+      for (let r = 0; r < e.length; r++) {
+        let a = e[r];
         if (!a) continue;
         let o = a.islandIndex,
-          s = i[n];
+          s = i[r];
         if (!s) continue;
-        let c = (0, u.default)(`${this.seed}:${r}:${n}`),
+        let c = (0, u.default)(`${this.seed}:${n}:${r}`),
           l = [];
-        for (let r = 0; r < e.length; r++) {
-          if (r === n || (this.excludeSameIsland && e[r]?.islandIndex === o))
+        for (let n = 0; n < e.length; n++) {
+          if (n === r || (this.excludeSameIsland && e[n]?.islandIndex === o))
             continue;
-          let u = i[r];
+          let u = i[n];
           if (!u) continue;
           let d = s.distanceTo(u),
             f = this._classifyDockZone(a, t),
-            p = this._classifyDockZone(e[r], t);
+            p = this._classifyDockZone(e[n], t);
           l.push({
-            d: r,
+            d: n,
             dist: d,
             originZone: f,
             destinationZone: p,
@@ -98,7 +98,7 @@ var MissionGenerator = class {
           });
         }
         if (l.length === 0) {
-          this._dockMissions.set(n, []);
+          this._dockMissions.set(r, []);
           continue;
         }
         let p = this._buildMissionSlots(a, t),
@@ -107,24 +107,24 @@ var MissionGenerator = class {
             this.missionsPerDock,
           ),
           h = [];
-        for (let r = 0; r < m.length; r++) {
+        for (let n = 0; n < m.length; n++) {
           let {
               d: a,
               dist: o,
               originZone: s,
               destinationZone: l,
               routeType: u,
-            } = m[r],
+            } = m[n],
             p = e[a],
             g = i[a],
             _ = o / 1e3,
             v = Math.round(80 + _ * 120),
-            y = m[r].contract || CARGO_TYPES[0],
+            y = m[n].contract || CARGO_TYPES[0],
             b = Math.max(10, Math.round(v * y.rewardMultiplier)),
             x = this._generateCargoName(c),
             S = this._formatDestinationName(p, t);
           h.push({
-            id: `dock${n}-to-${a}`,
+            id: `dock${r}-to-${a}`,
             name: x,
             contractType: y.id,
             contractLabel: y.label,
@@ -138,26 +138,26 @@ var MissionGenerator = class {
             destinationZone: l,
             routeType: u,
             distanceMeters: Math.round(o),
-            sourceDockIndex: n,
+            sourceDockIndex: r,
             destinationDockIndex: a,
             targetPosition: { x: g.x, y: g.y, z: g.z },
           });
         }
-        this._dockMissions.set(n, h);
+        this._dockMissions.set(r, h);
       }
-      ((this._generationKey = r), (this._generated = !0));
+      ((this._generationKey = n), (this._generated = !0));
     }
     _buildGenerationKey(e, t) {
       return e
-        .map((e, r) => {
+        .map((e, n) => {
           let i = this._classifyDockZone(e, t),
-            a = new n();
+            a = new r();
           try {
             e?.dockingCircle?.getWorldPosition(a);
           } catch {
             a.set(0, 0, 0);
           }
-          return `${r}:${e?.islandIndex ?? `x`}:${i}:${Math.round(a.x)}:${Math.round(a.z)}`;
+          return `${n}:${e?.islandIndex ?? `x`}:${i}:${Math.round(a.x)}:${Math.round(a.z)}`;
         })
         .join(`|`);
     }
@@ -215,17 +215,17 @@ var MissionGenerator = class {
       try {
         let t = this.world?.getDocks?.() || [];
         if (!e || t.length === 0) return null;
-        let r = -1,
+        let n = -1,
           i = 1 / 0,
-          a = new n();
-        for (let n = 0; n < t.length; n++) {
-          t[n]?.dockingCircle?.getWorldPosition(a);
+          a = new r();
+        for (let r = 0; r < t.length; r++) {
+          t[r]?.dockingCircle?.getWorldPosition(a);
           let o = (a.x || 0) - e.x,
             s = (a.z || 0) - e.z,
             c = Math.sqrt(o * o + s * s);
-          c < i && ((i = c), (r = n));
+          c < i && ((i = c), (n = r));
         }
-        return r < 0 ? null : { dock: t[r], index: r };
+        return n < 0 ? null : { dock: t[n], index: n };
       } catch {
         return null;
       }

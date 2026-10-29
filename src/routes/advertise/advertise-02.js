@@ -1,5 +1,5 @@
 // advertise 02 — yachts
-// Lines 342-644 of readable/assets/advertise-BI8u_-IP.pretty.js (statement-aligned).
+// Lines 342-644 of readable/assets/advertise-JgD2U5Yf.pretty.js (statement-aligned).
 function W(e, { href: t, text: n, target: r, rel: i }) {
   let a = e.createElement(`a`);
   return (

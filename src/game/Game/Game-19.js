@@ -1,1031 +1,366 @@
-// Game 19 — style
-// Lines 7757-8785 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var RaceHudFacade = class {
-    constructor() {
-      ((this.timer = new RaceTimerOverlay()),
-        (this.countdown = new RaceCountdownOverlay()),
-        (this.leaderboard = new RaceLeaderboardModal()),
-        (this.challengePanel = new RaceCompletionModal()),
-        (this.startCountdown = new RaceStartCountdown()),
-        (this.regattaStart = new RaceHud()),
-        (this.race = null));
+// Game 19 — documentref
+// Lines 7181-7544 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+var zi = class {
+    constructor(e = {}) {
+      ((this.documentRef =
+        e.documentRef ?? (typeof document < `u` ? document : null)),
+        (this._roots = null),
+        (this._idCounter = 0),
+        (this._toasts = new Map()),
+        (this._banners = new Map()),
+        (this._modals = new Map()),
+        (this._announcements = new Map()));
     }
-    setRace(e) {
-      ((this.race = e),
-        this.timer.setRace(e),
-        this.countdown.setRace(e),
-        this.leaderboard.setRace(e),
-        this.challengePanel.setRace(e),
-        this.regattaStart.setRace(e));
-    }
-    initialize() {
-      (this.challengePanel.createChallengePanel(), this.timer.initialize());
-    }
-    updateTimerDisplay(e) {
-      this.timer.updateTimerDisplay(e);
-    }
-    startCountdown(e, t) {
-      this.countdown.startCountdown(e, t);
-    }
-    showLeaderboard(e, t, n, r, i = 0) {
-      this.leaderboard.showLeaderboard(e, t, n, r, i);
-    }
-    showLeaderboardLoading(e = 0) {
-      return this.leaderboard.showLoading(e);
-    }
-    showLeaderboardError(e, t = 0) {
-      this.leaderboard.showError(e, t);
-    }
-    hideLeaderboard() {
-      this.leaderboard.hide();
-    }
-    isLeaderboardVisible() {
-      return this.leaderboard.isVisible();
-    }
-    updateRaceButton(e) {
-      this.challengePanel.updateRaceButton(e);
-    }
-    navigateRaceAgain() {
-      this.challengePanel.navigateRaceAgain();
-    }
-    showCompletionModal(e, t, n, r, i, a, o, s = {}) {
-      (this.challengePanel.showCompletionModal(e, t, n, r, i, a, o, s),
-        bi({
-          rewardAmount: a,
-          onDoubleReward: s?.onDoubleReward,
-          offerRewardedAd: s?.offerRewardedAd,
-          completionKey: s?.rewardedCompletionKey,
-        }));
-    }
-    updateSubmissionStatus(e, t, n = null) {
-      this.challengePanel.updateSubmissionStatus(e, t, n);
-    }
-    showIncompleteModal(e = {}) {
-      this.challengePanel.showIncompleteModal(e);
-    }
-    clearRaceUI() {
-      (this.countdown.hideCountdown(),
-        this.startCountdown.hideCountdown(),
-        this.regattaStart.hide(),
-        this.timer.hideTimer(),
-        this.updateRaceButton(!1));
-    }
-    showStartCountdown(e) {
-      this.startCountdown.showStartCountdown(e);
-    }
-    showRegattaStart(e) {
-      this.regattaStart.show(e);
-    }
-    updateRegattaStart(e, t) {
-      this.regattaStart.update(e, t);
-    }
-    hideRegattaStart() {
-      this.regattaStart.hide();
-    }
-  },
-  Si = class {
-    constructor({ accessTokenProvider: e } = {}) {
-      ((this.recordCountCache = new Map()),
-        (this.cacheTimeout = 60 * 1e3),
-        (this.isDevMode = h()),
-        (this.baseApiUrl = p()),
-        (this.turnstileSiteKey = f()),
-        (this.debugMode = this.isDevMode),
-        (this.accessTokenProvider = e || null));
-    }
-    async _resolveAuthHeaders() {
-      if (typeof this.accessTokenProvider != `function`) return {};
-      try {
-        let e = await this.accessTokenProvider();
-        return e ? { Authorization: `Bearer ${e}` } : {};
-      } catch {
-        return {};
-      }
-    }
-    getRecordsEndpoint() {
-      return `${this.baseApiUrl}/records`;
-    }
-    getBestTimesEndpoint() {
-      return `${this.baseApiUrl}/best-times`;
-    }
-    getRecordCountEndpoint() {
-      return `${this.baseApiUrl}/records/count`;
-    }
-    getGhostsEndpoint() {
-      return `${this.baseApiUrl}/ghosts`;
-    }
-    getHighSeaRunsEndpoint() {
-      return `${this.baseApiUrl}/highsea/runs`;
-    }
-    getHighSeaGhostsEndpoint() {
-      return `${this.baseApiUrl}/highsea/ghosts`;
-    }
-    async submitRecord(e, t, n, r = ``, i = null, a = 0, o = {}) {
-      let s = String(e || ``).trim();
-      _(`playerCountry`, s);
-      let c = y(`sessionId`);
-      c ||
-        ((c =
-          `session_` +
-          Date.now() +
-          `_` +
-          Math.random().toString(36).substring(2, 15)),
-        _(`sessionId`, c));
-      let l = this.formatTime(t),
-        u = {
-          sailing_time: t,
-          country: s || `Unknown`,
-          track_id: n,
-          cf_turnstile_token: r,
-          ghost_data: i,
-          ghost_version: a,
-          _metadata: {
-            sessionId: c,
-            timeFormatted: l,
-            timestamp: new Date().toISOString(),
-            environment: window.location.hostname,
-            userAgent: navigator.userAgent,
-            ...o,
-          },
-        };
-      try {
-        console.debug(`Submitting record to API with data:`, {
-          time: t,
-          track: n,
-          hasToken: !!r,
-          tokenLength: r ? r.length : 0,
-        });
-        let e = await this._resolveAuthHeaders(),
-          i = await fetch(this.getRecordsEndpoint(), {
-            method: `POST`,
-            headers: { "Content-Type": `application/json`, ...e },
-            credentials: `omit`,
-            mode: `cors`,
-            cache: `no-store`,
-            body: JSON.stringify(u),
-          });
-        if (!i.ok) {
-          let e = await i.text().catch(() => ``),
-            t = { detail: e || `Unknown error` };
-          if (e)
-            try {
-              t = JSON.parse(e);
-            } catch {}
-          console.error(`API error response:`, t);
-          let n = `API error: `;
-          throw (
-            typeof t == `string`
-              ? (n += t)
-              : t && t.detail
-                ? (n +=
-                    typeof t.detail == `string`
-                      ? t.detail
-                      : JSON.stringify(t.detail))
-                : (n += e || JSON.stringify(t)),
-            Error(n)
+    _ensureRoots() {
+      if (!this.documentRef?.body) return !1;
+      let e = (e, t) => {
+          let n = this.documentRef.getElementById(e);
+          return (
+            n ||
+            ((n = this.documentRef.createElement(`div`)),
+            (n.id = e),
+            (n.className = t),
+            this.documentRef.body.appendChild(n),
+            n)
           );
-        }
-        return await i.json();
-      } catch (e) {
-        throw (
-          console.error(`Error submitting record:`, e),
-          e instanceof TypeError
-            ? Error(
-                `Network/CORS error while submitting record. Please retry in a few seconds.`,
-                { cause: e },
-              )
-            : e
-        );
+        },
+        t = e(`ui-toast-stack-top`, `ui-toast-stack ui-toast-stack-top`),
+        n = e(`ui-banner-stack-top`, `ui-banner-stack ui-banner-stack-top`);
+      return ((this._roots = { topToast: t, topBanner: n }), !0);
+    }
+    _toastRoot() {
+      return this._ensureRoots() ? this._roots.topToast : null;
+    }
+    _bannerRoot() {
+      return this._ensureRoots() ? this._roots.topBanner : null;
+    }
+    _applyToneClass(e, t) {
+      (e.classList.remove(
+        `ui-tone-info`,
+        `ui-tone-success`,
+        `ui-tone-warning`,
+        `ui-tone-danger`,
+      ),
+        e.classList.add(`ui-tone-${t}`));
+    }
+    _dismissAnimated(e, t, n) {
+      let r = e.get(t);
+      r &&
+        (r.timer && (clearTimeout(r.timer), (r.timer = null)),
+        r.element.classList.remove(`is-visible`),
+        (r.timer = setTimeout(() => {
+          r.element.isConnected && r.element.remove();
+        }, n)),
+        e.delete(t));
+    }
+    showToast(e = {}) {
+      let t = U(e.message).trim(),
+        n = U(e.id || `toast-${++this._idCounter}`);
+      if (!t || !n) return (this.dismissToast(n), null);
+      let r = Ri(e.tone),
+        i = Number.isFinite(e.durationMs)
+          ? Math.max(0, Number(e.durationMs))
+          : Li,
+        a = this._toasts.get(n),
+        o = this._toastRoot();
+      if (!o) return null;
+      if (!a) {
+        let e = this.documentRef.createElement(`div`);
+        ((e.className = `ui-toast`),
+          (e.dataset.uiId = n),
+          o.appendChild(e),
+          requestAnimationFrame(() => e.classList.add(`is-visible`)),
+          (a = { element: e, timer: null }),
+          this._toasts.set(n, a));
       }
-    }
-    async submitHighSeaRun(e, t, n, r, i, a = ``, o = null, s = 0) {
-      let c = String(e || `UNK`)
-          .trim()
-          .toUpperCase(),
-        l = /^[A-Z]{2}$/.test(c) ? c : `UNK`;
-      _(`playerCountry`, l);
-      let u = {
-        country: l,
-        challenge_version: String(t || ``).trim(),
-        elapsed_time_seconds: Number(n),
-        buoys_passed: Number.isFinite(Number(r))
-          ? Math.max(0, Math.floor(Number(r)))
-          : 0,
-        failure_code: Number(i),
-        cf_turnstile_token: String(a || ``),
-        ghost_data: o,
-        ghost_version: s,
-      };
-      try {
-        let e = await this._resolveAuthHeaders(),
-          t = await fetch(this.getHighSeaRunsEndpoint(), {
-            method: `POST`,
-            headers: { "Content-Type": `application/json`, ...e },
-            credentials: `omit`,
-            mode: `cors`,
-            cache: `no-store`,
-            body: JSON.stringify(u),
-          });
-        if (!t.ok) {
-          let e = await t.text().catch(() => ``),
-            n = { detail: e || `Unknown error` };
-          if (e)
-            try {
-              n = JSON.parse(e);
-            } catch {}
-          let r = `API error: `;
-          typeof n == `string`
-            ? (r += n)
-            : n && n.detail
-              ? (r +=
-                  typeof n.detail == `string`
-                    ? n.detail
-                    : JSON.stringify(n.detail))
-              : (r += e || JSON.stringify(n));
-          let i = Error(r);
-          throw ((i.status = t.status), i);
-        }
-        return await t.json();
-      } catch (e) {
-        throw e instanceof TypeError
-          ? Error(
-              `Network/CORS error while submitting high sea run. Please retry in a few seconds.`,
-              { cause: e },
-            )
-          : e;
-      }
-    }
-    async requestTurnstileToken(e = {}) {
-      return typeof window > `u` || typeof document > `u`
-        ? ``
-        : this._showTurnstilePrompt(e);
-    }
-    async requestTurnstileTokenInline(e = {}) {
-      if (typeof window > `u` || typeof document > `u`) return ``;
-      let t = e?.container;
-      if (
-        !t ||
-        typeof t.appendChild != `function` ||
-        !(await this._loadTurnstileScript()) ||
-        !window.turnstile
-      )
-        return ``;
-      let n = Number.isFinite(Number(e.autoTimeoutMs))
-        ? Math.max(250, Number(e.autoTimeoutMs))
-        : 1600;
-      return new Promise((r) => {
-        let i = !1,
-          a = null,
-          o = `auto`,
-          s = null,
-          c = null,
-          l = () => {
-            if (a !== null) {
-              if (
-                window.turnstile &&
-                typeof window.turnstile.remove == `function`
-              )
-                try {
-                  window.turnstile.remove(a);
-                } catch {}
-              a = null;
-            }
-          },
-          u = () => {
-            (clearTimeout(s),
-              clearInterval(c),
-              l(),
-              t?.replaceChildren ? t.replaceChildren() : (t.innerHTML = ``),
-              (t.style.display = ``));
-          },
-          d = (e) => {
-            i || ((i = !0), u(), r(String(e || ``)));
-          },
-          f = (e) => {
-            let t = String(e || ``);
-            t && d(t);
-          },
-          p = () => {
-            if (!(i || o === `manual`)) {
-              ((o = `manual`),
-                typeof e.onManualFallback == `function` &&
-                  e.onManualFallback());
-              try {
-                g(!0);
-              } catch (e) {
-                (console.warn(
-                  `Turnstile inline fallback render failed for high sea submit`,
-                  e,
-                ),
-                  d(``));
-              }
-            }
-          },
-          m = () => {
-            if (o === `auto`) {
-              p();
-              return;
-            }
-            d(``);
-          },
-          h = () => {
-            o === `auto` && p();
-          },
-          g = (e) => {
-            (l(),
-              t?.replaceChildren ? t.replaceChildren() : (t.innerHTML = ``));
-            let n = document.createElement(`div`);
-            ((n.style.display = `flex`),
-              (n.style.justifyContent = `center`),
-              t.appendChild(n),
-              (t.style.display = e ? `flex` : `none`),
-              (t.style.justifyContent = `center`),
-              (a = window.turnstile.render(n, {
-                sitekey: this.turnstileSiteKey,
-                theme: `dark`,
-                size: `normal`,
-                appearance: e ? `always` : `execute`,
-                execution: e ? `render` : `execute`,
-                callback: f,
-                "expired-callback": h,
-                "error-callback": m,
-              })),
-              !e &&
-                typeof window.turnstile.execute == `function` &&
-                window.turnstile.execute(a));
-          };
-        c = setInterval(() => {
-          t.isConnected || d(``);
-        }, 250);
-        try {
-          g(!1);
-        } catch (e) {
-          (console.warn(
-            `Turnstile inline render failed for high sea submit`,
-            e,
-          ),
-            d(``));
-          return;
-        }
-        s = setTimeout(() => {
-          i || p();
-        }, n);
-      });
-    }
-    async fetchLeaderboard(e, t = 20) {
-      let n = `${this.getBestTimesEndpoint()}?track_id=${e}&limit=${t}`;
-      this.debugMode &&
-        console.debug(`[DEBUG] Fetching leaderboard from: ${n}`);
-      try {
-        let e = await fetch(n, {
-          method: `GET`,
-          headers: { "Content-Type": `application/json` },
-          credentials: `omit`,
-          cache: `no-cache`,
-        });
-        if (this.debugMode) {
-          console.debug(`[DEBUG] Response headers:`);
-          for (let [t, n] of e.headers.entries()) console.debug(`${t}: ${n}`);
-        }
-        if (!e.ok) throw Error(`API returned status: ${e.status}`);
-        let t = await e.json();
-        return (
-          this.debugMode && console.debug(`[DEBUG] Leaderboard response:`, t),
-          t
-        );
-      } catch (e) {
-        return (
-          console.error(`Error fetching leaderboard:`, e),
-          this.debugMode &&
-            console.error(`[DEBUG] Error details:`, {
-              message: e.message,
-              stack: e.stack,
-              endpoint: n,
-            }),
-          []
-        );
-      }
-    }
-    async fetchRecordCount(e) {
-      let t = Date.now(),
-        n = this.recordCountCache.get(e);
-      if (n && t - n.timestamp < this.cacheTimeout) return n.count;
-      try {
-        let n = `${this.getRecordCountEndpoint()}/${e}`;
-        this.debugMode &&
-          console.debug(`[DEBUG] Fetching record count from: ${n}`);
-        let r = await fetch(n, {
-          method: `GET`,
-          headers: { "Content-Type": `application/json` },
-          credentials: `omit`,
-          cache: `no-cache`,
-        });
-        if (this.debugMode) {
-          console.debug(`[DEBUG] Response headers:`);
-          for (let [e, t] of r.headers.entries()) console.debug(`${e}: ${t}`);
-        }
-        if (!r.ok) throw Error(`API returned status: ${r.status}`);
-        let i = await r.json();
-        return (
-          this.debugMode && console.debug(`[DEBUG] Record count response:`, i),
-          this.recordCountCache.set(e, {
-            count: i.total_records,
-            timestamp: t,
-          }),
-          i.total_records
-        );
-      } catch (t) {
-        return (
-          console.error(`Error fetching record count:`, t),
-          this.debugMode &&
-            console.error(`[DEBUG] Error details:`, {
-              message: t.message,
-              stack: t.stack,
-              endpoint: `${this.getRecordCountEndpoint()}/${e}`,
-            }),
-          n ? n.count : 0
-        );
-      }
-    }
-    async fetchGhosts(e, t) {
-      let n = `${this.getGhostsEndpoint()}/${e}?limit=${t}&target_version=3`;
-      return this._safeApiFetch(n, {}, (e) => e, []);
-    }
-    async fetchHighSeaGhosts(e, t = 10) {
-      let n = Number.isFinite(Number(t))
-          ? Math.max(1, Math.floor(Number(t)))
-          : 10,
-        r = encodeURIComponent(String(e || ``).trim()),
-        i = `${this.getHighSeaGhostsEndpoint()}/${r}?limit=${n}&target_version=3`;
-      return this._safeApiFetch(i, {}, (e) => e, null);
-    }
-    formatTime(e) {
-      let t = Math.floor(e / 60),
-        n = Math.floor(e % 60),
-        r = Math.floor((e * 100) % 100);
-      return `${t.toString().padStart(2, `0`)}:${n.toString().padStart(2, `0`)}:${r.toString().padStart(2, `0`)}`;
-    }
-    async _showTurnstilePrompt(e = {}) {
-      let t = e.title || `Submit High Sea Run`,
-        n =
-          e.message ||
-          `Complete Cloudflare verification to submit this failed run.`,
-        r = e.confirmLabel || `Submit Run`,
-        i = e.cancelLabel || `Skip`;
-      return !(await this._loadTurnstileScript()) || !window.turnstile
-        ? ``
-        : new Promise((e) => {
-            let a = document.createElement(`div`);
-            ((a.style.position = `fixed`),
-              (a.style.inset = `0`),
-              (a.style.background = `rgba(0, 0, 0, 0.8)`),
-              (a.style.display = `flex`),
-              (a.style.alignItems = `center`),
-              (a.style.justifyContent = `center`),
-              (a.style.zIndex = `2100`));
-            let o = document.createElement(`div`);
-            ((o.style.width = `min(460px, calc(100vw - 32px))`),
-              (o.style.background = `rgba(9, 12, 20, 0.97)`),
-              (o.style.border = `1px solid rgba(255, 255, 255, 0.14)`),
-              (o.style.borderRadius = `10px`),
-              (o.style.padding = `20px`),
-              (o.style.color = `#fff`),
-              (o.style.fontFamily = `Sora, sans-serif`),
-              (o.style.textAlign = `center`),
-              a.appendChild(o));
-            let s = document.createElement(`h3`);
-            ((s.textContent = t),
-              (s.style.margin = `0 0 8px 0`),
-              o.appendChild(s));
-            let c = document.createElement(`p`);
-            ((c.textContent = n),
-              (c.style.margin = `0 0 14px 0`),
-              (c.style.fontSize = `14px`),
-              (c.style.color = `#cfd5e3`),
-              o.appendChild(c));
-            let l = document.createElement(`div`);
-            ((l.style.display = `flex`),
-              (l.style.justifyContent = `center`),
-              (l.style.marginBottom = `14px`),
-              o.appendChild(l));
-            let u = document.createElement(`div`);
-            ((u.style.minHeight = `18px`),
-              (u.style.fontSize = `12px`),
-              (u.style.color = `#ff8d8d`),
-              (u.style.marginBottom = `12px`),
-              o.appendChild(u));
-            let d = document.createElement(`div`);
-            ((d.style.display = `flex`),
-              (d.style.justifyContent = `center`),
-              (d.style.gap = `10px`),
-              o.appendChild(d));
-            let f = document.createElement(`button`);
-            ((f.type = `button`),
-              (f.textContent = r),
-              (f.style.padding = `8px 14px`),
-              (f.style.border = `0`),
-              (f.style.borderRadius = `6px`),
-              (f.style.background = `#3a8eff`),
-              (f.style.color = `#fff`),
-              (f.style.cursor = `pointer`),
-              (f.disabled = !0),
-              (f.style.opacity = `0.6`),
-              d.appendChild(f));
-            let p = document.createElement(`button`);
-            ((p.type = `button`),
-              (p.textContent = i),
-              (p.style.padding = `8px 14px`),
-              (p.style.border = `0`),
-              (p.style.borderRadius = `6px`),
-              (p.style.background = `#555c6e`),
-              (p.style.color = `#fff`),
-              (p.style.cursor = `pointer`),
-              d.appendChild(p),
-              document.body.appendChild(a));
-            let m = ``,
-              h = null,
-              g = !1,
-              _ = () => {
-                if (
-                  h !== null &&
-                  window.turnstile &&
-                  typeof window.turnstile.remove == `function`
-                )
-                  try {
-                    window.turnstile.remove(h);
-                  } catch {}
-                a.remove();
-              },
-              v = (t) => {
-                g || ((g = !0), _(), e(t || ``));
-              };
-            (f.addEventListener(`click`, () => {
-              if (!m) {
-                u.textContent = R.t(`ui.please_complete_cloudflare`);
-                return;
-              }
-              v(m);
-            }),
-              p.addEventListener(`click`, () => v(``)),
-              a.addEventListener(`click`, (e) => {
-                e.target === a && v(``);
-              }));
-            try {
-              h = window.turnstile.render(l, {
-                sitekey: this.turnstileSiteKey,
-                theme: `dark`,
-                callback: (e) => {
-                  ((m = String(e || ``)),
-                    (f.disabled = !m),
-                    (f.style.opacity = m ? `1` : `0.6`),
-                    (u.textContent = ``));
-                },
-                "expired-callback": () => {
-                  ((m = ``),
-                    (f.disabled = !0),
-                    (f.style.opacity = `0.6`),
-                    (u.textContent = R.t(`ui.verification_expired`)));
-                },
-                "error-callback": () => {
-                  ((m = ``),
-                    (f.disabled = !0),
-                    (f.style.opacity = `0.6`),
-                    (u.textContent = R.t(`ui.verification_failed`)));
-                },
-              });
-            } catch (e) {
-              (console.warn(`Turnstile render failed for high sea submit`, e),
-                v(``));
-            }
-          });
-    }
-    _ensureTurnstileScriptTag() {
-      let e = document.getElementById(`cloudflare-turnstile-script`);
-      if (e) return e;
-      let t = document.createElement(`script`);
-      ((t.id = `cloudflare-turnstile-script`),
-        (t.src = `https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit`),
-        (t.async = !0),
-        (t.defer = !0));
-      let n = document.head || document.body;
-      return n ? (n.appendChild(t), t) : null;
-    }
-    _loadTurnstileScript(e = 1e4) {
-      if (typeof window > `u` || typeof document > `u`)
-        return Promise.resolve(!1);
-      if (window.turnstile) return Promise.resolve(!0);
-      let t = this._ensureTurnstileScriptTag();
-      return t
-        ? new Promise((n) => {
-            let r = !1,
-              i = setTimeout(() => {
-                r || ((r = !0), s(), n(!!window.turnstile));
-              }, e),
-              a = () => {
-                r || ((r = !0), s(), n(!!window.turnstile));
-              },
-              o = () => {
-                r || ((r = !0), s(), n(!1));
-              },
-              s = () => {
-                (clearTimeout(i),
-                  t.removeEventListener(`load`, a),
-                  t.removeEventListener(`error`, o));
-              };
-            (t.addEventListener(`load`, a), t.addEventListener(`error`, o));
-          })
-        : Promise.resolve(!1);
-    }
-    async _safeApiFetch(e, t = {}, n = (e) => e, r = null) {
-      let i = {
-        method: `GET`,
-        headers: { "Content-Type": `application/json` },
-        credentials: `omit`,
-        cache: `no-cache`,
-        ...t,
-      };
-      try {
-        this.debugMode && console.debug(`[DEBUG] Fetching from: ${e}`);
-        let t = await fetch(e, i);
-        if (!t.ok) throw Error(`API returned status: ${t.status}`);
-        return n(await t.json());
-      } catch (t) {
-        return (console.error(`API request failed: ${e}`, t), r);
-      }
-    }
-  },
-  Ci = class {
-    constructor(e, t) {
-      ((this.scene = e),
-        (this.world = t),
-        (this.ghosts = []),
-        (this._visualOptions = {
-          opacityOverride: null,
-          opacityResolver: null,
-          fadeInEnabled: !0,
-          useNormalBoatColors: !1,
-          hideFinishedBoats: !1,
-          rankMarkersEnabled: !0,
-        }));
-    }
-    getRankColors(e = 0) {
-      return e === 0
-        ? {
-            hull: 16766720,
-            deck: 14329120,
-            sail: 16775388,
-            jib: 16775885,
-            labelColor: `#FFFFFF`,
-            opacity: 0.5,
-          }
-        : e === 1
-          ? {
-              hull: 12632256,
-              deck: 11053224,
-              sail: 15263976,
-              jib: 15790320,
-              labelColor: `#FFFFFF`,
-              opacity: 0.45,
-            }
-          : e === 2
-            ? {
-                hull: 14708768,
-                deck: 13395490,
-                sail: 16764057,
-                jib: 16768460,
-                labelColor: `#FFFFFF`,
-                opacity: 0.4,
-              }
-            : {
-                hull: 8965375,
-                deck: 11184810,
-                sail: 13426158,
-                jib: 14544639,
-                labelColor: `#FFFFFF`,
-                opacity: 0.3,
-              };
-    }
-    getGhostVisualOptions() {
-      return { ...this._visualOptions };
-    }
-    setGhostVisualOptions(e = {}) {
-      let t = { ...this._visualOptions };
-      if (Object.prototype.hasOwnProperty.call(e, `opacityOverride`)) {
-        let n = e.opacityOverride;
-        if (n == null || n === ``) t.opacityOverride = null;
-        else {
-          let e = Number(n);
-          Number.isFinite(e) &&
-            (t.opacityOverride = Math.min(1, Math.max(0, e)));
-        }
-      }
-      (Object.prototype.hasOwnProperty.call(e, `opacityResolver`) &&
-        (t.opacityResolver =
-          typeof e.opacityResolver == `function` ? e.opacityResolver : null),
-        Object.prototype.hasOwnProperty.call(e, `fadeInEnabled`) &&
-          (t.fadeInEnabled = !!e.fadeInEnabled),
-        Object.prototype.hasOwnProperty.call(e, `useNormalBoatColors`) &&
-          (t.useNormalBoatColors = !!e.useNormalBoatColors),
-        Object.prototype.hasOwnProperty.call(e, `hideFinishedBoats`) &&
-          (t.hideFinishedBoats = !!e.hideFinishedBoats),
-        Object.prototype.hasOwnProperty.call(e, `rankMarkersEnabled`) &&
-          (t.rankMarkersEnabled = !!e.rankMarkersEnabled),
-        (this._visualOptions = t),
-        this._syncLoadedGhostOpacity());
-    }
-    _getTargetOpacity(e = null) {
-      if (typeof this._visualOptions.opacityResolver == `function`) {
-        let t = this._visualOptions.opacityResolver(e),
-          n = Number(t);
-        if (t != null && Number.isFinite(n)) return Math.min(1, Math.max(0, n));
-      }
-      if (Number.isFinite(this._visualOptions.opacityOverride))
-        return this._visualOptions.opacityOverride;
-      let t = Math.max(1, Number(e?.rank || 1));
-      return this.getRankColors(t - 1).opacity;
-    }
-    _buildGhostAppearanceOverride(e) {
-      return this._visualOptions.useNormalBoatColors
-        ? {}
-        : {
-            appearance: {
-              hull: { tint: e.hull },
-              mast: { color: e.hull },
-              boom: { color: e.hull },
-              sails: {
-                main: { color: e.sail, text: `` },
-                jib: { color: e.jib, text: `` },
-              },
-            },
-          };
-    }
-    _syncLoadedGhostOpacity() {
-      this.ghosts.forEach((e) => {
-        e?.boat?.model?.setOpacity &&
-          e.boat.model.setOpacity(this._getTargetOpacity(e));
-      });
-    }
-    _setGhostVisibility(e, t) {
-      let n = !!t;
-      (e?.boat?.model?.boatGroup && (e.boat.model.boatGroup.visible = n),
-        e?.label && (e.label.visible = n));
-    }
-    _resolveGhostBoatIdentity(e = null) {
-      return Lt(e?.boatIdentity, Pt());
-    }
-    _buildGhostBoat(e, t, n = null) {
-      let r = this._resolveGhostBoatIdentity(n),
-        i = r.presetId || Pt(),
-        a = r.variantId || null,
-        o = {
-          ...(a ? { hull: { modelVariant: a } } : {}),
-          ...this._buildGhostAppearanceOverride(t),
-        };
-      try {
-        let t = It(
-          i,
-          { flagCode: e.country || null, isRemoteBoat: !0, isGhost: !0 },
-          o,
-        );
-        return new pt(this.scene, this.world, t);
-      } catch (e) {
-        console.warn(
-          `[GhostManager] Failed to build ghost boat "${i}"${a ? ` variant "${a}"` : ``}. Falling back to default preset.`,
-          e,
-        );
-      }
-      let s = It(
-        Pt(),
-        { flagCode: e.country || null, isRemoteBoat: !0, isGhost: !0 },
-        this._buildGhostAppearanceOverride(t),
+      return (
+        (a.element.textContent = t),
+        this._applyToneClass(a.element, r),
+        a.timer && (clearTimeout(a.timer), (a.timer = null)),
+        i > 0 && (a.timer = setTimeout(() => this.dismissToast(n), i)),
+        n
       );
-      return new pt(this.scene, this.world, s);
     }
-    loadGhosts(e) {
-      if ((this.clearGhosts(), !e || !Array.isArray(e))) return;
-      console.debug(`Starting to load ${e.length} ghosts...`);
-      let t = performance.now();
-      for (let t = 0; t < e.length; t++) {
-        let n = e[t];
-        if (!n.ghost_data) continue;
-        let r, i;
-        try {
-          let e = Nt(n.ghost_data, n.ghost_version);
-          ((r = e.frames), (i = e.metadata || null));
-        } catch (e) {
-          console.warn(`Failed to parse ghost data`, e);
-          continue;
+    dismissToast(e) {
+      let t = U(e);
+      t && this._dismissAnimated(this._toasts, t, WGS84_ECCENTRICITY_SQ);
+    }
+    showBanner(e = {}) {
+      let t = U(e.message).trim(),
+        n = U(e.messageSecondary).trim(),
+        r = Ri(e.messageSecondaryTone || e.tone),
+        i = U(e.className).trim(),
+        a = U(e.id || `banner-default`);
+      if (!t || !a) return (this.hideBanner(a), null);
+      let o = Ri(e.tone),
+        s = !!e.dismissible,
+        c = U(e.actionLabel).trim(),
+        l = typeof e.onAction == `function` ? e.onAction : null,
+        u = typeof e.onDismiss == `function` ? e.onDismiss : null,
+        d = Number.isFinite(e.durationMs)
+          ? Math.max(0, Number(e.durationMs))
+          : 0,
+        f = this._banners.get(a),
+        p = this._bannerRoot();
+      if (!p) return null;
+      if (!f) {
+        let e = this.documentRef.createElement(`div`);
+        ((e.className = `ui-banner`), (e.dataset.uiId = a));
+        let t = this.documentRef.createElement(`div`);
+        t.className = `ui-banner-message`;
+        let n = this.documentRef.createElement(`div`);
+        ((n.className = `ui-banner-message-primary`), t.appendChild(n));
+        let r = this.documentRef.createElement(`div`);
+        ((r.className = `ui-banner-message-secondary`),
+          (r.hidden = !0),
+          t.appendChild(r),
+          e.appendChild(t));
+        let i = this.documentRef.createElement(`div`);
+        ((i.className = `ui-banner-actions`),
+          e.appendChild(i),
+          p.appendChild(e),
+          requestAnimationFrame(() => e.classList.add(`is-visible`)),
+          (f = {
+            element: e,
+            messageEl: t,
+            messagePrimaryEl: n,
+            messageSecondaryEl: r,
+            actionsEl: i,
+            timer: null,
+            customClasses: [],
+          }),
+          this._banners.set(a, f));
+      }
+      if (
+        ((f._onDismiss = u),
+        Array.isArray(f.customClasses) &&
+          f.customClasses.length > 0 &&
+          (f.element.classList.remove(...f.customClasses),
+          (f.customClasses = [])),
+        i)
+      ) {
+        let e = i.split(/\s+/).filter(Boolean);
+        e.length > 0 && (f.element.classList.add(...e), (f.customClasses = e));
+      }
+      if (
+        ((f.messagePrimaryEl.textContent = t),
+        f.messageSecondaryEl.classList.remove(
+          `ui-tone-info`,
+          `ui-tone-success`,
+          `ui-tone-warning`,
+          `ui-tone-danger`,
+        ),
+        n
+          ? ((f.messageSecondaryEl.hidden = !1),
+            (f.messageSecondaryEl.textContent = n),
+            f.messageSecondaryEl.classList.add(`ui-tone-${r}`))
+          : ((f.messageSecondaryEl.hidden = !0),
+            (f.messageSecondaryEl.textContent = ``)),
+        this._applyToneClass(f.element, o),
+        f._actionLabel !== c || f._dismissible !== s)
+      ) {
+        if (
+          ((f.actionsEl.innerHTML = ``),
+          (f._actionLabel = c),
+          (f._dismissible = s),
+          c)
+        ) {
+          let e = this.documentRef.createElement(`button`);
+          ((e.type = `button`),
+            (e.className = `ui-banner-action`),
+            (e.textContent = c),
+            l &&
+              e.addEventListener(`click`, (e) => {
+                (e.stopPropagation(), l());
+              }),
+            f.actionsEl.appendChild(e));
         }
-        if (!Array.isArray(r) || r.length === 0) continue;
-        let a = this.getRankColors(t),
-          o = this._buildGhostBoat(n, a, i),
-          s = t + 1;
-        if (o.model && o.model.setOpacity) {
-          let e = this._visualOptions.fadeInEnabled
-            ? 0
-            : this._getTargetOpacity({ rank: s });
-          o.model.setOpacity(e);
+        if (s) {
+          let e = this.documentRef.createElement(`button`);
+          ((e.type = `button`),
+            (e.className = `ui-banner-close`),
+            e.setAttribute(`aria-label`, `Dismiss`),
+            (e.textContent = `×`),
+            e.addEventListener(`click`, (e) => {
+              e.stopPropagation();
+              let t = f._onDismiss;
+              (this.hideBanner(a), t?.());
+            }),
+            f.actionsEl.appendChild(e));
         }
-        let c = n.player_name || `Ghost`,
-          l = this.createNameLabel(c, s, a.labelColor);
-        (this.scene.add(l),
-          this.ghosts.push({
-            boat: o,
-            data: r,
-            currentIndex: 0,
-            playerName: c,
-            rank: s,
-            metadata: i || null,
-            label: l,
-            finished: !1,
-          }));
       }
-      (this.positionAtStart(),
-        console.info(
-          `Loaded ${this.ghosts.length} ghosts in ${(performance.now() - t).toFixed(1)}ms`,
-        ));
+      return (
+        f.timer && (clearTimeout(f.timer), (f.timer = null)),
+        d > 0 && (f.timer = setTimeout(() => this.hideBanner(a), d)),
+        a
+      );
     }
-    positionAtStart() {
-      this.ghosts.forEach((e) => {
-        e.data &&
-          e.data.length > 0 &&
-          (this.applyState(e.boat, e.data[0]),
-          e.boat.update(0),
-          this._setGhostVisibility(e, !0),
-          dt(e.label, e.boat));
-      });
+    hideBanner(e) {
+      let t = U(e);
+      t && this._dismissAnimated(this._banners, t, Fi);
     }
-    update(e) {
-      this.ghosts.length !== 0 &&
-        this.ghosts.forEach((t) => {
-          let n = t.data,
-            r = Array.isArray(n) && n.length > 0 ? n[n.length - 1] : null,
-            i = Number(r?.[0]);
-          if (
-            (t.finished &&
-              Number.isFinite(i) &&
-              e < i &&
-              ((t.finished = !1), (t.currentIndex = 0)),
-            t.finished)
-          ) {
-            this._setGhostVisibility(t, !this._visualOptions.hideFinishedBoats);
-            return;
-          }
-          let a = t.currentIndex;
-          for (
-            a > 0 && n[a][0] > e && (a = 0);
-            a < n.length - 1 && n[a + 1][0] < e;
-          )
-            a++;
-          if (((t.currentIndex = a), a >= n.length - 1)) {
-            ((t.finished = !0),
-              this.applyState(t.boat, n[n.length - 1]),
-              this._setGhostVisibility(
-                t,
-                !this._visualOptions.hideFinishedBoats,
-              ));
-            return;
-          }
-          this._setGhostVisibility(t, !0);
-          let o = n[a],
-            s = n[a + 1],
-            c = o[0],
-            l = s[0];
-          if (l <= c) {
-            this.applyState(t.boat, o);
-            return;
-          }
-          let u = (e - c) / (l - c);
-          (this.interpolateAndApply(t.boat, o, s, u), t.boat.update(0));
-          let d = e - n[0][0],
-            f = this._getTargetOpacity(t);
-          if (
-            this._visualOptions.fadeInEnabled &&
-            d < 3 &&
-            t.boat.model &&
-            t.boat.model.setOpacity
-          ) {
-            let e = Math.max(0, d / 3);
-            t.boat.model.setOpacity(f * e);
-          } else
-            t.boat.model &&
-              t.boat.model.setOpacity &&
-              t.boat.model.setOpacity(f);
-          dt(t.label, t.boat);
-        });
+    showAnnouncement(e = {}) {
+      if (!this.documentRef?.body) return null;
+      let t = U(e.text).trim(),
+        n = U(e.id || `announcement-${++this._idCounter}`);
+      if (!n) return null;
+      this.hideAnnouncement(n);
+      let r = Number.isFinite(e.durationMs)
+          ? Math.max(0, Number(e.durationMs))
+          : 0,
+        i = typeof e.onDismiss == `function` ? e.onDismiss : null,
+        a = this.documentRef.createElement(`div`);
+      ((a.className = `ui-announcement`), (a.dataset.uiId = n));
+      let o = this.documentRef.createElement(`div`);
+      ((o.className = `ui-announcement-text`),
+        (o.textContent = t),
+        a.appendChild(o),
+        this.documentRef.body.appendChild(a),
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            o.classList.add(`is-visible`);
+          });
+        }));
+      let s = { element: a, textEl: o, timer: null, onDismiss: i };
+      return (
+        this._announcements.set(n, s),
+        r > 0 && (s.timer = setTimeout(() => this.hideAnnouncement(n), r)),
+        n
+      );
     }
-    sampleSurfaceY(e, t) {
-      let n =
-        typeof this.world?.getHeightAt == `function`
-          ? this.world.getHeightAt
-          : null;
-      if (n) {
-        let r = n.call(this.world, e, t);
-        if (Number.isFinite(r)) return r;
+    hideAnnouncement(e) {
+      let t = U(e);
+      if (!t) return;
+      let n = this._announcements.get(t);
+      n &&
+        (this._announcements.delete(t),
+        n.timer && (clearTimeout(n.timer), (n.timer = null)),
+        n.textEl.classList.remove(`is-visible`),
+        n.textEl.classList.add(`is-exiting`),
+        (n.timer = setTimeout(() => {
+          ((n.timer = null),
+            n.element?.isConnected && n.element.remove(),
+            n.onDismiss?.());
+        }, Ii)));
+    }
+    cancelAnnouncement(e) {
+      let t = U(e);
+      if (!t) return;
+      let n = this._announcements.get(t);
+      n &&
+        (this._announcements.delete(t),
+        n.timer && (clearTimeout(n.timer), (n.timer = null)),
+        n.element?.isConnected && n.element.remove());
+    }
+    showModal(e = {}) {
+      if (!this.documentRef?.body) return null;
+      let t = U(e.id || `modal-${++this._idCounter}`);
+      if (!t) return null;
+      this.closeModal(t);
+      let n = U(e.group || ``).trim();
+      if (n)
+        for (let [e, r] of this._modals.entries())
+          e !== t && r?.group === n && this.closeModal(e);
+      let r = U(e.title || ``),
+        i = U(e.description || ``),
+        a = e.dismissOnBackdrop !== !1,
+        o = e.showCloseButton !== !1,
+        s = Array.isArray(e.actions) ? e.actions : [],
+        c = U(e.overlayClassName || ``).trim(),
+        l = U(e.panelClassName || ``).trim(),
+        u = this.documentRef.createElement(`div`);
+      ((u.className = `game-modal-overlay ui-system-modal is-visible`),
+        c && u.classList.add(...c.split(/\s+/).filter(Boolean)),
+        (u.dataset.uiId = t));
+      let d = this.documentRef.createElement(`div`);
+      if (
+        ((d.className = `game-modal-panel ui-system-modal-panel is-visible`),
+        l && d.classList.add(...l.split(/\s+/).filter(Boolean)),
+        u.appendChild(d),
+        r || o)
+      ) {
+        let e = this.documentRef.createElement(`div`);
+        ((e.className = `game-modal-header`), d.appendChild(e));
+        let n = this.documentRef.createElement(`div`);
+        if (
+          ((n.className = `game-modal-title`),
+          (n.textContent = r),
+          e.appendChild(n),
+          o)
+        ) {
+          let n = this.documentRef.createElement(`button`);
+          ((n.type = `button`),
+            (n.className = `game-modal-close`),
+            (n.innerHTML = `&#x2715;`),
+            n.addEventListener(`click`, () => this.closeModal(t)),
+            e.appendChild(n));
+        }
       }
-      let r =
-        typeof this.world?.water?.getHeightAt == `function`
-          ? this.world.water.getHeightAt
-          : null;
-      if (r) {
-        let n = r.call(this.world.water, e, t);
-        if (Number.isFinite(n)) return n;
+      if (i) {
+        let e = this.documentRef.createElement(`div`);
+        ((e.className = `ui-system-modal-description`),
+          (e.textContent = i),
+          d.appendChild(e));
       }
-      return 0;
+      let f = this.documentRef.createElement(`div`);
+      if (
+        ((f.className = `ui-system-modal-body`),
+        e.content instanceof this.documentRef.defaultView.Node
+          ? f.appendChild(e.content)
+          : (f.textContent = U(e.content || ``)),
+        d.appendChild(f),
+        s.length > 0)
+      ) {
+        let e = this.documentRef.createElement(`div`);
+        ((e.className = `ui-system-modal-actions`),
+          s.forEach((n) => {
+            let r = this.documentRef.createElement(`button`);
+            ((r.type = `button`),
+              (r.className = `ui-system-modal-action ui-tone-${Ri(n?.tone)}`),
+              (r.textContent = U(n?.label || `Action`)),
+              r.addEventListener(`click`, () => {
+                (typeof n?.onClick == `function` && n.onClick(),
+                  n?.closeOnClick !== !1 && this.closeModal(t));
+              }),
+              e.appendChild(r));
+          }),
+          d.appendChild(e));
+      }
+      return (
+        u.addEventListener(`click`, (e) => {
+          a && e.target === u && this.closeModal(t);
+        }),
+        this.documentRef.body.appendChild(u),
+        this._modals.set(t, {
+          element: u,
+          onDismiss: typeof e.onDismiss == `function` ? e.onDismiss : null,
+          group: n || null,
+        }),
+        t
+      );
     }
-    applyState(e, t) {
-      let n = mt.fromArray(t),
-        r = this.sampleSurfaceY(n.position.x, n.position.z);
-      (e.setPosition(n.position.x, r, n.position.z),
-        e.setRotation(0, n.rotation, 0),
-        e.setSailAngle(n.sailAngle),
-        e.setHeelAngle(n.heelAngle),
-        e.dynamics &&
-          (n.rudderAngle !== void 0 && (e.dynamics.rudderAngle = n.rudderAngle),
-          n.sheetLimit !== void 0 && (e.dynamics.sheetLimit = n.sheetLimit)));
+    closeModal(e) {
+      let t = U(e);
+      if (!t) return;
+      let n = this._modals.get(t);
+      n &&
+        (this._modals.delete(t),
+        n.element?.isConnected && n.element.remove(),
+        n.onDismiss?.());
     }
-    interpolateAndApply(e, t, n, r) {
-      let i = mt.fromArray(t),
-        a = mt.fromArray(n),
-        o = i.position.x + (a.position.x - i.position.x) * r,
-        s = i.position.z + (a.position.z - i.position.z) * r,
-        c = this.sampleSurfaceY(o, s);
-      e.setPosition(o, c, s);
-      let l = a.rotation - i.rotation;
-      (l > Math.PI && (l -= Math.PI * 2), l < -Math.PI && (l += Math.PI * 2));
-      let u = i.rotation + l * r;
-      e.setRotation(0, u, 0);
-      let d = i.sailAngle + (a.sailAngle - i.sailAngle) * r;
-      e.setSailAngle(d);
-      let f = i.heelAngle + (a.heelAngle - i.heelAngle) * r;
-      (e.setHeelAngle(f),
-        e.dynamics &&
-          (i.rudderAngle !== void 0 &&
-            a.rudderAngle !== void 0 &&
-            (e.dynamics.rudderAngle =
-              i.rudderAngle + (a.rudderAngle - i.rudderAngle) * r),
-          i.sheetLimit !== void 0 &&
-            a.sheetLimit !== void 0 &&
-            (e.dynamics.sheetLimit =
-              i.sheetLimit + (a.sheetLimit - i.sheetLimit) * r)));
-    }
-    resetPlayback() {
-      (this.ghosts.forEach((e) => {
-        ((e.currentIndex = 0), (e.finished = !1));
-      }),
-        this.positionAtStart());
-    }
-    clearGhosts() {
-      (this.ghosts.forEach((e) => {
-        (e.boat && e.boat.dispose(), gt(e.label, this.scene));
-      }),
-        (this.ghosts = []));
-    }
-    buildLabelText(e, t, n = 200, r = ``) {
-      return ut(e || `Ghost`, t, n, r);
-    }
-    createNameLabel(e, t, n) {
-      let r = Number(t),
-        i = Number.isFinite(r) && r > 0 ? Math.floor(r) : 1,
-        a = this._visualOptions.rankMarkersEnabled ? `#${i}` : ``;
-      return ht({ name: e || `Ghost`, prefix: a, color: n || `#ffffff` });
+    destroy() {
+      (Array.from(this._toasts.keys()).forEach((e) => this.dismissToast(e)),
+        Array.from(this._banners.keys()).forEach((e) => this.hideBanner(e)),
+        Array.from(this._announcements.keys()).forEach((e) =>
+          this.cancelAnnouncement(e),
+        ),
+        Array.from(this._modals.keys()).forEach((e) => this.closeModal(e)),
+        this.documentRef &&
+          ([`ui-toast-stack-top`, `ui-banner-stack-top`].forEach((e) => {
+            let t = this.documentRef.getElementById(e);
+            t?.isConnected && t.remove();
+          }),
+          (this._roots = null)));
     }
   },
-  wi = class {
-    constructor(e = `EventEmitter`) {
-      ((this.label = e), (this.listeners = new Map()));
-    }
-    on(e, t) {
-      if (!e || typeof t != `function`) return;
-      let n = this.listeners.get(e) || [];
-      (n.push(t), this.listeners.set(e, n));
-    }
-    off(e, t) {
-      let n = this.listeners.get(e);
-      if (!n || n.length === 0) return;
-      let r = n.indexOf(t);
-      if (r !== -1) {
-        if ((n.splice(r, 1), n.length === 0)) {
-          this.listeners.delete(e);
-          return;
-        }
-        this.listeners.set(e, n);
-      }
-    }
-    emit(e, t) {
-      let n = this.listeners.get(e);
-      !n ||
-        n.length === 0 ||
-        n.slice().forEach((n) => {
-          try {
-            n(t);
-          } catch (t) {
-            console.warn(`${this.label} event handler failed for "${e}"`, t);
-          }
-        });
-    }
-    clear() {
-      this.listeners.clear();
-    }
-  },
-  GHOST_COUNT_STORAGE_KEY = `dailyRaceGhostCount`;
+  GeoProjection = null;

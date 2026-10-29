@@ -1,20 +1,20 @@
 // SettingsMenu 02 — style
-// Lines 67-934 of readable/assets/SettingsMenu-DL9R7A1C.pretty.js (statement-aligned).
-var f = class {
+// Lines 67-934 of readable/assets/SettingsMenu-CsLMev6C.pretty.js (statement-aligned).
+var p = class {
   constructor(e, t = {}) {
-    ((this.app = e), (this.i18n = t.i18n || u));
-    let r = t.pushNotifications || d();
+    ((this.app = e), (this.i18n = t.i18n || d));
+    let n = t.pushNotifications || f();
     ((this.pushNotificationPreferences =
-      t.pushNotificationPreferences || new c({ pushNotifications: r })),
+      t.pushNotificationPreferences || new u({ pushNotifications: n })),
       (this.root = null),
-      (this.overlaySystem = o()),
+      (this.overlaySystem = l()),
       (this.modalId = `settings-menu-modal`),
       (this.isVisible = !1),
       (this.state = {
         soundEnabled: !0,
         musicEnabled: !0,
         vectorMode: 0,
-        graphicsQuality: n,
+        graphicsQuality: r,
         pushNotificationsEnabled: !1,
       }),
       (this._persistDebounceId = null),
@@ -36,24 +36,24 @@ var f = class {
     let e = document.createElement(`div`),
       a = document.createElement(`div`);
     a.className = `game-modal-header`;
-    let o = document.createElement(`div`);
-    (o.setAttribute(`data-i18n`, `settings.settings`),
-      (o.textContent = `Settings`),
-      (o.className = `game-modal-title`));
-    let s = document.createElement(`button`);
-    ((s.type = `button`),
-      (s.className = `game-modal-close`),
-      (s.innerHTML = `&#x2715;`),
-      s.setAttribute(`data-i18n-attr`, `title:ui.close`),
-      (s.title = `Close`),
-      s.addEventListener(`click`, () => this.hide()),
-      a.appendChild(o),
-      a.appendChild(s));
     let c = document.createElement(`div`);
-    ((c.style.display = `flex`),
-      (c.style.flexDirection = `column`),
-      (c.style.gap = `12px`));
-    let u = (e, t) => {
+    (c.setAttribute(`data-i18n`, `settings.settings`),
+      (c.textContent = `Settings`),
+      (c.className = `game-modal-title`));
+    let l = document.createElement(`button`);
+    ((l.type = `button`),
+      (l.className = `game-modal-close`),
+      (l.innerHTML = `&#x2715;`),
+      l.setAttribute(`data-i18n-attr`, `title:ui.close`),
+      (l.title = `Close`),
+      l.addEventListener(`click`, () => this.hide()),
+      a.appendChild(c),
+      a.appendChild(l));
+    let u = document.createElement(`div`);
+    ((u.style.display = `flex`),
+      (u.style.flexDirection = `column`),
+      (u.style.gap = `12px`));
+    let d = (e, t) => {
         let n = document.createElement(`div`),
           r = document.createElement(`div`);
         (t && r.setAttribute(`data-i18n`, t),
@@ -69,7 +69,7 @@ var f = class {
           { sec: n, body: i }
         );
       },
-      d = (e, t, n, r) => {
+      f = (e, t, n, r) => {
         let i = document.createElement(`div`);
         i.className = `game-modal-row`;
         let a = document.createElement(`span`);
@@ -98,7 +98,7 @@ var f = class {
           { container: i, button: o }
         );
       },
-      f = (e, t, n, r) => {
+      p = (e, t, n, r) => {
         let i = document.createElement(`div`);
         ((i.className = `game-modal-row`),
           (i.style.justifyContent = `flex-start`),
@@ -130,7 +130,7 @@ var f = class {
           { container: i, input: o, valueBadge: s }
         );
       },
-      p = (e, t, n) => {
+      m = (e, t, n) => {
         let r = document.createElement(`button`);
         return (
           n && r.setAttribute(`data-i18n`, n),
@@ -140,7 +140,7 @@ var f = class {
           r
         );
       },
-      m = (e, t, n, r) => {
+      h = (e, t, n, r) => {
         let i = document.createElement(`button`);
         return (
           r && i.setAttribute(`data-i18n`, r),
@@ -155,56 +155,56 @@ var f = class {
           i
         );
       },
-      h = u(`Language`, `settings.language`);
-    ((h.body.style.display = `flex`),
-      (h.body.style.flexWrap = `wrap`),
-      (h.body.style.gap = `8px`));
-    let g = document.createElement(`select`);
-    ((g.id = `settings-lang-select`),
-      (g.className = `lang-select game-modal-input`),
-      (g.style.minWidth = `160px`),
-      (this.langSelect = g),
+      g = d(`Language`, `settings.language`);
+    ((g.body.style.display = `flex`),
+      (g.body.style.flexWrap = `wrap`),
+      (g.body.style.gap = `8px`));
+    let _ = document.createElement(`select`);
+    ((_.id = `settings-lang-select`),
+      (_.className = `lang-select game-modal-input`),
+      (_.style.minWidth = `160px`),
+      (this.langSelect = _),
       (async () => {
         let e = await this.i18n.getSupportedLanguages();
-        ((g.innerHTML = ``),
+        ((_.innerHTML = ``),
           e.forEach(({ code: e, label: t }) => {
             let n = document.createElement(`option`);
-            ((n.value = e), (n.textContent = t || e), g.appendChild(n));
+            ((n.value = e), (n.textContent = t || e), _.appendChild(n));
           }),
-          (g.value = this.i18n.getLanguage()));
+          (_.value = this.i18n.getLanguage()));
       })().catch(() => {}),
-      g.addEventListener(`change`, async () => {
+      _.addEventListener(`change`, async () => {
         ((this._languageChangeHandled = !1),
-          await this.i18n.setLanguage(g.value),
+          await this.i18n.setLanguage(_.value),
           this._languageChangeHandled || this._refreshLanguageSensitiveCopy(),
           (this._languageChangeHandled = !1));
       }),
-      h.body.appendChild(g));
-    let _ = u(`Audio`, `settings.audio`);
-    ((_.body.style.flexDirection = `column`), (_.body.style.width = `100%`));
-    let v = !!(this.app.audio && this.app.audio.initialized),
-      y = v
+      g.body.appendChild(_));
+    let v = d(`Audio`, `settings.audio`);
+    ((v.body.style.flexDirection = `column`), (v.body.style.width = `100%`));
+    let y = !!(this.app.audio && this.app.audio.initialized),
+      b = y
         ? this.app.audio.windSound.playing || this.app.audio.seaSound.playing
         : !1,
-      b = v ? this.app.audio.backgroundMusic.playing : !1;
-    ((this.state.soundEnabled = y), (this.state.musicEnabled = b));
-    let ie = d(
+      x = y ? this.app.audio.backgroundMusic.playing : !1;
+    ((this.state.soundEnabled = b), (this.state.musicEnabled = x));
+    let re = f(
         `Sound (Ambient + SFX)`,
-        y,
+        b,
         (e) => {
           !this.app.audio ||
             !this.app.audio.initialized ||
             (this.app.audio.setAmbientEnabled(e),
             this.app.audio.setEffectsEnabled(e),
             (this.state.soundEnabled = e),
-            ne(e ? `on` : `off`),
+            te(e ? `on` : `off`),
             this._persistAudioPreferences());
         },
         `settings.sound`,
       ),
-      ae = d(
+      ie = f(
         `Music`,
-        b,
+        x,
         (e) => {
           if (!this.app.audio || !this.app.audio.initialized) return;
           let t = this.app.audio.toggleBackgroundMusic(e);
@@ -212,7 +212,7 @@ var f = class {
         },
         `settings.music`,
       ),
-      oe = f(
+      ae = p(
         `Master Volume`,
         (() => {
           try {
@@ -231,56 +231,56 @@ var f = class {
         },
         `settings.master_volume`,
       );
-    (_.body.appendChild(ie.container),
-      _.body.appendChild(ae.container),
-      _.body.appendChild(oe.container));
-    let x = u(`Graphics`, `settings.graphics`);
-    this.state.graphicsQuality = i(this.app?.getGraphicsQuality?.() ?? r());
-    let S = (e) => {
-        let t = i(e);
+    (v.body.appendChild(re.container),
+      v.body.appendChild(ie.container),
+      v.body.appendChild(ae.container));
+    let S = d(`Graphics`, `settings.graphics`);
+    this.state.graphicsQuality = o(this.app?.getGraphicsQuality?.() ?? n());
+    let C = (e) => {
+        let t = o(e);
         (typeof this.app?.applyGraphicsQuality == `function` &&
           this.app.applyGraphicsQuality(t),
           (this.state.graphicsQuality = this.app?.getGraphicsQuality?.() ?? t),
           this._syncGraphicsQualityPills());
       },
-      C = m(
+      w = h(
         this.i18n.t(`settings.graphics_low`),
         this.state.graphicsQuality === `low`,
-        () => S(`low`),
+        () => C(`low`),
         `settings.graphics_low`,
       );
-    C.dataset.graphicsQuality = `low`;
-    let w = m(
+    w.dataset.graphicsQuality = `low`;
+    let T = h(
       this.i18n.t(`settings.graphics_medium`),
-      this.state.graphicsQuality === l,
-      () => S(l),
+      this.state.graphicsQuality === i,
+      () => C(i),
       `settings.graphics_medium`,
     );
-    w.dataset.graphicsQuality = l;
-    let T = m(
+    T.dataset.graphicsQuality = i;
+    let E = h(
       this.i18n.t(`settings.graphics_high`),
-      this.state.graphicsQuality === n,
-      () => S(n),
+      this.state.graphicsQuality === r,
+      () => C(r),
       `settings.graphics_high`,
     );
-    ((T.dataset.graphicsQuality = n),
-      x.body.appendChild(C),
-      x.body.appendChild(w),
-      x.body.appendChild(T),
-      (this._graphicsQualityPills = [C, w, T]));
-    let E = document.createElement(`p`);
-    (E.setAttribute(`data-i18n`, `settings.graphics_reload_note`),
-      (E.textContent = this.i18n.t(`settings.graphics_reload_note`)),
-      (E.className = `game-modal-caption`),
-      (E.style.fontSize = `11px`),
-      (E.style.margin = `4px 0 0`),
-      x.sec.appendChild(E));
-    let D = u(
+    ((E.dataset.graphicsQuality = r),
+      S.body.appendChild(w),
+      S.body.appendChild(T),
+      S.body.appendChild(E),
+      (this._graphicsQualityPills = [w, T, E]));
+    let D = document.createElement(`p`);
+    (D.setAttribute(`data-i18n`, `settings.graphics_reload_note`),
+      (D.textContent = this.i18n.t(`settings.graphics_reload_note`)),
+      (D.className = `game-modal-caption`),
+      (D.style.fontSize = `11px`),
+      (D.style.margin = `4px 0 0`),
+      S.sec.appendChild(D));
+    let O = d(
       this.i18n.t(`settings.daily_race_reminder`),
       `settings.daily_race_reminder`,
     );
-    ((D.body.style.flexDirection = `column`), (D.body.style.width = `100%`));
-    let O = d(
+    ((O.body.style.flexDirection = `column`), (O.body.style.width = `100%`));
+    let k = f(
       this.i18n.t(`settings.daily_race_reminder_toggle`),
       !1,
       (e) => {
@@ -288,19 +288,19 @@ var f = class {
       },
       `settings.daily_race_reminder_toggle`,
     );
-    ((O.button.id = `settings-push-notifications-toggle`),
-      (this._pushToggleButton = O.button),
+    ((k.button.id = `settings-push-notifications-toggle`),
+      (this._pushToggleButton = k.button),
       this._setPushToggleInteractivity(!1));
-    let k = document.createElement(`p`);
-    (k.setAttribute(`data-i18n`, `settings.daily_race_reminder_hint`),
-      (k.textContent = this.i18n.t(`settings.daily_race_reminder_hint`)),
-      (k.className = `game-modal-caption`),
-      (k.style.fontSize = `11px`),
-      (k.style.margin = `0`),
-      D.body.appendChild(O.container),
-      D.body.appendChild(k));
-    let A = u(`Vector Visualization`, `settings.vector_visualization`),
-      se = () => {
+    let A = document.createElement(`p`);
+    (A.setAttribute(`data-i18n`, `settings.daily_race_reminder_hint`),
+      (A.textContent = this.i18n.t(`settings.daily_race_reminder_hint`)),
+      (A.className = `game-modal-caption`),
+      (A.style.fontSize = `11px`),
+      (A.style.margin = `0`),
+      O.body.appendChild(k.container),
+      O.body.appendChild(A));
+    let j = d(`Vector Visualization`, `settings.vector_visualization`),
+      oe = () => {
         try {
           if (window.sail && window.sail.boat && window.sail.boat.getVectorMode)
             return window.sail.boat.getVectorMode();
@@ -309,51 +309,51 @@ var f = class {
         }
         return 0;
       };
-    this.state.vectorMode = se();
-    let j = (e) => {
+    this.state.vectorMode = oe();
+    let M = (e) => {
         (window.sail &&
           window.sail.boat &&
           window.sail.boat.setVectorMode &&
           window.sail.boat.setVectorMode(e),
           (this.state.vectorMode = e),
-          [M, N, P, F, I].forEach((t, n) => {
+          [N, P, F, I, se].forEach((t, n) => {
             let r = e === n;
             ((t.style.background = r ? `#3399ff` : `rgba(255,255,255,0.06)`),
               (t.style.color = r ? `#000` : `#fff`));
           }));
       },
-      M = m(
+      N = h(
         this.i18n.t(`settings.off`),
         this.state.vectorMode === 0,
-        () => j(0),
+        () => M(0),
         `settings.off`,
       ),
-      N = m(
+      P = h(
         this.i18n.t(`settings.vector_acceleration`),
         this.state.vectorMode === 1,
-        () => j(1),
+        () => M(1),
         `settings.vector_acceleration`,
       ),
-      P = m(
+      F = h(
         this.i18n.t(`settings.vector_sail_forces`),
         this.state.vectorMode === 2,
-        () => j(2),
+        () => M(2),
         `settings.vector_sail_forces`,
       ),
-      F = m(
+      I = h(
         this.i18n.t(`settings.vector_all_forces`),
         this.state.vectorMode === 3,
-        () => j(3),
+        () => M(3),
         `settings.vector_all_forces`,
       ),
-      I = m(
+      se = h(
         this.i18n.t(`settings.vector_wave_motion`),
         this.state.vectorMode === 4,
-        () => j(4),
+        () => M(4),
         `settings.vector_wave_motion`,
       );
-    [M, N, P, F, I].forEach((e) => A.body.appendChild(e));
-    let L = u(`Profile`, `settings.player`);
+    [N, P, F, I, se].forEach((e) => j.body.appendChild(e));
+    let L = d(`Profile`, `settings.player`);
     ((L.body.style.flexDirection = `column`), (L.body.style.width = `100%`));
     let R = this.app?.accountBridge;
     if (R?.isAuthenticated) {
@@ -416,13 +416,13 @@ var f = class {
         r.setAttribute(`data-i18n`, `settings.auto_detect`),
         (r.textContent = this.i18n.t(`settings.auto_detect`)),
         n.appendChild(r),
-        te.forEach((e) => {
+        ee.forEach((e) => {
           let t = document.createElement(`option`);
           ((t.value = e.code),
             (t.textContent = `${e.name} (${e.code})`),
             n.appendChild(t));
         }),
-        (n.value = re(`playerCountry`) || ``),
+        (n.value = ne(`playerCountry`) || ``),
         n.addEventListener(`change`, () => {
           if (this.app?.accountBridge?.isAuthenticated) {
             ((n.value = ``), (n.disabled = !0));
@@ -438,7 +438,7 @@ var f = class {
         e.appendChild(n),
         L.body.appendChild(e));
     }
-    let z = u(this.i18n.t(`settings.account`), `settings.account`);
+    let z = d(this.i18n.t(`settings.account`), `settings.account`);
     ((z.body.style.flexDirection = `column`), (z.body.style.width = `100%`));
     let B = document.createElement(`div`);
     ((B.className = `game-modal-row`),
@@ -460,7 +460,7 @@ var f = class {
     ((U.style.display = `flex`),
       (U.style.flexWrap = `wrap`),
       (U.style.gap = `8px`));
-    let W = p(
+    let W = m(
       this.i18n.t(`settings.login_signup`),
       () => {
         this.app?.accountBridge?.openAuth?.();
@@ -468,7 +468,7 @@ var f = class {
       `settings.login_signup`,
     );
     W.id = `settings-account-login`;
-    let G = p(
+    let G = m(
       this.i18n.t(`settings.log_out`),
       async () => {
         ((G.disabled = !0),
@@ -486,7 +486,7 @@ var f = class {
       `settings.log_out`,
     );
     ((G.id = `settings-account-logout`), (G.hidden = !0));
-    let K = p(
+    let K = m(
       this.i18n.t(`settings.edit_profile`),
       () => {
         this.app?.accountBridge?.openProfile?.();
@@ -505,7 +505,7 @@ var f = class {
       (this._accountEmailValue = H),
       (this._accountLoginButton = W),
       (this._accountLogoutButton = G));
-    let q = u(`Race`, `settings.race`);
+    let q = d(`Race`, `settings.race`);
     ((q.body.style.flexDirection = `column`), (q.body.style.width = `100%`));
     let J = document.createElement(`div`);
     ((J.className = `game-modal-row`),
@@ -524,7 +524,7 @@ var f = class {
       (X.className = `game-modal-input`),
       (X.style.width = `88px`));
     let Z = () => {
-      let e = ee(X.value);
+      let e = s(X.value);
       X.value = String(e);
     };
     (X.addEventListener(`blur`, Z),
@@ -544,9 +544,9 @@ var f = class {
       (this.dailyRaceGhostCountInput = X),
       (this.dailyRaceGhostCountHelp = Q),
       this._syncDailyRaceGhostCountControl());
-    let $ = u(`Help`, `settings.help`);
+    let $ = d(`Help`, `settings.help`);
     ($.body.appendChild(
-      p(
+      m(
         `Keyboard Shortcuts`,
         () => {
           (this.hide(),
@@ -556,7 +556,7 @@ var f = class {
       ),
     ),
       $.body.appendChild(
-        p(
+        m(
           `Feedback`,
           () => {
             window.location.href = `/feedback`;
@@ -564,17 +564,17 @@ var f = class {
           `settings.feedback`,
         ),
       ),
-      c.appendChild(h.sec),
-      c.appendChild(x.sec),
-      c.appendChild(_.sec),
-      c.appendChild(L.sec),
-      c.appendChild(z.sec),
-      c.appendChild(q.sec),
-      c.appendChild(D.sec),
-      c.appendChild(A.sec),
-      c.appendChild($.sec),
+      u.appendChild(g.sec),
+      u.appendChild(S.sec),
+      u.appendChild(v.sec),
+      u.appendChild(L.sec),
+      u.appendChild(z.sec),
+      u.appendChild(q.sec),
+      u.appendChild(O.sec),
+      u.appendChild(j.sec),
+      u.appendChild($.sec),
       e.appendChild(a),
-      e.appendChild(c),
+      e.appendChild(u),
       this.i18n.translate(e),
       (this.root = e));
   }
@@ -624,8 +624,8 @@ var f = class {
           window.sail.boat &&
           window.sail.boat.getVectorMode &&
           (this.state.vectorMode = window.sail.boat.getVectorMode()),
-        (this.state.graphicsQuality = i(
-          this.app?.getGraphicsQuality?.() ?? r(),
+        (this.state.graphicsQuality = o(
+          this.app?.getGraphicsQuality?.() ?? n(),
         )),
         this._syncGraphicsQualityPills(),
         this._syncDailyRaceGhostCountControl());
@@ -679,7 +679,7 @@ var f = class {
   }
   _syncDailyRaceGhostCountControl() {
     if (!this.dailyRaceGhostCountInput) return;
-    let e = s();
+    let e = a();
     ((this.dailyRaceGhostCountInput.min = `0`),
       (this.dailyRaceGhostCountInput.value = String(e)),
       this.dailyRaceGhostCountHelp &&
@@ -773,7 +773,7 @@ var f = class {
         (this._persistDebounceId = setTimeout(() => {
           e(
             () =>
-              import(`./Game-CrsSKcAK.js`)
+              import(`./Game-BK-SaWAR.js`)
                 .then((e) => e.i)
                 .then((e) => {
                   let t =
@@ -830,14 +830,14 @@ var f = class {
           this._setPushToggleInteractivity(
             !!t.state.available && !t.state.busy,
           ),
-          t.outcome === a.PERMISSION_NOT_GRANTED)
+          t.outcome === c.PERMISSION_NOT_GRANTED)
         )
           this.overlaySystem.showToast({
             id: `push-notifications-permission-toast`,
             message: this.i18n.t(`ui.push_permission_denied`),
             tone: `warning`,
           });
-        else if (t.outcome === a.ENABLED || t.outcome === a.DISABLED) {
+        else if (t.outcome === c.ENABLED || t.outcome === c.DISABLED) {
           let e = this.state.pushNotificationsEnabled;
           this.overlaySystem.showToast({
             id: `push-notifications-state-toast`,
@@ -847,7 +847,7 @@ var f = class {
             tone: e ? `success` : `info`,
           });
         } else
-          t.outcome === a.ERROR &&
+          t.outcome === c.ERROR &&
             this.overlaySystem.showToast({
               id: `push-notifications-error-toast`,
               message: this.i18n.t(

@@ -1,27 +1,27 @@
 // IslandGenerator 02 — math
-// Lines 342-588 of readable/assets/IslandGenerator-DZNI3CSt.pretty.js (statement-aligned).
-function ie(e, t) {
+// Lines 343-589 of readable/assets/IslandGenerator-CwFNo9L2.pretty.js (statement-aligned).
+function oe(e, t) {
   if (!Array.isArray(e) || e.length < 3) return [];
   let n = [];
   for (let r = 0; r < e.length; r += 1) {
     let i = e[r],
       a = n[n.length - 1];
-    (!a || V(i, a) > t * t) && n.push(i);
+    (!a || H(i, a) > t * t) && n.push(i);
   }
   if (n.length >= 2) {
     let e = n[0],
       r = n[n.length - 1];
-    V(e, r) <= t * t && n.pop();
+    H(e, r) <= t * t && n.pop();
   }
   return n.length >= 3 ? n : [];
 }
-function ae(e, t) {
+function se(e, t) {
   let n = [];
   for (let r = 0; r < e.length; r += 1) {
     let i = e[r],
       a = !1;
     for (let e = 0; e < n.length; e += 1)
-      if (V(i, n[e]) <= t * t) {
+      if (H(i, n[e]) <= t * t) {
         a = !0;
         break;
       }
@@ -44,26 +44,26 @@ function U(e, t, n, r, i) {
     return;
   }
   if ((a > 0 && o > 0) || (a < 0 && o < 0)) return;
-  let l = re(a / (a - o));
+  let l = V(a / (a - o));
   e.push({ x: t.x + (n.x - t.x) * l, y: r, z: t.z + (n.z - t.z) * l });
 }
-function oe(e, t, n, r, i) {
+function ce(e, t, n, r, i) {
   let a = [];
   (U(a, e, t, r, i), U(a, t, n, r, i), U(a, n, e, r, i));
-  let o = ae(a, i);
+  let o = se(a, i);
   if (o.length < 2) return null;
   if (o.length === 2) return { a: o[0], b: o[1] };
   let s = 0,
     c = 1,
-    l = V(o[0], o[1]);
+    l = H(o[0], o[1]);
   for (let e = 0; e < o.length; e += 1)
     for (let t = e + 1; t < o.length; t += 1) {
-      let n = V(o[e], o[t]);
+      let n = H(o[e], o[t]);
       n > l && ((l = n), (s = e), (c = t));
     }
   return { a: o[s], b: o[c] };
 }
-function se(e, t) {
+function le(e, t) {
   let n = t * 3;
   return [e[n], e[n + 1], e[n + 2]];
 }
@@ -71,12 +71,12 @@ function W(e, t) {
   let n = t * 3;
   return { x: e[n], y: e[n + 1], z: e[n + 2] };
 }
-function ce(e, t) {
+function ue(e, t) {
   let n = new Map(),
     r = [],
     i = new Map(),
     a = (e) => {
-      let r = H(e, t),
+      let r = ae(e, t),
         i = n.get(r);
       return i
         ? ((i.xSum += e.x), (i.zSum += e.z), (i.count += 1), r)
@@ -103,7 +103,7 @@ function ce(e, t) {
     },
   };
 }
-function le(e, t, n, r, i) {
+function de(e, t, n, r, i) {
   let a = (t.get(r) || []).filter((t) => !e[t].used);
   if (!a.length) return null;
   if (a.length === 1) return a[0];
@@ -142,7 +142,7 @@ function G(e) {
   }
   return t * 0.5;
 }
-function ue(e, t, n, r = {}) {
+function fe(e, t, n, r = {}) {
   let i = Number.isFinite(r.epsilon) ? r.epsilon : B;
   if (!e || e.length < 9) return [];
   let a =
@@ -156,16 +156,16 @@ function ue(e, t, n, r = {}) {
     o = Math.floor(a.length / 3),
     s = [];
   for (let t = 0; t < o; t += 1) {
-    let [r, o, c] = se(a, t),
-      l = oe(W(e, r), W(e, o), W(e, c), n, i);
+    let [r, o, c] = le(a, t),
+      l = ce(W(e, r), W(e, o), W(e, c), n, i);
     l && s.push(l);
   }
   return s;
 }
-function de(e, t = {}) {
+function pe(e, t = {}) {
   let n = Number.isFinite(t.epsilon) ? t.epsilon : B;
   if (!Array.isArray(e) || !e.length) return [];
-  let { edges: r, adjacency: i, pointForKey: a } = ce(e, n),
+  let { edges: r, adjacency: i, pointForKey: a } = ue(e, n),
     o = [],
     s = r.length * 2;
   for (let e = 0; e < r.length; e += 1) {
@@ -179,7 +179,7 @@ function de(e, t = {}) {
       f = 0;
     for (; f < s && u !== c;) {
       f += 1;
-      let e = le(r, i, a, u, l);
+      let e = de(r, i, a, u, l);
       if (e === null) break;
       let t = r[e];
       t.used = !0;
@@ -188,7 +188,7 @@ function de(e, t = {}) {
     }
     if (u !== c) continue;
     d.pop();
-    let p = ie(
+    let p = oe(
       d.map((e) => a(e)),
       n,
     );
@@ -196,7 +196,7 @@ function de(e, t = {}) {
   }
   return o;
 }
-function fe(e, t, n) {
+function TERRAIN_PROFILES(e, t, n) {
   let r = n.x - t.x,
     i = n.z - t.z,
     a = r * r + i * i;
@@ -208,7 +208,7 @@ function K(e, t, n, r) {
   let i = 0,
     a = n;
   for (let t = n + 1; t < r; t++) {
-    let o = fe(e[t], e[n], e[r]);
+    let o = TERRAIN_PROFILES(e[t], e[n], e[r]);
     o > i && ((i = o), (a = t));
   }
   if (i <= t) return [];
@@ -216,7 +216,7 @@ function K(e, t, n, r) {
     s = K(e, t, a, r);
   return [...o, a, ...s];
 }
-function pe(e, t) {
+function he(e, t) {
   if (!Array.isArray(e) || e.length < 4) return e;
   let n = 0,
     r = 0;

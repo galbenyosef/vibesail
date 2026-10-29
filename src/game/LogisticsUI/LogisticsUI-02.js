@@ -1,10 +1,10 @@
 // LogisticsUI 02 — appendchild
-// Lines 51-614 of readable/assets/LogisticsUI-DWG9W15h.pretty.js (statement-aligned).
+// Lines 51-614 of readable/assets/LogisticsUI-DK7Azuhh.pretty.js (statement-aligned).
 var v = class {
-  constructor(t, n, r = {}) {
-    ((this.logisticsManager = t),
+  constructor(e, n, r = {}) {
+    ((this.logisticsManager = e),
       (this.app = n),
-      (this.overlaySystem = r.overlaySystem || e()),
+      (this.overlaySystem = r.overlaySystem || t()),
       (this.callbacks = { onDockRequested: null, onUndockRequested: null }),
       (this.isModalOpen = !1),
       (this._activeMission = null),
@@ -389,7 +389,7 @@ var v = class {
       (this.isModalOpen = !1),
       (this._currentMissionModalMissions = null));
   }
-  showCompletionModal({ mission: e, reward: n } = {}) {
+  showCompletionModal({ mission: t, reward: n } = {}) {
     let i =
       this.overlaySystem?.documentRef ||
       (typeof document < `u` ? document : null);
@@ -399,11 +399,11 @@ var v = class {
       (this._pendingMissionModalMissions = this._currentMissionModalMissions),
       this.hideMissionModal(),
       (this._completionModalOpen = !0));
-    let a = e?.name || r.t(`logistics.mission`) || `Mission`,
+    let a = t?.name || r.t(`logistics.mission`) || `Mission`,
       o = g(n),
-      c = e?.contractLabel || e?.contractType || `Cargo`,
-      l = e?.destination || r.t(`logistics.unknown`) || `Unknown`,
-      u = e?.distance || `—`,
+      c = t?.contractLabel || t?.contractType || `Cargo`,
+      l = t?.destination || r.t(`logistics.unknown`) || `Unknown`,
+      u = t?.distance || `—`,
       d = h(i, `div`, `logistics-completion-recap`),
       f = h(i, `div`, `logistics-completion-reward`);
     (f.appendChild(
@@ -443,12 +443,12 @@ var v = class {
       }));
     let m = Number(n) || 0,
       _ = !1;
-    t({
+    e({
       rewardAmount: m,
       placement: `double-mission-coins`,
       wrapId: `double-mission-reward-wrap`,
       rewardSelector: `.logistics-completion-reward`,
-      completionKey: `mission:${new Date().toISOString().slice(0, 10)}:${e?.id || e?.name || `mission`}:double-coins`,
+      completionKey: `mission:${new Date().toISOString().slice(0, 10)}:${t?.id || t?.name || `mission`}:double-coins`,
       onDoubleReward: () => {
         if (_) return 0;
         let e = Number(this.logisticsManager?.addReward?.(m)) || 0;

@@ -1,25 +1,25 @@
 // BoatShop 01 — controls
-// Lines 1-233 of readable/assets/BoatShop-SaUBreAv.pretty.js (statement-aligned).
+// Lines 1-233 of readable/assets/BoatShop-SpknYdP-.pretty.js (statement-aligned).
 import {
-  Ct as e,
-  It as t,
-  L as n,
-  Lt as r,
-  _ as i,
-  g as a,
-  in as o,
-  n as s,
-  ot as c,
-  s as l,
-  w as u,
-} from "./three.module-BgyKfsEV.js";
-import { b as d, o as f, r as p } from "./Game-CrsSKcAK.js";
-import { t as m } from "./BoatModel-Cf2RVdWT.js";
+  Bt as e,
+  E as t,
+  Tt as n,
+  _ as r,
+  ct as i,
+  n as a,
+  s as o,
+  sn as s,
+  v as c,
+  z as l,
+  zt as u,
+} from "./three.module-CUNolavI.js";
+import { o as d, r as f, x as p } from "./Game-BK-SaWAR.js";
+import { t as m } from "./BoatModel-Z2nOAZAK.js";
 import { s as h } from "./GhostReplayModel-B8EqTWpz.js";
 var g = 3.4;
 function _() {
   return {
-    position: new o(0, 0, 0),
+    position: new s(0, 0, 0),
     rotation: 0,
     pitchAngle: 0,
     heelAngle: 0.08,
@@ -40,7 +40,7 @@ var BoatPreview = class {
         (this.model = null),
         (this.statusEl = null),
         (this.animationFrameId = null),
-        (this.clock = new a()),
+        (this.clock = new r()),
         (this.selection = { boatId: null, variantId: null }),
         (this._loadToken = 0),
         (this._disposed = !1),
@@ -64,31 +64,31 @@ var BoatPreview = class {
     }
     _ensureRenderer() {
       if (this.renderer || !this.host) return;
-      ((this.scene = new r()),
-        (this.scene.background = new i(1777960)),
-        (this.camera = new e(30, 1, 0.1, 200)),
+      ((this.scene = new e()),
+        (this.scene.background = new c(1777960)),
+        (this.camera = new n(30, 1, 0.1, 200)),
         this.camera.position.set(9, 3.8, 10));
-      let a = new n(16055295, 2975624, 2.5);
-      this.scene.add(a);
-      let o = new u(16777215, g);
-      (o.position.set(6, 8, 7), this.scene.add(o));
-      let c = new u(14217471, 2.1);
-      (c.position.set(-8, 4, -4), this.scene.add(c));
-      let l = new u(16777215, 1.35);
-      (l.position.set(0, 5, -10), this.scene.add(l));
+      let r = new l(16055295, 2975624, 2.5);
+      this.scene.add(r);
+      let i = new t(16777215, g);
+      (i.position.set(6, 8, 7), this.scene.add(i));
+      let o = new t(14217471, 2.1);
+      (o.position.set(-8, 4, -4), this.scene.add(o));
+      let s = new t(16777215, 1.35);
+      (s.position.set(0, 5, -10), this.scene.add(s));
       try {
-        this.renderer = new s({ antialias: !0, alpha: !1 });
+        this.renderer = new a({ antialias: !0, alpha: !1 });
       } catch {
         this._setStatus(`3D preview unavailable`);
         return;
       }
       (this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2)),
-        (this.renderer.outputColorSpace = t),
+        (this.renderer.outputColorSpace = u),
         (this.renderer.toneMapping = 4),
         (this.renderer.toneMappingExposure = 1.18),
         (this.renderer.domElement.style.cssText = `display:block;width:100%;height:100%;border-radius:18px;`),
         this.host.appendChild(this.renderer.domElement),
-        (this.controls = new f(this.camera, this.renderer.domElement)),
+        (this.controls = new d(this.camera, this.renderer.domElement)),
         (this.controls.enableDamping = !0),
         (this.controls.dampingFactor = 0.07),
         (this.controls.autoRotate = !0),
@@ -143,30 +143,30 @@ var BoatPreview = class {
     }
     _frameBoat() {
       if (!this.model?.boatGroup || !this.camera || !this.controls) return;
-      let e = new l().setFromObject(this.model.boatGroup);
+      let e = new o().setFromObject(this.model.boatGroup);
       if (e.isEmpty()) return;
-      let t = new o(),
-        n = new o();
+      let t = new s(),
+        n = new s();
       (e.getSize(t), e.getCenter(n));
       let r =
           this.model?.mastBasePos && this.model.mastBasePos.isVector3 === !0
             ? this.model.mastBasePos.clone()
             : n.clone(),
-        i = e.min.y + t.y * 0.34,
-        a = new o(r.x, i, r.z),
-        s = c.degToRad(this.camera.fov),
-        u = 2 * Math.atan(Math.tan(s * 0.5) * this.camera.aspect),
+        a = e.min.y + t.y * 0.34,
+        c = new s(r.x, a, r.z),
+        l = i.degToRad(this.camera.fov),
+        u = 2 * Math.atan(Math.tan(l * 0.5) * this.camera.aspect),
         d = Math.max(t.y * 0.94, 1),
         f = Math.max(t.x * 1.7, t.z * 1.25, 0.9),
-        p = d / (2 * Math.tan(s * 0.5)),
+        p = d / (2 * Math.tan(l * 0.5)),
         m = f / (2 * Math.tan(u * 0.5)),
         h = Math.max(p, m) * 0.92;
-      (this.controls.target.copy(a),
+      (this.controls.target.copy(c),
         (this.camera.near = Math.max(0.1, h / 100)),
         (this.camera.far = Math.max(120, h * 16)),
         this.camera.position
           .copy(this.controls.target)
-          .add(new o(-h * 0.74, h * 0.1, h * 0.72)),
+          .add(new s(-h * 0.74, h * 0.1, h * 0.72)),
         this.camera.updateProjectionMatrix(),
         (this.controls.minDistance = Math.max(h * 0.2, 0.5)),
         (this.controls.maxDistance = Math.max(h * 3, 30)),

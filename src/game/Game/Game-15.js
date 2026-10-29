@@ -1,340 +1,1121 @@
-// Game 15 — bronze
-// Lines 6297-6634 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-function Tr(e = {}) {
-  return (wr || (wr = new NotificationCenter(e)), wr);
-}
-var RACE_LEADERBOARD_MODAL_ID = `race-leaderboard-modal`,
-  ADVERTISE_ROUTE = `/advertise`,
-  RaceLeaderboardModal = class extends RaceOverlayBase {
-    constructor() {
-      (super(), (this.overlaySystem = Tr()));
+// Game 15 — scene
+// Lines 5450-6568 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+var Di = class e {
+    constructor(e, { getConfig: t, setConfig: n, logger: r = console } = {}) {
+      ((this.scene = e),
+        (this.getConfig = typeof t == `function` ? t : () => null),
+        (this.setConfig = typeof n == `function` ? n : () => {}),
+        (this.logger = r),
+        (this.mesh = null));
     }
-    showLeaderboard(e, t, n, r, i = 0) {
-      let a = this._createLeaderboardContent(),
-        o = r || R.t(`ui.leaderboard`),
-        s = this._createDayTabs(i);
-      (!e || e.length === 0
-        ? (a.innerHTML = `
-                ${s}
-                <div class="leaderboard-actions-top">
-                    ${this._createLeaderboardActions()}
-                </div>
-                <p class="leaderboard-empty-message" data-i18n="ui.leaderboard_empty">${R.t(`ui.leaderboard_empty`)}</p>
-            `)
-        : (a.innerHTML = this._createLeaderboardTable(e, n, s)),
-        this._showLeaderboardModal(a, o),
-        R.translate(a),
-        this._attachDayTabHandlers(a, t, i));
-    }
-    showLoading(e = 0) {
-      let t = this._createLeaderboardContent();
-      return (
-        (t.innerHTML = `
-            ${this._createDayTabs(e)}
-            <div class="leaderboard-actions-top">
-                ${this._createLeaderboardActions()}
-            </div>
-            <div id="leaderboard-loading" class="leaderboard-loading">
-                <div class="loading-spinner"></div>
-                <p data-i18n="ui.leaderboard_loading">${R.t(`ui.leaderboard_loading`)}</p>
-            </div>
-        `),
-        this._showLeaderboardModal(t, R.t(`ui.leaderboard`)),
-        R.translate(t),
-        this._attachDayTabHandlers(t, null, e),
-        t
-      );
-    }
-    showError(e, t = 0) {
-      if (!this.isVisible()) return;
-      let n = document.getElementById(`leaderboard-content`);
-      if (!n) return;
-      let r = this._createDayTabs(t),
-        i = document.getElementById(`leaderboard-loading`);
-      (i && i.remove(),
-        (n.innerHTML = `
-            ${r}
-            <div class="leaderboard-actions-top">
-                ${this._createLeaderboardActions()}
-            </div>
-            <div class="leaderboard-error">
-                <p class="leaderboard-error-title" data-i18n="ui.leaderboard_error_title">${R.t(`ui.leaderboard_error_title`)}</p>
-                <p data-i18n="ui.leaderboard_error_body">${R.t(`ui.leaderboard_error_body`)}</p>
-            </div>
-        `),
-        R.translate(n),
-        this._attachDayTabHandlers(n, null, t));
-    }
-    hide() {
-      this.overlaySystem.closeModal(RACE_LEADERBOARD_MODAL_ID);
-    }
-    isVisible() {
-      return !!document.querySelector(`.ui-system-modal[data-ui-id="${RACE_LEADERBOARD_MODAL_ID}"]`);
-    }
-    _showLeaderboardModal(e, t) {
-      this.overlaySystem.showModal({
-        id: RACE_LEADERBOARD_MODAL_ID,
-        group: `main-panel`,
-        title: t,
-        content: e,
-        dismissOnBackdrop: !0,
-        panelClassName: `leaderboard-modal-panel`,
+    static fromMeshId(t, n, r = {}) {
+      let i = Ei(n);
+      return new e(t, {
+        ...r,
+        getConfig: () => i,
+        setConfig: (e) => {
+          ((i = e), r.setConfig?.(e));
+        },
       });
     }
-    _createLeaderboardContent() {
-      let e = document.createElement(`div`);
-      return ((e.id = `leaderboard-content`), e);
+    hasConfig() {
+      return !!this.getConfig();
     }
-    _createLeaderboardActions() {
-      return `
-            <a href="/leaderboard" target="_blank" rel="noopener" class="leaderboard-action-button leaderboard-action-secondary" data-i18n="ui.full_leaderboard">${R.t(`ui.full_leaderboard`)}</a>
-            <a href="${ADVERTISE_ROUTE}" target="_blank" rel="noopener" class="leaderboard-action-button leaderboard-action-secondary leaderboard-advertise-cta" data-i18n="ui.advertise_here">${R.t(`ui.advertise_here`)}</a>
-        `;
+    getResolvedConfig() {
+      return this.getConfig();
     }
-    _createDayTabs(e = 0) {
-      let t = [];
-      for (let e = 0; e < 4; e++) {
-        let n = new Date();
-        n.setDate(n.getDate() - e);
-        let r;
-        if (e === 0) r = R.t(`ui.today`);
-        else if (e === 1) r = R.t(`ui.yesterday`);
-        else {
-          let e = R.getLanguage() || `en`;
-          r =
-            n.toLocaleDateString(e, { weekday: `short` }) +
-            ` ` +
-            n.toLocaleDateString(e, { day: `numeric` });
-        }
-        t.push({ day: e, label: r });
+    async load() {
+      let e = this.getResolvedConfig();
+      return e
+        ? this.mesh
+          ? this.mesh.root
+          : ((this.mesh = new Ci(this.scene, e)), this.mesh.load())
+        : null;
+    }
+    async loadSafely() {
+      let e = this.getResolvedConfig();
+      if (!e) return null;
+      try {
+        return await this.load();
+      } catch (t) {
+        return (
+          this.logger.error?.(
+            `[World] Failed to load local geo mesh "${e.id}"`,
+            t,
+          ),
+          null
+        );
       }
-      t.reverse();
-      let n = `<div id="leaderboard-tabs">`;
+    }
+    getTransformState() {
+      let e = this.getResolvedConfig();
+      if (!e) return null;
+      let t = this.mesh?.getTransformState?.(),
+        n = t?.rotationDegrees || e.rotationDegrees || { x: 0, y: 0, z: 0 },
+        r = t?.scale ?? e.scale ?? 1,
+        i = t?.positionY ?? e.position?.y ?? 0;
+      return {
+        rotationDegrees: { x: n.x || 0, y: n.y || 0, z: n.z || 0 },
+        scale: r,
+        positionY: i,
+      };
+    }
+    getDefaultTransformState() {
+      let e = this.getResolvedConfig();
+      return e
+        ? this.mesh?.getDefaultTransformState?.() || {
+            rotationDegrees: {
+              x: e.rotationDegrees?.x || 0,
+              y: e.rotationDegrees?.y || 0,
+              z: e.rotationDegrees?.z || 0,
+            },
+            scale: e.scale ?? 1,
+            positionY: e.position?.y ?? 0,
+          }
+        : null;
+    }
+    updateTransform(e = {}) {
+      let t = this.getResolvedConfig();
+      if (!t) return null;
+      let n = this.getTransformState(),
+        r = e.rotationDegrees || {},
+        i = {
+          ...t,
+          rotationDegrees: {
+            x: Number.isFinite(r.x) ? r.x : n.rotationDegrees.x,
+            y: Number.isFinite(r.y) ? r.y : n.rotationDegrees.y,
+            z: Number.isFinite(r.z) ? r.z : n.rotationDegrees.z,
+          },
+          scale: Number.isFinite(e.scale) ? e.scale : n.scale,
+          position: {
+            ...(t.position || {}),
+            y: Number.isFinite(e.positionY) ? e.positionY : n.positionY,
+          },
+        };
       return (
-        t.forEach(({ day: t, label: r }) => {
-          n += `
-                <div id="day-tab-${t}" class="day-tab${t === e ? ` is-selected` : ``}" data-day="${t}">${r}</div>
-            `;
+        this.setConfig(i),
+        this.mesh?.applyTransform?.({
+          rotationDegrees: i.rotationDegrees,
+          scale: i.scale,
+          positionY: i.position.y,
         }),
-        (n += `</div>`),
-        n
+        this.getTransformState()
       );
     }
-    _createLeaderboardTable(e, t, n) {
-      let r = this.race?.accountBridge?.isAuthenticated
-          ? String(
-              this.race.accountBridge.getOfficialDisplayName?.() || ``,
-            ).trim()
-          : ``,
-        i = `
-            ${n}
-            <div class="leaderboard-actions-top">
-                ${this._createLeaderboardActions()}
-            </div>
-            ${t ? `<p class="leaderboard-races-count">${R.t(`ui.races_count`, { count: t })}</p>` : ``}
-            <table class="leaderboard-table">
-                <thead>
-                    <tr>
-                        <th data-i18n="ui.col_rank">${R.t(`ui.col_rank`)}</th>
-                        <th data-i18n="ui.col_player">${R.t(`ui.col_player`)}</th>
-                        <th data-i18n="ui.col_country">${R.t(`ui.col_country`)}</th>
-                        <th data-i18n="ui.col_time">${R.t(`ui.col_time`)}</th>
-                        <th data-i18n="ui.col_attempts">${R.t(`ui.col_attempts`)}</th>
-                    </tr>
-                </thead>
-                <tbody>
-        `;
-      return (
-        e.forEach((e, t) => {
-          let n = this._formatTime(e.sailing_time),
-            a = e.country || `Unknown`,
-            o =
-              (typeof a == `string` && a.toLowerCase() === `pirate`) || ot(a)
-                ? st(a)
-                : ``,
-            s = ct(),
-            c =
-              o && o !== s
-                ? ` onerror="this.onerror=null;this.src='${s}'"`
-                : ``,
-            l = e.name === r ? ` class="current-player"` : ``,
-            u = Tt(e.name, { className: `sailor-profile-link` });
-          i += `
-                <tr${l}>
-                    <td>#${t + 1}</td>
-                    <td>${u}</td>
-                    <td>
-                        ${o ? `<img src="${o}" alt="${a}"${c} class="flag-img">` : ``}
-                        <span class="country-name">${a}</span>
-                    </td>
-                    <td>${n}</td>
-                    <td>${e.attempts || 1}</td>
-                </tr>
-            `;
-        }),
-        (i += `
-                </tbody>
-            </table>
-        `),
-        i
-      );
+    getFogConfig(e, t) {
+      let n = this.getResolvedConfig();
+      return !n || e === t ? null : n.fog || null;
     }
-    _attachDayTabHandlers(e, t, n) {
-      if (!this.race) return;
-      let r = e.querySelectorAll(`.day-tab`);
-      !r ||
-        r.length === 0 ||
-        r.forEach((e) => {
-          e.addEventListener(`click`, () => {
-            let t = parseInt(e.dataset.day, 10);
-            t !== n && (this.hide(), this.race.showLeaderboardForDay(t));
-          });
-        });
+    getBoatSpawn() {
+      return this.getResolvedConfig()?.boatSpawn || null;
+    }
+    dispose() {
+      (this.mesh?.dispose?.(), (this.mesh = null));
     }
   },
-  MOBILE_USER_AGENT_PATTERN = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-function Ar(e) {
-  window.open(
-    `https://x.com/intent/tweet?text=${encodeURIComponent(e)}`,
-    `_blank`,
-    `noopener,noreferrer`,
-  );
-}
-function jr(e) {
-  window.open(
-    `https://www.threads.com/intent/post?text=${encodeURIComponent(e)}`,
-    `_blank`,
-    `noopener,noreferrer`,
-  );
-}
-async function Mr(e) {
-  let t = String(e || ``);
-  if (!t) return !1;
-  if (navigator.clipboard?.writeText)
-    try {
-      return (await navigator.clipboard.writeText(t), !0);
-    } catch {}
-  try {
-    let e = document.createElement(`textarea`);
-    ((e.value = t),
-      e.setAttribute(`readonly`, ``),
-      (e.style.position = `fixed`),
-      (e.style.opacity = `0`),
-      document.body.appendChild(e),
-      e.select());
-    let n = document.execCommand(`copy`);
-    return (document.body.removeChild(e), n);
-  } catch {
-    return !1;
-  }
-}
-function Nr(e) {
-  MOBILE_USER_AGENT_PATTERN.test(navigator.userAgent) && typeof navigator.share == `function`
-    ? navigator.share({ text: e }).catch(() => Ar(e))
-    : Ar(e);
-}
-var TRIAL_BOAT_IDS = Object.freeze([`big-iron`, `island-star`]),
-  Fr = 20;
-function Ir(e) {
-  return 100 * (Number(e?.size) || 1) + Fr + 45;
-}
-function Lr() {
-  return [
-    ...(nt($e, { isDevMode: !1 }).find((e) => e.category === `front-line`)
-      ?.islands || []),
-  ].sort((e, t) => (e.ringSlot ?? 0) - (t.ringSlot ?? 0));
-}
-function Rr(e) {
-  let t = Math.hypot(e.x, e.z) || 1;
-  return { x: e.x / t, z: e.z / t };
-}
-function zr(e, t, n = 1) {
-  let r = Ir(e) * n,
-    i = Rr(e),
-    a = t === `outer` ? 1 : -1;
-  return {
-    x: e.x + i.x * r * a,
-    z: e.z + i.z * r * a,
-    islandSlot: e.ringSlot,
-    islandSponsor: e.sponsor || null,
-    side: t,
+  Oi = class e {
+    constructor(e, t = null, n = {}) {
+      ((this.scene = e),
+        (this.camera = t),
+        (this.options = n),
+        (this.advertisementInteractionTracker = null),
+        (this.water = null),
+        (this.sky = null),
+        (this.analyticSky = null),
+        (this.imageSky = null),
+        (this.skySetupId = RaceStartCountdown(H.sky?.model)),
+        (this.sun = new N(100, 100, 50)),
+        (this.ambientLight = null),
+        (this.directionalLight = null),
+        (this.pointLight = null),
+        (this.raycaster = new te()),
+        (this.mouse = new M()));
+      let r = (220 * Math.PI) / 180;
+      ((this.windDirection = new N(Math.sin(r), 0, Math.cos(r)).normalize()),
+        (this.windSpeed = 15),
+        (this.windVisibilityRadius = 800),
+        (this.windSystem = null),
+        (this.islandGenerator = null),
+        (this.sceneType = H.sceneType),
+        (this.advertisementSystem = null),
+        (this.yacht = null),
+        (this.yachts = []),
+        (this.cargoShips = []),
+        (this.floatingWorldProps = []),
+        (this.blimp = null),
+        (this.clouds = []),
+        (this.portals = []),
+        (this.birds = null),
+        (this.seaCreatures = null),
+        (this._localGeoConfig = n.localGeoMeshConfig || null),
+        (this.localGeoFeature = n.localGeoMeshId
+          ? Di.fromMeshId(this.scene, n.localGeoMeshId, {
+              setConfig: (e) => {
+                this._localGeoConfig = e;
+              },
+            })
+          : new Di(this.scene, {
+              getConfig: () => this._localGeoConfig,
+              setConfig: (e) => {
+                this._localGeoConfig = e;
+              },
+            })),
+        this._localGeoConfig ||
+          (this._localGeoConfig = this.localGeoFeature.getResolvedConfig()),
+        this.init());
+    }
+    setRenderer(e) {
+      this.renderer = e;
+    }
+    setAdvertisementInteractionTracker(e) {
+      ((this.advertisementInteractionTracker =
+        typeof e == `function` ? e : null),
+        this.advertisementSystem?.setInteractionTracker &&
+          this.advertisementSystem.setInteractionTracker(
+            this.advertisementInteractionTracker,
+          ),
+        this.cargoShips?.forEach((e) => {
+          e.setInteractionTracker?.(this.advertisementInteractionTracker);
+        }));
+    }
+    init() {
+      (this.createLighting(),
+        this.createSea(),
+        this.createSky(),
+        this.createClouds(),
+        window.dispatchEvent(new CustomEvent(`worldSyncLoaded`)),
+        this.loadDecorativeElementsAsync());
+    }
+    createClouds() {
+      this.clouds = Xn.createClouds(this.scene, 1500, 12);
+    }
+    async createCityAsync() {
+      let e = 0;
+      for (; (!this.renderer || !this.camera) && e < 100;)
+        (await new Promise((e) => setTimeout(e, 50)), e++);
+      if (!this.renderer || !this.camera) {
+        console.error(
+          `Verbose Error: Renderer or Camera not set for World, cannot init City 3D Tiles after timeout`,
+        );
+        return;
+      }
+      let { default: t } = await r(
+        async () => {
+          let { default: e } = await import(`./GoogleTilesLoader-DfxqQWNC.js`);
+          return { default: e };
+        },
+        __vite__mapDeps([0, 1, 2, 3, 4, 5]),
+      );
+      ((this.googleTilesLoader = new t(this.scene, this.camera, this.renderer)),
+        await this.googleTilesLoader.init());
+    }
+    async loadLocalGeoFeatureSafely() {
+      return this.localGeoFeature?.loadSafely?.() ?? null;
+    }
+    async loadDecorativeElementsAsync() {
+      let e = (e) => {
+          typeof requestIdleCallback < `u`
+            ? requestIdleCallback(e, { timeout: 1e3 })
+            : setTimeout(e, 50);
+        },
+        t = () => new Promise((t) => e(t)),
+        n = async (e) => {
+          for (let n of e) (await t(), await n());
+        };
+      await t();
+      let i =
+          this.sceneType !== SCENE_TYPES.GEO &&
+          (this.options?.enableCargoShips ?? this.options?.enableSponsors) !==
+            !1,
+        a = !!this.options?.floatingWorldProp?.modelUrl,
+        o = [
+          ...(this.options?.enableBlimp === !1
+            ? []
+            : [() => this.createBlimpAsync()]),
+          ...(i ? [() => this.createCargoShipsAsync()] : []),
+          ...(a ? [() => this.createFloatingWorldPropsAsync()] : []),
+        ],
+        s = [
+          () => this.createSeaCreaturesAsync(),
+          ...(this.sceneType !== SCENE_TYPES.OCEAN && this.options?.enableBirds !== !1
+            ? [() => this.createBirdsAsync()]
+            : []),
+        ],
+        c = () => Promise.all(o.map((e) => e()));
+      try {
+        if (this.sceneType === SCENE_TYPES.ISLANDS) {
+          let e = c(),
+            t = Promise.resolve();
+          (this.options?.enableSponsors !== !1 &&
+            (t = r(
+              async () => {
+                let { default: e } = await import(
+                  `./Advertisement-XcWX0C3O.js`
+                );
+                return { default: e };
+              },
+              __vite__mapDeps([6, 7, 1, 8, 3, 9]),
+            ).then(({ default: e }) => {
+              this._islandLoadAborted ||
+                (this.advertisementSystem = new e(this.scene, {
+                  onInteraction: this.advertisementInteractionTracker,
+                }));
+            })),
+            await Promise.all([
+              this.createIslandsAsync(t),
+              e,
+              this.loadLocalGeoFeatureSafely(),
+            ]));
+        } else if (this.sceneType === SCENE_TYPES.GEO)
+          (await this.createCityAsync(), await c());
+        else {
+          let e = c();
+          await Promise.all([e, this.loadLocalGeoFeatureSafely()]);
+        }
+      } catch (e) {
+        console.error(`Error loading decorative world elements:`, e);
+      }
+      window.dispatchEvent(new CustomEvent(`worldFullyLoaded`));
+      try {
+        (await n(s),
+          window.dispatchEvent(new CustomEvent(`worldWildlifeLoaded`)));
+      } catch (e) {
+        console.error(`Error loading wildlife decorations:`, e);
+      }
+    }
+    createLighting() {
+      let e = H.scene?.lighting || {},
+        t = Number.isFinite(e.ambientIntensity) ? e.ambientIntensity : 0.6,
+        n = Number.isFinite(e.directionalIntensity)
+          ? e.directionalIntensity
+          : 1,
+        r = Number.isFinite(e.pointIntensity) ? e.pointIntensity : 1;
+      ((this.ambientLight = new ze(e.ambientColor ?? 16777215, t)),
+        this.scene.add(this.ambientLight),
+        (this.directionalLight = new D(e.directionalColor ?? 16777215, n)),
+        this.directionalLight.position.copy(this.sun),
+        this.scene.add(this.directionalLight),
+        (this.pointLight = new ce(e.pointColor ?? 16777215, r, 500)),
+        this.pointLight.position.set(0, 100, 0),
+        this.scene.add(this.pointLight),
+        this.ambientLight.updateMatrixWorld(!0),
+        (this.ambientLight.matrixAutoUpdate = !1),
+        this.directionalLight.updateMatrixWorld(!0),
+        (this.directionalLight.matrixAutoUpdate = !1),
+        this.pointLight.updateMatrixWorld(!0),
+        (this.pointLight.matrixAutoUpdate = !1));
+    }
+    createSea() {
+      let t = H.water.waveConfig || {},
+        n = new si({
+          windSpeed: t.windSpeed ?? 6,
+          windDirection: t.windDirection ?? -135,
+          choppiness: t.choppiness ?? 0.8,
+          waveScale: t.waveScale ?? 1,
+          waveCount: 8,
+        });
+      ((this.water = new ni(this.scene, this.sun, this.camera, n)),
+        this.water.create(),
+        e.showGrid && this._createGrid(new E(1e4, 1e4)));
+    }
+    _createGrid(e) {
+      let t = document.createElement(`canvas`);
+      ((t.width = 64), (t.height = 64));
+      let n = t.getContext(`2d`);
+      ((n.strokeStyle = `rgba(255, 255, 255, 0.05)`),
+        (n.lineWidth = 1),
+        n.strokeRect(0, 0, t.width, t.height),
+        n.beginPath(),
+        n.moveTo(t.width / 2, 0),
+        n.lineTo(t.width / 2, t.height),
+        n.moveTo(0, t.height / 2),
+        n.lineTo(t.width, t.height / 2),
+        n.stroke());
+      let r = new Oe(t);
+      ((r.wrapS = r.wrapT = ae), r.repeat.set(200, 200));
+      let i = new Ee(
+        e,
+        new ke({
+          map: r,
+          transparent: !0,
+          depthWrite: !1,
+          depthTest: !1,
+          blending: 1,
+          side: 2,
+        }),
+      );
+      ((i.rotation.x = -Math.PI / 2),
+        (i.position.y = 0.2),
+        (i.renderOrder = 1),
+        this.scene.add(i));
+    }
+    _normalizeSkyModel(e) {
+      return RaceStartCountdown(e);
+    }
+    getSkyModel() {
+      return this.skySetupId || RaceStartCountdown(this.sky?.userData?.skyModel);
+    }
+    _disposeCurrentSky() {
+      (this.sky && this.scene && this.scene.remove(this.sky),
+        this.imageSky?.dispose?.(),
+        this.analyticSky?.dispose?.(),
+        this.preethamSky &&
+          (this.preethamSky.geometry?.dispose?.(),
+          this.preethamSky.material?.dispose?.()),
+        (this.imageSky = null),
+        (this.analyticSky = null),
+        (this.preethamSky = null),
+        (this.sky = null));
+    }
+    _createSkyMesh(e, t = {}) {
+      let n = RaceHud(e),
+        r = H.sky || {};
+      if (n.dome === `preetham`) {
+        ((this.preethamSky = Dn(t)),
+          (this.sky = this.preethamSky),
+          this.scene.add(this.sky));
+        return;
+      }
+      if (n.dome === `image`) {
+        ((this.imageSky = new RaceTimerOverlay({
+          image: t.image || r.image || `tropical_day.jpg`,
+          rotation: t.rotation ?? r.rotation ?? 296,
+          exposure: t.exposure ?? r.exposure ?? 1,
+        })),
+          (this.sky = this.imageSky.mesh),
+          this.scene.add(this.sky));
+        return;
+      }
+      ((this.analyticSky = new EFFECT_TOGGLE_IDS(this.sun, {
+        cloudCover: t.cloudCover ?? r.cloudCover ?? 0.28,
+        cirrus: t.cirrus ?? r.cirrus ?? 1,
+        sunGlow: t.sunGlow ?? r.sunGlow ?? 1,
+      })),
+        (this.sky = this.analyticSky.mesh),
+        this.scene.add(this.sky));
+    }
+    _applySkyLayers(e, t = {}) {
+      if (e.billboards === !1) {
+        (Xn.setVisible(!1), this.applySkySetupParams(e.id, t));
+        return;
+      }
+      Xn.setVisible(!0);
+      let n = RaceCompletionModal[e.id] || {};
+      this.applySkySetupParams(e.id, {
+        billboardOpacity: n.billboardOpacity,
+        ...t,
+      });
+    }
+    applySkySetupParams(e, t = {}) {
+      let n = RaceHud(this._normalizeSkyModel(e ?? this.skySetupId));
+      (this.analyticSky &&
+        this.analyticSky.setParameters({
+          cloudCover: t.cloudCover,
+          cirrus: t.cirrus,
+          sunGlow: t.sunGlow,
+        }),
+        this.preethamSky && currentQualityKey(t),
+        this.imageSky && this.imageSky.setParameters(t),
+        n.billboards !== !1 &&
+          t.billboardOpacity !== void 0 &&
+          Xn.setOpacityScale(t.billboardOpacity));
+    }
+    setSkyModel(e, t = {}) {
+      let n = this._normalizeSkyModel(e),
+        r = this.skySetupId;
+      this.skySetupId = n;
+      let i = RaceHud(n),
+        a = {
+          elevation: t.elevation ?? H.sun.elevation,
+          azimuth: t.azimuth ?? H.sun.azimuth,
+        };
+      return r === n
+        ? (this.applySkySetupParams(n, t), this.updateSunPosition(a), n)
+        : (this._disposeCurrentSky(),
+          this._createSkyMesh(n, t),
+          this.updateSunPosition(a),
+          this._updateSkyAnchor(),
+          this._applySkyLayers(i, t),
+          n);
+    }
+    createSky(e = {}) {
+      let t = { ...(H.sky || {}), ...e },
+        n = this._normalizeSkyModel(t.model ?? `analytic`);
+      ((this.skySetupId = n),
+        this._disposeCurrentSky(),
+        this._createSkyMesh(n, t),
+        this.updateSunPosition({
+          elevation: t.elevation ?? H.sun.elevation,
+          azimuth: t.azimuth ?? H.sun.azimuth,
+        }),
+        this._applySkyLayers(RaceHud(n), t));
+      let r =
+        this.localGeoFeature?.getFogConfig?.(this.sceneType, SCENE_TYPES.GEO) ||
+        H.scene.fog;
+      r?.enabled === !1
+        ? (this.scene.fog = null)
+        : this.scene.fog
+          ? ((this.scene.fog.near = r.near),
+            (this.scene.fog.far = r.far),
+            this.scene.fog.color.set(r.color))
+          : (this.scene.fog = new O(r.color, r.near, r.far));
+    }
+    async createIslandsAsync(e = null) {
+      let [{ default: t }] = await Promise.all([
+        r(
+          () => import(`./IslandGenerator-CwFNo9L2.js`),
+          __vite__mapDeps([10, 11, 12, 13, 14, 3]),
+        ),
+        Promise.resolve(e),
+      ]);
+      if (!this._islandLoadAborted) {
+        this.islandGenerator = new t(this.scene);
+        try {
+          let [e, t] = await Promise.all([
+            this._loadIslandDefinitions(),
+            Promise.resolve(dt),
+          ]);
+          ((this.sponsorConfigs = t),
+            await this.createAllIslandsWithSponsorsAsync(e, t));
+        } catch (e) {
+          (console.error(`Error loading island data:`, e),
+            (this.sponsorConfigs = {}),
+            await this.createAllIslandsWithSponsorsAsync([], {}));
+        }
+      }
+    }
+    async _loadIslandDefinitions() {
+      return ut(st || [], { isDevMode: h() });
+    }
+    async createAllIslandsWithSponsorsAsync(e, t) {
+      this._islandLoadGeneration = (this._islandLoadGeneration || 0) + 1;
+      let n = this._islandLoadGeneration;
+      this.islandGenerator?.clearDeferredDockLifeJobs?.();
+      let r = [];
+      for (let t of e)
+        for (let e of t.islands || []) {
+          let t = Math.sqrt((e.x || 0) ** 2 + (e.z || 0) ** 2);
+          r.push({ def: e, dist: t });
+        }
+      r.sort((e, t) => e.dist - t.dist);
+      let i = 0;
+      for (let e = 0; e < r.length && e < 3 && !(r[e].dist > 800); e++)
+        (this.createIslandWithOptionalSponsor(r[e].def, t), i++);
+      (this.islandGenerator?.finalizeInstancing &&
+        this.islandGenerator.finalizeInstancing(),
+        typeof window < `u` &&
+          typeof window.dispatchEvent == `function` &&
+          window.dispatchEvent(new CustomEvent(`worldPlayableLoaded`)));
+      let a = performance.now();
+      for (
+        let e = i;
+        e < r.length &&
+        !(this._islandLoadAborted || this._islandLoadGeneration !== n);
+        e++
+      )
+        (this.createIslandWithOptionalSponsor(r[e].def, t),
+          i++,
+          performance.now() - a > 10 &&
+            (await new Promise((e) => requestAnimationFrame(e)),
+            (a = performance.now()),
+            this.islandGenerator?.finalizeInstancing &&
+              this.islandGenerator.finalizeInstancing()));
+      let o = r.filter((e) => e.dist <= 800).length;
+      (console.info(`Loaded ${i} islands (${o} near, ${i - o} distant)`),
+        this.islandGenerator?.finalizeInstancing &&
+          this.islandGenerator.finalizeInstancing(),
+        this._scheduleDeferredIslandDetails(n));
+    }
+    _requestNextFrame(e) {
+      return typeof requestAnimationFrame == `function`
+        ? requestAnimationFrame(e)
+        : setTimeout(e, 16);
+    }
+    _scheduleDeferredIslandDetails(e) {
+      if (!this.islandGenerator?.hasDeferredDockLifeJobs?.()) return;
+      let t = () => {
+        if (!(this._islandLoadAborted || this._islandLoadGeneration !== e)) {
+          if (
+            this.islandGenerator.processDeferredDockLifeBatch({ budgetMs: 4 })
+              .remaining > 0
+          ) {
+            this._requestNextFrame(t);
+            return;
+          }
+          (this.islandGenerator?.finalizeInstancing &&
+            this.islandGenerator.finalizeInstancing(),
+            typeof window < `u` &&
+              typeof window.dispatchEvent == `function` &&
+              window.dispatchEvent(
+                new CustomEvent(`worldDecorativeDetailsLoaded`),
+              ));
+        }
+      };
+      this._requestNextFrame(t);
+    }
+    createIslandWithOptionalSponsor(e, t) {
+      let n = { x: e.x, z: e.z },
+        r = e.size || 1,
+        i = e.trees || 6,
+        a = Math.sqrt(e.x * e.x + e.z * e.z),
+        o = this._calculateLODSegments(a, r),
+        s =
+          this.options?.enableSponsors !== !1 && e.sponsor
+            ? t[e.sponsor]
+            : null,
+        c = e.role === `landmark` || !!e.landmarkType,
+        l = c && e.landmarkType === `beacon`,
+        u = c && e.landmarkType === `volcano`,
+        d = e.landmarkType === `castle`,
+        f = e.hasTown === !0 || e.landmarkType === `town`,
+        p = e.hasPort === !0 || e.landmarkType === `port`,
+        m = {
+          placeDock: a < 1500 || p || d || f,
+          placeCastle: (a < 1200 && !s) || d,
+          castleScaleMultiplier: d ? 1.35 : 1,
+          placeBeacon: l,
+          placeTown: f,
+          placeVolcano: u,
+          townSize: e.townSize,
+          terrainProfile: e.terrainProfile,
+          sponsorDecoration: s?.decoration,
+          deferDockLife: !0,
+        },
+        h = new E(200 * r, 200 * r, o, o),
+        g = this.islandGenerator.generateCustomIslandWithOptions(n, h, i, m);
+      return (
+        (g.userData.name = e.name || ``),
+        (g.userData.sourceCategory = e.sourceCategory || ``),
+        (g.userData.missionZone =
+          e.missionZone ||
+          (e.sourceCategory === `procedural-horizon` ? `outer` : `ring`)),
+        (g.userData.temporarySponsor = !!e.temporarySponsor),
+        s
+          ? this._createSponsoredIsland(g, e.sponsor, t, n)
+          : ((g.userData.sponsored = !1), { island: g, sign: null })
+      );
+    }
+    _calculateLODSegments(e, t) {
+      let n = Number.isFinite(t) ? Math.max(0.5, t) : 1,
+        r = (e, t, n) => Math.min(n, Math.max(t, Math.floor(e)));
+      return e > 1500
+        ? r(12 + n * 2.2, 8, 40)
+        : e > 800
+          ? r(16 + n * 3.2, 12, 48)
+          : r(24 + n * 5.8, 18, 64);
+    }
+    _createSponsoredIsland(e, t, n, r) {
+      ((e.userData.sponsored = !0), (e.userData.companyName = t));
+      let i = null;
+      if (this.advertisementSystem) {
+        let a = { ...n[t], position: r };
+        ((i = this.advertisementSystem.createSignForCompany(t, { [t]: a })),
+          i &&
+            ((i.userData.islandRef = e.uuid),
+            (i.userData.islandName = e.userData.name),
+            (i.userData.temporarySponsor = !!e.userData.temporarySponsor),
+            _i(i.userData, { isPaid: ct(t) }),
+            (e.userData.signRef = i.uuid)));
+      }
+      return { island: e, sign: i };
+    }
+    createWindParticles() {
+      if (this.camera) {
+        this.windSystem = new DEFAULT_EFFECT_STATE(
+          this.scene,
+          this.camera,
+          this.windDirection,
+          this.windSpeed,
+          this.windVisibilityRadius,
+        );
+        let e = this.options?.windTrailScale;
+        e &&
+          this.windSystem &&
+          (this.windSystem.setThickness(0.08 * e),
+          this.windSystem.setTrailLengthScale(e));
+      }
+    }
+    setCamera(e) {
+      ((this.camera = e),
+        this.camera &&
+          (this.camera.layers.enableAll(), this.camera.layers.disable(28)),
+        this.windSystem || this.createWindParticles(),
+        (this.scene.camera = e),
+        this.water && (this.water.camera = e),
+        this.birds && this.birds.setCenterTarget(e),
+        this._updateSkyAnchor());
+    }
+    setWind(e, t) {
+      ((this.windDirection = e.clone().normalize()),
+        (this.windSpeed = Math.max(0, t)),
+        this.windSystem &&
+          this.windSystem.setWind(this.windDirection, this.windSpeed));
+    }
+    getWindDirection() {
+      return this.windDirection.clone();
+    }
+    getWindSpeed() {
+      return this.windSpeed;
+    }
+    getHeightAt(e, t) {
+      if (!this.water || typeof this.water.getHeightAt != `function`) return 0;
+      let n = this.water.getHeightAt(e, t);
+      return Number.isFinite(n) ? n : 0;
+    }
+    getCargoShips() {
+      return Array.isArray(this.cargoShips) ? this.cargoShips : [];
+    }
+    getFloatingWorldProps() {
+      return Array.isArray(this.floatingWorldProps)
+        ? this.floatingWorldProps
+        : [];
+    }
+    getWindDirectionName() {
+      let e = it(this.windDirection);
+      return e >= 337.5 || e < 22.5
+        ? `South`
+        : e >= 22.5 && e < 67.5
+          ? `Southwest`
+          : e >= 67.5 && e < 112.5
+            ? `West`
+            : e >= 112.5 && e < 157.5
+              ? `Northwest`
+              : e >= 157.5 && e < 202.5
+                ? `North`
+                : e >= 202.5 && e < 247.5
+                  ? `Northeast`
+                  : e >= 247.5 && e < 292.5
+                    ? `East`
+                    : `Southeast`;
+    }
+    _getSkyAnchorPosition() {
+      let e = this.camera?.position;
+      if (
+        e &&
+        Number.isFinite(e.x) &&
+        Number.isFinite(e.y) &&
+        Number.isFinite(e.z)
+      )
+        return e;
+      let t = this.boat?.getPosition?.();
+      return t &&
+        Number.isFinite(t.x) &&
+        Number.isFinite(t.y) &&
+        Number.isFinite(t.z)
+        ? t
+        : null;
+    }
+    _updateSkyAnchor() {
+      if (!this.sky?.position || typeof this.sky.position.copy != `function`)
+        return;
+      let e = this._getSkyAnchorPosition();
+      e && this.sky.position.copy(e);
+    }
+    _updateWaterContactFoam() {
+      if (!this.water?.setContactBodies) return;
+      if (this.water.getEffects?.()?.contactFoam === !1) {
+        this._contactFoamHadBodies &&
+          (this.water.setContactBodies([]), (this._contactFoamHadBodies = !1));
+        return;
+      }
+      let e = [],
+        t = this.boat?.getPosition?.();
+      if (t && Number.isFinite(t.x) && Number.isFinite(t.z)) {
+        let n = 0,
+          r = 0,
+          i = this.boat?.dynamics;
+        if (
+          i &&
+          Number.isFinite(i.speed) &&
+          i.speed > 0.05 &&
+          typeof i.getDirectionVector == `function`
+        ) {
+          let e = i.getDirectionVector(i.rotation?.y ?? 0);
+          e && ((n = (e.x || 0) * i.speed), (r = (e.z || 0) * i.speed));
+        }
+        e.push({ x: t.x, z: t.z, radius: 4.5, strength: 1, vx: n, vz: r });
+      }
+      let n = t || this.camera?.position,
+        r = this.islandGenerator?.getIslandInstances?.() || [];
+      if (n && r.length) {
+        let t = [];
+        for (let e of r) {
+          let r = e?.position || e?.getMesh?.()?.position;
+          if (!r || !Number.isFinite(r.x) || !Number.isFinite(r.z)) continue;
+          let i = r.x - n.x,
+            a = r.z - n.z,
+            o = i * i + a * a;
+          o > 9e4 || t.push({ island: e, distSq: o });
+        }
+        t.sort((e, t) => e.distSq - t.distSq);
+        for (let { island: n } of t) {
+          if (e.length >= 13) break;
+          let t = null;
+          try {
+            t = n.computeCollisionContours?.({ simplifyTolerance: 4 });
+          } catch {
+            t = null;
+          }
+          if (t?.length)
+            for (let n of t) {
+              if (!n?.length) continue;
+              let t = Math.max(1, Math.floor(n.length / 6));
+              for (let r = 0; r < n.length && !(e.length >= 13); r += t) {
+                let t = n[r];
+                !t ||
+                  !Number.isFinite(t.x) ||
+                  !Number.isFinite(t.z) ||
+                  e.push({
+                    x: t.x,
+                    z: t.z,
+                    radius: 6.5,
+                    strength: 0.85,
+                    vx: 0,
+                    vz: 0,
+                  });
+              }
+            }
+        }
+      }
+      ((this._contactFoamHadBodies = e.length > 0),
+        this.water.setContactBodies(e));
+    }
+    update(e) {
+      if (
+        (this._updateSkyAnchor(),
+        this.analyticSky &&
+          this.analyticSky.update(
+            this.camera || this._getSkyAnchorPosition(),
+            e,
+          ),
+        this.imageSky &&
+          this.imageSky.update(this.camera || this._getSkyAnchorPosition()),
+        this.water && (this._updateWaterContactFoam(), this.water.update(e)),
+        this.googleTilesLoader && this.googleTilesLoader.update(e),
+        this.windSystem && this.windSystem.update(e),
+        this.advertisementSystem &&
+          this.advertisementSystem.sampleViewability(e, this.camera),
+        this.yachts.length > 0
+          ? this.yachts.forEach((t) => t.update(e))
+          : this.yacht && this.yacht.update(e),
+        this.cargoShips?.length > 0)
+      ) {
+        let t = Date.now() / 1e3;
+        this.cargoShips.forEach((n) => n.update(e, t));
+      }
+      if (
+        (this.floatingWorldProps?.length > 0 &&
+          this.floatingWorldProps.forEach((t) => t.update?.(e)),
+        Xn.updateAll(this.windDirection, e),
+        this.blimp && this.blimp.update(),
+        this.portals.forEach((t) => {
+          t.update(e);
+        }),
+        this.birds)
+      ) {
+        let t = this.advertisementSystem?.signs || [],
+          n = this.boat?.getPosition?.() || null;
+        (this.birds.setBoatPosition(n),
+          this.birds.setBillboardTargets(t),
+          this.birds.update(e));
+      }
+      this.seaCreatures && this.seaCreatures.update(e);
+    }
+    setSeaParameters(e = {}) {
+      this.water && this.water.setParameters(e);
+    }
+    setSeaEffects(e = {}) {
+      this.water?.setEffects?.(e);
+    }
+    applyGraphicsQuality(e = {}) {
+      this.water?.applyGraphicsQuality?.(e);
+    }
+    setLightingParameters(e = {}) {
+      (this.ambientLight &&
+        (e.ambientIntensity !== void 0 &&
+          (this.ambientLight.intensity = e.ambientIntensity),
+        e.ambientColor !== void 0 &&
+          this.ambientLight.color.set(e.ambientColor)),
+        this.directionalLight &&
+          (e.directionalIntensity !== void 0 &&
+            (this.directionalLight.intensity = e.directionalIntensity),
+          e.directionalColor !== void 0 &&
+            this.directionalLight.color.set(e.directionalColor)),
+        this.pointLight &&
+          (e.pointIntensity !== void 0 &&
+            (this.pointLight.intensity = e.pointIntensity),
+          e.pointColor !== void 0 && this.pointLight.color.set(e.pointColor)));
+    }
+    setFogParameters(e = {}) {
+      if (!this.scene) return;
+      if (e.enabled === !1) {
+        this.scene.fog &&
+          ((this._savedFogParams = {
+            near: this.scene.fog.near,
+            far: this.scene.fog.far,
+            color: this.scene.fog.color?.getHex?.() ?? 16777215,
+          }),
+          (this.scene.fog = null));
+        return;
+      }
+      let t = e.near ?? this._savedFogParams?.near ?? this.scene.fog?.near ?? 0,
+        n =
+          e.far ??
+          this._savedFogParams?.far ??
+          this.scene.fog?.far ??
+          Math.max(t + 1, 1e3),
+        r =
+          e.color ??
+          this._savedFogParams?.color ??
+          this.scene.fog?.color?.getHex?.() ??
+          16777215;
+      if (!this.scene.fog) {
+        this.scene.fog = new O(r, Math.max(0, t), Math.max(t + 1, n));
+        return;
+      }
+      (e.near !== void 0 && (this.scene.fog.near = Math.max(0, e.near)),
+        e.far !== void 0 &&
+          (this.scene.fog.far = Math.max(this.scene.fog.near + 1, e.far)),
+        e.color !== void 0 && this.scene.fog.color.set(e.color));
+    }
+    updateSunPosition(e = {}) {
+      let t = e.elevation ?? 45,
+        n = e.azimuth ?? 180,
+        r = j.degToRad(90 - t),
+        i = j.degToRad(n);
+      (this.sun.setFromSphericalCoords(1e3, r, i),
+        this.analyticSky && this.analyticSky.setSun(this.sun),
+        this.water &&
+          this.water.water &&
+          this.water.water.material.uniforms.sunDirection.value
+            .copy(this.sun)
+            .normalize(),
+        this._applySkyCoupledLights());
+    }
+    _applySkyCoupledLights() {
+      if (this.preethamSky) {
+        (Xn.setSun(this.sun, {
+          sunTint: [1, 0.97, 0.92],
+          zenith: [0.35, 0.5, 0.75],
+        }),
+          this._restoreBaseLightColors(),
+          In({ enabled: !0, sunDir: this.sun, model: `preetham` }));
+        return;
+      }
+      let e = Sr(this.sun);
+      if ((Xn.setSun(this.sun, e), this.analyticSky)) {
+        (this._rememberBaseLightColors(),
+          this.directionalLight?.color.setRGB(
+            e.sunTint[0],
+            e.sunTint[1],
+            e.sunTint[2],
+          ),
+          this.ambientLight?.color.setRGB(
+            e.ambient[0],
+            e.ambient[1],
+            e.ambient[2],
+          ));
+        let t = this.water?.water?.material?.uniforms?.sunColor?.value;
+        (t?.setRGB && t.setRGB(e.sunTint[0], e.sunTint[1], e.sunTint[2]),
+          In({
+            enabled: !0,
+            sunDir: this.sun,
+            model: `analytic`,
+            sunGlow: this.analyticSky?.uniforms?.uSunGlow?.value ?? 1,
+          }),
+          (this._skyLightsCoupled = !0));
+        return;
+      }
+      (this._restoreBaseLightColors(),
+        Ln(this.imageSky),
+        In({ enabled: !!this.imageSky, sunDir: this.sun, model: `image` }));
+    }
+    _restoreBaseLightColors() {
+      if (!this._skyLightsCoupled) return;
+      let e = this._baseLightColors;
+      (e?.directional &&
+        this.directionalLight &&
+        this.directionalLight.color.copy(e.directional),
+        e?.ambient &&
+          this.ambientLight &&
+          this.ambientLight.color.copy(e.ambient));
+      let t = this.water?.water?.material?.uniforms?.sunColor?.value;
+      (t?.copy && e?.waterSun && t.copy(e.waterSun),
+        (this._skyLightsCoupled = !1));
+    }
+    _rememberBaseLightColors() {
+      if (this._baseLightColors) return;
+      let e = this.water?.water?.material?.uniforms?.sunColor?.value;
+      this._baseLightColors = {
+        ambient: this.ambientLight?.color?.clone?.() || new P(16777215),
+        directional: this.directionalLight?.color?.clone?.() || new P(16777215),
+        waterSun: e?.clone?.() || null,
+      };
+    }
+    setWindVisibilityRadius(e) {
+      ((this.windVisibilityRadius = Math.max(50, e)),
+        this.windSystem && this.windSystem.setVisibilityRadius(e));
+    }
+    getWindVisibilityRadius() {
+      return this.windVisibilityRadius;
+    }
+    async createYachtAsync() {
+      try {
+        let { default: e } = await r(
+          async () => {
+            let { default: e } = await import(`./Yacht-DS-m91Pv.js`);
+            return { default: e };
+          },
+          __vite__mapDeps([15, 12, 11, 1, 3, 16]),
+        );
+        if (this._islandLoadAborted) return;
+        ((Array.isArray(lt) ? lt : []).forEach((t) => {
+          let n = new e(this.scene, t.id);
+          (this.yachts.push(n), t.id === `softgen` && (this.yacht = n));
+        }),
+          console.info(`Loaded ${this.yachts.length} yachts`));
+      } catch (e) {
+        console.error(`Error loading yachts:`, e);
+      }
+    }
+    async createBlimpAsync() {
+      let { Blimp: e } = await r(
+        async () => {
+          let { Blimp: e } = await import(`./Blimp-CBxX7-Aq.js`);
+          return { Blimp: e };
+        },
+        __vite__mapDeps([17, 1, 8, 3, 9, 18]),
+      );
+      this._islandLoadAborted ||
+        ((this.blimp = new e(this.scene, {
+          ad: this.options?.blimpAd || null,
+        })),
+        console.info(`Loaded 1 blimp`));
+    }
+    async createCargoShipsAsync() {
+      try {
+        let { default: e } = await r(
+          async () => {
+            let { default: e } = await import(`./CargoShip-Da4OGSKb.js`);
+            return { default: e };
+          },
+          __vite__mapDeps([19, 7, 1, 20, 9, 3, 5]),
+        );
+        if (this._islandLoadAborted) return;
+        ((Array.isArray(ft) ? ft : []).forEach((t) => {
+          let n = new e(this.scene, t.id, {
+            onInteraction: this.advertisementInteractionTracker,
+            getWaterHeight: (e, t) => this.getHeightAt(e, t),
+          });
+          this.cargoShips.push(n);
+        }),
+          console.info(`Loaded ${this.cargoShips.length} cargo ships`));
+      } catch (e) {
+        console.error(`Error loading cargo ships:`, e);
+      }
+    }
+    async createFloatingWorldPropsAsync() {
+      try {
+        let e = this.options?.floatingWorldProp;
+        if (!e?.modelUrl) return;
+        let { default: t } = await r(
+          async () => {
+            let { default: e } = await import(
+              `./FloatingWorldProp-C5Dibl-5.js`
+            );
+            return { default: e };
+          },
+          __vite__mapDeps([21, 1, 3, 4, 5]),
+        );
+        if (this._islandLoadAborted) return;
+        let n = new t(this.scene, e, {
+          getWaterHeight: (e, t) => this.getHeightAt(e, t),
+        });
+        this.floatingWorldProps.push(n);
+      } catch (e) {
+        console.error(`Error loading floating world prop:`, e);
+      }
+    }
+    async createPortalsAsync() {
+      try {
+        let { default: e } = await r(
+          async () => {
+            let { default: e } = await import(`./Portal-DsCBQ6-0.js`);
+            return { default: e };
+          },
+          __vite__mapDeps([22, 23, 3]),
+        );
+        if (this._islandLoadAborted) return;
+        this.portals = await e.createPortalsFromJSON(this.scene, this);
+      } catch (e) {
+        (console.error(`Error creating portals from JSON:`, e),
+          (this.portals = []));
+      }
+    }
+    async createBirdsAsync() {
+      let { default: e } = await r(
+        async () => {
+          let { default: e } = await import(`./Birds-C0RXzqnf.js`);
+          return { default: e };
+        },
+        __vite__mapDeps([24, 3]),
+      );
+      if (this._islandLoadAborted) return;
+      let t = this.boat?.getPosition?.() || null;
+      ((this.birds = e.createBirds(this.scene, this.windDirection, {
+        boatPosition: t,
+        waterHeightSampler: (e, t) => this.water?.getHeightAt?.(e, t) ?? 0,
+      })),
+        this.camera && this.birds.setCenterTarget(this.camera));
+      let n = this.advertisementSystem?.signs || [];
+      this.birds.setBillboardTargets(n);
+    }
+    async createSeaCreaturesAsync() {
+      let { default: e } = await r(
+        async () => {
+          let { default: e } = await import(`./SeaCreatures-CaBHRx9G.js`);
+          return { default: e };
+        },
+        __vite__mapDeps([25, 3]),
+      );
+      this._islandLoadAborted ||
+        (this.seaCreatures = e.create(this.scene, {
+          getPlayerAnchor: () =>
+            this.boat?.getPosition?.() || this.camera?.position || null,
+          getWaterHeight: (e, t) => this.water?.getHeightAt?.(e, t) ?? 0,
+        }));
+    }
+    dispose() {
+      ((this._islandLoadAborted = !0),
+        this.islandGenerator && this.islandGenerator.dispose(),
+        this.windSystem && this.windSystem.dispose(),
+        this.ambientLight &&
+          (this.scene.remove(this.ambientLight), (this.ambientLight = null)),
+        this.directionalLight &&
+          (this.scene.remove(this.directionalLight),
+          (this.directionalLight = null)),
+        this.pointLight &&
+          (this.scene.remove(this.pointLight), (this.pointLight = null)),
+        this.advertisementSystem && this.advertisementSystem.dispose(),
+        this.googleTilesLoader && this.googleTilesLoader.dispose(),
+        this.yacht && this.yacht.dispose(),
+        this.yachts.forEach((e) => e.dispose()),
+        (this.yachts = []),
+        this.cargoShips?.forEach((e) => e.dispose()),
+        (this.cargoShips = []),
+        this.floatingWorldProps?.forEach((e) => e.dispose?.()),
+        (this.floatingWorldProps = []),
+        this.blimp && this.blimp.dispose(),
+        Xn.disposeAll(),
+        this.portals.forEach((e) => {
+          e.dispose();
+        }),
+        (this.portals = []),
+        this.birds && this.birds.dispose(),
+        this.seaCreatures &&
+          (this.seaCreatures.dispose(), (this.seaCreatures = null)),
+        this.localGeoFeature?.dispose?.(),
+        this.water && this.water.dispose?.(),
+        this._disposeCurrentSky());
+    }
   };
-}
-function Br(
-  e,
-  { startSide: t = `outer`, clearanceScale: n = 1, count: r = null } = {},
-) {
-  let i = Number.isFinite(r) ? Math.min(r, e.length) : e.length,
-    a = [];
-  for (let r = 0; r < i; r += 1) {
-    let i = (t === `outer` ? r : r + 1) % 2 == 0 ? `outer` : `inner`;
-    a.push(zr(e[r], i, n));
-  }
-  return a;
-}
-function Vr(e, t = `outer`, n = 1.15) {
-  let r = zr(e, t, n),
-    i = Rr(e);
-  return { x: r.x + i.x * 55, z: r.z + i.z * 55 };
-}
-function Hr(e = Lr()) {
-  return {
-    id: `island-star`,
-    trackId: `trial_island-star_v1`,
-    title: `Island Star`,
-    checkpoints: Br(e, { startSide: `outer`, clearanceScale: 1 }),
-    startSpawn: Vr(e[0], `outer`, 1.05),
-    medalsMs: { bronze: 720 * 1e3, silver: 540 * 1e3, gold: 420 * 1e3 },
-  };
-}
-function Ur(e = Lr()) {
-  return {
-    id: `big-iron`,
-    trackId: `trial_big-iron_v1`,
-    title: `Big Iron`,
-    checkpoints: Br(e, {
-      startSide: `outer`,
-      clearanceScale: 1.35,
-      count: Math.min(e.length, Math.ceil(e.length / 2) + 1),
-    }),
-    startSpawn: Vr(e[0], `outer`, 1.45),
-    medalsMs: {
-      bronze: 600 * 1e3,
-      silver: 7.5 * 60 * 1e3,
-      gold: 5.5 * 60 * 1e3,
-    },
-  };
-}
-var Wr = { "island-star": Hr, "big-iron": Ur };
-function Gr(e) {
-  let t = String(e || ``)
-    .trim()
-    .toLowerCase();
-  return t === `inner-zigzag` ? `island-star` : TRIAL_BOAT_IDS.includes(t) ? t : null;
-}
-function Kr(e, t = Lr()) {
-  let n = Gr(e);
-  if (!n) return null;
-  let r = Wr[n];
-  return r ? r(t) : null;
-}
-function qr(e) {
-  let t = Gr(e);
-  return t
-    ? `/game?scene=islands&activity=time_trial&trial=${encodeURIComponent(t)}`
-    : null;
-}
-function Jr(e, t) {
-  let n = Number(e);
-  return !Number.isFinite(n) || n < 0 || !t
-    ? null
-    : Number.isFinite(t.gold) && n <= t.gold
-      ? `gold`
-      : Number.isFinite(t.silver) && n <= t.silver
-        ? `silver`
-        : Number.isFinite(t.bronze) && n <= t.bronze
-          ? `bronze`
-          : null;
-}
-var TRIAL_PROGRESS_STORAGE_KEY = `vibesail.raceTrialProgress`,
-  TRIAL_MEDALS = Object.freeze({ bronze: 0, silver: 1, gold: 2 });

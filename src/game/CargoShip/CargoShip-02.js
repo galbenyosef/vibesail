@@ -1,10 +1,10 @@
 // CargoShip 02 — ship
-// Lines 126-469 of readable/assets/CargoShip-DSMEqWta.pretty.js (statement-aligned).
+// Lines 126-469 of readable/assets/CargoShip-Da4OGSKb.pretty.js (statement-aligned).
 var O = class {
   constructor(n, a = `low-poly-cargo`, o = {}) {
     ((this.scene = n),
       (this.shipId = a),
-      (this.ship = new t()),
+      (this.ship = new i()),
       (this.model = null),
       (this.modelLoaded = !1),
       (this.disposed = !1),
@@ -15,7 +15,7 @@ var O = class {
         getTrackedObjectForPopupId: () => this.ship,
       })),
       (this.raycaster = new r()),
-      (this.mouse = new u()),
+      (this.mouse = new l()),
       (this.boundWindowClick = this.handleSceneClick.bind(this)),
       (this.getSynchronizedTimeSeconds =
         typeof o.nowSeconds == `function` ? o.nowSeconds : C),
@@ -42,7 +42,7 @@ var O = class {
       (this.modelScale = DEFAULT_CARGO_CONFIG.scale),
       (this.positionY = DEFAULT_CARGO_CONFIG.positionY),
       (this.headingOffset = 0),
-      (this.modelRotation = new i(0, 0, 0)),
+      (this.modelRotation = new t(0, 0, 0)),
       (this.sideLabelConfig = DEFAULT_CARGO_CONFIG.sideLabel),
       (this.popupContent = DEFAULT_CARGO_CONFIG.popupContent),
       (this.companyName = DEFAULT_CARGO_CONFIG.companyName),
@@ -67,36 +67,36 @@ var O = class {
     this.onInteraction = typeof e == `function` ? e : null;
   }
   loadConfig() {
-    let t = Array.isArray(m) ? m : [],
-      n = { ...DEFAULT_CARGO_CONFIG, ...(t.find((e) => e.id === this.shipId) || {}) },
-      r = n.sideLabel ? { ...DEFAULT_CARGO_CONFIG.sideLabel, ...n.sideLabel } : null,
-      a = n.popupContent ? { ...DEFAULT_CARGO_CONFIG.popupContent, ...n.popupContent } : null;
-    ((this.orbitRadius = n.radius),
-      (this.orbitSpeed = n.speed),
-      (this.orbitCenter = { x: n.centerX, z: n.centerZ }),
-      (this.orbitAngle = n.initialAngle),
-      (this.initialAngle = n.initialAngle),
-      (this.pathPoints = S(n.pathPoints)),
+    let n = Array.isArray(m) ? m : [],
+      r = { ...DEFAULT_CARGO_CONFIG, ...(n.find((e) => e.id === this.shipId) || {}) },
+      i = r.sideLabel ? { ...DEFAULT_CARGO_CONFIG.sideLabel, ...r.sideLabel } : null,
+      a = r.popupContent ? { ...DEFAULT_CARGO_CONFIG.popupContent, ...r.popupContent } : null;
+    ((this.orbitRadius = r.radius),
+      (this.orbitSpeed = r.speed),
+      (this.orbitCenter = { x: r.centerX, z: r.centerZ }),
+      (this.orbitAngle = r.initialAngle),
+      (this.initialAngle = r.initialAngle),
+      (this.pathPoints = S(r.pathPoints)),
       this.rebuildPathSegments(),
       (this.initialPathDistance =
         (this.pathLength * (((this.orbitAngle % TWO_PI) + TWO_PI) % TWO_PI)) / TWO_PI),
       (this.pathDistance = this.initialPathDistance),
       (this.turnSpeed = Math.max(
         0,
-        Number.isFinite(n.turnSpeed) ? n.turnSpeed : DEFAULT_CARGO_CONFIG.turnSpeed,
+        Number.isFinite(r.turnSpeed) ? r.turnSpeed : DEFAULT_CARGO_CONFIG.turnSpeed,
       )),
-      (this.modelUrl = e(n.modelUrl)),
-      (this.modelScale = n.scale),
-      (this.positionY = n.positionY),
-      (this.headingOffset = y(n.headingOffsetDegrees)),
-      (this.sideLabelConfig = r?.text ? r : null),
+      (this.modelUrl = e(r.modelUrl)),
+      (this.modelScale = r.scale),
+      (this.positionY = r.positionY),
+      (this.headingOffset = y(r.headingOffsetDegrees)),
+      (this.sideLabelConfig = i?.text ? i : null),
       (this.popupContent = a),
-      (this.collisionConfig = { ...DEFAULT_CARGO_CONFIG.collision, ...(n.collision || {}) }),
-      (this.companyName = String(n.companyName || DEFAULT_CARGO_CONFIG.companyName).trim()));
+      (this.collisionConfig = { ...DEFAULT_CARGO_CONFIG.collision, ...(r.collision || {}) }),
+      (this.companyName = String(r.companyName || DEFAULT_CARGO_CONFIG.companyName).trim()));
     let o = Number(this.collisionConfig?.length);
     this.buoyancyHalfLength = Number.isFinite(o) && o > 0 ? o * 0.35 : 40;
-    let s = n.modelRotationDegrees || {};
-    this.modelRotation = new i(y(s.x), y(s.y), y(s.z));
+    let s = r.modelRotationDegrees || {};
+    this.modelRotation = new t(y(s.x), y(s.y), y(s.z));
   }
   rebuildPathSegments() {
     ((this.pathSegments = []),
@@ -139,42 +139,42 @@ var O = class {
     if (typeof document > `u`) return null;
     let t = document.createElement(`canvas`);
     ((t.width = 1024), (t.height = 256));
-    let r = t.getContext(`2d`);
-    if (!r) return null;
-    (r.clearRect(0, 0, t.width, t.height),
-      (r.lineWidth = 14),
-      (r.strokeStyle = e.strokeColor),
-      (r.fillStyle = e.color),
-      (r.textAlign = `center`),
-      (r.textBaseline = `middle`),
-      (r.font = `bold 140px Arial, Helvetica, sans-serif`),
-      r.strokeText(e.text, t.width / 2, t.height / 2 + 5, t.width * 0.9),
-      r.fillText(e.text, t.width / 2, t.height / 2 + 5, t.width * 0.9));
-    let i = new o(t);
-    return ((i.colorSpace = n), (i.anisotropy = 4), i);
+    let n = t.getContext(`2d`);
+    if (!n) return null;
+    (n.clearRect(0, 0, t.width, t.height),
+      (n.lineWidth = 14),
+      (n.strokeStyle = e.strokeColor),
+      (n.fillStyle = e.color),
+      (n.textAlign = `center`),
+      (n.textBaseline = `middle`),
+      (n.font = `bold 140px Arial, Helvetica, sans-serif`),
+      n.strokeText(e.text, t.width / 2, t.height / 2 + 5, t.width * 0.9),
+      n.fillText(e.text, t.width / 2, t.height / 2 + 5, t.width * 0.9));
+    let r = new s(t);
+    return ((r.colorSpace = f), (r.anisotropy = 4), r);
   }
   addSideLabels(e) {
     let t = this.sideLabelConfig;
     if (!t) return;
     e.updateMatrixWorld(!0);
-    let n = new d().setFromObject(e);
-    if (n.isEmpty()) return;
-    let r = n.getSize(new s()),
-      i = n.getCenter(new s()),
-      o = Math.max(1, r.z * t.widthRatio),
-      l = Math.max(0.5, r.y * t.heightRatio),
-      u = n.min.y + r.y * t.yRatio;
+    let r = new u().setFromObject(e);
+    if (r.isEmpty()) return;
+    let i = r.getSize(new d()),
+      a = r.getCenter(new d()),
+      s = Math.max(1, i.z * t.widthRatio),
+      l = Math.max(0.5, i.y * t.heightRatio),
+      f = r.min.y + i.y * t.yRatio;
     [
-      { x: n.max.x + t.sideOffset, rotationY: Math.PI / 2 },
-      { x: n.min.x - t.sideOffset, rotationY: -Math.PI / 2 },
-    ].forEach((n) => {
-      let r = this.createSideLabelTexture(t);
-      if (!r) return;
-      let s = new f({ map: r, transparent: !0, depthWrite: !1, side: 2 }),
-        d = new c(new a(o, l), s);
+      { x: r.max.x + t.sideOffset, rotationY: Math.PI / 2 },
+      { x: r.min.x - t.sideOffset, rotationY: -Math.PI / 2 },
+    ].forEach((r) => {
+      let i = this.createSideLabelTexture(t);
+      if (!i) return;
+      let u = new c({ map: i, transparent: !0, depthWrite: !1, side: 2 }),
+        d = new o(new n(s, l), u);
       ((d.name = `cargo-ship-side-label-${t.text}`),
-        d.position.set(n.x, u, i.z),
-        (d.rotation.y = n.rotationY),
+        d.position.set(r.x, f, a.z),
+        (d.rotation.y = r.rotationY),
         e.add(d));
     });
   }
@@ -225,8 +225,8 @@ var O = class {
       if (t <= e.length) {
         let n = e.length > 0 ? t / e.length : 0;
         return {
-          x: l.lerp(e.start.x, e.end.x, n),
-          z: l.lerp(e.start.z, e.end.z, n),
+          x: a.lerp(e.start.x, e.end.x, n),
+          z: a.lerp(e.start.z, e.end.z, n),
           heading: Math.atan2(e.end.x - e.start.x, e.end.z - e.start.z),
         };
       }
@@ -282,7 +282,7 @@ var O = class {
     let n = b(this.currentHeading, e),
       r = this.turnSpeed * t;
     return (
-      (this.currentHeading = x(this.currentHeading + l.clamp(n, -r, r))),
+      (this.currentHeading = x(this.currentHeading + a.clamp(n, -r, r))),
       this.currentHeading
     );
   }

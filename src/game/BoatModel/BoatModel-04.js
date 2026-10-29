@@ -1,6 +1,6 @@
-// BoatModel 04 — isfinite
-// Lines 441-1637 of readable/assets/BoatModel-Cf2RVdWT.pretty.js (statement-aligned).
-var SailRig = class {
+// BoatModel 04 — position
+// Lines 441-1644 of readable/assets/BoatModel-Z2nOAZAK.pretty.js (statement-aligned).
+var _e = class {
     constructor(e, t = {}) {
       ((this.boatGroup = e),
         (this.mastHeight = t.mastHeight),
@@ -11,11 +11,11 @@ var SailRig = class {
         (this.boomLength = t.boomLength),
         (this.jibLength = t.jibLength),
         (this.jibHeight = t.jibHeight),
-        (this.mastBase = N(t.mastBase)),
-        (this.forestayStem = N(t.forestayStem)),
-        (this.mainSheetAnchor = N(t.mainSheetAnchor)),
-        (this.jibClewPosition = N(t.jibClewPosition)),
-        (this.jibSheetAnchor = N(t.jibSheetAnchor)),
+        (this.mastBase = j(t.mastBase)),
+        (this.forestayStem = j(t.forestayStem)),
+        (this.mainSheetAnchor = j(t.mainSheetAnchor)),
+        (this.jibClewPosition = j(t.jibClewPosition)),
+        (this.jibSheetAnchor = j(t.jibSheetAnchor)),
         (this.jibStayOffset = t.jibStayOffset),
         (this.boomHeight = t.boomHeight),
         (this.boomThickness = t.boomThickness),
@@ -36,7 +36,7 @@ var SailRig = class {
             : this._structureMaterial),
         this.boomColor !== void 0 &&
           this.boomColor !== null &&
-          (A(this.boomColor, `boomColor`),
+          (D(this.boomColor, `boomColor`),
           this._boomMaterial.color.setHex(this.boomColor)),
         (this._mastMaterial =
           this.mastColor !== void 0 && this.mastColor !== null
@@ -44,7 +44,7 @@ var SailRig = class {
             : this._structureMaterial),
         this.mastColor !== void 0 &&
           this.mastColor !== null &&
-          (A(this.mastColor, `mastColor`),
+          (D(this.mastColor, `mastColor`),
           this._mastMaterial.color.setHex(this.mastColor)),
         (this.mast = null),
         (this.flag = null),
@@ -65,18 +65,18 @@ var SailRig = class {
         this.updateGeometry());
     }
     _setInitialValidatedState() {
-      (j(this.mastHeight, `options.mastHeight`),
-        j(this.mastThickness, `options.mastThickness`),
-        j(this.flagSize, `options.flagSize`),
-        j(this.sailLength, `options.sailLength`),
-        j(this.boomHeight, `options.boomHeight`),
-        j(this.boomLength, `options.boomLength`),
-        j(this.jibStayOffset, `options.jibStayOffset`),
-        M(this.mastBase, `options.mastBase`),
-        M(this.forestayStem, `options.forestayStem`),
-        M(this.mainSheetAnchor, `options.mainSheetAnchor`),
-        M(this.jibClewPosition, `options.jibClewPosition`),
-        M(this.jibSheetAnchor, `options.jibSheetAnchor`));
+      (O(this.mastHeight, `options.mastHeight`),
+        O(this.mastThickness, `options.mastThickness`),
+        O(this.flagSize, `options.flagSize`),
+        O(this.sailLength, `options.sailLength`),
+        O(this.boomHeight, `options.boomHeight`),
+        O(this.boomLength, `options.boomLength`),
+        O(this.jibStayOffset, `options.jibStayOffset`),
+        k(this.mastBase, `options.mastBase`),
+        k(this.forestayStem, `options.forestayStem`),
+        k(this.mainSheetAnchor, `options.mainSheetAnchor`),
+        k(this.jibClewPosition, `options.jibClewPosition`),
+        k(this.jibSheetAnchor, `options.jibSheetAnchor`));
     }
     _warnGeometry(e, t) {
       this._geometryGuardWarned.has(e) ||
@@ -84,7 +84,7 @@ var SailRig = class {
     }
     _safeSetFromPoints(e, t, n) {
       try {
-        return (ce(e, t, n), !0);
+        return (fe(e, t, n), !0);
       } catch (e) {
         if (e?.name === `GeometryGuardError`)
           return (this._warnGeometry(n, e.message || e.toString()), !1);
@@ -106,7 +106,7 @@ var SailRig = class {
           !1);
     }
     _assignFiniteVec(e, t) {
-      let n = me(t);
+      let n = A(t);
       return this._isFiniteVec(n)
         ? n
         : (this._warnGeometry(
@@ -183,7 +183,7 @@ var SailRig = class {
           ),
           Number.isFinite(this.mastThickness) &&
             (this.mast.geometry?.dispose(),
-            (this.mast.geometry = new O(
+            (this.mast.geometry = new p(
               this.mastThickness,
               this.mastThickness,
               1,
@@ -208,14 +208,14 @@ var SailRig = class {
               `sailRig.updateGeometry.flag`,
               `[SailRig] cannot update flag: invalid mast/flag parameters`,
             ));
-      let t = new S(
+      let t = new w(
           this.mastBase.x,
           this.mastBase.y + this.headPointY,
           this.mastBase.z,
         ),
         n = this.jibSail !== null;
       if (n) {
-        let e = new S().subVectors(t, this.forestayStem),
+        let e = new w().subVectors(t, this.forestayStem),
           r = e.length();
         !Number.isFinite(r) || !Number.isFinite(this.jibStayOffset)
           ? (this._warnGeometry(
@@ -241,11 +241,11 @@ var SailRig = class {
           let e = this.forestayStem
               .clone()
               .add(i.clone().multiplyScalar(this.jibStayOffset)),
-            t = new S(0, this.jibClewPosition.y, e.z - this.jibClewPosition.z);
+            t = new w(0, this.jibClewPosition.y, e.z - this.jibClewPosition.z);
           if (
             this.jibPivot &&
             (this.jibPivot.position.copy(e),
-            this.jibPivot.quaternion.setFromUnitVectors(new S(0, 1, 0), i),
+            this.jibPivot.quaternion.setFromUnitVectors(new w(0, 1, 0), i),
             this.jibLuff)
           ) {
             let e = -this.jibStayOffset,
@@ -295,7 +295,7 @@ var SailRig = class {
           this.boom.position.set(0, this.boomHeight, -this.boomLength / 2),
           Number.isFinite(this.boomThickness) &&
             (this.boom.geometry?.dispose(),
-            (this.boom.geometry = new O(
+            (this.boom.geometry = new p(
               this.boomThickness,
               this.boomThickness,
               1,
@@ -311,7 +311,7 @@ var SailRig = class {
       this.jibSail && this.jibSail.setVisible(e);
     }
     setMastColor(e) {
-      (A(e, `mastColor`),
+      (D(e, `mastColor`),
         (this.mastColor = e),
         this._mastMaterial && this._mastMaterial.color.setHex(e));
     }
@@ -370,13 +370,13 @@ var SailRig = class {
       };
     }
     setSailColor(e) {
-      (A(e, `mainSail.color`), this.mainSail && this.mainSail.setColor(e));
+      (D(e, `mainSail.color`), this.mainSail && this.mainSail.setColor(e));
     }
     setJibColor(e) {
-      (A(e, `jib.color`), this.jibSail && this.jibSail.setColor(e));
+      (D(e, `jib.color`), this.jibSail && this.jibSail.setColor(e));
     }
     setBoomColor(e) {
-      (A(e, `boomColor`),
+      (D(e, `boomColor`),
         this.boom &&
           (this._boomMaterial ||
             ((this._boomMaterial = this._structureMaterial.clone()),
@@ -398,7 +398,7 @@ var SailRig = class {
             let n = Array.isArray(t.material)
               ? t.material
               : [t.material].filter(Boolean);
-            ((t.material = new x({ map: e, side: 2 })),
+            ((t.material = new C({ map: e, side: 2 })),
               this._applyMaterialOpacity(t.material),
               n.forEach((e) => {
                 typeof e.dispose == `function` && e.dispose();
@@ -427,8 +427,8 @@ var SailRig = class {
       this.headPointY = Math.max(0, this.mastHeight - e - 0.05);
     }
     _createMast() {
-      let e = new O(this.mastThickness, this.mastThickness, 1, 8);
-      ((this.mast = new C(e, this._mastMaterial || this._structureMaterial)),
+      let e = new p(this.mastThickness, this.mastThickness, 1, 8);
+      ((this.mast = new x(e, this._mastMaterial || this._structureMaterial)),
         (this.mast.userData.isStructure = !0),
         this.mast.position.set(
           this.mastBase.x,
@@ -439,14 +439,14 @@ var SailRig = class {
         this.boatGroup.add(this.mast));
     }
     _createFlag() {
-      this.flag = new a();
-      let e = new p(2.4, 1.6),
+      this.flag = new c();
+      let e = new r(2.4, 1.6),
         t;
       ((t = this.flagTexture
-        ? new x({ map: this.flagTexture, side: 2 })
-        : new x({ color: 13369344, side: 2 })),
+        ? new C({ map: this.flagTexture, side: 2 })
+        : new C({ color: 13369344, side: 2 })),
         this._applyMaterialOpacity(t));
-      let n = new C(e, t);
+      let n = new x(e, t);
       (n.position.set(1.2, -0.8, 0),
         this.flag.add(n),
         this.flag.scale.set(this.flagSize, this.flagSize, this.flagSize),
@@ -458,18 +458,18 @@ var SailRig = class {
         this.boatGroup.add(this.flag));
     }
     _createJib() {
-      (j(this.headPointY, `headPointY`),
-        M(this.forestayStem, `forestayStem`),
-        M(this.mastBase, `mastBase`),
-        (this.jibPivot = new a()),
+      (O(this.headPointY, `headPointY`),
+        k(this.forestayStem, `forestayStem`),
+        k(this.mastBase, `mastBase`),
+        (this.jibPivot = new c()),
         this.jibPivot.position.copy(this.forestayStem),
         this.boatGroup.add(this.jibPivot));
-      let e = new S(
+      let e = new w(
           this.mastBase.x,
           this.mastBase.y + this.headPointY,
           this.mastBase.z,
         ),
-        t = new S().subVectors(e, this.forestayStem),
+        t = new w().subVectors(e, this.forestayStem),
         n = t.length();
       if (!Number.isFinite(n) || n <= 0) {
         let e = Error(
@@ -478,23 +478,23 @@ var SailRig = class {
         throw ((e.name = `BoatGeometryError`), e);
       }
       let r = t.normalize();
-      this.jibPivot.quaternion.setFromUnitVectors(new S(0, 1, 0), r);
-      let i = new E();
+      this.jibPivot.quaternion.setFromUnitVectors(new w(0, 1, 0), r);
+      let i = new T();
       this._safeSetFromPoints(
         i,
-        [new S(0, 0, 0), new S(0, 1, 0)],
+        [new w(0, 0, 0), new w(0, 1, 0)],
         `sailRig.mainLuff.initial`,
       );
-      let o = new l({ color: 2236962 });
-      ((this.jibLuff = new T(i, o)),
+      let a = new m({ color: 2236962 });
+      ((this.jibLuff = new g(i, a)),
         this.jibPivot.add(this.jibLuff),
-        (this.jibRotationGroup = new a()),
+        (this.jibRotationGroup = new c()),
         this.jibPivot.add(this.jibRotationGroup));
-      let s = Number.isFinite(this.jibLength) ? this.jibLength : 1,
-        c = Number.isFinite(this.jibHeight) ? this.jibHeight : 1;
-      ((this.jibSail = new SailMesh({
-        width: s,
-        height: c,
+      let o = Number.isFinite(this.jibLength) ? this.jibLength : 1,
+        s = Number.isFinite(this.jibHeight) ? this.jibHeight : 1;
+      ((this.jibSail = new E({
+        width: o,
+        height: s,
         color: this.jibColor,
         type: `jib`,
         segments: 10,
@@ -506,9 +506,9 @@ var SailRig = class {
         (this._jibAnimActive = !1));
     }
     _createMainSail() {
-      ((this.sailGroup = new a()),
+      ((this.sailGroup = new c()),
         (this.sailHeight = Math.max(0.1, this.headPointY - this.boomHeight)),
-        (this.mainSail = new SailMesh({
+        (this.mainSail = new E({
           width: this.sailLength,
           height: this.sailHeight,
           color: this.sailColor,
@@ -522,8 +522,8 @@ var SailRig = class {
         this.sailGroup.add(e),
         this.sailGroup.position.set(this.mastBase.x, 0, this.mastBase.z),
         this.boatGroup.add(this.sailGroup));
-      let t = new C(
-        new O(this.boomThickness, this.boomThickness, 1, 8),
+      let t = new x(
+        new p(this.boomThickness, this.boomThickness, 1, 8),
         this._boomMaterial,
       );
       ((t.userData.isStructure = !0),
@@ -535,26 +535,26 @@ var SailRig = class {
         (this._sailAnimActive = !1));
     }
     _createMainSheet() {
-      let e = new l({ color: 3355443, linewidth: 2 }),
-        t = new E();
+      let e = new m({ color: 3355443, linewidth: 2 }),
+        t = new T();
       (this._safeSetFromPoints(
         t,
-        [new S(0, 0, 0), new S(0, 1, 0)],
+        [new w(0, 0, 0), new w(0, 1, 0)],
         `sailRig.mainSheet.initial`,
       ),
-        (this.mainSheet = new T(t, e)),
+        (this.mainSheet = new g(t, e)),
         this.boatGroup.add(this.mainSheet),
         this._updateMainSheet());
     }
     _createJibSheet() {
-      let e = new l({ color: 3355443, linewidth: 2 }),
-        t = new E();
+      let e = new m({ color: 3355443, linewidth: 2 }),
+        t = new T();
       (this._safeSetFromPoints(
         t,
-        [new S(0, 0, 0), new S(0, 1, 0)],
+        [new w(0, 0, 0), new w(0, 1, 0)],
         `sailRig.jibSheet.initial`,
       ),
-        (this.jibSheet = new T(t, e)),
+        (this.jibSheet = new g(t, e)),
         this.boatGroup.add(this.jibSheet),
         this._updateJibSheet());
     }
@@ -562,7 +562,7 @@ var SailRig = class {
       if (!this.mainSheet || !this.boom || !this.sailGroup) return;
       let e = this.mainSheetAnchor,
         t = this.boomLength,
-        n = new S(0, this.boomHeight, -t);
+        n = new w(0, this.boomHeight, -t);
       if (
         (n.applyQuaternion(this.sailGroup.quaternion),
         n.add(this.sailGroup.position),
@@ -593,7 +593,7 @@ var SailRig = class {
         !Number.isFinite(this.jibLength)
       )
         return;
-      let e = new S(0, this.jibSail.params.uClewY.value, -this.jibLength);
+      let e = new w(0, this.jibSail.params.uClewY.value, -this.jibLength);
       if (
         !Number.isFinite(e.x) ||
         !Number.isFinite(e.y) ||
@@ -610,7 +610,7 @@ var SailRig = class {
           .applyQuaternion(this.jibRotationGroup.quaternion)
           .applyQuaternion(this.jibPivot.quaternion)
           .add(this.jibPivot.position),
-        n = this.jibSheetAnchor || new S(0, 0, 0);
+        n = this.jibSheetAnchor || new w(0, 0, 0);
       if (!this._isFiniteVec(t) || !this._isFiniteVec(n)) {
         this._warnGeometry(
           `sailRig.jibSheet.geometry`,
@@ -658,7 +658,7 @@ var SailRig = class {
           this._jibAnimOnComplete && this._jibAnimOnComplete()));
     }
   },
-  SailTextures = class {
+  M = class {
     static createSailTexture(e) {
       let t = document.createElement(`canvas`),
         n = t.getContext(`2d`);
@@ -684,37 +684,27 @@ var SailRig = class {
         (n.lineWidth = 4),
         n.strokeText(a, c, s),
         n.restore());
-      let l = new b(t);
+      let l = new ee(t);
       return ((l.flipY = !1), l);
     }
   },
-  _e = 0.2,
-  ve = 0.5,
-  ye = 6,
-  be = 3,
-  xe = 0.4,
-  Se = 14,
-  ForceVectorDebug = class {
+  ve = 0.2,
+  ye = new w(0, 1, 0),
+  N = new w(),
+  be = 0.5,
+  xe = 6,
+  Se = 3,
+  ForceVectorDebug = 0.4,
+  FLAG_COUNTRY_BASE_PATH = 14,
+  COUNTRY_CODE_ALIASES = class {
     constructor(e, t) {
       ((this.boatModel = e),
         (this.boatGroup = t),
-        (this.forceVectors = {}),
         (this.vectorMode = 0),
         (this.vectorModeCount = 5),
-        (this._lastRotForceSampleSec = 0),
         (this._rotForceAngles = { pitch: 0, roll: 0, yaw: 0 }),
-        (this._rotForceGains = { pitch: 1, roll: 1, yaw: 1 }),
-        (this._rotForceGain = 0.1),
         (this._momentVectorScale = 5),
-        (this._rotForceOffsets = {
-          roll: Math.PI / 2,
-          pitch: -Math.PI / 2,
-          yaw: 0,
-        }),
-        this.init());
-    }
-    init() {
-      this.initVectorSystem();
+        this.initVectorSystem());
     }
     initVectorSystem() {
       let e = {
@@ -734,79 +724,79 @@ var SailRig = class {
       };
       ((this.forceVectors = {
         accelerationVector: this.createForceArrow(
-          new S(0, e.accelerationVector, 0),
+          new w(0, e.accelerationVector, 0),
           16747520,
           5,
           `Acceleration`,
         ),
         mainSailForceVector: this.createForceArrow(
-          new S(0, e.mainSailForceVector, 0),
+          new w(0, e.mainSailForceVector, 0),
           65280,
           5,
           `Main Sail Force`,
         ),
         mainLiftForceVector: this.createForceArrow(
-          new S(0, e.mainLiftForceVector, 0),
+          new w(0, e.mainLiftForceVector, 0),
           52224,
           5,
           `Main Lift Force`,
         ),
         mainPushForceVector: this.createForceArrow(
-          new S(0, e.mainPushForceVector, 0),
+          new w(0, e.mainPushForceVector, 0),
           8978176,
           5,
           `Main Push Force`,
         ),
         jibForceVector: this.createForceArrow(
-          new S(0, e.jibForceVector, 0),
+          new w(0, e.jibForceVector, 0),
           65450,
           5,
           `Jib Force`,
         ),
         jibLiftForceVector: this.createForceArrow(
-          new S(0, e.jibLiftForceVector, 0),
+          new w(0, e.jibLiftForceVector, 0),
           52394,
           5,
           `Jib Lift`,
         ),
         jibPushForceVector: this.createForceArrow(
-          new S(0, e.jibPushForceVector, 0),
+          new w(0, e.jibPushForceVector, 0),
           8978346,
           5,
           `Jib Push`,
         ),
         forwardForceVector: this.createForceArrow(
-          new S(0, e.forwardForceVector, 0),
+          new w(0, e.forwardForceVector, 0),
           16711680,
           5,
           `Forward Force`,
         ),
         lateralForceVector: this.createForceArrow(
-          new S(0, e.lateralForceVector, 0),
+          new w(0, e.lateralForceVector, 0),
           255,
           5,
           `Lateral Force`,
         ),
         dragForceVector: this.createForceArrow(
-          new S(0, e.dragForceVector, 0),
+          new w(0, e.dragForceVector, 0),
           16711935,
           5,
           `Drag Force`,
         ),
         boomWeightVector: this.createForceArrow(
-          new S(0, e.boomWeightVector, 0),
+          new w(0, e.boomWeightVector, 0),
           16737792,
           5,
           `Boom Weight`,
         ),
         windForceVector: this.createForceArrow(
-          new S(0, e.windForceVector, 0),
+          new w(0, e.windForceVector, 0),
           65535,
           5,
           `Wind Force`,
         ),
         apparentWindVector: this.createForceArrow(
-          new S(0, e.apparentWindVector, 0),
+          new w(0, e.apparentWindVector, 0),
           16776960,
           5,
           `Apparent Wind`,
@@ -890,42 +880,44 @@ var SailRig = class {
       (r.fillRect(n.width / 2 - i / 2 - 5, n.height / 2 - 15, i + 10, 30),
         (r.fillStyle = `#${t.toString(16).padStart(6, `0`)}`),
         r.fillText(e, n.width / 2, n.height / 2));
-      let a = new d(new te({ map: new b(n), transparent: !0, depthTest: !1 }));
+      let a = new _(new h({ map: new ee(n), transparent: !0, depthTest: !1 }));
       return (a.scale.set(5, 1.25, 1), a);
     }
     createForceArrow(e, t, n = 10, r = null) {
-      let i = new a(),
-        o = new v(new S(0, 0, 1), new S(0, 0, 0), n, t);
-      (i.add(o), i.position.copy(e));
-      let s = null;
-      (r && ((s = this.createTextSprite(r, t)), i.add(s)),
+      let i = new c(),
+        a = new v(new w(0, 0, 1), new w(0, 0, 0), n, t);
+      (i.add(a), i.position.copy(e));
+      let o = null;
+      (r && ((o = this.createTextSprite(r, t)), i.add(o)),
         this.boatGroup.add(i),
-        (i.currentDirection = new S(0, 0, 1)),
+        (i.currentDirection = new w(0, 0, 1)),
         (i.currentLength = n),
         (i.vectorType = r || ``));
-      let c = () => {
-        if (s) {
+      let s = () => {
+        if (o) {
           let e = this._calculateLabelOffset(i.vectorType),
             t = i.currentDirection
               .clone()
               .multiplyScalar(i.currentLength * 0.5);
-          s.position.copy(t.add(e));
+          o.position.copy(t.add(e));
         }
       };
       return (
         (i.setDirection = (e) => {
-          ((i.currentDirection = e.clone().normalize()),
-            o.setDirection(e),
-            c());
+          e &&
+            e.lengthSq() > 1e-12 &&
+            (i.currentDirection.copy(e).normalize(),
+            a.setDirection(i.currentDirection),
+            s());
         }),
         (i.setLength = (e) => {
-          ((i.currentLength = e), o.setLength(e), c());
+          ((i.currentLength = e), a.setLength(e), s());
         }),
         i
       );
     }
     _calculateLabelOffset(e) {
-      let t = new S();
+      let t = new w();
       switch (e) {
         case `Acceleration`:
           t.set(1.5, 1.5, 0);
@@ -975,12 +967,17 @@ var SailRig = class {
         i = 0.4,
         a = (e, t, n, r) => {
           if (!e || !t) return;
-          let i = t.clone().applyAxisAngle(new S(0, 1, 0), -n);
-          (e.setDirection(i.clone().normalize()),
-            e.setLength(Math.max(1, t.length() * r)));
+          let i = t.length();
+          if (!(i > 1e-5)) {
+            e.setLength(0.25);
+            return;
+          }
+          (N.copy(t).applyAxisAngle(ye, -n),
+            e.setDirection(N),
+            e.setLength(Math.max(1, i * r)));
         };
       if (e.forwardForce && e.dragForce) {
-        let n = new S().addVectors(e.forwardForce, e.dragForce);
+        let n = new w().addVectors(e.forwardForce, e.dragForce);
         a(this.forceVectors.accelerationVector, n, t, r);
       }
       if (
@@ -1003,15 +1000,15 @@ var SailRig = class {
         a(this.forceVectors.apparentWindVector, e.apparentWind, t, i);
     }
     _createAttitudeOverlay() {
-      ((this.attitudeOverlayGroup = new a()),
+      ((this.attitudeOverlayGroup = new c()),
         (this.attitudeOverlayGroup.visible = !1),
         this.attitudeOverlayGroup.position.set(0, 6, 0),
         this.boatGroup.add(this.attitudeOverlayGroup));
-      let e = new n(7, 0.08, 8, 64),
+      let e = new ne(7, 0.08, 8, 64),
         t = (t, n, r) => {
-          let i = new C(
+          let i = new x(
             e,
-            new D({ color: t, transparent: !0, opacity: 0.45, depthTest: !1 }),
+            new S({ color: t, transparent: !0, opacity: 0.45, depthTest: !1 }),
           );
           return (
             n && (i.rotation.y = n),
@@ -1020,17 +1017,27 @@ var SailRig = class {
             i
           );
         };
-      (t(43775, Math.PI / 2),
-        t(16746496, Math.PI / 2),
-        t(11163135, 0, -Math.PI / 2));
-      let r = new m(0.4, 12, 12),
-        i = (e) => {
-          let t = new C(r, new D({ color: e, depthTest: !1 }));
+      ((this.rollRing = t(43775)),
+        (this.pitchRing = t(16746496, Math.PI / 2)),
+        (this.yawRing = t(11163135, 0, -Math.PI / 2)));
+      let n = new s(0.4, 12, 12),
+        r = (e) => {
+          let t = new x(n, new S({ color: e, depthTest: !1 }));
           return (this.attitudeOverlayGroup.add(t), t);
         };
-      ((this.rollDot = i(30668)),
-        (this.pitchDot = i(13391104)),
-        (this.yawDot = i(8930508)));
+      ((this.rollDot = r(30668)),
+        (this.pitchDot = r(13391104)),
+        (this.yawDot = r(8930508)));
+      let i = 8.8,
+        a = (e, t, n, r, i) => {
+          let a = this.createTextSprite(e, t);
+          ((a.name = e),
+            a.position.set(n, r, i),
+            this.attitudeOverlayGroup.add(a));
+        };
+      (a(`Roll`, 43775, i, 0, 0),
+        a(`Pitch`, 16746496, 0, 0, i),
+        a(`Yaw`, 11163135, -8.8, 0.6, 0));
     }
     _updateAttitudeOverlay(e) {
       let t = performance.now() / 1e3,
@@ -1057,12 +1064,12 @@ var SailRig = class {
       this.yawDot.position.set(Math.sin(c) * 7, 0, Math.cos(c) * 7);
     }
     _createWaveDebugHelpers() {
-      ((this.waveDebugGroup = new a()),
+      ((this.waveDebugGroup = new c()),
         (this.waveDebugGroup.visible = !1),
         this.boatGroup.add(this.waveDebugGroup));
-      let e = new m(_e, 16, 16),
+      let e = new s(ve, 16, 16),
         t = (t) => {
-          let n = new C(e, new D({ color: t, transparent: !0, opacity: 0.85 }));
+          let n = new x(e, new S({ color: t, transparent: !0, opacity: 0.85 }));
           return (this.waveDebugGroup.add(n), n);
         };
       ((this.frontSampleMarker = t(16763904)),
@@ -1071,14 +1078,14 @@ var SailRig = class {
         (this.rightSampleMarker = t(43775)),
         (this.centerSampleMarker = t(16777215)),
         (this.buoyancyVector = this.createForceArrow(
-          new S(0, 0, 0),
+          new w(0, 0, 0),
           6750054,
           1.2,
           `Buoyancy dY`,
         )),
         (this.buoyancyVector.visible = !1),
         (this.waveSlopeAccelVector = this.createForceArrow(
-          new S(0, 0, 0),
+          new w(0, 0, 0),
           16769126,
           1.2,
           `Wave slope a`,
@@ -1087,7 +1094,7 @@ var SailRig = class {
     }
     _getWaveSlopeVectorYOffset() {
       let e = Number(this.boatModel?.mastHeight);
-      return !Number.isFinite(e) || e <= 0 ? ye : e * ve;
+      return !Number.isFinite(e) || e <= 0 ? xe : e * be;
     }
     _resolveWaveSample(e, t) {
       let n = e?.getLastWaterSample?.();
@@ -1096,7 +1103,7 @@ var SailRig = class {
       if (!r) return null;
       let i = r.center
         ? r.center.clone()
-        : new S(t?.position?.x || 0, 0, t?.position?.z || 0);
+        : new w(t?.position?.x || 0, 0, t?.position?.z || 0);
       return {
         centerY: i.y,
         center: i,
@@ -1125,9 +1132,9 @@ var SailRig = class {
       )
         return;
       let o = n.center.y - t.position.y,
-        s = new S(0, 1, 0).applyQuaternion(r).normalize(),
+        s = new w(0, 1, 0).applyQuaternion(r).normalize(),
         c = o >= 0 ? s : s.clone().negate(),
-        l = w.clamp(Math.abs(o) * 6, 0.25, 10);
+        l = b.clamp(Math.abs(o) * 6, 0.25, 10);
       if (
         (this.buoyancyVector.position.copy(a),
         this.buoyancyVector.setDirection(c),
@@ -1141,7 +1148,7 @@ var SailRig = class {
         return;
       }
       let d = u.clone().applyQuaternion(r).clone().normalize(),
-        f = w.clamp(u.length() * be, xe, Se);
+        f = b.clamp(u.length() * Se, ForceVectorDebug, FLAG_COUNTRY_BASE_PATH);
       ((this.waveSlopeAccelVector.visible = this.vectorMode === 4),
         this.waveSlopeAccelVector.position.set(
           a.x,
@@ -1152,19 +1159,19 @@ var SailRig = class {
         this.waveSlopeAccelVector.setLength(f));
     }
     _createWaveMomentVectors() {
-      ((this.waveMomentGroup = new a()),
+      ((this.waveMomentGroup = new c()),
         (this.waveMomentGroup.visible = !1),
         this.boatGroup.add(this.waveMomentGroup));
       let e = (e, t, n = 0.8) => {
-        let r = new a(),
-          i = new v(new S(1, 0, 0), new S(0, 0, 0), 1, e),
-          o = this.createTextSprite(t, e);
+        let r = new c(),
+          i = new v(new w(1, 0, 0), new w(0, 0, 0), 1, e),
+          a = this.createTextSprite(t, e);
         return (
-          o.position.set(0, n, 0),
+          a.position.set(0, n, 0),
           r.add(i),
           (r.arrow = i),
-          (r.text = o),
-          r.add(o),
+          (r.text = a),
+          r.add(a),
           this.waveMomentGroup.add(r),
           r
         );
@@ -1188,12 +1195,12 @@ var SailRig = class {
             e.arrow.setLength(a),
             e.position.copy(i));
         };
-      (a(this.pitchMoment, new S(1, 0, 0), t.pitch, new S(0, r, 0)),
-        a(this.rollMoment, new S(0, 0, 1), t.roll, new S(0, r, 0)),
-        a(this.yawMoment, new S(0, 1, 0), t.yaw, new S(0, 2, i)));
+      (a(this.pitchMoment, new w(1, 0, 0), t.pitch, new w(0, r, 0)),
+        a(this.rollMoment, new w(0, 0, 1), t.roll, new w(0, r, 0)),
+        a(this.yawMoment, new w(0, 1, 0), t.yaw, new w(0, 2, i)));
     }
   },
-  FLAG_COUNTRY_BASE_PATH = `/assets/flags/countries`,
-  FLAG_UNKNOWN_PATH = `/assets/flags/unknown.png`,
-  FLAG_PIRATE_PATH = `/assets/flags/pirate.png`,
-  COUNTRY_CODE_ALIASES = Object.freeze({ UK: `GB` });
+  FLAG_UNKNOWN_PATH = `/assets/flags/countries`,
+  FLAG_PIRATE_PATH = `/assets/flags/unknown.png`,
+  I = `/assets/flags/pirate.png`,
+  Ee = Object.freeze({ UK: `GB` });

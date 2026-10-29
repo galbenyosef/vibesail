@@ -1,526 +1,1345 @@
-// Game 29 — camera
-// Lines 15902-16425 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var CameraController = class {
-    constructor(e, t, n, r = {}) {
-      ((this.scene = e),
+// Game 29 — boat
+// Lines 10489-11831 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+var xo = 0.2,
+  So = class {
+    constructor(e, t, n = null, r = null, i = null) {
+      ((this.world = e),
         (this.boat = t),
-        (this.domElement = n),
-        (this.isDevMode = typeof r.isDevMode == `boolean` ? r.isDevMode : h()),
-        (this.rememberPreference = r.rememberPreference !== !1),
-        (this.isMobile = Ba.isMobile()),
-        (this.cameraSettings = {
-          fov: this.isMobile ? 75 : 64,
-          minDistance: 25,
-          maxDistance: this.isDevMode ? 1e3 : 140,
-          maxPolarAngle: this.isDevMode ? Math.PI : Math.PI / 2 - 0.1,
-          damping: !0,
-          dampingFactor: 0.05,
-          firstPerson: {
-            height: 4.5,
-            forwardOffset: -6,
-            fov: r.firstPersonFovOverride || (this.isMobile ? 95 : 85),
-            rotationSpeed: 0.003,
-          },
-          freeFlying: {
-            moveSpeed: 200,
-            rotationSpeed: 0.008,
-            fov: this.isMobile ? 90 : 80,
-          },
-          near: 0.1,
-          far: H.scene.cameraFar,
-          frustumCulling: !0,
-          orbitDampingSpeed: 2,
-        }),
-        (this.compositionSettings = { targetYOffset: 9 }),
-        (this.viewOffsetPixels = { x: 0, y: 0 }),
-        (this.cameraConfig = {
-          startDistance: 58,
-          positionFactors: { x: -0.5, y: 0.9, z: -0.7 },
-        }),
-        (this.camera = new w(
-          this.cameraSettings.fov,
-          window.innerWidth / window.innerHeight,
-          this.cameraSettings.near,
-          this.cameraSettings.far,
-        )),
-        (this.camera.frustumCulled = this.cameraSettings.frustumCulling),
-        this.camera.position.set(0, 80, 70),
-        this.camera.lookAt(0, 0, 0),
-        (this.orbitControls = new no(this.camera, n)),
-        this.applyOrbitSettings(),
-        this.orbitControls.target.set(0, 0, 0),
-        (this.isFirstPerson = !1),
-        (this.isFreeFlying = !1));
-      let i = Eo();
-      ((this.firstPersonRotation = new oe(i.x, i.y, 0, `YXZ`)),
-        (this.freeFlyingRotation = new oe(0, 0, 0, `YXZ`)),
-        (this.isExternallyControlled = !1),
-        (this.isDragging = !1),
-        (this.lastX = 0),
-        (this.lastY = 0),
-        (this.savedOrbitLocalOffset = null),
-        (this.savedFirstPersonRotation = { x: i.x, y: i.y }),
-        (this.smoothedBoatRotationY = 0),
-        this.initializeCamera(),
-        (this.savedOrbitLocalOffset = this.getBoatLocalOrbitOffset()),
-        this.setupTouchAndMouseEvents(),
-        this.setupPreferencePersistence(),
-        this.rememberPreference && this.restorePreference());
+        (this.tuning = r),
+        (this.isActive = !1),
+        (this.startTime = 0),
+        (this.isWaitingForStart = !1),
+        (this.isJoiningRace = !1),
+        (this.nextRaceTime = null),
+        (this.countdownInterval = null),
+        (this.escapeHandler = null),
+        (this.events = new qa(`Race`)),
+        this.tuning ||
+          console.warn(
+            `Race: Constructed without BoatTuning; fair-play physics will not be enforced.`,
+          ),
+        (this.config = i || new kt()),
+        (this.trackGenerator = new At(this.config)),
+        (!Array.isArray(this.config.checkpointPositions) ||
+          this.config.checkpointPositions.length === 0) &&
+          ((this.config.useDevTrackShortcuts ?? this.config.isDevMode)
+            ? ((this.config.checkpointPositions =
+                this.trackGenerator.getDevModeTrack()),
+              console.debug(`Using simple track for dev mode`))
+            : (this.config.checkpointPositions =
+                this.trackGenerator.generateDailyTrack(
+                  null,
+                  this.config.seed,
+                ))),
+        yo(this.config),
+        (this.checkpointManager = new Ai(this.world.scene, this.config)),
+        (this.uiManager = new Ia()),
+        (this.recordService = new La()),
+        (this.countryService = n || new ki()),
+        (this._leaderboardRequestVersion = 0),
+        this.boat?.model &&
+          this.countryService &&
+          this.countryService.registerBoat(this.boat.model),
+        (this.logisticsManager = null),
+        (this.completionReward = 100),
+        (this._doubleRewardGranted = !1),
+        (this.ghostManager = new Ba(this.world.scene, this.world)),
+        (this.ghostRecording = []),
+        (this.ghostSampleTicks = []),
+        (this.simElapsed = null),
+        (this.simTick = 0),
+        (this.simInputLog = null),
+        (this.lastRecordTime = 0),
+        (this.ghostPhysicsTime = 0),
+        (this.recordInterval = xo),
+        (this._ghostLoadRequestVersion = 0),
+        this.uiManager.setRace(this),
+        this.uiManager.initialize(),
+        this.calculateNextRaceTime());
     }
-    _setWaterReflectionAnchor(e) {
-      e &&
-        (this.camera.userData || (this.camera.userData = {}),
-        this.camera.userData.waterReflectionAnchor ||
-          (this.camera.userData.waterReflectionAnchor = new M()),
-        this.camera.userData.waterReflectionAnchor.set(e.x, e.y, e.z));
+    setLogisticsManager(e) {
+      this.logisticsManager = e || null;
     }
-    setupTouchAndMouseEvents() {
-      let e = () => this.isFirstPerson || this.isFreeFlying,
-        t = (e) => (e.touches ? e.touches[0] : e);
-      (this.domElement.addEventListener(
-        `touchstart`,
-        (n) => {
-          if (!e()) return;
-          let r = t(n);
-          ((this.isDragging = !0),
-            (this.lastX = r.clientX),
-            (this.lastY = r.clientY));
-        },
-        { passive: !0 },
-      ),
-        this.domElement.addEventListener(
-          `touchmove`,
-          (n) => {
-            if (!e() || !this.isDragging) return;
-            let r = t(n);
-            this.handleRotation(r.clientX, r.clientY, this.isFreeFlying);
-          },
-          { passive: !0 },
-        ),
-        this.domElement.addEventListener(`mousedown`, (t) => {
-          e() &&
-            ((this.isDragging = !0),
-            (this.lastX = t.clientX),
-            (this.lastY = t.clientY));
-        }),
-        this.domElement.addEventListener(`mousemove`, (t) => {
-          !e() ||
-            !this.isDragging ||
-            this.handleRotation(t.clientX, t.clientY, this.isFreeFlying);
-        }),
-        [`touchend`, `mouseup`, `mouseleave`].forEach((e) => {
-          this.domElement.addEventListener(e, () => {
-            let e = this.isDragging;
-            ((this.isDragging = !1),
-              e &&
-                this.isFirstPerson &&
-                !this.isFreeFlying &&
-                this.persistPreference());
-          });
+    calculateNextRaceTime() {
+      let e = new Date();
+      if (this.config.isDevMode) {
+        let t = 5e3;
+        return ((this.nextRaceTime = new Date(e.getTime() + t)), t);
+      }
+      let t = e.getMinutes(),
+        n = e.getSeconds(),
+        r = e.getMilliseconds(),
+        i = (1 - (t % 1)) * 60 * 1e3 - n * 1e3 - r;
+      return (
+        i <= 0 && (i += 60 * 1e3),
+        (this.nextRaceTime = new Date(e.getTime() + i)),
+        i
+      );
+    }
+    joinRace(e = null) {
+      let { ghostLimit: t } = this._resolveJoinRaceSelection(e);
+      (this._preparePlayerNameForRace(),
+        (this._doubleRewardGranted = !1),
+        (this.isJoiningRace = !0),
+        this.uiManager.updateRaceButton(!0),
+        this.ghostManager?.setGhostVisualOptions?.({
+          rankMarkersEnabled: !1,
+          useNormalBoatColors: !0,
+          opacityOverride: 0.35,
+        }));
+      let n = this.config.getTrackId(),
+        r = t == null ? Qa() : Za(t),
+        i = (this._ghostLoadRequestVersion || 0) + 1;
+      return (
+        (this._ghostLoadRequestVersion = i),
+        r > 0
+          ? this.recordService
+              .fetchGhosts(n, r)
+              .then((e) => {
+                i === this._ghostLoadRequestVersion &&
+                  (console.debug(`Loaded ${e.length} ghosts for track ${n}`),
+                  this.ghostManager.loadGhosts(e));
+              })
+              .catch((e) => {
+                i === this._ghostLoadRequestVersion &&
+                  console.warn(`Failed to load ghosts`, e);
+              })
+          : this.ghostManager.clearGhosts(),
+        (this.isJoiningRace = !1),
+        this.start(),
+        !0
+      );
+    }
+    _resolveJoinRaceSelection(e = null) {
+      return e && typeof e == `object`
+        ? { ghostLimit: e.ghostLimit }
+        : { ghostLimit: e };
+    }
+    _preparePlayerNameForRace() {
+      if (this.accountBridge?.isAuthenticated) {
+        this.playerNameForCurrentRun = g(
+          this.accountBridge?.getOfficialDisplayName?.(),
+        );
+        return;
+      }
+      this.playerNameForCurrentRun = ``;
+    }
+    getCurrentPlayerName() {
+      return this.accountBridge?.isAuthenticated
+        ? g(this.playerNameForCurrentRun) ||
+            g(this.accountBridge?.getOfficialDisplayName?.())
+        : ``;
+    }
+    exitRace() {
+      this.stop(`exit`);
+    }
+    start() {
+      throw Error(`BaseRace.start() is abstract and must be implemented.`);
+    }
+    beginRace() {
+      (this.boat.setStationaryMode(!1),
+        (this.isActive = !0),
+        (this.isWaitingForStart = !1),
+        (!this.config.isRegattaRace || !this.config.isRegattaRace()) &&
+          ((this.startTime = performance.now()),
+          (this.simElapsed = 0),
+          (this.ghostRecording = []),
+          (this.ghostSampleTicks = []),
+          (this.lastRecordTime = 0),
+          this._syncRaceWaterPhaseForStart(),
+          this.resetGhostPhysicsTime(0),
+          this._beginSimInputLog()),
+        this.world.multiplayer &&
+          this.world.multiplayer.temporarilyDisableInterpolation &&
+          this.world.multiplayer.temporarilyDisableInterpolation(2),
+        this._emit(`race:started`, {
+          trackId: this.config?.getTrackId?.() || null,
+          checkpointCount: this.checkpointManager.getTotalCheckpoints?.() || 0,
+          isRegatta: this.config.isRegattaRace?.() || !1,
+          hasStartGate: this.hasStartGate(),
+          isAuthenticated: !!this.accountBridge?.isAuthenticated,
         }));
     }
-    handleRotation(e, t, n = !1) {
-      let r = e - this.lastX,
-        i = t - this.lastY,
-        a = n ? this.freeFlyingRotation : this.firstPersonRotation,
-        o = n
-          ? this.cameraSettings.freeFlying.rotationSpeed
-          : this.cameraSettings.firstPerson.rotationSpeed;
-      ((a.y -= r * o),
-        (a.x -= i * o),
-        (a.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, a.x))),
-        this.camera.rotation.copy(a),
-        (this.lastX = e),
-        (this.lastY = t));
-    }
-    setupCameraMode(e, t, n) {
-      ((this.orbitControls.enabled = e),
-        (this.camera.fov = t),
-        this.camera.updateProjectionMatrix(),
-        n && n());
-    }
-    toggleCameraMode() {
-      return (
-        this.isFirstPerson
-          ? ((this.savedFirstPersonRotation =
-              this.getFirstPersonRotationPreference()),
-            (this.isFirstPerson = !1),
-            this.setupCameraMode(!0, this.cameraSettings.fov, () => {
-              this.savedOrbitLocalOffset
-                ? this.applyBoatLocalOrbitOffset(this.savedOrbitLocalOffset)
-                : this.initializeCamera();
-            }))
-          : ((this.savedOrbitLocalOffset = this.getBoatLocalOrbitOffset()),
-            (this.isFirstPerson = !0),
-            this.setupCameraMode(
-              !1,
-              this.cameraSettings.firstPerson.fov,
-              () => {
-                (this.applyFirstPersonRotation(this.savedFirstPersonRotation),
-                  this.updateFirstPersonCamera());
-              },
-            )),
-        this.persistPreference(),
-        this.getCameraMode()
-      );
-    }
-    toggleFreeFlyingCamera() {
-      return (
-        (this.isFreeFlying = !this.isFreeFlying),
-        this.isFreeFlying
-          ? ((this.isFirstPerson = !1),
-            this.setupCameraMode(!1, this.cameraSettings.freeFlying.fov, () => {
-              (this.initializeFreeFlyingCamera(),
-                this.freeFlyingRotation.set(0, 0, 0));
-            }))
-          : this.setupCameraMode(!0, this.cameraSettings.fov, () => {
-              this.restorePreference() || this.initializeCamera();
-            }),
-        !0
-      );
-    }
-    getCameraMode() {
-      return this.isFreeFlying
-        ? `freeFlying`
-        : this.isFirstPerson
-          ? `firstPerson`
-          : `orbit`;
-    }
-    shouldUpdateAfterBoat() {
-      return this.isFirstPerson === !0;
-    }
-    initializeFreeFlyingCamera() {
-      (this.camera.position.set(0, 100, 200),
-        this.freeFlyingRotation.set(0, 0, 0),
-        this.camera.rotation.copy(this.freeFlyingRotation));
-    }
-    initializeCamera() {
-      let e = this.boat.getRotation().y,
-        t = this.boat.getPosition(),
-        n = this.cameraConfig.startDistance,
-        r = new M(
-          -Math.sin(e),
-          this.cameraConfig.positionFactors.y,
-          -Math.cos(e),
-        ).normalize();
-      this.camera.position.copy(t).addScaledVector(r, n);
-      let i = new M(Math.sin(e) * 10, 0, Math.cos(e) * 10);
-      this._setWaterReflectionAnchor(t);
-      let a = t.clone().add(i),
-        o = this.compositionSettings.targetYOffset || 0;
-      (o && (a.y += o),
-        this.orbitControls.target.copy(a),
-        this.camera.lookAt(this.orbitControls.target),
-        this.orbitControls.update(),
-        (this.smoothedBoatRotationY = e));
-    }
-    getBoatLocalOrbitOffset() {
-      let e = this.boat.getRotation().y,
-        t = this.boat.getPosition();
-      return this.camera.position
-        .clone()
-        .sub(t)
-        .applyEuler(new oe(0, -e, 0));
-    }
-    cloneOrbitLocalOffset(e) {
-      let t = wo(e);
-      return t ? new M(t.x, t.y, t.z) : null;
-    }
-    applyBoatLocalOrbitOffset(e) {
-      let t = this.cloneOrbitLocalOffset(e);
-      if (!t) return !1;
-      let n = this.boat.getRotation().y,
-        r = this.boat.getPosition(),
-        i = r.clone(),
-        a = this.compositionSettings.targetYOffset || 0;
-      a && (i.y += a);
-      let o = t.clone().applyEuler(new oe(0, n, 0));
-      return (
-        this.orbitControls.target.copy(i),
-        this.camera.position.copy(r).add(o),
-        this.orbitControls.update(),
-        (this.smoothedBoatRotationY = n),
-        this._setWaterReflectionAnchor(r),
-        !0
-      );
-    }
-    captureRelativePose() {
-      let e = this.getFirstPersonRotationPreference();
-      return this.isFirstPerson && !this.isFreeFlying
-        ? {
-            mode: vo,
-            orbitLocalOffset: this.cloneOrbitLocalOffset(
-              this.savedOrbitLocalOffset,
-            ),
-            firstPersonRotation: e,
-          }
-        : {
-            mode: _o,
-            orbitLocalOffset: this.getBoatLocalOrbitOffset(),
-            firstPersonRotation: e,
-          };
-    }
-    applyRelativePose(e = null) {
-      if (((this.smoothedBoatRotationY = this.boat.getRotation().y), !e))
-        return this.restorePreference() || (this.initializeCamera(), !0);
-      let t = this.cloneOrbitLocalOffset(e.orbitLocalOffset);
-      return (
-        t && (this.savedOrbitLocalOffset = t),
-        e.firstPersonRotation &&
-          (this.savedFirstPersonRotation = {
-            x: e.firstPersonRotation.x,
-            y: e.firstPersonRotation.y,
-          }),
-        e.mode === `firstPerson`
-          ? ((this.isFreeFlying = !1),
-            this.isFirstPerson
-              ? (this.applyFirstPersonRotation(this.savedFirstPersonRotation),
-                this.updateFirstPersonCamera())
-              : ((this.isFirstPerson = !0),
-                this.setupCameraMode(
-                  !1,
-                  this.cameraSettings.firstPerson.fov,
-                  () => {
-                    (this.applyFirstPersonRotation(
-                      this.savedFirstPersonRotation,
-                    ),
-                      this.updateFirstPersonCamera());
-                  },
-                )),
-            !0)
-          : ((this.isFreeFlying = !1),
-            this.isFirstPerson &&
-              ((this.isFirstPerson = !1),
-              this.setupCameraMode(!0, this.cameraSettings.fov)),
-            this.savedOrbitLocalOffset &&
-            this.applyBoatLocalOrbitOffset(this.savedOrbitLocalOffset)
-              ? !0
-              : this.restorePreference() || (this.initializeCamera(), !0))
-      );
-    }
-    getFirstPersonRotationPreference() {
-      return this.isFirstPerson
-        ? { x: this.firstPersonRotation.x, y: this.firstPersonRotation.y }
-        : this.savedFirstPersonRotation
-          ? {
-              x: this.savedFirstPersonRotation.x,
-              y: this.savedFirstPersonRotation.y,
-            }
-          : Eo();
-    }
-    applyFirstPersonRotation(e) {
-      let t = To(e) || Eo();
-      (this.firstPersonRotation.set(t.x, t.y, 0),
-        (this.savedFirstPersonRotation = { x: t.x, y: t.y }));
-    }
-    persistPreference() {
-      return !this.rememberPreference ||
-        this.isFreeFlying ||
-        (this.isFirstPerson
-          ? (this.savedFirstPersonRotation =
-              this.getFirstPersonRotationPreference())
-          : (this.savedOrbitLocalOffset = this.getBoatLocalOrbitOffset()),
-        !this.savedOrbitLocalOffset)
-        ? null
-        : ko({
-            mode: this.isFirstPerson ? vo : _o,
-            orbitLocalOffset: this.savedOrbitLocalOffset,
-            firstPersonRotation: this.getFirstPersonRotationPreference(),
-          });
-    }
-    restorePreference() {
-      if (!this.rememberPreference) return !1;
-      let e = Oo();
-      if (!e) return !1;
-      let t = this.cloneOrbitLocalOffset(e.orbitLocalOffset);
-      return (
-        t && (this.savedOrbitLocalOffset = t),
-        this.applyFirstPersonRotation(e.firstPersonRotation || Eo()),
-        (this.isFreeFlying = !1),
-        e.mode === `firstPerson`
-          ? ((this.isFirstPerson = !0),
-            this.setupCameraMode(
-              !1,
-              this.cameraSettings.firstPerson.fov,
-              () => {
-                this.updateFirstPersonCamera();
-              },
-            ),
-            !0)
-          : ((this.isFirstPerson = !1),
-            this.setupCameraMode(!0, this.cameraSettings.fov),
-            this.savedOrbitLocalOffset
-              ? this.applyBoatLocalOrbitOffset(this.savedOrbitLocalOffset)
-              : (this.initializeCamera(),
-                (this.savedOrbitLocalOffset = this.getBoatLocalOrbitOffset()),
-                !0))
-      );
-    }
-    setupPreferencePersistence() {
-      !this.orbitControls ||
-        typeof this.orbitControls.addEventListener != `function` ||
-        this.orbitControls.addEventListener(`end`, () => {
-          this.isFirstPerson ||
-            this.isFreeFlying ||
-            this.isExternallyControlled ||
-            this.persistPreference();
+    emitFlowAction(e, t = {}) {
+      e &&
+        this._emit(`race:flow_action`, {
+          action: e,
+          trackId: this.config?.getTrackId?.() || null,
+          isAuthenticated: !!this.accountBridge?.isAuthenticated,
+          ...t,
         });
     }
-    applyOrbitSettings() {
-      ((this.orbitControls.enableDamping = this.cameraSettings.damping),
-        (this.orbitControls.dampingFactor = this.cameraSettings.dampingFactor),
-        (this.orbitControls.minDistance = this.cameraSettings.minDistance),
-        (this.orbitControls.maxDistance = this.cameraSettings.maxDistance),
-        (this.orbitControls.maxPolarAngle = this.cameraSettings.maxPolarAngle),
-        (this.camera.fov = this.cameraSettings.fov),
-        this.camera.updateProjectionMatrix());
-    }
-    setOrbitDistanceBounds({ minDistance: e, maxDistance: t } = {}) {
-      let n = Number(e);
-      Number.isFinite(n) &&
-        (this.cameraSettings.minDistance = Math.max(0.1, n));
-      let r = Number(t);
-      (Number.isFinite(r) &&
-        (this.cameraSettings.maxDistance = Math.max(
-          this.cameraSettings.minDistance,
-          r,
-        )),
-        this.applyOrbitSettings());
-    }
-    onWindowResize() {
-      ((this.camera.aspect = window.innerWidth / window.innerHeight),
-        this._applyViewOffset());
-    }
-    _normalizeViewOffsetPx(e) {
-      let t = Number(e);
-      return Number.isFinite(t) ? Math.round(t) : 0;
-    }
-    _applyViewOffset() {
-      if (!this.camera) return;
-      let e = Math.max(
-          1,
-          Math.round(window?.innerWidth || this.domElement?.clientWidth || 1),
-        ),
-        t = Math.max(
-          1,
-          Math.round(window?.innerHeight || this.domElement?.clientHeight || 1),
-        ),
-        n = this._normalizeViewOffsetPx(this.viewOffsetPixels?.x),
-        r = this._normalizeViewOffsetPx(this.viewOffsetPixels?.y);
-      ((n !== 0 || r !== 0) && typeof this.camera.setViewOffset == `function`
-        ? this.camera.setViewOffset(e, t, n, r, e, t)
-        : typeof this.camera.clearViewOffset == `function` &&
-          this.camera.clearViewOffset(),
-        this.camera.updateProjectionMatrix());
-    }
-    setViewOffsetPixels(e = 0, t = 0) {
-      let n = this._normalizeViewOffsetPx(e),
-        r = this._normalizeViewOffsetPx(t),
-        i = this._normalizeViewOffsetPx(this.viewOffsetPixels?.x),
-        a = this._normalizeViewOffsetPx(this.viewOffsetPixels?.y);
-      (n === i && r === a) ||
-        ((this.viewOffsetPixels = { x: n, y: r }), this._applyViewOffset());
-    }
-    update(e, t = {}) {
-      this.isExternallyControlled ||
-        (this.isFreeFlying
-          ? this.updateFreeFlyingCamera(e, t)
-          : this.isFirstPerson
-            ? this.updateFirstPersonCamera()
-            : this.updateOrbitCamera(e));
-    }
-    updateOrbitCamera(e) {
-      let t = this.boat.getPosition();
-      this._setWaterReflectionAnchor(t);
-      let n = this.boat.getRotation().y,
-        r = this.camera.position.clone().sub(this.orbitControls.target);
-      this.smoothedBoatRotationY === void 0 && (this.smoothedBoatRotationY = n);
-      let i = this.cameraSettings.orbitDampingSpeed,
-        a = n - this.smoothedBoatRotationY;
-      ((a = ((a + Math.PI) % (Math.PI * 2)) - Math.PI),
-        a < -Math.PI && (a += Math.PI * 2));
-      let o = 1 - Math.exp(-i * e),
-        s = a * o;
-      Math.abs(s) > 1e-5 &&
-        (r.applyAxisAngle(new M(0, 1, 0), s),
-        (this.smoothedBoatRotationY += s));
-      let c = this.orbitControls.target.clone(),
-        l = t.clone(),
-        u = this.compositionSettings.targetYOffset || 0;
-      u && (l.y += u);
-      let d = Math.min(1, e * 3);
-      (this.orbitControls.target.lerpVectors(c, l, d),
-        this.camera.position.copy(this.orbitControls.target).add(r),
-        this.orbitControls.update());
-    }
-    updateFirstPersonCamera() {
-      let e = this.boat.getPosition();
-      this._setWaterReflectionAnchor(e);
-      let t = this.boat.getRotation(),
-        n = new M(
-          0,
-          this.cameraSettings.firstPerson.height,
-          this.cameraSettings.firstPerson.forwardOffset,
-        ).clone();
-      (n.applyEuler(new oe(0, t.y, 0)), this.camera.position.copy(e).add(n));
-      let r = new oe(
-        this.firstPersonRotation.x,
-        this.firstPersonRotation.y + t.y,
-        0,
-        `YXZ`,
+    positionBoatAtStart() {
+      throw Error(
+        `BaseRace.positionBoatAtStart() is abstract and must be implemented.`,
       );
-      this.camera.rotation.copy(r);
     }
-    updateFreeFlyingCamera(e, t) {
-      let n = this.cameraSettings.freeFlying.moveSpeed * e;
-      ((t.w || t.arrowup) && this.camera.translateZ(-n),
-        (t.s || t.arrowdown) && this.camera.translateZ(n),
-        (t.a || t.arrowleft) && this.camera.translateX(-n),
-        (t.d || t.arrowright) && this.camera.translateX(n),
-        this._setWaterReflectionAnchor(this.camera.position),
-        this.isDragging && this.handleRotation(this.lastX, this.lastY, !0));
+    resetBoatAndCamera(e, t) {
+      let n =
+          typeof window < `u` && window.sail?.cameraController
+            ? window.sail.cameraController
+            : null,
+        r = n?.captureRelativePose?.() || null,
+        i = Math.PI / 2;
+      if (
+        this.config.checkpointPositions &&
+        this.config.checkpointPositions.length > 0
+      ) {
+        let e = this.config.checkpointPositions[0];
+        i = Math.atan2(e.x, e.z);
+      }
+      (this.boat.dynamics.position.set(e, 0, t),
+        this.boat.model.boatGroup.position.set(e, 0, t),
+        this.boat.dynamics.rotation.set(0, i, 0),
+        this.boat.model.boatGroup.rotation.set(0, i, 0),
+        (this.boat.dynamics.speed = 0),
+        (this.boat.dynamics.velocity = new N(0, 0, 0)),
+        (this.boat.dynamics.angularVelocity = new N(0, 0, 0)),
+        (this.boat.dynamics.sailAngle = -Math.PI / 4),
+        this.boat.model.sail &&
+          (this.boat.model.sail.rotation.y = -Math.PI / 4),
+        (this.boat.dynamics.rudderAngle = 0),
+        this.boat.model.rudder && (this.boat.model.rudder.rotation.y = 0),
+        (this.boat.dynamics.heelAngle = 0),
+        (this.boat.model.boatGroup.rotation.z = 0),
+        this.world.multiplayer &&
+          this.world.multiplayer.sendBoatUpdate &&
+          this.world.multiplayer.sendBoatUpdate(),
+        this.boat.resetWake && this.boat.resetWake(),
+        n?.applyRelativePose
+          ? n.applyRelativePose(r)
+          : this.positionCameraForRaceStart());
     }
-    getCamera() {
-      return this.camera;
+    positionCameraForRaceStart() {
+      let e =
+        typeof window < `u` && window.sail?.cameraController
+          ? window.sail.cameraController
+          : null;
+      if (e?.restorePreference?.()) return;
+      if (e?.initializeCamera) {
+        e.initializeCamera();
+        return;
+      }
+      if (
+        (console.warn(
+          `Camera controller not found, using fallback camera positioning`,
+        ),
+        !this.world.camera)
+      )
+        return;
+      let t = this.boat.getRotation().y,
+        n = this.boat.getPosition(),
+        r = new N(-Math.sin(t) * 50, 20, -Math.cos(t) * 50);
+      (this.world.camera.position.set(n.x, 0, n.z).add(r),
+        this.world.camera.lookAt(n.x, 0, n.z));
+    }
+    addEscapeListener() {
+      ((this.escapeHandler = (e) => {
+        e.key === `Escape` && this.cancel();
+      }),
+        document.addEventListener(`keydown`, this.escapeHandler),
+        this._onRestartAction ||
+          ((this._onRestartAction = (e) => {
+            e === `dock_restart` && this.restartFromHotkey();
+          }),
+          F.addListener(this._onRestartAction)));
+    }
+    restartFromHotkey() {
+      return this.isActive ||
+        this.isWaitingForStart ||
+        this.isJoiningRace ||
+        this.isPreStart
+        ? (this.cleanup(!1, { reason: `exit`, showIncompleteModal: !1 }),
+          this.uiManager.navigateRaceAgain(),
+          !0)
+        : !1;
+    }
+    update(e) {
+      throw Error(`BaseRace.update() is abstract and must be implemented.`);
+    }
+    recordGhostFrame(e) {
+      if (!this.boat) return;
+      let t = Tt.fromBoat(this.boat, e);
+      ((t.physicsTime = this.ghostPhysicsTime),
+        Array.isArray(this.ghostSampleTicks) || (this.ghostSampleTicks = []),
+        bt(this.ghostRecording, St.toArray(t), [this.ghostSampleTicks]),
+        this.ghostSampleTicks.push(za(e)));
+    }
+    syncRaceTick() {
+      return ((this.simTick = za(this.simElapsed)), this.simTick);
+    }
+    getElapsedSeconds() {
+      return Number.isFinite(this.simElapsed)
+        ? this.simElapsed
+        : Number.isFinite(this.startTime) && this.startTime > 0
+          ? (performance.now() - this.startTime) / 1e3
+          : 0;
+    }
+    sampleSimInput(e) {
+      if (!this.simInputLog || !this.boat?.dynamics) return;
+      let t = this.boat.dynamics;
+      Ga(this.simInputLog, e, {
+        rudder: t.rudderAngle,
+        sheet: t.sheetLimit,
+        furled: this.boat.sailsFurledTarget,
+      });
+    }
+    _beginSimInputLog() {
+      let e = this.world?.getWindDirection?.(),
+        t = this.world?.getWindSpeed?.();
+      this.simInputLog = Va({
+        courseId: this.config?.getTrackId?.() || null,
+        boatPresetId: this.boat?.model?.spec?.id || this.boat?.spec?.id || null,
+        wind:
+          e && Number.isFinite(t)
+            ? { speed: t, direction: [e.x, e.y, e.z] }
+            : null,
+      });
+    }
+    _simReplayMetadata() {
+      let e = Array.isArray(this.ghostSampleTicks)
+          ? this.ghostSampleTicks.slice()
+          : [],
+        t = e.length === this.ghostRecording.length ? e : void 0;
+      return {
+        tickHz: 60,
+        ...(t ? { sampleTicks: t } : {}),
+        inputLog: TouchControls(this.simInputLog),
+      };
+    }
+    resetGhostPhysicsTime(e = 0) {
+      let t = Number(e);
+      this.ghostPhysicsTime = Number.isFinite(t) ? t : 0;
+    }
+    advanceGhostPhysicsTime(e = 0) {
+      let t = Number(e);
+      !Number.isFinite(t) || t <= 0 || (this.ghostPhysicsTime += t);
+    }
+    checkCheckpointCompletion() {
+      let e = this.boat.getPosition();
+      this.checkpointManager.checkBoatCollision(e) && this.completeCheckpoint();
+    }
+    hasStartGate() {
+      return !!this.config?.checkpointPositions?.startLine;
+    }
+    emitMarkPassed({ markKind: e, checkpointIndex: t = null } = {}) {
+      let n = this.hasStartGate(),
+        r = this.checkpointManager.getTotalCheckpoints?.() || 0,
+        i = e === `gate` ? 0 : Number.isFinite(t) ? (n ? t + 1 : t) : null,
+        a =
+          Number.isFinite(this.simElapsed) || Number.isFinite(this.startTime)
+            ? this.getElapsedSeconds()
+            : null;
+      this._emit(`race:checkpoint_completed`, {
+        trackId: this.config?.getTrackId?.() || null,
+        markKind: e,
+        markIndex: i,
+        checkpointIndex: Number.isFinite(t) ? t : null,
+        totalCheckpoints: r,
+        hasStartGate: n,
+        elapsedTimeSeconds: a,
+        isAuthenticated: !!this.accountBridge?.isAuthenticated,
+      });
+    }
+    completeCheckpoint() {
+      let e = this.checkpointManager.getCurrentCheckpointIndex?.() || 0,
+        t = this.checkpointManager.progressToNextCheckpoint();
+      (this.emitMarkPassed({ markKind: `buoy`, checkpointIndex: e }),
+        t || this.complete());
+    }
+    complete() {
+      let e = this.getElapsedSeconds(),
+        t = !!this.accountBridge?.isAuthenticated;
+      (this._emit(`race:completed`, {
+        trackId: this.config?.getTrackId?.() || null,
+        elapsedTimeSeconds: e,
+        checkpointCount: this.checkpointManager.getTotalCheckpoints?.() || 0,
+        isAuthenticated: t,
+      }),
+        this._grantCompletionReward(),
+        this.config?.timeTrialId &&
+          this.config?.timeTrialCourse?.medalsMs &&
+          TUNING_SCHEMA(this.config.timeTrialId, e, this.config.timeTrialCourse.medalsMs),
+        (this._finishedRunSubmission = this._captureFinishedRun(
+          e,
+          this.config.getTrackId(),
+        )),
+        this.uiManager.showCompletionModal(
+          e,
+          this.config.getTrackId(),
+          (e, t, n, r) => this.submitRecord(e, t, n, r),
+          () => {
+            ((this._finishedRunSubmission = null),
+              this._emit(`race:completion_modal_closed`, {
+                trackId: this.config?.getTrackId?.() || null,
+                isAuthenticated: !!this.accountBridge?.isAuthenticated,
+              }),
+              this.cleanup(!1));
+          },
+          () => this.countryService.determineCountryCode(this.boat),
+          this.completionReward,
+          {
+            isAuthenticated: t,
+            onSignIn: () => this.accountBridge?.openAuth?.(),
+            openProfile: () => this.accountBridge?.openProfile?.(),
+            officialDisplayName:
+              (t && this.accountBridge?.getOfficialDisplayName?.()) || ``,
+            onDoubleReward: () => this._grantDoubleCompletionReward(),
+            rewardedCompletionKey: `daily-race:${new Date().toISOString().slice(0, 10)}:${this.config?.getTrackId?.() || `race`}:double-coins`,
+          },
+        ),
+        this.cleanup(!0));
+    }
+    _grantCompletionReward() {
+      let e = Number(this.completionReward || 0);
+      if (!e) return 0;
+      let t = this.logisticsManager;
+      if (!t || typeof t.addReward != `function`) return 0;
+      try {
+        let n = t.addReward(e);
+        return (
+          n > 0 &&
+            console.info(`Daily Challenge completed. Awarded $${e} coins.`),
+          n
+        );
+      } catch (e) {
+        return (console.warn(`Failed to grant Daily Challenge reward`, e), 0);
+      }
+    }
+    _grantDoubleCompletionReward() {
+      if (this._doubleRewardGranted) return 0;
+      let e = this._grantCompletionReward();
+      return (e > 0 && (this._doubleRewardGranted = !0), e);
+    }
+    _captureFinishedRun(e, t) {
+      let n = {
+          checkpointCount: this.config?.checkpointCount,
+          checkpointPositions: this.config?.checkpointPositions,
+          boatType: this.boat?.type || `standard`,
+        },
+        r = null;
+      if (this.ghostRecording && this.ghostRecording.length > 0)
+        try {
+          r = JSON.stringify(
+            qt(this.ghostRecording, {
+              version: 3,
+              metadata: {
+                time_origin: `race_start`,
+                start_time: 0,
+                sim: this._simReplayMetadata(),
+                race: {
+                  rulesetId:
+                    this.config?.getCurrentRulesetId?.() ||
+                    this.config?.getCurrentTrackConfig?.()?.id ||
+                    `UNKNOWN`,
+                  worldContact: `disabled_during_race`,
+                },
+              },
+              boatIdentity: Wt(this.boat),
+            }),
+          );
+        } catch (e) {
+          console.warn(`Failed to serialize ghost recording`, e);
+        }
+      return {
+        elapsedTime: e,
+        trackId: t,
+        ghostDataStr: r,
+        ghostVersion: 3,
+        metadata: n,
+      };
+    }
+    submitRecord(e, t, n, r) {
+      if (this._recordSubmitPromise) return this._recordSubmitPromise;
+      let i = this._finishedRunSubmission || this._captureFinishedRun(n, r);
+      return (
+        (this._recordSubmitPromise = this.recordService
+          .submitRecord(
+            t,
+            i.elapsedTime,
+            i.trackId,
+            i.ghostDataStr,
+            i.ghostVersion,
+            i.metadata,
+          )
+          .then((n) => {
+            (console.info(`Race record submitted successfully`, n),
+              this.uiManager.updateSubmissionStatus(!0, n),
+              this._emit(`race:submission_succeeded`, {
+                trackId: i.trackId,
+                elapsedTimeSeconds: i.elapsedTime,
+                playerName: e || null,
+                playerCountry: t || null,
+                rank: n?.rank ?? null,
+                totalPlayers: n?.totalPlayers ?? null,
+                isAuthenticated: !!this.accountBridge?.isAuthenticated,
+              }),
+              this.accountBridge?.isAuthenticated &&
+                !this.accountBridge?.getOfficialDisplayName?.() &&
+                typeof this.accountBridge?.refreshOfficialDisplayName ==
+                  `function` &&
+                this.accountBridge.refreshOfficialDisplayName(),
+              this.boat &&
+                this.boat.model &&
+                typeof this.boat.model.setFlagCode == `function` &&
+                this.boat.model.setFlagCode(t));
+          })
+          .catch((n) => {
+            (console.error(`Error submitting race record:`, n),
+              this.uiManager.updateSubmissionStatus(
+                !1,
+                null,
+                n?.message || null,
+              ),
+              this._emit(`race:submission_failed`, {
+                trackId: i.trackId,
+                elapsedTimeSeconds: i.elapsedTime,
+                playerName: e || null,
+                playerCountry: t || null,
+                error: n?.message || null,
+                isAuthenticated: !!this.accountBridge?.isAuthenticated,
+              }));
+          })
+          .finally(() => {
+            this._recordSubmitPromise = null;
+          })),
+        this._recordSubmitPromise
+      );
+    }
+    showLeaderboard() {
+      this.showLeaderboardForDay(0);
+    }
+    showLeaderboardForDay(e = 0) {
+      let t = ++this._leaderboardRequestVersion,
+        n = this.getTrackIdForDay(e),
+        r = `Daily Challenge - ${this.getDateStringForDay(e)}`;
+      (this.uiManager.showLeaderboardLoading(e),
+        Promise.all([
+          this.recordService.fetchLeaderboard(n),
+          this.recordService.fetchRecordCount(n),
+        ])
+          .then(([i, a]) => {
+            this._isLeaderboardRequestStillActive(t) &&
+              (this.uiManager.hideLeaderboard(),
+              this.uiManager.showLeaderboard(i, n, a, r, e));
+          })
+          .catch((n) => {
+            this._isLeaderboardRequestStillActive(t) &&
+              (console.error(
+                `Error loading leaderboard for day offset ${e}:`,
+                n,
+              ),
+              this.uiManager.showLeaderboardError(r, e));
+          }));
+    }
+    _isLeaderboardRequestStillActive(e) {
+      return e === this._leaderboardRequestVersion
+        ? typeof this.uiManager?.isLeaderboardVisible == `function`
+          ? this.uiManager.isLeaderboardVisible()
+          : !0
+        : !1;
+    }
+    _getFormattedDateWithOffset(e = 0) {
+      let t = new Date();
+      return (t.setDate(t.getDate() - e), Ot(t));
+    }
+    getTrackIdForDay(e = 0) {
+      return `race_${this._getFormattedDateWithOffset(e)}`;
+    }
+    getDateStringForDay(e = 0) {
+      return this._getFormattedDateWithOffset(e);
+    }
+    stop(e = `exit`) {
+      this.cleanup(!1, { reason: e });
+    }
+    cancel() {
+      this.stop(`exit`);
+    }
+    abandonForFocusLoss() {
+      return !this.isActive &&
+        !this.isWaitingForStart &&
+        !this.isPreStart &&
+        !this.isJoiningRace
+        ? !1
+        : (this.cleanup(!1, { reason: `focus_loss` }), !0);
+    }
+    cleanup(e = !1, t = {}) {
+      let n = t.reason || `exit`,
+        r = t.showIncompleteModal !== !1,
+        i = this.isActive,
+        a = this.isWaitingForStart,
+        o = this.isJoiningRace,
+        s = i || a || o,
+        c =
+          i &&
+          (Number.isFinite(this.simElapsed) ||
+            (Number.isFinite(this.startTime) && this.startTime > 0))
+            ? this.getElapsedSeconds()
+            : null,
+        l = s
+          ? (this.checkpointManager?.getCurrentCheckpointIndex?.() ?? null)
+          : null,
+        u = s
+          ? (this.checkpointManager?.getTotalCheckpoints?.() ?? null)
+          : null,
+        d = !!this.accountBridge?.isAuthenticated;
+      ((this._ghostLoadRequestVersion =
+        (this._ghostLoadRequestVersion || 0) + 1),
+        this.world.multiplayer && this.world.multiplayer.reconnect(),
+        this.countdownInterval &&
+          (clearInterval(this.countdownInterval),
+          (this.countdownInterval = null)),
+        (this.isActive = !1),
+        (this.isWaitingForStart = !1),
+        (this.isJoiningRace = !1),
+        `isPreStart` in this && (this.isPreStart = !1),
+        this.ghostManager && this.ghostManager.clearGhosts(),
+        this.checkpointManager.removeCheckpoints(),
+        this.boat &&
+          typeof this.boat.setStationaryMode == `function` &&
+          this.boat.setStationaryMode(!1),
+        this.escapeHandler &&
+          (document.removeEventListener(`keydown`, this.escapeHandler),
+          (this.escapeHandler = null)),
+        this._onRestartAction &&
+          (F.removeListener(this._onRestartAction),
+          (this._onRestartAction = null)));
+      try {
+        this._syncRaceRestrictions(!1);
+      } catch (e) {
+        (console.error(`Race: Critical error during tuning restoration:`, e),
+          this.boat?.setCompetitiveRestrictions &&
+            this.boat.setCompetitiveRestrictions(!1),
+          this.boat && this.boat.setTuningLocked(!1),
+          this.tuning && this.tuning.setLocked(!1));
+      }
+      e ||
+        ((this.playerNameForCurrentRun = ``),
+        this.uiManager.clearRaceUI(),
+        s &&
+          (this._emit(`race:abandoned`, {
+            trackId: this.config?.getTrackId?.() || null,
+            wasActive: i,
+            wasWaitingForStart: a,
+            reason: n,
+            isAuthenticated: d,
+            elapsedTimeSeconds: c,
+            checkpointIndex: l,
+            checkpointCount: u,
+          }),
+          r &&
+            typeof this.uiManager?.showIncompleteModal == `function` &&
+            this.uiManager.showIncompleteModal({ reason: n })));
+    }
+    on(e, t) {
+      this.events && this.events.on(e, t);
+    }
+    off(e, t) {
+      this.events && this.events.off(e, t);
+    }
+    _emit(e, t) {
+      this.events && this.events.emit(e, t);
+    }
+    _syncRaceWaterPhaseForStart() {
+      let e = this.world?.water;
+      !e ||
+        typeof e.resetWaveTime != `function` ||
+        e.resetWaveTime(to(this.config?.getTrackId?.()));
+    }
+    _syncRaceRestrictions(e) {
+      try {
+        (this.boat &&
+          typeof this.boat.setCompetitiveRestrictions == `function` &&
+          this.boat.setCompetitiveRestrictions(e),
+          this.boat &&
+            typeof this.boat.setTuningLocked == `function` &&
+            this.boat.setTuningLocked(e),
+          this.tuning &&
+            typeof this.tuning.setLocked == `function` &&
+            this.tuning.setLocked(e),
+          console.info(
+            `Race: Competitive restrictions ${e ? `enabled` : `restored`}.`,
+          ));
+      } catch (e) {
+        console.error(`Race: Error syncing competitive restrictions:`, e);
+      }
+    }
+    isStartGateOpen() {
+      return !0;
+    }
+    getDailyChallengeInfo() {
+      return {
+        date: this.config.currentDate,
+        trackId: this.config.getTrackId(),
+        checkpointCount: this.config.checkpointCount,
+      };
+    }
+    getTargetPosition() {
+      if (!this.checkpointManager) return null;
+      if (
+        this.config.isRegattaRace &&
+        this.config.isRegattaRace() &&
+        !this.hasCrossedStartLineValidly
+      ) {
+        let e = this.config.checkpointPositions.startLine;
+        if (e) return e.center;
+      }
+      let e = this.checkpointManager.getCurrentCheckpointIndex(),
+        t = this.config.checkpointPositions;
+      return t && e >= 0 && e < t.length ? t[e] : null;
     }
   },
-  SEA_LOOKDEV_STYLES_ID = `sea-lookdev-panel-styles-v2`,
-  LOOKDEV_OPEN_FOLDERS_KEY = `seaLookdev.openFolders`,
-  LOOKDEV_FOLDER_IDS = Object.freeze([
-    `look`,
-    `sun`,
-    `lights`,
-    `fog`,
-    `waves`,
-    `ripples`,
-    `reflections`,
-    `refraction`,
-    `foam`,
-    `sss`,
-    `glints`,
-    `color`,
-    `clouds`,
-    `seabed`,
-    `bloom`,
-    `underwater`,
-    `scene`,
-  ]),
-  LOOKDEV_FOLDER_LABELS = Object.freeze({
-    look: `Look`,
-    sun: `Sun`,
-    lights: `Scene Lights`,
-    fog: `Distance Fog`,
-    waves: `Waves`,
-    ripples: `Detail Ripples`,
-    reflections: `Reflections`,
-    refraction: `Refraction / Depth`,
-    foam: `Foam`,
-    sss: `Subsurface Scatter`,
-    glints: `Sun Glints`,
-    color: `Water Color`,
-    clouds: `Sky Clouds`,
-    seabed: `Seabed`,
-    bloom: `Bloom / Grade`,
-    underwater: `Underwater`,
-    scene: `Scene`,
-  });
+  Co = 3,
+  wo = class extends So {
+    constructor(e, t, n = null, r = null, i = null) {
+      super(e, t, n, r, i);
+    }
+    start() {
+      (this.world.multiplayer && this.world.multiplayer.disconnect(),
+        (this.isWaitingForStart = !0),
+        this._syncRaceWaterPhaseForStart(),
+        this._syncRaceRestrictions(!0),
+        this.positionBoatAtStart(),
+        this.checkpointManager.reset(),
+        this.addEscapeListener(),
+        this.boat.setStationaryMode(!0),
+        (this._startCountdownTicksLeft = Math.round(Co * 60)),
+        (this._startCountdownLabel = ``),
+        (this.simElapsed = 0),
+        this._beginSimInputLog(),
+        this._presentStartCountdown());
+    }
+    _presentStartCountdown() {
+      let e = this._startCountdownTicksLeft / 60,
+        t = e > 2 ? `3` : e > 1 ? `2` : e > 0 ? `1` : `GO`;
+      t !== this._startCountdownLabel &&
+        ((this._startCountdownLabel = t),
+        this.uiManager.startCountdown?.present?.(t));
+    }
+    update(e) {
+      let t = Number.isFinite(e) && e > 0 ? e : GameUi;
+      if (this.isWaitingForStart && !this.isActive) {
+        let e = Math.max(1, Math.round(t / GameUi));
+        ((this._startCountdownTicksLeft -= e),
+          this._presentStartCountdown(),
+          this._startCountdownTicksLeft <= 0 &&
+            ((this._startCountdownTicksLeft = 0),
+            this._startCountdownFired ||
+              ((this._startCountdownFired = !0),
+              this.uiManager.startCountdown?.hideCountdown?.(),
+              this.beginRace())));
+        return;
+      }
+      if (!this.isActive) return;
+      (this.advanceGhostPhysicsTime(t),
+        (this.simElapsed =
+          (Number.isFinite(this.simElapsed) ? this.simElapsed : 0) + t),
+        this.syncRaceTick());
+      let n = this.simElapsed;
+      (this.uiManager.updateTimerDisplay(n),
+        this.checkpointManager.updateAnimations(e),
+        this.ghostManager.update(n, this.simTick),
+        n - this.lastRecordTime >= this.recordInterval &&
+          (this.recordGhostFrame(n), (this.lastRecordTime = n)),
+        this.checkCheckpointCompletion());
+    }
+    positionBoatAtStart() {
+      let e = this.config?.startSpawn;
+      if (e && Number.isFinite(e.x) && Number.isFinite(e.z)) {
+        this.resetBoatAndCamera(e.x, e.z);
+        return;
+      }
+      this.resetBoatAndCamera(0, 0);
+    }
+  },
+  To = class extends So {
+    constructor(e, t, n = null, r = null, i = null) {
+      (super(e, t, n, r, i),
+        (this.isPreStart = !1),
+        (this.preStartTime = 0),
+        (this.currentPreStartTime = 0),
+        (this.hasCrossedStartLineValidly = !1),
+        (this.lastBoatPos = null));
+    }
+    start() {
+      (this.world.multiplayer && this.world.multiplayer.disconnect(),
+        (this.isWaitingForStart = !0),
+        this._syncRaceWaterPhaseForStart(),
+        this._syncRaceRestrictions(!0),
+        this.positionBoatAtStart(),
+        this.checkpointManager.reset(),
+        this.addEscapeListener(),
+        (this.isPreStart = !0));
+      let e = this.config.regattaStart?.preStartDurationSeconds ?? 60;
+      if (
+        ((this.startTime = performance.now() + e * 1e3),
+        (this.simElapsed = -e),
+        (this.currentPreStartTime = e),
+        (this.hasCrossedStartLineValidly = !1),
+        (this.ghostRecording = []),
+        (this.ghostSampleTicks = []),
+        (this.lastRecordTime = -1 / 0),
+        this.resetGhostPhysicsTime(0),
+        this._beginSimInputLog(),
+        this.boat.setStationaryMode(!1),
+        this.config.checkpointPositions.startLine
+          ? (this.checkpointManager.createStartLine(
+              this.config.checkpointPositions.startLine,
+            ),
+            this.checkpointManager.setStartLineOpen(!1))
+          : console.warn(`Regatta start requested but no start line found`),
+        this.uiManager.showRegattaStart(e),
+        this.boat)
+      ) {
+        let e = this.boat.getPosition();
+        this.lastBoatPos = new N(e.x, e.y, e.z);
+      }
+    }
+    isStartGateOpen() {
+      return !this.isPreStart;
+    }
+    update(e) {
+      if (!this.isActive && !this.isPreStart) return;
+      let t = Number.isFinite(e) && e > 0 ? e : 0;
+      ((this.simElapsed =
+        (Number.isFinite(this.simElapsed) ? this.simElapsed : 0) + t),
+        this.syncRaceTick());
+      let n = this.simElapsed;
+      if ((this.advanceGhostPhysicsTime(t), this.isPreStart)) {
+        let e = -n,
+          t = !1,
+          r = this.config.checkpointPositions.startLine;
+        if (r && this.boat) {
+          let e = this.boat.getPosition();
+          ((t = this.checkpointManager.checkLineSide(e, r) > 0),
+            (this.lastBoatPos = new N(e.x, e.y, e.z)));
+        }
+        (this.uiManager.updateRegattaStart(e, t),
+          n - this.lastRecordTime >= this.recordInterval &&
+            (this.recordGhostFrame(n), (this.lastRecordTime = n)),
+          this.ghostManager.update(n, this.simTick),
+          n >= 0 &&
+            ((this.isPreStart = !1),
+            this.checkpointManager.setStartLineOpen(!0),
+            this.beginRace()));
+        return;
+      }
+      if (this.isActive) {
+        if (!this.hasCrossedStartLineValidly) {
+          let t = this.config.checkpointPositions.startLine,
+            r = this.boat.getPosition();
+          if (
+            (this.lastBoatPos &&
+              t &&
+              this.checkpointManager.checkLineCrossing(
+                r,
+                this.lastBoatPos,
+                t,
+              ) === 1 &&
+              ((this.hasCrossedStartLineValidly = !0),
+              this.checkpointManager.removeStartLine(),
+              this.uiManager.hideRegattaStart(),
+              console.info(`Start Line Crossed Validly!`),
+              this.emitMarkPassed({ markKind: `gate` })),
+            (this.lastBoatPos = new N(r.x, r.y, r.z)),
+            !this.hasCrossedStartLineValidly)
+          ) {
+            let i = this.checkpointManager.checkLineSide(r, t) > 0;
+            (this.uiManager.updateRegattaStart(-n, i),
+              this.checkpointManager.updateAnimations(e),
+              this.ghostManager.update(n, this.simTick),
+              n - this.lastRecordTime >= this.recordInterval &&
+                (this.recordGhostFrame(n), (this.lastRecordTime = n)));
+            return;
+          }
+        }
+        (this.uiManager.updateTimerDisplay(n),
+          this.checkpointManager.updateAnimations(e),
+          this.ghostManager.update(n, this.simTick),
+          n - this.lastRecordTime >= this.recordInterval &&
+            (this.recordGhostFrame(n), (this.lastRecordTime = n)),
+          this.checkCheckpointCompletion());
+      }
+    }
+    positionBoatAtStart() {
+      let e = 0,
+        t = 0,
+        n = this.config.checkpointPositions?.startLine,
+        r = this.config.regattaStart?.spawnDistanceBehindLine ?? 200;
+      if (n?.center && n?.direction)
+        ((e = n.center.x - n.direction.x * r),
+          (t = n.center.z - n.direction.z * r));
+      else if (
+        this.config.checkpointPositions &&
+        this.config.checkpointPositions.length > 0
+      ) {
+        let n = this.config.checkpointPositions[0],
+          i = Math.hypot(n.x, n.z);
+        i > 0 && ((e = -(n.x / i) * r), (t = -(n.z / i) * r));
+      }
+      this.resetBoatAndCamera(e, t);
+    }
+  },
+  Eo = class {
+    constructor(e, t, n = null, r = null, i = {}) {
+      let a = SVG_NAMESPACE(i?.timeTrialId);
+      if (a) {
+        let i = new kt({ enforceDateTrackType: !0, isDevMode: !1 });
+        return (
+          (i.timeTrialId = a.id),
+          (i.timeTrialCourse = a),
+          (i.checkpointPositions = a.checkpoints.map((e) => ({
+            x: e.x,
+            z: e.z,
+          }))),
+          (i.startSpawn = a.startSpawn ? { ...a.startSpawn } : null),
+          (i.getTrackId = () => a.trackId),
+          (i.useDevTrackShortcuts = !1),
+          console.info(`Initializing Time Trial: ${a.title}`),
+          new wo(e, t, n, r, i)
+        );
+      }
+      let o = new kt({
+        currentDate: i?.raceDate,
+        enforceDateTrackType: !!i?.raceDate,
+      });
+      return o.isRegattaRace && o.isRegattaRace()
+        ? (console.info(`Initializing Regatta Style Race`),
+          new To(e, t, n, r, o))
+        : (console.info(`Initializing Standard Race`), new wo(e, t, n, r, o));
+    }
+  },
+  Do = class {
+    constructor(e, t) {
+      ((this.race = e),
+        (this.boat = t),
+        (this.scene = t.scene),
+        (this.surfaceHeightSampler = this._resolveSurfaceHeightSampler()),
+        (this.primaryTrail = new po(this.scene, {
+          color: 65450,
+          opacity: 0.8,
+          surfaceHeightSampler: this.surfaceHeightSampler,
+        })),
+        (this.secondaryTrail = new po(this.scene, {
+          color: 65280,
+          opacity: 0.4,
+          surfaceHeightSampler: this.surfaceHeightSampler,
+        })));
+    }
+    _resolveSurfaceHeightSampler() {
+      let e = this.race?.world?.water;
+      return !e || typeof e.getHeightAt != `function`
+        ? null
+        : (t, n) => e.getHeightAt(t, n);
+    }
+    update(e = 0.016) {
+      if (
+        !(
+          this.race &&
+          (this.race.isActive ||
+            this.race.isWaitingForStart ||
+            this.race.isPreStart)
+        ) ||
+        !this.race.checkpointManager ||
+        !this.boat
+      ) {
+        (this.primaryTrail.setVisible(!1), this.secondaryTrail.setVisible(!1));
+        return;
+      }
+      let t = null;
+      typeof this.race.getTargetPosition == `function` &&
+        (t = this.race.getTargetPosition());
+      let n = this.race.checkpointManager.getCurrentCheckpointIndex(),
+        r = this.race.config.checkpointPositions,
+        i = t;
+      if ((!i && n < r.length && (i = r[n]), !i)) {
+        (this.primaryTrail.setVisible(!1), this.secondaryTrail.setVisible(!1));
+        return;
+      }
+      let a = i !== r[n],
+        o = this.boat.getPosition
+          ? this.boat.getPosition()
+          : this.boat.dynamics.position,
+        s;
+      ((s = a
+        ? typeof this.race.isStartGateOpen != `function` ||
+          this.race.isStartGateOpen()
+          ? 65382
+          : 16724787
+        : n === r.length - 1
+          ? this.race.config.finalCheckpointColor
+          : this.race.config.checkpointColor),
+        this.primaryTrail.setColor(s),
+        this.primaryTrail.setVisible(!0),
+        this.primaryTrail.update(o, i, e));
+      let c = i,
+        l = null,
+        u = this.race.config.checkpointColor;
+      if (a)
+        r.length > 0 &&
+          ((l = r[0]),
+          (u =
+            typeof this.race.isStartGateOpen != `function` ||
+            this.race.isStartGateOpen()
+              ? 65382
+              : 16724787));
+      else {
+        let e = n + 1;
+        e < r.length &&
+          ((l = r[e]),
+          (u =
+            e === r.length - 1
+              ? this.race.config.finalCheckpointColor
+              : this.race.config.checkpointColor));
+      }
+      l
+        ? (this.secondaryTrail.setColor(u),
+          this.secondaryTrail.setVisible(!0),
+          this.secondaryTrail.update(c, l, e))
+        : this.secondaryTrail.setVisible(!1);
+    }
+    show() {}
+    hide() {
+      (this.primaryTrail.setVisible(!1), this.secondaryTrail.setVisible(!1));
+    }
+    dispose() {
+      (this.primaryTrail.dispose(), this.secondaryTrail.dispose());
+    }
+  },
+  Oo = { min: 0.15, max: 4, wheelSpeed: 0.002 },
+  ko = 2e4,
+  CameraController = class {
+    constructor(e, t) {
+      ((this.app = e),
+        (this.parentElement = t),
+        (this.visible = !1),
+        (this.initialized = !1),
+        (this._frameCounter = 0),
+        (this._targetVector = new N()),
+        (this.zoom = 1),
+        (this.frustumSize = 760),
+        (this.elements = {}),
+        (this._onSurfaceResize = null),
+        (this._tilesReadyHandler = null),
+        (this._tilesReadyListenerAttached = !1),
+        (this.overlaySystem = Vi()),
+        (this.modalId = `mini-map-modal`),
+        (this.tilesInitialized = !1),
+        (this._idleDisposeTimer = null));
+    }
+    ensureInitialized() {
+      if (!this.initialized)
+        try {
+          (this.createDOM(),
+            this.createRenderer(),
+            this.setupEvents(),
+            (this.initialized = !0),
+            console.info(`[MiniMap] Lazy initialized on demand`));
+        } catch (e) {
+          console.error(`Failed to initialize MiniMap:`, e);
+        }
+    }
+    createDOM() {
+      let e = document.createElement(`div`);
+      e.className = `mini-map-content`;
+      let t = document.createElement(`div`);
+      t.className = `mini-map-header`;
+      let n = document.createElement(`span`);
+      ((n.className = `mini-map-title`),
+        (n.textContent = `MAP`),
+        t.appendChild(n));
+      let r = document.createElement(`button`);
+      ((r.type = `button`),
+        (r.className = `game-modal-close mini-map-close`),
+        (r.innerHTML = `&#x2715;`),
+        r.addEventListener(`click`, () => this.toggle(!1)),
+        t.appendChild(r),
+        e.appendChild(t));
+      let i = document.createElement(`div`);
+      i.className = `mini-map-surface`;
+      let a = document.createElement(`div`);
+      ((a.className = `mini-map-target`), i.appendChild(a));
+      let o = document.createElement(`div`);
+      ((o.className = `mini-map-arrow`), i.appendChild(o));
+      let s = document.createElement(`div`);
+      ((s.className = `mini-map-rim`), i.appendChild(s));
+      let c = document.createElementNS(`http://www.w3.org/2000/svg`, `svg`);
+      (c.setAttribute(`viewBox`, `0 0 20 20`),
+        c.classList.add(`mini-map-rim-wind`),
+        (c.innerHTML = `<path d="M 10 2 L 6 18 L 14 18 Z" fill="#3399ff" />`),
+        s.appendChild(c));
+      let l = document.createElementNS(`http://www.w3.org/2000/svg`, `svg`);
+      (l.setAttribute(`viewBox`, `0 0 20 20`),
+        l.classList.add(`mini-map-rim-target`),
+        (l.innerHTML = `<path d="M 10 2 L 6 18 L 14 18 Z" fill="#ffd166" />`),
+        s.appendChild(l),
+        e.appendChild(i),
+        (this.elements = {
+          container: e,
+          mapSurface: i,
+          target: a,
+          arrow: o,
+          windRim: c,
+          targetRim: l,
+        }));
+    }
+    createRenderer() {
+      let e = new Ne({
+        antialias: !1,
+        alpha: !0,
+        powerPreference: `low-power`,
+      });
+      e.setPixelRatio(1);
+      let t = this._getSurfaceSize();
+      (e.setSize(t, t),
+        e.domElement.classList.add(`mini-map-canvas`),
+        this.elements.mapSurface.prepend(e.domElement));
+      let n = new qe(
+        -this.frustumSize / 2,
+        this.frustumSize / 2,
+        this.frustumSize / 2,
+        -this.frustumSize / 2,
+        0.1,
+        35e3,
+      );
+      (n.layers.enable(1),
+        n.layers.enable(2),
+        (this.renderer = e),
+        (this.camera = n));
+    }
+    _getSurfaceSize() {
+      let e = this.elements?.mapSurface?.clientWidth;
+      return Math.max(240, Math.round(e || 420));
+    }
+    setupEvents() {
+      (this.elements.mapSurface.addEventListener(
+        `wheel`,
+        (e) => {
+          (e.preventDefault(),
+            e.stopPropagation(),
+            (this.zoom = Math.max(
+              Oo.min,
+              Math.min(Oo.max, this.zoom * (1 - e.deltaY * Oo.wheelSpeed)),
+            )),
+            this.applyZoom());
+          let t = this._getSurfaceSize();
+          this.renderer?.setSize(t, t);
+        },
+        { passive: !1 },
+      ),
+        (this._onSurfaceResize = () => {
+          let e = this._getSurfaceSize();
+          this.renderer?.setSize(e, e);
+        }),
+        window.addEventListener(`resize`, this._onSurfaceResize));
+    }
+    setupTiles() {
+      this.tilesInitialized ||
+        (this._tilesReadyHandler ||
+          (this._tilesReadyHandler = () => {
+            this.app.world?.googleTilesLoader?.registerMinimapView(
+              this.camera,
+              this.renderer,
+            ) === !0 &&
+              ((this.tilesInitialized = !0),
+              this._tilesReadyListenerAttached &&
+                (window.removeEventListener(
+                  `googleTilesReady`,
+                  this._tilesReadyHandler,
+                ),
+                (this._tilesReadyListenerAttached = !1)));
+          }),
+        this._tilesReadyHandler(),
+        !this.tilesInitialized &&
+          !this._tilesReadyListenerAttached &&
+          (window.addEventListener(`googleTilesReady`, this._tilesReadyHandler),
+          (this._tilesReadyListenerAttached = !0)));
+    }
+    releaseTilesView() {
+      let e = this.tilesInitialized;
+      (this._tilesReadyHandler &&
+        this._tilesReadyListenerAttached &&
+        (window.removeEventListener(
+          `googleTilesReady`,
+          this._tilesReadyHandler,
+        ),
+        (this._tilesReadyListenerAttached = !1)),
+        e &&
+          this.app.world?.googleTilesLoader?.unregisterMinimapView?.(
+            this.camera,
+          ),
+        (this.tilesInitialized = !1));
+    }
+    _clearIdleDisposeTimer() {
+      this._idleDisposeTimer &&
+        (clearTimeout(this._idleDisposeTimer), (this._idleDisposeTimer = null));
+    }
+    _scheduleIdleDispose() {
+      (this._clearIdleDisposeTimer(),
+        !(!this.initialized || this.visible) &&
+          (this._idleDisposeTimer = setTimeout(() => {
+            ((this._idleDisposeTimer = null),
+              this.visible || this._disposeIdleResources());
+          }, ko)));
+    }
+    _handleClosed() {
+      ((this.visible = !1),
+        this.releaseTilesView(),
+        this._scheduleIdleDispose());
+    }
+    _disposeIdleResources() {
+      if (!(!this.initialized || this.visible)) {
+        if (
+          (this._clearIdleDisposeTimer(),
+          this.releaseTilesView(),
+          this._onSurfaceResize &&
+            (window.removeEventListener(`resize`, this._onSurfaceResize),
+            (this._onSurfaceResize = null)),
+          this.renderer)
+        ) {
+          let e = this.renderer.domElement;
+          (this.renderer.dispose?.(),
+            this.renderer.forceContextLoss?.(),
+            e?.isConnected && e.remove());
+        }
+        ((this.renderer = null),
+          (this.camera = null),
+          (this.elements = {}),
+          (this.initialized = !1),
+          (this._frameCounter = 0));
+      }
+    }
+    applyZoom() {
+      if (!this.camera) return;
+      let e = this.frustumSize / (2 * this.zoom);
+      ((this.camera.left = -e),
+        (this.camera.right = e),
+        (this.camera.top = e),
+        (this.camera.bottom = -e),
+        this.camera.updateProjectionMatrix());
+    }
+    toggle(e = null) {
+      let t = e === null ? !this.visible : !!e;
+      (t && this.ensureInitialized(),
+        this.initialized &&
+          ((this.visible = t),
+          this.visible
+            ? (this._clearIdleDisposeTimer(),
+              this.setupTiles(),
+              this.overlaySystem.showModal({
+                id: this.modalId,
+                group: `main-panel`,
+                content: this.elements.container,
+                showCloseButton: !1,
+                dismissOnBackdrop: !0,
+                overlayClassName: `mini-map-overlay`,
+                panelClassName: `mini-map`,
+                onDismiss: () => {
+                  this.visible && this._handleClosed();
+                },
+              }),
+              this.update())
+            : (this._handleClosed(),
+              this.overlaySystem.closeModal(this.modalId))));
+    }
+    update() {
+      if (
+        !this.initialized ||
+        !this.visible ||
+        !this.app.boat ||
+        (this._frameCounter++, this._frameCounter % 3 != 0)
+      )
+        return;
+      let e = this.app.boat.getPosition(),
+        t = -(this.app.boat.getRotation().y || 0) + Math.PI;
+      (this.camera.position.set(e.x, 1100, e.z),
+        this.camera.up.set(Math.sin(t), 0, -Math.cos(t)),
+        this.camera.lookAt(e.x, e.y, e.z),
+        this.camera.updateProjectionMatrix());
+      let n = this.app.world?.sceneType === `geo`;
+      n ? this.camera.layers.disable(2) : this.camera.layers.enable(2);
+      let r = !1;
+      n &&
+        (r =
+          this.app.world?.googleTilesLoader?.updateMinimapView?.(
+            this.camera,
+            this.renderer,
+          ) === !0);
+      let i = this.app.scene.fog,
+        a = this.app.scene.background,
+        o = n ? new P(659480) : new P(1605042);
+      try {
+        ((this.app.scene.fog = null),
+          (this.app.scene.background = o),
+          this.renderer.render(this.app.scene, this.camera));
+      } finally {
+        ((this.app.scene.fog = i),
+          (this.app.scene.background = a),
+          r && this.app.world?.googleTilesLoader?.updatePrimaryView?.());
+      }
+      this.updatePointers(t);
+    }
+    updatePointers(e) {
+      this.elements.arrow.style.transform = `translate(-50%, -50%)`;
+      let t = this.getTargetPosition(),
+        n = this.app.boat.getHeadingInDegrees(),
+        r = !1;
+      if (t)
+        if (
+          (this._targetVector.set(t.x, t.y || 0, t.z),
+          this._targetVector.project(this.camera),
+          Math.abs(this._targetVector.x) <= 1 &&
+            Math.abs(this._targetVector.y) <= 1)
+        ) {
+          let e = this._getSurfaceSize(),
+            t = (this._targetVector.x * 0.5 + 0.5) * e,
+            n = (-this._targetVector.y * 0.5 + 0.5) * e;
+          ((this.elements.target.style.transform = `translate(${t - 6}px, ${n - 6}px)`),
+            this.elements.target.classList.add(`is-visible`),
+            (r = !0));
+        } else this.elements.target.classList.remove(`is-visible`);
+      else this.elements.target.classList.remove(`is-visible`);
+      if (this.app.world?.getWindDirection) {
+        let e = nt(tt($e(n, Qe(this.app.world.getWindDirection()))));
+        this.updateRimIcon(this.elements.windRim, e);
+      }
+      if (t && !r) {
+        let e = nt(
+          tt(
+            $e(
+              n,
+              it(
+                new N(
+                  t.x - this.app.boat.getPosition().x,
+                  0,
+                  t.z - this.app.boat.getPosition().z,
+                ),
+              ),
+            ),
+          ),
+        );
+        this.updateRimIcon(this.elements.targetRim, e);
+      } else this.elements.targetRim.style.display = `none`;
+    }
+    updateRimIcon(e, t) {
+      let n = this._getSurfaceSize(),
+        r = n / 2,
+        i = Math.max(40, n / 2 - 15),
+        a = r + i * Math.sin(t),
+        o = r - i * Math.cos(t);
+      ((e.style.transform = `translate(${a - 10}px, ${o - 10}px) rotate(${t + Math.PI}rad)`),
+        (e.style.display = `block`));
+    }
+    getTargetPosition() {
+      let e = this.app?.ui?.race;
+      return e?.isActive
+        ? e.getTargetPosition?.()
+        : this.app?.logisticsManager?.getTargetPosition?.();
+    }
+    dispose() {
+      (this._clearIdleDisposeTimer(),
+        this.overlaySystem.closeModal(this.modalId),
+        (this.visible = !1),
+        this._disposeIdleResources());
+    }
+  };

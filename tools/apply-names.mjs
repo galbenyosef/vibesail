@@ -438,9 +438,60 @@ async function applyRule(rule, bodyText, ctx, { wholeChunk = false } = {}) {
   return { text: out + bodyText.slice(last), count: marks.length };
 }
 
+// Exported locals of a chunk are NEVER renameable: the chunk's final
+// `export { local as Public }` table is pristine readable text (a standalone
+// slice of it would export undeclared names), so renaming the local in the
+// slices would orphan the public API. Upstream rebuilds change which locals the
+// table exposes, so this is decided per build from the derived spec, not from
+// the reviewed rule list.
+const exportedLocalsCache = new Map();
+const exportSkipReported = new Set();
+function exportedLocalsOfChunk(sourceFile) {
+  if (exportedLocalsCache.has(sourceFile)) return exportedLocalsCache.get(sourceFile);
+  const set = new Set();
+  for (const s of spec.sections) {
+    if (s.sourceFile !== sourceFile || s.skipped !== true) continue;
+    if (!Number.isInteger(s.startLine) || !Number.isInteger(s.endLine)) continue;
+    const text = prettyFor(s).slice(s.startLine - 1, s.endLine).join("\n");
+    for (const m of text.matchAll(/\bexport\s*\{([^}]*)\}/g)) {
+      for (let part of m[1].split(",")) {
+        part = part.trim();
+        if (!part) continue;
+        const as = /\s+as\s+([\w$]+)\s*$/.exec(part);
+        const local = as ? part.slice(0, as.index).trim() : part; // local precedes `as`
+        if (local) set.add(local);
+      }
+    }
+  }
+  exportedLocalsCache.set(sourceFile, set);
+  return set;
+}
+function withoutExportedLocals(rules, sourceFile) {
+  const blocked = exportedLocalsOfChunk(sourceFile);
+  if (!blocked.size) return rules;
+  const kept = [];
+  let dropped = 0;
+  for (const rule of rules) {
+    const renames = {};
+    for (const [from, to] of Object.entries(rule.renames || {})) {
+      if (blocked.has(from)) dropped++;
+      else renames[from] = to;
+    }
+    if (Object.keys(renames).length) kept.push({ ...rule, renames });
+  }
+  if (dropped && !exportSkipReported.has(sourceFile)) {
+    exportSkipReported.add(sourceFile);
+    console.log(
+      `${sourceFile}: ${dropped} rename(s) skipped — the chunk's export table exposes those locals (pristine public API)`,
+    );
+  }
+  return kept;
+}
+
 async function applyFile(f, rulesOverride = null, applyOpts = {}) {
-  const rules = rulesOverride ?? all[f] ?? [];
+  const declared = rulesOverride ?? all[f] ?? [];
   const sec = sectionFor(f);
+  const rules = withoutExportedLocals(declared, sec.sourceFile);
   const ctx = makeContext(sec);
   const srcPath = path.join(proj, "src", f);
   const raw = fs.readFileSync(srcPath, "utf8");

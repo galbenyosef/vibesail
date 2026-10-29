@@ -1,5 +1,5 @@
 // Blimp 02 — blimp
-// Lines 20-440 of readable/assets/Blimp-CsqFvrq-.pretty.js (statement-aligned).
+// Lines 20-440 of readable/assets/Blimp-CBxX7-Aq.pretty.js (statement-aligned).
 var BLIMP_POPUP_CONTENT = Object.freeze({
     title: `Sponsor this blimp`,
     text: `Your brand on a blimp, a cargo ship, or any custom object you want in VibeSail.
@@ -14,7 +14,7 @@ Custom sponsored content is $300/month.`,
     constructor(e, t = {}) {
       ((this.scene = e),
         (this.ad = t.ad || null),
-        (this.raycaster = new r()),
+        (this.raycaster = new n()),
         (this.mouse = new f()),
         (this.boundWindowClick = this.handleClick.bind(this)),
         (this.popupOutsideClickTimer = null),
@@ -26,7 +26,7 @@ Custom sponsored content is $300/month.`,
         this.setupClickHandler());
     }
     createBlimp() {
-      ((this.blimp = new t()),
+      ((this.blimp = new i()),
         (this.blimp.userData.kind = `blimp`),
         (this.blimp.userData.skipWaterCapture = !0),
         this.createBody(),
@@ -45,30 +45,30 @@ Custom sponsored content is $300/month.`,
     createBody() {
       let e = this.createBodyTexture();
       this.bodyTexture = e;
-      let t = new o(1, 32, 16),
+      let t = new r(1, 32, 16),
         n = new d({ color: 16777215, metalness: 0.2, roughness: 0.7, map: e });
-      ((this.body = new u(t, n)),
+      ((this.body = new s(t, n)),
         this.body.scale.set(50, 25, 25),
         this.blimp.add(this.body));
     }
     createFins() {
-      let e = new a(20, 10),
-        t = new d({ color: 0, side: 2, metalness: 0.1, roughness: 0.8 });
+      let e = new t(20, 10),
+        n = new d({ color: 0, side: 2, metalness: 0.1, roughness: 0.8 });
       [
         { position: [45, 0, -15], rotation: [Math.PI / 2, 0, 0] },
         { position: [45, 0, 15], rotation: [Math.PI / 2, 0, 0] },
         { position: [45, 15, 0], rotation: [0, 0, 0] },
         { position: [45, -15, 0], rotation: [0, 0, 0] },
-      ].forEach((n) => {
-        let r = new u(e, t);
-        (r.position.set(...n.position),
-          r.rotation.set(...n.rotation),
+      ].forEach((t) => {
+        let r = new s(e, n);
+        (r.position.set(...t.position),
+          r.rotation.set(...t.rotation),
           this.blimp.add(r));
       });
     }
     createCabin() {
-      let e = new u(
-        new s(30, 10, 30),
+      let e = new s(
+        new o(30, 10, 30),
         new d({ color: 0, metalness: 0.2, roughness: 0.8 }),
       );
       (e.position.set(0, -30, 0),
@@ -76,7 +76,7 @@ Custom sponsored content is $300/month.`,
         this.addAdvertisementImages(e));
     }
     addAdvertisementImages(e) {
-      let t = [
+      let n = [
           { position: [0, 0, 16], rotation: [0, 0, 0] },
           { position: [0, 0, -16], rotation: [0, Math.PI, 0] },
           { position: [16, 0, 0], rotation: [0, Math.PI / 2, 0] },
@@ -85,7 +85,7 @@ Custom sponsored content is $300/month.`,
         r = [];
       (m(this.ad?.image || h, {
         configure: (e) => {
-          ((e.colorSpace = n), (e.anisotropy = Math.max(e.anisotropy || 1, 4)));
+          ((e.colorSpace = p), (e.anisotropy = Math.max(e.anisotropy || 1, 4)));
         },
       })
         .then((e) => {
@@ -97,18 +97,18 @@ Custom sponsored content is $300/month.`,
         .catch((e) => {
           console.error(`Error loading blimp ad image:`, e);
         }),
-        t.forEach((t) => {
-          let n = new p({
+        n.forEach((n) => {
+          let i = new l({
             transparent: !0,
             opacity: 0,
             side: 2,
             depthWrite: !1,
           });
-          r.push(n);
-          let i = new u(new a(30, 10), n);
-          (i.position.set(...t.position),
-            i.rotation.set(...t.rotation),
-            e.add(i));
+          r.push(i);
+          let a = new s(new t(30, 10), i);
+          (a.position.set(...n.position),
+            a.rotation.set(...n.rotation),
+            e.add(a));
         }));
     }
     setPopupContent() {
@@ -134,8 +134,8 @@ Custom sponsored content is $300/month.`,
       let n = new c(e);
       return (
         (n.needsUpdate = !0),
-        (n.wrapS = i),
-        (n.wrapT = l),
+        (n.wrapS = a),
+        (n.wrapT = u),
         n.repeat.set(2, 1),
         n
       );

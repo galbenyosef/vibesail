@@ -185,11 +185,6 @@
     "copy_link": "リンクをコピー",
     "copied": "コピーしました",
     "reward": "+${amount}",
-    "verification_unavailable_later": "認証を利用できません。閉じて後でもう一度お試しください。",
-    "running_cloudflare_check": "Cloudflareチェック中…",
-    "complete_cloudflare_check": "続行するには下のCloudflareチェックを完了してください。",
-    "verification_failed_retry": "認証に失敗しました。再試行するか閉じてください。",
-    "verification_unavailable_retry": "認証を利用できません。再試行するか閉じてください。",
     "submitting_record": "記録を送信中…",
     "submit_failed": "記録の送信に失敗しました。再試行してください。",
     "submit_failed_again": "記録の送信に失敗しました。もう一度お試しください。",
@@ -230,8 +225,12 @@
     "graphics_struggle_switch": "{next}に切り替え",
     "double_reward_cta": "広告を見て2倍にする（+${amount}）",
     "double_reward_watching": "広告を表示中...",
-    "double_reward_done": "+${amount} に倍増",
-    "double_reward_skipped": "広告をスキップしました。報酬は変わりません。"
+    "double_reward_skipped": "広告をスキップしました。報酬は変わりません。",
+    "double_reward_cancel_note": "動画を閉じるかスキップすると、追加報酬は無効になります。",
+    "double_reward_race_label": "レース",
+    "double_reward_reward_label": "報酬",
+    "double_reward_ad_label": "広告",
+    "double_reward_total_label": "合計"
   },
   "mobile": {
     "rudder": "ラダー",
@@ -264,7 +263,6 @@
     "page_title": "世界を探索 | VibeSail",
     "title": "航海エリアを選ぼう",
     "subtitle": "場所を選ぶか、水面のどこかをタップして、フォトリアルな3Dで出航しよう。",
-    "set_sail": "出航する",
-    "link_simulator": "ボートシミュレーターで帆走する"
+    "set_sail": "出航する"
   }
 }

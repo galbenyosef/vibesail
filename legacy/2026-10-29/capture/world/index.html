@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="world.page_title">Sailing World Map: Cities and Harbors | VibeSail</title>
+    <meta name="description"
+        content="Choose a coastal city or harbor on the VibeSail world map and set sail in the free 3D browser sailing game. No download required.">
+    <link rel="canonical" href="https://vibesail.com/world">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sailing World Map: Cities and Harbors | VibeSail">
+    <meta property="og:description" content="Choose a coastal city or harbor on the VibeSail world map and set sail in the free 3D browser sailing game. No download required.">
+    <meta property="og:url" content="https://vibesail.com/world">
+    <meta property="og:image" content="https://vibesail.com/assets/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sailing World Map: Cities and Harbors | VibeSail">
+    <meta name="twitter:description" content="Choose a coastal city or harbor on the VibeSail world map and set sail in the free 3D browser sailing game. No download required.">
+    <meta name="twitter:image" content="https://vibesail.com/assets/thumbnail.png">
+
+    <script>
+        (function () {
+            try {
+                var lang = (localStorage.getItem('vibesail.language') || 'en').toLowerCase();
+                if (lang && lang !== 'en') {
+                    document.documentElement.classList.add('i18n-pending');
+                }
+            } catch (_) { }
+        })();
+    </script>
+
+    <script src="/assets/scripts/site-header.js"></script>
+
+  <script type="module" crossorigin src="/assets/world-DPn3WgXw.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/chunk-QTnfLwEv.js">
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-Dezn_h7o.js">
+  <link rel="modulepreload" crossorigin href="/assets/authClient-roTt0Fs9.js">
+  <link rel="modulepreload" crossorigin href="/assets/preload-helper-CYTkKql0.js">
+  <link rel="modulepreload" crossorigin href="/assets/init-CC0aACO2.js">
+  <link rel="modulepreload" crossorigin href="/assets/routeContext-D1HYUwP9.js">
+  <link rel="modulepreload" crossorigin href="/assets/RuntimeEnvironment-BAaLbeCv.js">
+  <link rel="modulepreload" crossorigin href="/assets/GeoMath-B_Iby49-.js">
+  <link rel="modulepreload" crossorigin href="/assets/PostHogCapture-DUxqoMcu.js">
+  <link rel="stylesheet" crossorigin href="/assets/world-B9kkcg8l.css">
+  <link rel="stylesheet" crossorigin href="/assets/header-C8hfIurP.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0b5cff">
+
+    <!-- Analytics scripts are deferred until idle; no preconnect needed -->
+
+</head>
+
+<body class="public-site-shell">
+    <div id="world-map"></div>
+
+    <script>window.VibeSailHeader.render('world');</script>
+
+    <div class="ui-overlay">
+        <div class="header-content">
+            <h1 data-i18n="world.title">Choose Your Waters</h1>
+            <p class="subtitle" data-i18n="world.subtitle">Pick a location or tap anywhere on the water to set sail in photorealistic 3D.</p>
+            <p class="subtitle"><a href="/" data-i18n="world.link_simulator">Sail them in the boat simulator</a></p>
+        </div>
+    </div>
+
+
+
+    <!-- All analytics deferred until idle or 5s after load -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        (function(){
+            function loadAnalytics(){
+                if(window.__analyticsLoaded)return;
+                window.__analyticsLoaded=true;
+                gtag('js', new Date());
+                gtag('config', 'G-CQ7NQJ8CHX');
+                var g=document.createElement('script');g.async=true;
+                g.src='https://www.googletagmanager.com/gtag/js?id=G-CQ7NQJ8CHX';
+                document.head.appendChild(g);
+                var s=document.createElement('script');s.async=true;
+                s.src='https://simple.vibesail.com/latest.js';
+                s.dataset.collectDnt='true';
+                s.onerror=function(){this.onerror=null;this.src='https://scripts.simpleanalyticscdn.com/latest.js';};
+                document.head.appendChild(s);
+                var a=document.createElement('script');a.async=true;
+                a.src='https://analytics.ahrefs.com/analytics.js';
+                a.dataset.key='/Aj7gMpdyzFnZH3EIv88xA';
+                document.head.appendChild(a);
+                if(typeof window.__vibesailLoadPostHogSdk==='function') window.__vibesailLoadPostHogSdk();
+            }
+            if(typeof requestIdleCallback==='function'){
+                requestIdleCallback(loadAnalytics,{timeout:5000});
+            } else {
+                setTimeout(loadAnalytics,5000);
+            }
+        })();
+    </script>
+
+
+    <!-- PostHog (deferred with other analytics until idle) -->
+    <script>
+        (function () {
+            var posthogConfig = {
+                apiKey: "phc_QpnLTX0cSBjRoazL8i0oLC7R6AaimXfBnYjkuJ7kx5D",
+                apiHost: "https://us.i.posthog.com"
+            };
+            var posthogReadyEventName = "vibesail:posthog-ready";
+
+            var initPostHog = function () {
+                if (!window.posthog || typeof window.posthog.init !== 'function') return;
+                if (window.__vibesailPostHogInitialized) return;
+                window.__vibesailPostHogInitialized = true;
+                window.posthog.init(posthogConfig.apiKey, {
+                    api_host: posthogConfig.apiHost,
+                    capture_pageview: false,
+                    capture_pageleave: false,
+                    autocapture: false,
+                    persistence: 'localStorage+cookie'
+                });
+                window.dispatchEvent(new CustomEvent(posthogReadyEventName));
+            };
+
+            window.__vibesailInitPostHog = initPostHog;
+
+            // PostHog SDK script is loaded by the shared deferred analytics loader.
+            // Register a helper so external code can trigger an eager load if needed.
+            window.__vibesailLoadPostHogSdk = function () {
+                if (window.__vibesailPostHogSdkLoaded) return;
+                window.__vibesailPostHogSdkLoaded = true;
+                var p = document.createElement('script'); p.async = true;
+                p.src = "https://us-assets.i.posthog.com/static/array.js";
+                p.onload = function () { window.__vibesailInitPostHog && window.__vibesailInitPostHog(); };
+                document.head.appendChild(p);
+            };
+        })();
+    </script>
+
+</body>
+
+</html>

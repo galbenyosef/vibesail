@@ -1,5 +1,5 @@
 // game 01 — location
-// Lines 1-350 of readable/assets/game-DaugXgrE.pretty.js (statement-aligned).
+// Lines 1-338 of readable/assets/game-wg-D5X70.pretty.js (statement-aligned).
 /* empty css               */ import "./init-CC0aACO2.js";
 /* empty css             */ import "./console-setup-BNMG1_tD.js";
 import {
@@ -28,8 +28,8 @@ import {
   r as ne,
 } from "./authClient-roTt0Fs9.js";
 import { r as re, s as ie, t as y } from "./profileClient-Ce6d7RD4.js";
-import { in as b } from "./three.module-BgyKfsEV.js";
-import { a as x, g as S, t as ae } from "./Game-CrsSKcAK.js";
+import { sn as b } from "./three.module-CUNolavI.js";
+import { _ as x, a as S, t as ae } from "./Game-BK-SaWAR.js";
 import { n as C } from "./OneSignalPushNotifications-C5QrvXEE.js";
 import { i as oe, r as w } from "./H5GamesAds-cgmFpTvU.js";
 import { t as T } from "./posthogAuth-6WDf5lnM.js";
@@ -89,7 +89,7 @@ function fetchBuildVersion(e) {
     r
   );
 }
-function toCommitSha(e = window.location) {
+function RACE_SCENE_TYPES(e = window.location) {
   let n = t(e),
     r = new URLSearchParams(e?.search || ``),
     i = readVersionState(n.surface || n.mode),
@@ -113,38 +113,42 @@ function toCommitSha(e = window.location) {
     sponsoredLocation: p,
   };
 }
-var RACE_SCENE_TYPES = new Set([d.GAME]);
-function M(e) {
+var M = new Set([d.GAME]);
+function N(e) {
   return String(e || ``).replace(/\/+$/, ``) || `/`;
 }
-function N(e) {
+function supportsVersionProbe(e) {
   let t = String(e || ``);
   return t ? (t.startsWith(`#`) ? t : `#${t}`) : ``;
 }
-function supportsVersionProbe(e = window.location) {
-  let n = M(e?.pathname);
-  if (!RACE_SCENE_TYPES.has(n) || t(e).surface !== i.TUTORIAL) return null;
+function F(e = window.location) {
+  let n = N(e?.pathname);
+  if (!M.has(n) || t(e).surface !== i.TUTORIAL) return null;
   let r = new URLSearchParams(e?.search || ``);
   (r.delete(`surface`), r.delete(`mode`));
   let a = r.toString(),
-    o = N(e?.hash);
+    o = supportsVersionProbe(e?.hash);
   return a ? `${d.TUTORIAL}?${a}${o}` : `${d.TUTORIAL}${o}`;
 }
-function F(e = typeof window < `u` ? window.location : null) {
-  let t = String(e?.hostname || ``).toLowerCase();
-  return t === `localhost` || t === `127.0.0.1` || t === `[::1]`;
-}
 function I(e = typeof window < `u` ? window.location : null) {
+  let t = String(e?.hostname || ``).toLowerCase();
+  return t === `localhost` || t === `127.0.0.1` || t === `[::1]` ? !0 : L(t);
+}
+function L(e) {
+  let t = String(e || ``).toLowerCase();
+  return t.endsWith(`.pages.dev`) ? t.split(`.`).length > 3 : !1;
+}
+function R(e = typeof window < `u` ? window.location : null) {
   if (!e) return !1;
   let n = t(e);
   if (n.scene !== c.GEO) return !1;
   let r = typeof e.search == `string` ? e.search : ``;
   return new URLSearchParams(r).get(`open`) === `1` ? !1 : !s(n);
 }
-function le(e = typeof window < `u` ? window.location : null) {
-  return F(e) ? !1 : I(e);
+function toCommitSha(e = typeof window < `u` ? window.location : null) {
+  return I(e) ? !1 : R(e);
 }
-function ue(n = typeof window < `u` ? window.location : null) {
+function EVENT_LOCATION_AD_LINK_CLICKED(n = typeof window < `u` ? window.location : null) {
   let r = t(n);
   return e({
     surface: r.surface || void 0,
@@ -154,22 +158,22 @@ function ue(n = typeof window < `u` ? window.location : null) {
     variant: r.variant || null,
   });
 }
-function L(e, t, n) {
+function EVENT_GEO_ACCESS_GATE_ACTION(e, t, n) {
   let r = Number.parseFloat(e.get(t) || ``);
   return Number.isFinite(r) ? r : n;
 }
-function de(e, t, n) {
+function le(e, t, n) {
   let r = Math.hypot(e, t);
   return r <= 0.001
     ? { x: e + n, z: t }
     : { x: e + (e / r) * n, z: t + (t / r) * n };
 }
-function fe(e, t) {
-  let n = L(e, `targetX`, t.targetX),
-    r = L(e, `targetZ`, t.targetZ),
-    i = L(e, `cameraRadius`, t.radius),
-    a = L(e, `cameraHeight`, t.height),
-    o = de(n, r, i);
+function ue(e, t) {
+  let n = EVENT_GEO_ACCESS_GATE_ACTION(e, `targetX`, t.targetX),
+    r = EVENT_GEO_ACCESS_GATE_ACTION(e, `targetZ`, t.targetZ),
+    i = EVENT_GEO_ACCESS_GATE_ACTION(e, `cameraRadius`, t.radius),
+    a = EVENT_GEO_ACCESS_GATE_ACTION(e, `cameraHeight`, t.height),
+    o = le(n, r, i);
   return {
     backgroundCameraTarget: new b(n, 0, r),
     backgroundCameraRadius: i,
@@ -178,30 +182,30 @@ function fe(e, t) {
     backgroundCameraStartZ: o.z,
   };
 }
-function pe(e, t) {
+function de(e, t) {
   return {
     backgroundCameraMode: `orbit`,
-    backgroundCameraSpeed: L(e, `cameraSpeed`, t.speed ?? 0.08),
-    ...fe(e, t),
+    backgroundCameraSpeed: EVENT_GEO_ACCESS_GATE_ACTION(e, `cameraSpeed`, t.speed ?? 0.08),
+    ...ue(e, t),
   };
 }
-function me(e = window.location) {
+function fe(e = window.location) {
   let t = new URLSearchParams(e?.search || ``),
     n = String(t.get(`lookdev`) || ``)
       .trim()
       .toLowerCase();
   return n === `ocean` || n === `sea` || n === `1` || n === `true`;
 }
-function he(e = window.location) {
-  return me(e) ? { enableLookdevPanel: !0 } : {};
+function pe(e = window.location) {
+  return fe(e) ? { enableLookdevPanel: !0 } : {};
 }
-function ge(e = window.location) {
+function me(e = window.location) {
   let t = new URLSearchParams(e.search || ``);
   return t.get(`preview`) === `sponsor-island`
-    ? pe(t, { targetX: 0, targetZ: 0, radius: 95, height: 42, speed: 0.08 })
+    ? de(t, { targetX: 0, targetZ: 0, radius: 95, height: 42, speed: 0.08 })
     : {};
 }
-async function R() {
+async function EVENT_GEO_AUTH_GATE() {
   try {
     let e = await v();
     return (T(e), C(e), { session: e, failed: !1 });
@@ -209,12 +213,12 @@ async function R() {
     return { session: null, failed: !0 };
   }
 }
-async function _e() {
+async function he() {
   return (await v())?.access_token || ``;
 }
-var ve = 1e3,
-  ye = 0.5;
-function be(e, t, n) {
+var ge = 1e3,
+  _e = 0.5;
+function ve(e, t, n) {
   let r = e.getBoundingClientRect?.();
   return !r || r.width <= 0 || r.height <= 0
     ? !1
@@ -223,12 +227,12 @@ function be(e, t, n) {
         (r.width * r.height) >=
         n;
 }
-function xe(
+function ye(
   e,
   t,
   {
-    viewableMs: n = ve,
-    threshold: r = ye,
+    viewableMs: n = ge,
+    threshold: r = _e,
     windowRef: i = e?.ownerDocument?.defaultView,
   } = {},
 ) {
@@ -252,7 +256,7 @@ function xe(
         e.ownerDocument?.visibilityState === `hidden` ||
         (a = i.setTimeout(() => {
           if (((a = null), !s)) {
-            if (!e.isConnected || (!o && !be(e, i, r))) {
+            if (!e.isConnected || (!o && !ve(e, i, r))) {
               u();
               return;
             }
@@ -279,13 +283,13 @@ function xe(
       : ((c = !0), d(), u)
   );
 }
-var EVENT_LOCATION_AD_LINK_CLICKED = `location_ad_link_clicked`,
-  EVENT_GEO_ACCESS_GATE_ACTION = `geo_access_gate_action`,
-  EVENT_GEO_AUTH_GATE = `geo_auth_gate`;
-function Se(t) {
+var H = `location_ad_link_clicked`,
+  U = `geo_access_gate_action`,
+  W = `geo_auth_gate`;
+function be(t) {
   return e({ scene: t.playScene || c.GEO, place: t.place || t.id });
 }
-function Ce(e) {
+function xe(e) {
   try {
     let t = new URL(e, `https://vibesail.com`);
     return { target_host: t.hostname, target_path: `${t.pathname}${t.search}` };
@@ -293,12 +297,12 @@ function Ce(e) {
     return {};
   }
 }
-function H(e) {
+function G(e) {
   return Object.fromEntries(
     Object.entries(e).filter(([, e]) => e != null && e !== ``),
   );
 }
-function U(e) {
+function BUILD_INFO(e) {
   if (
     !e ||
     e.defaultPrevented ||
@@ -314,10 +318,10 @@ function U(e) {
     .toLowerCase();
   return !t || t === `_self`;
 }
-function W(e) {
+function BUILD_VERSION_STORAGE_KEY(e) {
   return {
-    surface: EVENT_GEO_AUTH_GATE,
-    placement: EVENT_GEO_AUTH_GATE,
+    surface: W,
+    placement: W,
     sponsor_id: e.id,
     sponsor_name: e.name,
     creative_type: `sponsored_location`,
@@ -331,22 +335,6 @@ function W(e) {
         : void 0,
   };
 }
-function we(e, { linkKind: t, targetUrl: n }) {
-  return H({ ...W(e), link_kind: t, ...Ce(n) });
-}
-function G(
-  e,
-  t,
-  { linkKind: n, targetUrl: r, flushBeforeNavigation: i = !1 } = {},
-) {
-  let a = we(t, { linkKind: n, targetUrl: r });
-  if (!i || !U(e)) {
-    f(EVENT_LOCATION_AD_LINK_CLICKED, a);
-    return;
-  }
-  e?.preventDefault?.();
-  let o = e?.currentTarget?.ownerDocument?.defaultView || window;
-  p(EVENT_LOCATION_AD_LINK_CLICKED, a, { windowRef: o }).finally(() => {
-    !r || !o?.location || (o.location.href = r);
-  });
+function Se(e, { linkKind: t, targetUrl: n }) {
+  return G({ ...BUILD_VERSION_STORAGE_KEY(e), link_kind: t, ...xe(n) });
 }

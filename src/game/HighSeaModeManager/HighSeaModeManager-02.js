@@ -1,5 +1,5 @@
 // HighSeaModeManager 02 — isfinite
-// Lines 129-1716 of readable/assets/HighSeaModeManager-BEvC6iXw.pretty.js (statement-aligned).
+// Lines 129-1728 of readable/assets/HighSeaModeManager-CSga6NhB.pretty.js (statement-aligned).
 var R = class {
   constructor(e, t = {}) {
     ((this.app = e),
@@ -10,18 +10,18 @@ var R = class {
       (this.documentRef =
         t.documentRef ?? (typeof document < `u` ? document : null)),
       (this.overlaySystem =
-        t.overlaySystem || i({ documentRef: this.documentRef })),
+        t.overlaySystem || u({ documentRef: this.documentRef })),
       (this.now =
         typeof t.now == `function`
           ? t.now
           : () => (typeof performance < `u` ? performance.now() : Date.now())),
       (this._checkpointManagerFactory =
-        t.checkpointManagerFactory || ((e, t) => new l(e, t))),
+        t.checkpointManagerFactory || ((e, t) => new i(e, t))),
       (this._buoyIndicatorFactory =
-        t.buoyIndicatorFactory || ((e, t) => new o(e, t))),
+        t.buoyIndicatorFactory || ((e, t) => new c(e, t))),
       (this._ghostManagerFactory =
         t.ghostManagerFactory || ((e, t) => new s(e, t))),
-      (this.recordService = t.recordService || new a()),
+      (this.recordService = t.recordService || new o()),
       (this.challengeVersion =
         String(
           t.challengeVersion || this.settings.challengeVersion || HIGH_SEA_CHALLENGE_VERSION,
@@ -32,7 +32,7 @@ var R = class {
       (this.isActive = !1),
       (this.isWaitingForStart = !1),
       (this.isPreStart = !1),
-      (this.events = new c(`HighSea`)),
+      (this.events = new l(`HighSea`)),
       (this.on = this.events.on.bind(this.events)),
       (this.off = this.events.off.bind(this.events)),
       (this._snapshot = null),
@@ -109,6 +109,7 @@ var R = class {
       !this.world ||
       !this.boat?.dynamics ||
       ((this._modeStartMs = this.now()),
+      this._resetSimOrigin(),
       (this._lastProgressionUpdateStep = -1),
       (this.ghostRecording = []),
       (this.ghostPhysicsTime = 0),
@@ -192,6 +193,7 @@ var R = class {
         (this._isRecovering = !1),
         (this._recoveryTimer = 0),
         (this._modeStartMs = null),
+        (this._modeSimOrigin = null),
         (this._lastProgressionUpdateStep = -1),
         (this._ghostLoadRequestId += 1),
         this.ghostManager?.clearGhosts?.(),
@@ -206,7 +208,7 @@ var R = class {
   getTargetPosition() {
     if (!this.isActive || !this.config?.checkpointPositions?.length)
       return null;
-    let e = r.euclideanModulo(
+    let e = n.euclideanModulo(
       this.currentCheckpointIndex,
       this.config.checkpointPositions.length,
     );
@@ -580,7 +582,7 @@ var R = class {
     if (!this.checkpointManager || !this.boat?.getPosition) return;
     let e = this.boat.getPosition();
     if (!this.checkpointManager.checkBoatCollision(e)) return;
-    ((this.currentCheckpointIndex = r.euclideanModulo(
+    ((this.currentCheckpointIndex = n.euclideanModulo(
       this.currentCheckpointIndex + 1,
       this.coursePositions.length,
     )),
@@ -601,9 +603,9 @@ var R = class {
         reward: t,
         elapsedSeconds: this._getElapsedModeSeconds(),
       }));
-    let n = t > 0 ? ` +$${t}` : ``;
+    let r = t > 0 ? ` +$${t}` : ``;
     this._setStatus(
-      `Leg ${this.legsCompleted} complete.${n} Keep pushing.`,
+      `Leg ${this.legsCompleted} complete.${r} Keep pushing.`,
       `success`,
       1.8,
     );
@@ -625,48 +627,56 @@ var R = class {
   }
   _computeProgressRatioForElapsed(e) {
     let t = Math.max(0, Number(e) || 0);
-    return r.clamp(t / this._getDifficultyRampSeconds(), 0, 1);
+    return n.clamp(t / this._getDifficultyRampSeconds(), 0, 1);
   }
   _computeWaveScaleForRatio(e) {
     let t = this.settings.sea?.waveConfig || {},
-      n = Number(t.waveScale);
-    if (!Number.isFinite(n)) return null;
+      r = Number(t.waveScale);
+    if (!Number.isFinite(r)) return null;
     let i = Number(this.settings.progression?.waveScaleMax),
-      a = Number.isFinite(i) ? Math.max(i, n) : n,
-      o = r.clamp(Number(e) || 0, 0, 1);
-    return r.lerp(n, a, o);
+      a = Number.isFinite(i) ? Math.max(i, r) : r,
+      o = n.clamp(Number(e) || 0, 0, 1);
+    return n.lerp(r, a, o);
   }
   _computeWindSpeedForRatio(e) {
     let t = Number(this.settings.wind?.speed);
     if (!Number.isFinite(t)) return null;
-    let n = Number(this.settings.progression?.windSpeedMax),
-      i = Number.isFinite(n) ? Math.max(n, t) : t,
-      a = r.clamp(Number(e) || 0, 0, 1);
-    return r.lerp(t, i, a);
+    let r = Number(this.settings.progression?.windSpeedMax),
+      i = Number.isFinite(r) ? Math.max(r, t) : t,
+      a = n.clamp(Number(e) || 0, 0, 1);
+    return n.lerp(t, i, a);
   }
   _computeUiSeaLevelForElapsed(e) {
     return Math.max(0, Number(e) || 0) / 60;
   }
+  _resetSimOrigin() {
+    let e = this.app?.getSimTimeSeconds?.();
+    this._modeSimOrigin = Number.isFinite(e) ? e : null;
+  }
   _getElapsedModeSeconds(e = this.now()) {
-    return Number.isFinite(this._modeStartMs)
-      ? Math.max(0, (e - this._modeStartMs) / 1e3)
-      : 0;
+    let t = this.app?.getSimTimeSeconds?.();
+    return Number.isFinite(t)
+      ? (Number.isFinite(this._modeSimOrigin) || (this._modeSimOrigin = t),
+        Math.max(0, t - this._modeSimOrigin))
+      : Number.isFinite(this._modeStartMs)
+        ? Math.max(0, (e - this._modeStartMs) / 1e3)
+        : 0;
   }
   _computeWindTrailStyleForRatio(e) {
-    let t = r.clamp(Number(e) || 0, 0, 1),
-      n = Number(this.settings.progression?.windTrailThicknessMultiplierMax),
+    let t = n.clamp(Number(e) || 0, 0, 1),
+      r = Number(this.settings.progression?.windTrailThicknessMultiplierMax),
       i = Number(this.settings.progression?.windTrailLengthMultiplierMax),
       a = Number(this.settings.progression?.windTrailGlowMultiplierMax),
-      o = Number.isFinite(n) ? Math.max(1, n) : 1,
+      o = Number.isFinite(r) ? Math.max(1, r) : 1,
       s = Number.isFinite(i) ? Math.max(1, i) : 1,
       c = Number.isFinite(a) ? Math.max(1, a) : 1,
       l = Number(this._windTrailBase?.thickness),
       u = Number(this._windTrailBase?.glow),
       d = Number(this._windTrailBase?.trailLengthScale);
     return {
-      thickness: Number.isFinite(l) ? r.lerp(l, l * o, t) : null,
-      glow: Number.isFinite(u) ? r.lerp(u, u * c, t) : null,
-      trailLengthScale: Number.isFinite(d) ? r.lerp(d, d * s, t) : null,
+      thickness: Number.isFinite(l) ? n.lerp(l, l * o, t) : null,
+      glow: Number.isFinite(u) ? n.lerp(u, u * c, t) : null,
+      trailLengthScale: Number.isFinite(d) ? n.lerp(d, d * s, t) : null,
     };
   }
   _computeProgressionState(e) {
@@ -752,13 +762,13 @@ var R = class {
         excessSumMeters: 0,
         sampleCount: 5,
       },
-      n = Math.max(
+      r = Math.max(
         0.001,
         Number(this.settings?.fail?.submersionExcessMeters) || 0.001,
       ),
       i = Math.max(1, Number(t.sampleCount) || 5),
-      a = Math.max(0, Number(t.excessSumMeters) || 0) / (i * n);
-    return r.clamp(a * 100, 0, 100);
+      a = Math.max(0, Number(t.excessSumMeters) || 0) / (i * r);
+    return n.clamp(a * 100, 0, 100);
   }
   _getSurfaceRollAngle() {
     let e = this.boat?.dynamics?.getLastWaterSample?.(),
@@ -809,12 +819,12 @@ var R = class {
   _getDeckPlaneNormal() {
     let e = this.boat?.dynamics?.rotation;
     if (!e) return null;
-    let r = Number(e.x),
+    let n = Number(e.x),
       i = Number(e.y),
       a = Number(e.z);
-    if (!Number.isFinite(r) || !Number.isFinite(i) || !Number.isFinite(a))
+    if (!Number.isFinite(n) || !Number.isFinite(i) || !Number.isFinite(a))
       return null;
-    let o = new n(0, 1, 0).applyEuler(new t(r, i, a, `YXZ`)).normalize();
+    let o = new r(0, 1, 0).applyEuler(new t(n, i, a, `YXZ`)).normalize();
     return !Number.isFinite(o.x) ||
       !Number.isFinite(o.y) ||
       !Number.isFinite(o.z) ||
@@ -924,7 +934,9 @@ var R = class {
           this.currentCheckpointIndex),
         this.checkpointManager.createCurrentCheckpoint()));
     let e = this.now();
-    ((this._modeStartMs = e), (this._lastProgressionUpdateStep = -1));
+    ((this._modeStartMs = e),
+      this._resetSimOrigin(),
+      (this._lastProgressionUpdateStep = -1));
     let t = this._computeProgressionState(0);
     ((this._currentWaveScale = t.waveScale),
       (this._currentWindSpeed = t.windSpeed),
@@ -1057,10 +1069,10 @@ var R = class {
         signInButton: null,
         shareButton: null,
       };
-    let a = !!i?.isAuthenticated,
-      o = this.documentRef.createElement(`div`);
-    o.className = `high-sea-fail-card`;
-    let s = (e, t) => {
+    let o = !!i?.isAuthenticated,
+      s = this.documentRef.createElement(`div`);
+    s.className = `high-sea-fail-card`;
+    let c = (e, t) => {
       let n = this.documentRef.createElement(`div`);
       n.className = `high-sea-fail-row`;
       let r = this.documentRef.createElement(`span`);
@@ -1069,10 +1081,10 @@ var R = class {
       return ((i.textContent = t), n.appendChild(r), n.appendChild(i), n);
     };
     if (
-      (o.appendChild(s(`Reason`, t)),
-      o.appendChild(s(`Time`, n)),
-      o.appendChild(s(`Buoys`, r)),
-      a)
+      (s.appendChild(c(`Reason`, t)),
+      s.appendChild(c(`Time`, n)),
+      s.appendChild(c(`Buoys`, r)),
+      o)
     ) {
       let t = this.documentRef.createElement(`div`);
       t.className = `high-sea-fail-name-group`;
@@ -1083,20 +1095,20 @@ var R = class {
         ? `Official name: ${r}`
         : `Your time will be logged under your profile name.`),
         t.appendChild(n),
-        o.appendChild(t));
+        s.appendChild(t));
     }
-    let c = this.documentRef.createElement(`p`);
-    ((c.className = `high-sea-fail-submit-status`),
-      (c.textContent = ``),
-      (c.dataset.tone = `info`),
-      o.appendChild(c));
-    let l = this.documentRef.createElement(`div`);
-    ((l.className = `high-sea-fail-turnstile`), o.appendChild(l));
+    let l = this.documentRef.createElement(`p`);
+    ((l.className = `high-sea-fail-submit-status`),
+      (l.textContent = ``),
+      (l.dataset.tone = `info`),
+      s.appendChild(l));
+    let u = this.documentRef.createElement(`div`);
+    ((u.className = `high-sea-fail-turnstile`), s.appendChild(u));
     let d = this.documentRef.createElement(`div`);
     d.className = `high-sea-fail-actions`;
     let f = null,
       p = null;
-    a
+    o
       ? ((f = this.documentRef.createElement(`button`)),
         (f.type = `button`),
         (f.className = `high-sea-fail-submit-button`),
@@ -1134,16 +1146,16 @@ var R = class {
       (g.textContent = `Share on 𝕏`),
       (g.style.display = `none`),
       g.addEventListener(`click`, () => {
-        u(
+        a(
           `I survived ${r} buoys in VibeSail High Sea mode!\nvibesail.com/highsea`,
         );
       }),
       d.appendChild(g),
-      o.appendChild(d),
+      s.appendChild(d),
       {
-        content: o,
-        status: c,
-        turnstileContainer: l,
+        content: s,
+        status: l,
+        turnstileContainer: u,
         submitButton: f,
         playAgainButton: m,
         shareButton: g,
@@ -1173,8 +1185,8 @@ var R = class {
     let t = this.boat?.dynamics;
     if (!t) return;
     this._sinkElapsed += Math.max(0, e);
-    let n = Math.max(0.001, this._sinkDuration),
-      i = r.clamp(this._sinkElapsed / n, 0, 1),
+    let r = Math.max(0.001, this._sinkDuration),
+      i = n.clamp(this._sinkElapsed / r, 0, 1),
       a = i * i * (3 - 2 * i),
       { x: o, z: s } = this._getCurrentBoatSampleXZ(),
       c = Number.isFinite(this._sinkStartSurfaceY)
@@ -1185,7 +1197,7 @@ var R = class {
       d = Number.isFinite(this._sinkStartOffsetY)
         ? this._sinkStartOffsetY
         : this._sinkStartY - l,
-      f = l + r.lerp(d, -u, a);
+      f = l + n.lerp(d, -u, a);
     ((this._sinkTargetY = l - u),
       (t.position.y = this._sinkStartY),
       (t.verticalVelocityY = 0),
@@ -1238,16 +1250,16 @@ var R = class {
     if (!this.boat?.dynamics || !this.coursePositions.length) return;
     let e = this.boat.dynamics,
       t = this.coursePositions[this.currentCheckpointIndex],
-      n =
+      r =
         this.coursePositions[
-          r.euclideanModulo(
+          n.euclideanModulo(
             this.currentCheckpointIndex - 1,
             this.coursePositions.length,
           )
         ],
       i = 0.28,
-      a = n.x + (t.x - n.x) * i,
-      o = n.z + (t.z - n.z) * i,
+      a = r.x + (t.x - r.x) * i,
+      o = r.z + (t.z - r.z) * i,
       s = Math.atan2(t.x - a, t.z - o),
       c = this._getSurfaceYAt(a, o, 0);
     (e.position.set(a, c, o),
@@ -1400,7 +1412,7 @@ var R = class {
         this.panelFields.heelAngle)
       ) {
         let e = this._getSurfaceRelativeHeelAbs();
-        this.panelFields.heelAngle.textContent = `${Math.round(r.radToDeg(e))}deg`;
+        this.panelFields.heelAngle.textContent = `${Math.round(n.radToDeg(e))}deg`;
       }
       if (this.panelFields.submersionPercent) {
         let e = Number.isFinite(this._submersionPercent)

@@ -1,104 +1,363 @@
-// Game 07 — freeze
-// Lines 1623-1724 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-function wn(e = {}) {
-  return { ...DEFAULT_EFFECT_STATE, ...e };
-}
-var GRAPHICS_QUALITY_STORAGE_KEY = `vibesail:graphicsQuality`,
-  En = `high`,
-  Dn = `medium`,
-  currentQualityKey = En,
-  QUALITY_PRESETS = Object.freeze({
-    [En]: Object.freeze({
-      id: En,
-      effects: DEFAULT_EFFECT_STATE,
-      refractionScale: 0.75,
-      reflectionTextureSize: 512,
-      maxPixelRatio: 1.75,
-      tileSegments: 192,
-      outerTileSegments: 128,
-    }),
-    [Dn]: Object.freeze({
-      id: Dn,
-      effects: Object.freeze(
-        wn({
-          planarReflect: !0,
-          refraction: !1,
-          seafloor: !1,
-          crestGlow: !0,
-          glints: !1,
-        }),
-      ),
-      refractionScale: 0.75,
-      reflectionTextureSize: 384,
-      maxPixelRatio: 1.5,
-      tileSegments: 128,
-      outerTileSegments: 128,
-    }),
-    low: Object.freeze({
-      id: `low`,
-      effects: Object.freeze(
-        wn({
-          planarReflect: !1,
-          refraction: !1,
-          seafloor: !1,
-          crestGlow: !1,
-          glints: !1,
-        }),
-      ),
-      refractionScale: 0.5,
-      reflectionTextureSize: 256,
-      maxPixelRatio: 1,
-      tileSegments: 96,
-      outerTileSegments: 96,
-    }),
-  });
-function An() {
-  try {
-    return globalThis?.localStorage || null;
-  } catch {
-    return null;
-  }
-}
-function jn(e, t = currentQualityKey) {
-  let n = typeof e == `string` ? e.trim().toLowerCase() : e;
-  return QUALITY_PRESETS[n] ? n : QUALITY_PRESETS[t] ? t : currentQualityKey;
-}
-function Mn(e = currentQualityKey) {
-  return QUALITY_PRESETS[jn(e)] || QUALITY_PRESETS.high;
-}
-function Nn(e = An()) {
-  if (!e || typeof e.getItem != `function`) return currentQualityKey;
-  try {
-    return jn(e.getItem(GRAPHICS_QUALITY_STORAGE_KEY));
-  } catch {
-    return currentQualityKey;
-  }
-}
-function Pn(e, t = An()) {
-  let n = jn(e);
-  if (!t || typeof t.setItem != `function`) return n;
-  try {
-    t.setItem(GRAPHICS_QUALITY_STORAGE_KEY, n);
-  } catch {}
-  return n;
-}
-function Fn({ quality: e = currentQualityKey, isMobile: t = !1 } = {}) {
-  return {
-    antialias: jn(e) === `high` && t !== !0,
-    stencil: !0,
-    alpha: !1,
-    powerPreference: `high-performance`,
+// Game 07 — geo
+// Lines 1743-2103 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+var ir = sceneLocationContext && sceneLocationContext.scene === l.GEO && sceneLocationContext.place && o[sceneLocationContext.place] ? o[sceneLocationContext.place] : Qn,
+  ar = !!(sceneLocationContext && sceneLocationContext.scene === l.GEO && sceneLocationContext.place && o[sceneLocationContext.place]),
+  or = () =>
+    sceneLocationContext
+      ? sceneLocationContext.scene === l.GEO
+        ? SCENE_TYPES.GEO
+        : sceneLocationContext.scene === l.OCEAN
+          ? SCENE_TYPES.OCEAN
+          : (sceneLocationContext.scene, l.ISLANDS, SCENE_TYPES.ISLANDS)
+      : SCENE_TYPES.ISLANDS,
+  GeoModelAsset = () => {
+    if (typeof window > `u`) return ir.defaultLocation;
+    let e = sceneLocationContext?.loc;
+    if (e && ir.locations[e]) return e;
+    let t = window.location.pathname.toLowerCase();
+    for (let [e, n] of Object.entries(ir.locations))
+      if (n.path && t.startsWith(n.path)) return e;
+    return ir.defaultLocation;
+  },
+  GEO_API_BASE =
+    !sceneLocationContext || sceneLocationContext.scene !== l.GEO
+      ? null
+      : $n
+        ? {
+            lat: $n.lat,
+            lon: $n.lon,
+            height: Number.isFinite($n.height) ? $n.height : rr(),
+          }
+        : !Number.isFinite(sceneLocationContext.lat) || !Number.isFinite(sceneLocationContext.lon)
+          ? null
+          : { lat: sceneLocationContext.lat, lon: sceneLocationContext.lon, height: rr() },
+  GEO_LOCATION_PRESETS = !!GEO_API_BASE && !er,
+  ur = Object.freeze({
+    sunColor: 16765634,
+    alpha: 1,
+    reflectionStrength: 0.9,
+    specularStrength: 2,
+    fresnelBase: 0.02,
+    fresnelPower: 5,
+    scatterStrength: 0.85,
+    sssStrength: 0.35,
+    sssColor: 1731226,
+    roughness: 0.24,
+    sunGlitter: 0,
+    detailStrength: 0.14,
+    detailScale: 0.3,
+    rippleFade: 0.012,
+    shallowColor: 5159136,
+    deepColor: 412282,
+    foamColor: 16186879,
+    floorColor: 11842218,
+    foamCoverage: 0.85,
+    foamOpacity: 0.92,
+    foamThreshold: 0.22,
+    foamSoftness: 0.45,
+    crestFoamStart: 1.2,
+    crestFoamAmount: 1,
+    foamEdge: 0.22,
+    shoreFoamWidth: 5.5,
+    contactFoam: 1,
+    contactRadius: 4.5,
+    floorEnabled: 1,
+    floorY: -20,
+    clarity: 1.2,
+    depthFalloff: 0.16,
+    refractStrength: 0.05,
+    waveNormalMix: 0.65,
+    waterDepth: 12,
+    refractionEnabled: 1,
+    pathCap: 18,
+    slantSoft: 0.25,
+    floorBleed: 0.2,
+    floorHintAmt: 0.22,
+    floorHintNear: 6,
+    floorHintFar: 20,
+    fresCap: 0.95,
+    fresBlend: 1,
+    absorbScale: 1,
+    shoreLipFade: 3.5,
+    shoreLipMute: 0.75,
+    viewFadeStart: 900,
+    viewFadeEnd: 2800,
+    refractDebug: 0,
+    underFar: 8e3,
+  }),
+  GeoModelRegistry = Object.freeze({
+    Default: {
+      sunColor: 16765634,
+      waterColor: 1738436,
+      shallowColor: 5159136,
+      deepColor: 412282,
+      sssColor: 1731226,
+      foamColor: 16186879,
+      floorColor: 11842218,
+      foamCoverage: 0.85,
+      crestFoamStart: 0.55,
+      clarity: 1.25,
+      depthFalloff: 0.15,
+      refractStrength: 0.05,
+      waterDepth: 12,
+      reflectionStrength: 0.9,
+      specularStrength: 2,
+      fresnelBase: 0.02,
+      fresnelPower: 5,
+      fresCap: 0.95,
+      fresBlend: 1,
+      roughness: 0.24,
+      scatterStrength: 0.8,
+    },
+    AzureCrown: {
+      sunColor: 15267071,
+      waterColor: 1739472,
+      shallowColor: 5233899,
+      deepColor: 413834,
+      sssColor: 1735352,
+      foamColor: 16186879,
+      floorColor: 11973804,
+      foamCoverage: 0.85,
+      crestFoamStart: 0.55,
+      clarity: 1.4,
+      depthFalloff: 0.12,
+      refractStrength: 0.05,
+      waterDepth: 11,
+      reflectionStrength: 1,
+      specularStrength: 1.15,
+      fresnelBase: 0.02,
+      fresnelPower: 5,
+      fresCap: 0.95,
+      fresBlend: 1,
+      scatterStrength: 0.7,
+    },
+    TropicalNoon: {
+      sunColor: 16642770,
+      waterColor: 686762,
+      shallowColor: 6276824,
+      deepColor: 408154,
+      sssColor: 1734024,
+      foamColor: 16186879,
+      floorColor: 12104872,
+      foamCoverage: 0.9,
+      crestFoamStart: 0.7,
+      clarity: 1.35,
+      depthFalloff: 0.14,
+      refractStrength: 0.05,
+      waterDepth: 10,
+      reflectionStrength: 1.05,
+      specularStrength: 1.25,
+      fresnelBase: 0.02,
+      fresnelPower: 5,
+      fresCap: 0.95,
+      fresBlend: 1,
+      scatterStrength: 0.7,
+    },
+    GoldenReach: {
+      sunColor: 16757130,
+      waterColor: 1731194,
+      shallowColor: 4169626,
+      deepColor: 534587,
+      sssColor: 1738101,
+      foamColor: 16773599,
+      floorColor: 11577496,
+      foamCoverage: 0.8,
+      crestFoamStart: 0.65,
+      clarity: 1.05,
+      depthFalloff: 0.16,
+      refractStrength: 0.055,
+      waterDepth: 11,
+      reflectionStrength: 1.1,
+      specularStrength: 1.45,
+      fresnelBase: 0.03,
+      fresnelPower: 5.5,
+      fresCap: 0.95,
+      fresBlend: 1,
+      scatterStrength: 0.75,
+    },
+    TradeIsles: {
+      sunColor: 15267071,
+      waterColor: 883356,
+      shallowColor: 4044976,
+      deepColor: 274500,
+      sssColor: 1738101,
+      foamColor: 16055295,
+      floorColor: 11710632,
+      foamCoverage: 1,
+      crestFoamStart: 0.45,
+      clarity: 1.25,
+      depthFalloff: 0.12,
+      refractStrength: 0.05,
+      waterDepth: 10,
+      reflectionStrength: 0.95,
+      specularStrength: 1.15,
+      fresnelBase: 0.02,
+      fresnelPower: 5,
+      fresCap: 0.95,
+      fresBlend: 1,
+      scatterStrength: 0.8,
+    },
+    StormySeas: {
+      sunColor: 9544119,
+      waterColor: 1718858,
+      shallowColor: 2775650,
+      deepColor: 202784,
+      sssColor: 1722965,
+      foamColor: 15265522,
+      floorColor: 8026224,
+      foamCoverage: 1.25,
+      crestFoamStart: 0.35,
+      clarity: 0.9,
+      depthFalloff: 0.2,
+      refractStrength: 0.06,
+      waterDepth: 14,
+      reflectionStrength: 0.45,
+      specularStrength: 0.4,
+      fresnelBase: 0.04,
+      fresnelPower: 4,
+      fresCap: 0.9,
+      fresBlend: 1,
+      scatterStrength: 1,
+    },
+  }),
+  WorldBuilder = {
+    [SCENE_TYPES.GEO]: {
+      ...ur,
+      distortionScale: 5,
+      size: 10,
+      waterColor: 1738436,
+      waveSpeed: at,
+      tiling: { enabled: !0, tileSize: 2e3, tileSegments: 256, gridRadius: 1 },
+      waveConfig: { ...et },
+    },
+    [SCENE_TYPES.ISLANDS]: {
+      ...ur,
+      distortionScale: 5,
+      size: 10,
+      waterColor: 1738436,
+      waveSpeed: at,
+      tiling: { enabled: !0, tileSize: 2e3, tileSegments: 256, gridRadius: 1 },
+      waveConfig: { ...et },
+    },
+    [SCENE_TYPES.OCEAN]: {
+      ...ur,
+      ...GeoModelRegistry.StormySeas,
+      distortionScale: 5,
+      size: 10,
+      waveSpeed: at,
+      floorEnabled: 0,
+      floorY: -400,
+      waterDepth: 120,
+      depthFalloff: 0.08,
+      clarity: 0.85,
+      tiling: { enabled: !0, tileSize: 2e3, tileSegments: 256, gridRadius: 1 },
+      waveConfig: {
+        windSpeed: 20,
+        windDirection: -135,
+        choppiness: 0.75,
+        waveScale: 0.7,
+      },
+    },
+  },
+  CountryService = {
+    [SCENE_TYPES.GEO]: { elevation: 39.1, azimuth: 169 },
+    [SCENE_TYPES.ISLANDS]: { elevation: 10, azimuth: 90 },
+    [SCENE_TYPES.OCEAN]: { elevation: 10, azimuth: 128 },
+  },
+  mr = {
+    [SCENE_TYPES.GEO]: {
+      cameraFar: 3e4,
+      fog: { enabled: !1, near: 5e3, far: 25e3, color: 16762032 },
+      sun: CountryService[SCENE_TYPES.GEO],
+    },
+    [SCENE_TYPES.ISLANDS]: {
+      cameraFar: 2e4,
+      fog: { enabled: !1, near: 400, far: 1900, color: 16762032 },
+      lighting: {
+        ambientIntensity: 0.55,
+        directionalIntensity: 0.8,
+        pointIntensity: 0.65,
+        ambientColor: 16773606,
+        directionalColor: 16763296,
+        pointColor: 16769476,
+      },
+      sun: CountryService[SCENE_TYPES.ISLANDS],
+    },
+    [SCENE_TYPES.OCEAN]: {
+      cameraFar: 2e4,
+      fog: { enabled: !1, near: 400, far: 1900, color: 16762032 },
+      lighting: {
+        ambientIntensity: 0.42,
+        directionalIntensity: 0.32,
+        pointIntensity: 0.6,
+      },
+      sun: CountryService[SCENE_TYPES.OCEAN],
+    },
+  },
+  H = {
+    sceneType: or(),
+    googleMaps: {
+      apiKey: `AIzaSyA70ViI4JOspeXGG69hDggwAHUmClSe6fo`,
+      tilesetUrl: `https://tile.googleapis.com/v1/3dtiles/root.json`,
+      locations: ir.locations,
+      defaultLocation: GeoModelAsset(),
+      scale: 1,
+      get center() {
+        return (
+          GEO_API_BASE ||
+          this.locations[this.defaultLocation] ||
+          Object.values(this.locations)[0]
+        );
+      },
+      autoAlignCoordinateCenter: GEO_LOCATION_PRESETS,
+      refreshRate: 30,
+    },
+    get sky() {
+      let e = {
+        model: `preetham`,
+        turbidity: 8,
+        rayleigh: 2,
+        mieCoefficient: 0.005,
+        mieDirectionalG: 0.75,
+        cloudCover: 0.28,
+        cirrus: 1,
+        sunGlow: 1,
+        image: `tropical_day.jpg`,
+        rotation: 296,
+        exposure: 2.5,
+        billboardOpacity: 1,
+      };
+      if (this.sceneType !== SCENE_TYPES.GEO) return e;
+      let t = this.googleMaps?.center?.lat;
+      return {
+        ...e,
+        model: `sky-image`,
+        rotation: Zn(t),
+        exposure: 1,
+        billboardOpacity: 0.35,
+      };
+    },
+    get sun() {
+      return CountryService[this.sceneType] || CountryService[SCENE_TYPES.ISLANDS];
+    },
+    get water() {
+      return this.sceneType === SCENE_TYPES.GEO && ar && ir.water
+        ? { ...WorldBuilder[SCENE_TYPES.GEO], ...ir.water }
+        : WorldBuilder[this.sceneType] || WorldBuilder[SCENE_TYPES.ISLANDS];
+    },
+    get scene() {
+      return mr[this.sceneType] || mr[SCENE_TYPES.ISLANDS];
+    },
+    docking: {
+      minSpeedToDock: 9,
+      DOCKING_RADIUS: 10,
+      circleForwardOffset: 8,
+      debugCircleFadeMaxDistance: 100,
+      targetColumn: {
+        height: 1500,
+        color: 16711935,
+        radius: 1,
+        glowRadius: 12,
+      },
+    },
   };
-}
-var In = 1.75;
-function Ln({ quality: e = currentQualityKey, devicePixelRatio: t = 1 } = {}) {
-  let n = Mn(e),
-    r = Number.isFinite(t) && t > 0 ? t : 1;
-  return Number.isFinite(n.maxPixelRatio)
-    ? Math.min(r, n.maxPixelRatio)
-    : Math.min(In, r);
-}
-function Rn(e, t) {
-  let n = Math.sin(e * 127.1 + t * 311.7) * 43758.5453;
-  return n - Math.floor(n);
-}

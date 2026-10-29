@@ -1,9 +1,25 @@
 // game 02 — classname
-// Lines 351-693 of readable/assets/game-DaugXgrE.pretty.js (statement-aligned).
-function Te(e, t, { slotIndex: n, sponsorCount: i } = {}) {
+// Lines 339-664 of readable/assets/game-wg-D5X70.pretty.js (statement-aligned).
+function VERSION_MANIFEST_URL(
+  e,
+  t,
+  { linkKind: n, targetUrl: r, flushBeforeNavigation: i = !1 } = {},
+) {
+  let a = Se(t, { linkKind: n, targetUrl: r });
+  if (!i || !BUILD_INFO(e)) {
+    f(H, a);
+    return;
+  }
+  e?.preventDefault?.();
+  let o = e?.currentTarget?.ownerDocument?.defaultView || window;
+  p(H, a, { windowRef: o }).finally(() => {
+    !r || !o?.location || (o.location.href = r);
+  });
+}
+function Ce(e, t, { slotIndex: n, sponsorCount: i } = {}) {
   let a = e.createElement(`div`);
   a.className = `geo-auth-sponsored-row`;
-  let o = Se(t),
+  let o = be(t),
     s = e.createElement(`img`);
   ((s.className = `geo-auth-sponsored-logo`),
     (s.src = r(t.logo || E)),
@@ -22,7 +38,7 @@ function Te(e, t, { slotIndex: n, sponsorCount: i } = {}) {
     (d.href = o),
     d.setAttribute(`aria-label`, `Set sail from ${t.name}`),
     d.addEventListener(`click`, (e) => {
-      G(e, t, {
+      VERSION_MANIFEST_URL(e, t, {
         linkKind: `set_sail`,
         targetUrl: o,
         flushBeforeNavigation: !0,
@@ -37,7 +53,7 @@ function Te(e, t, { slotIndex: n, sponsorCount: i } = {}) {
     (m.href = o),
     (m.textContent = `Set Sail`),
     m.addEventListener(`click`, (e) => {
-      G(e, t, {
+      VERSION_MANIFEST_URL(e, t, {
         linkKind: `set_sail`,
         targetUrl: o,
         flushBeforeNavigation: !0,
@@ -53,17 +69,17 @@ function Te(e, t, { slotIndex: n, sponsorCount: i } = {}) {
       (n.rel = `noopener noreferrer`),
       (n.textContent = `Visit`),
       n.addEventListener(`click`, (e) => {
-        G(e, t, { linkKind: `website`, targetUrl: t.url });
+        VERSION_MANIFEST_URL(e, t, { linkKind: `website`, targetUrl: t.url });
       }),
       p.appendChild(n));
   }
   return (
     a.append(d, p),
-    xe(a, () => {
+    ye(a, () => {
       f(
         `location_ad_impression`,
-        H({
-          ...W(t),
+        G({
+          ...BUILD_VERSION_STORAGE_KEY(t),
           impression_kind: `viewable_1s`,
           viewability_method: `dom_50pct_1s`,
           slot_index: n,
@@ -75,7 +91,7 @@ function Te(e, t, { slotIndex: n, sponsorCount: i } = {}) {
     a
   );
 }
-function Ee(e, t) {
+function we(e, t) {
   let n = Array.isArray(t) ? t.filter((e) => e?.id && e?.name) : [];
   if (!n.length) return null;
   let r = e.createElement(`section`);
@@ -84,13 +100,13 @@ function Ee(e, t) {
   return (
     (i.className = `geo-auth-sponsored-list`),
     n.forEach((t, r) => {
-      i.appendChild(Te(e, t, { slotIndex: r, sponsorCount: n.length }));
+      i.appendChild(Ce(e, t, { slotIndex: r, sponsorCount: n.length }));
     }),
     r.appendChild(i),
     r
   );
 }
-function De(e) {
+function Te(e) {
   let t = e.createElement(`div`);
   return (
     (t.className = `geo-auth-sponsored-divider`),
@@ -98,7 +114,7 @@ function De(e) {
     t
   );
 }
-function Oe(e) {
+function Ee(e) {
   let t = e.createElement(`section`);
   t.className = `geo-auth-sponsor-prompt`;
   let n = e.createElement(`div`);
@@ -119,12 +135,12 @@ function Oe(e) {
       let t = e.currentTarget?.ownerDocument?.defaultView || window,
         n = a.getAttribute(`href`),
         r = { action: `sponsor_location_clicked`, destination_path: n };
-      if (!U(e)) {
-        f(EVENT_GEO_ACCESS_GATE_ACTION, r);
+      if (!BUILD_INFO(e)) {
+        f(U, r);
         return;
       }
       (e.preventDefault(),
-        p(EVENT_GEO_ACCESS_GATE_ACTION, r, { windowRef: t }).finally(() => {
+        p(U, r, { windowRef: t }).finally(() => {
           !n || !t?.location || (t.location.href = n);
         }));
     }),
@@ -132,7 +148,7 @@ function Oe(e) {
     t
   );
 }
-function ke({
+function De({
   onLogin: e,
   onGoogleSignIn: t,
   onContinue: r,
@@ -176,32 +192,32 @@ function ke({
     p.appendChild(m),
     p.appendChild(h),
     p.appendChild(g));
-  let _ = Ee(a, i);
+  let _ = we(a, i);
   return (
     l.appendChild(u),
     l.appendChild(d),
     l.appendChild(f),
     l.appendChild(p),
     c.appendChild(l),
-    _ && (c.appendChild(De(a)), c.appendChild(_)),
-    c.appendChild(Oe(a)),
+    _ && (c.appendChild(Te(a)), c.appendChild(_)),
+    c.appendChild(Ee(a)),
     s.appendChild(c),
     a.body.appendChild(s),
     s
   );
 }
 Object.freeze({ name: `VibeSail`, commitSha: `local` });
-var BUILD_INFO = Object.freeze({ name: `VibeSail`, commitSha: `b9b41e090270` });
-function Ae(e = BUILD_INFO) {
+var UPDATE_NOTICE_STORAGE_KEY = Object.freeze({ name: `VibeSail`, commitSha: `a94a47198453` });
+function Oe(e = UPDATE_NOTICE_STORAGE_KEY) {
   return String(e?.commitSha || ``).trim() || `local`;
 }
-var BUILD_VERSION_STORAGE_KEY = `vibesail-build-version`;
-function je({ documentRef: e = document, buildInfo: t = BUILD_INFO } = {}) {
-  if (!e?.body || e.getElementById(BUILD_VERSION_STORAGE_KEY)) return null;
-  let n = Ae(t),
+var STALE_ASSET_RELOAD_STORAGE_KEY = `vibesail-build-version`;
+function ke({ documentRef: e = document, buildInfo: t = UPDATE_NOTICE_STORAGE_KEY } = {}) {
+  if (!e?.body || e.getElementById(STALE_ASSET_RELOAD_STORAGE_KEY)) return null;
+  let n = Oe(t),
     r = e.createElement(`div`);
   return (
-    (r.id = BUILD_VERSION_STORAGE_KEY),
+    (r.id = STALE_ASSET_RELOAD_STORAGE_KEY),
     (r.className = `build-version-badge`),
     (r.textContent = n),
     (r.title = n),
@@ -210,14 +226,14 @@ function je({ documentRef: e = document, buildInfo: t = BUILD_INFO } = {}) {
     r
   );
 }
-var VERSION_MANIFEST_URL = `/version.json`,
-  VERSION_POLL_INTERVAL_MS = 60 * 1e3,
-  UPDATE_NOTICE_STORAGE_KEY = `vibesail-version-update-notice`,
-  STALE_ASSET_RELOAD_STORAGE_KEY = `vibesail-stale-asset-reload-at`,
-  STALE_ASSET_RELOAD_MS = 15e3,
-  UPDATE_NOTICE_TITLE = `New version available`,
-  RELOAD_REQUIRED_TITLE = `Reload required`;
-function Z(e) {
+var Z = `/version.json`,
+  Ae = 60 * 1e3,
+  H5ADS_PREVIEW_OVERLAY_ID = `vibesail-version-update-notice`,
+  je = `vibesail-stale-asset-reload-at`,
+  VERSION_POLL_INTERVAL_MS = 15e3,
+  STALE_ASSET_RELOAD_MS = `New version available`,
+  UPDATE_NOTICE_TITLE = `Reload required`;
+function RELOAD_REQUIRED_TITLE(e) {
   return String(e?.commitSha || ``).trim();
 }
 function Ie(e = window) {
@@ -227,9 +243,9 @@ function Ie(e = window) {
     return null;
   }
 }
-function Le(e, t = BUILD_INFO) {
-  let n = Z(e),
-    r = Z(t);
+function Le(e, t = UPDATE_NOTICE_STORAGE_KEY) {
+  let n = RELOAD_REQUIRED_TITLE(e),
+    r = RELOAD_REQUIRED_TITLE(t);
   return !!(n && r && n !== r);
 }
 function Re(e = window) {
@@ -238,7 +254,7 @@ function Re(e = window) {
 function ze(e, t) {
   if (!e) return !1;
   try {
-    return (e.setItem(STALE_ASSET_RELOAD_STORAGE_KEY, String(t)), !0);
+    return (e.setItem(je, String(t)), !0);
   } catch {
     return !1;
   }
@@ -246,21 +262,21 @@ function ze(e, t) {
 function Be(e, t) {
   if (!e) return !1;
   try {
-    let n = Number(e.getItem(STALE_ASSET_RELOAD_STORAGE_KEY));
-    return Number.isFinite(n) && n > 0 && t - n < STALE_ASSET_RELOAD_MS;
+    let n = Number(e.getItem(je));
+    return Number.isFinite(n) && n > 0 && t - n < VERSION_POLL_INTERVAL_MS;
   } catch {
     return !1;
   }
 }
-function Ve({ documentRef: e, windowRef: t, message: n = UPDATE_NOTICE_TITLE }) {
+function Ve({ documentRef: e, windowRef: t, message: n = STALE_ASSET_RELOAD_MS }) {
   if (!e?.body) return null;
-  let r = e.getElementById(UPDATE_NOTICE_STORAGE_KEY);
+  let r = e.getElementById(H5ADS_PREVIEW_OVERLAY_ID);
   if (r) {
     let e = r.querySelector(`.version-update-notice-message`);
     return (e && (e.textContent = n), r);
   }
   let i = e.createElement(`div`);
-  ((i.id = UPDATE_NOTICE_STORAGE_KEY), (i.className = `version-update-notice`));
+  ((i.id = H5ADS_PREVIEW_OVERLAY_ID), (i.className = `version-update-notice`));
   let a = e.createElement(`span`);
   ((a.className = `version-update-notice-message`),
     (a.textContent = n),
@@ -276,7 +292,7 @@ function Ve({ documentRef: e, windowRef: t, message: n = UPDATE_NOTICE_TITLE }) 
     i
   );
 }
-async function He({ fetchImpl: e = fetch, versionUrl: t = VERSION_MANIFEST_URL } = {}) {
+async function He({ fetchImpl: e = fetch, versionUrl: t = Z } = {}) {
   if (typeof e != `function`) return null;
   try {
     let n = await e(t, { cache: `no-store` });
@@ -286,60 +302,27 @@ async function He({ fetchImpl: e = fetch, versionUrl: t = VERSION_MANIFEST_URL }
   }
 }
 async function Ue({
-  currentBuildInfo: e = BUILD_INFO,
+  currentBuildInfo: e = UPDATE_NOTICE_STORAGE_KEY,
   documentRef: t = document,
   fetchImpl: n = fetch,
-  versionUrl: r = VERSION_MANIFEST_URL,
+  versionUrl: r = Z,
   windowRef: i = window,
 } = {}) {
   let a = await He({ fetchImpl: n, versionUrl: r });
   return !a || !Le(a, e) ? null : Ve({ documentRef: t, windowRef: i });
 }
 async function We({
-  currentBuildInfo: e = BUILD_INFO,
+  currentBuildInfo: e = UPDATE_NOTICE_STORAGE_KEY,
   documentRef: t = document,
   fetchImpl: n = fetch,
   nowMs: r = Date.now(),
   sessionStorageRef: i = Ie(),
-  versionUrl: a = VERSION_MANIFEST_URL,
+  versionUrl: a = Z,
   windowRef: o = window,
 } = {}) {
   if (!Be(i, r)) {
     let t = await He({ fetchImpl: n, versionUrl: a });
     if (t && Le(t, e) && ze(i, r)) return (Re(o), `reloaded`);
   }
-  return Ve({ documentRef: t, windowRef: o, message: RELOAD_REQUIRED_TITLE });
-}
-function Ge({
-  currentBuildInfo: e = BUILD_INFO,
-  documentRef: t = document,
-  enabled: n = !0,
-  fetchImpl: r = fetch,
-  versionUrl: i = VERSION_MANIFEST_URL,
-  windowRef: a = window,
-} = {}) {
-  if (!n || typeof a?.addEventListener != `function`) return () => {};
-  let o = !1,
-    s = !1,
-    c = (n) => {
-      (n?.preventDefault?.(),
-        !(o || s) &&
-          ((s = !0),
-          We({
-            currentBuildInfo: e,
-            documentRef: t,
-            fetchImpl: r,
-            sessionStorageRef: Ie(a),
-            versionUrl: i,
-            windowRef: a,
-          }).finally(() => {
-            s = !1;
-          })));
-    };
-  return (
-    a.addEventListener(`vite:preloadError`, c),
-    () => {
-      o || ((o = !0), a.removeEventListener?.(`vite:preloadError`, c));
-    }
-  );
+  return Ve({ documentRef: t, windowRef: o, message: UPDATE_NOTICE_TITLE });
 }

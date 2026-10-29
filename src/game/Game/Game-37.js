@@ -1,350 +1,350 @@
-// Game 37 — start
-// Lines 19365-19712 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-function Ts(e, t, n, r, i) {
-  let a = [t, n];
-  for (; a.length;) {
-    if (((n = a.pop()), (t = a.pop()), n - t <= r)) continue;
-    let o = t + Math.ceil((n - t) / r / 2) * r;
-    (cs(e, o, t, n, i), a.push(t, o, o, n));
+// Game 37 — createelement
+// Lines 18115-18462 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+var mc = class {
+  constructor(e = {}) {
+    (lc(),
+      (this.title = e.title || `Sea Lookdev`),
+      (this.subtitle = e.subtitle || `collapsible folders · side panel`),
+      (this.storageKey = e.storageKey || oc),
+      (this.onClose = e.onClose || null),
+      (this.sections = []),
+      (this._openMap = {}),
+      (this.root = null),
+      (this._bodyEl = null),
+      (this._titleEl = null),
+      (this._subtitleEl = null),
+      (this._built = !1),
+      this._loadOpenMap());
   }
-}
-function Es(e, t, n, r) {
-  let i = t[0] - e[0],
-    a = t[1] - e[1],
-    o = r[0] - n[0],
-    s = r[1] - n[1];
-  if (o * a - s * i === 0) return !1;
-  let c = (i * (n[1] - e[1]) + a * (e[0] - n[0])) / (o * a - s * i),
-    l = (o * (e[1] - n[1]) + s * (n[0] - e[0])) / (s * i - o * a);
-  return c >= 0 && c <= 1 && l >= 0 && l <= 1;
-}
-function Ds(e, t, n) {
-  return (t[0] - e[0]) * (n[1] - e[1]) - (n[0] - e[0]) * (t[1] - e[1]);
-}
-function Os(e, t, n) {
-  return Ds(e, t, n) > 0;
-}
-function ks(e, t, n) {
-  return Ds(e, t, n) >= 0;
-}
-function As(e, t, n) {
-  return Ds(e, t, n) < 0;
-}
-function js(e, t, n) {
-  return Ds(e, t, n) <= 0;
-}
-function Ms(e, t) {
-  let n = t[0] - e[0],
-    r = t[1] - e[1];
-  return n * n + r * r;
-}
-function J(e, t) {
-  let n = e.length;
-  return e[t < 0 ? (t % n) + n : t % n];
-}
-function Ns(e, t, n, r) {
-  for (let i = n; i < r; i++) e.push(t[i]);
-}
-function Ps(e, t) {
-  return As(J(e, t - 1), J(e, t), J(e, t + 1));
-}
-function Fs(e, t, n) {
-  for (let r = 0; r !== e.length; ++r)
-    if (
-      !(
-        r === t ||
-        r === n ||
-        (r + 1) % e.length === t ||
-        (r + 1) % e.length === n
-      ) &&
-      Es(J(e, t), J(e, n), J(e, r), J(e, r + 1))
-    )
-      return !1;
-  return !0;
-}
-function Is(e) {
-  let t = e,
-    n;
-  for (n = 0; n < t.length - 1; n++)
-    for (let e = 0; e < n - 1; e++)
-      if (Es(t[n], t[n + 1], t[e], t[e + 1])) return !1;
-  for (n = 1; n < t.length - 2; n++)
-    if (Es(t[0], t[t.length - 1], t[n], t[n + 1])) return !1;
-  return !0;
-}
-function Ls(e, t, n, r, i) {
-  i === void 0 && (i = 0);
-  let a = t[1] - e[1],
-    o = e[0] - t[0],
-    s = a * e[0] + o * e[1],
-    c = r[1] - n[1],
-    l = n[0] - r[0],
-    u = c * n[0] + l * n[1],
-    d = a * l - c * o;
-  return zs(d, 0, i) ? [0, 0] : [(l * s - o * u) / d, (a * u - c * s) / d];
-}
-function Rs(e, t, n, r, i, a, o) {
-  (t === void 0 && (t = []),
-    n === void 0 && (n = []),
-    r === void 0 && (r = []),
-    i === void 0 && (i = 25),
-    a === void 0 && (a = 100),
-    o === void 0 && (o = 0));
-  let s = [0, 0],
-    c = [0, 0],
-    l = [0, 0],
-    u = 0,
-    d = 0,
-    f = 0,
-    p = 0,
-    m = 0,
-    h = 0,
-    g = 0,
-    _ = [],
-    v = [],
-    y = e,
-    b = e;
-  if (b.length < 3) return t;
-  if ((o++, o > a))
-    return (console.warn(`quickDecomp: max level (` + a + `) reached.`), t);
-  for (let x = 0; x < e.length; ++x)
-    if (Ps(y, x)) {
-      (n.push(y[x]), (u = d = Number.MAX_VALUE));
-      for (let t = 0; t < e.length; ++t)
-        (Os(J(y, x - 1), J(y, x), J(y, t)) &&
-          js(J(y, x - 1), J(y, x), J(y, t - 1)) &&
-          ((l = Ls(J(y, x - 1), J(y, x), J(y, t), J(y, t - 1))),
-          As(J(y, x + 1), J(y, x), l) &&
-            ((f = Ms(y[x], l)), f < d && ((d = f), (c = l), (h = t)))),
-          Os(J(y, x + 1), J(y, x), J(y, t + 1)) &&
-            js(J(y, x + 1), J(y, x), J(y, t)) &&
-            ((l = Ls(J(y, x + 1), J(y, x), J(y, t), J(y, t + 1))),
-            Os(J(y, x - 1), J(y, x), l) &&
-              ((f = Ms(y[x], l)), f < u && ((u = f), (s = l), (m = t)))));
-      if (h === (m + 1) % e.length)
-        ((l[0] = (c[0] + s[0]) / 2),
-          (l[1] = (c[1] + s[1]) / 2),
-          r.push(l),
-          x < m
-            ? (Ns(_, y, x, m + 1),
-              _.push(l),
-              v.push(l),
-              h !== 0 && Ns(v, y, h, y.length),
-              Ns(v, y, 0, x + 1))
-            : (x !== 0 && Ns(_, y, x, y.length),
-              Ns(_, y, 0, m + 1),
-              _.push(l),
-              v.push(l),
-              Ns(v, y, h, x + 1)));
-      else {
-        if ((h > m && (m += e.length), (p = Number.MAX_VALUE), m < h)) return t;
-        for (let t = h; t <= m; ++t)
-          ks(J(y, x - 1), J(y, x), J(y, t)) &&
-            js(J(y, x + 1), J(y, x), J(y, t)) &&
-            ((f = Ms(J(y, x), J(y, t))),
-            f < p && Fs(y, x, t) && ((p = f), (g = t % e.length)));
-        x < g
-          ? (Ns(_, y, x, g + 1),
-            g !== 0 && Ns(v, y, g, b.length),
-            Ns(v, y, 0, x + 1))
-          : (x !== 0 && Ns(_, y, x, b.length),
-            Ns(_, y, 0, g + 1),
-            Ns(v, y, g, x + 1));
+  setSections(e = []) {
+    let t = pc((Array.isArray(e) ? e : []).filter(Boolean));
+    for (let e of t)
+      (this._openMap[e.id] === void 0 &&
+        (this._openMap[e.id] =
+          e.open === !0 || e.id === `look` || e.id === `waves`),
+        !e.title && cc[e.id] && (e.title = cc[e.id]));
+    ((this.sections = t), this._built && this._render());
+  }
+  show() {
+    (this._ensureDom(), this.root.classList.add(`is-open`), this._render());
+  }
+  hide() {
+    this.root && this.root.classList.remove(`is-open`);
+  }
+  get isOpen() {
+    return !!this.root?.classList.contains(`is-open`);
+  }
+  refresh() {
+    this.isOpen && this._renderFolders();
+  }
+  selectTab(e) {
+    this.sections.some((t) => t.id === e) &&
+      ((this._openMap[e] = !0),
+      this._saveOpenMap(),
+      this.refresh(),
+      this.root
+        ?.querySelector(`[data-folder-id="${e}"]`)
+        ?.scrollIntoView?.({ block: `nearest` }));
+  }
+  dispose() {
+    (this.root?.remove(), (this.root = null), (this._built = !1));
+  }
+  _loadOpenMap() {
+    try {
+      let e = localStorage.getItem(this.storageKey);
+      if (!e) return;
+      let t = JSON.parse(e);
+      t && typeof t == `object` && (this._openMap = t);
+    } catch {}
+  }
+  _saveOpenMap() {
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify(this._openMap));
+    } catch {}
+  }
+  _ensureDom() {
+    if (this.root) return;
+    let e = document.createElement(`aside`);
+    ((e.className = `sea-lookdev`),
+      e.setAttribute(`aria-label`, this.title),
+      (e.innerHTML = `
+          <div class="sea-lookdev__shell">
+            <div class="sea-lookdev__main">
+              <header class="sea-lookdev__header">
+                <div>
+                  <h2 class="sea-lookdev__title"></h2>
+                  <p class="sea-lookdev__subtitle"></p>
+                </div>
+                <button type="button" class="sea-lookdev__close" aria-label="Close">×</button>
+              </header>
+              <div class="sea-lookdev__body"></div>
+            </div>
+          </div>
+        `),
+      (this.root = e),
+      (this._titleEl = e.querySelector(`.sea-lookdev__title`)),
+      (this._subtitleEl = e.querySelector(`.sea-lookdev__subtitle`)),
+      (this._bodyEl = e.querySelector(`.sea-lookdev__body`)),
+      e.querySelector(`.sea-lookdev__close`)?.addEventListener(`click`, () => {
+        (this.hide(), this.onClose?.());
+      }),
+      document.body.appendChild(e),
+      (this._built = !0));
+  }
+  _render() {
+    (this._ensureDom(),
+      this._titleEl && (this._titleEl.textContent = this.title),
+      this._subtitleEl && (this._subtitleEl.textContent = this.subtitle),
+      this._renderFolders());
+  }
+  _renderFolders() {
+    if (!this._bodyEl) return;
+    if (((this._bodyEl.innerHTML = ``), !this.sections.length)) {
+      this._bodyEl.innerHTML = `<p class="sea-lookdev__empty">No sections.</p>`;
+      return;
+    }
+    let e = document.createElement(`div`);
+    e.className = `sea-lookdev__folders`;
+    for (let t of this.sections) {
+      let n = document.createElement(`section`);
+      ((n.className = `sea-lookdev__folder`), (n.dataset.folderId = t.id));
+      let r = !!this._openMap[t.id];
+      r && n.classList.add(`is-open`);
+      let i = t.enabled?.get?.();
+      t.enabled && i === !1 && n.classList.add(`is-disabled`);
+      let a = document.createElement(`button`);
+      ((a.type = `button`),
+        (a.className = `sea-lookdev__folder-head`),
+        a.setAttribute(`aria-expanded`, r ? `true` : `false`),
+        (a.innerHTML = `
+              <span class="sea-lookdev__chevron">▸</span>
+              <span class="sea-lookdev__folder-title"></span>
+              <span class="sea-lookdev__folder-badge"></span>
+            `),
+        (a.querySelector(`.sea-lookdev__folder-title`).textContent =
+          t.title || cc[t.id] || t.id));
+      let o = a.querySelector(`.sea-lookdev__folder-badge`);
+      (t.enabled
+        ? (o.textContent = i === !1 ? `off` : `on`)
+        : (o.textContent = ``),
+        a.addEventListener(`click`, () => {
+          ((this._openMap[t.id] = !this._openMap[t.id]),
+            this._saveOpenMap(),
+            this._renderFolders());
+        }));
+      let s = document.createElement(`div`);
+      if (((s.className = `sea-lookdev__folder-body`), t.enabled)) {
+        let e = document.createElement(`label`);
+        ((e.className = `sea-lookdev__enabled`),
+          (e.innerHTML = `<span>Feature enabled</span>`));
+        let n = document.createElement(`input`);
+        ((n.type = `checkbox`),
+          (n.checked = !!t.enabled.get()),
+          n.addEventListener(`click`, (e) => e.stopPropagation()),
+          n.addEventListener(`change`, () => {
+            (t.enabled.set(!!n.checked), this._renderFolders());
+          }),
+          e.appendChild(n),
+          s.appendChild(e));
       }
+      let c = document.createElement(`div`);
+      c.className = `sea-lookdev__controls`;
+      for (let e of t.controls || []) c.appendChild(this._buildControl(e));
+      (s.appendChild(c), n.append(a, s), e.appendChild(n));
+    }
+    this._bodyEl.appendChild(e);
+  }
+  _buildControl(e) {
+    if (e.type === `note`) {
+      let t = document.createElement(`div`);
       return (
-        _.length < v.length
-          ? (Rs(_, t, n, r, i, a, o), Rs(v, t, n, r, i, a, o))
-          : (Rs(v, t, n, r, i, a, o), Rs(_, t, n, r, i, a, o)),
+        (t.className = `sea-lookdev__note`),
+        (t.textContent = e.label || ``),
         t
       );
     }
-  return (t.push(e), t);
-}
-function zs(e, t, n) {
-  return (n === void 0 && (n = 0), (n = n || 0), Math.abs(e - t) <= n);
-}
-var Bs;
-(function (e) {
-  ((e.Ellipse = `Ellipse`),
-    (e.Circle = `Circle`),
-    (e.Polygon = `Polygon`),
-    (e.Box = `Box`),
-    (e.Line = `Line`),
-    (e.Point = `Point`));
-})(Bs || (Bs = {}));
-var Y;
-(function (e) {
-  ((e[(e.Ellipse = 32)] = `Ellipse`),
-    (e[(e.Circle = 16)] = `Circle`),
-    (e[(e.Polygon = 8)] = `Polygon`),
-    (e[(e.Box = 4)] = `Box`),
-    (e[(e.Line = 2)] = `Line`),
-    (e[(e.Point = 1)] = `Point`));
-})(Y || (Y = {}));
-var Vs = (e, t) => {
-    for (let n = 0, r = e.length; n < r; n++) t(e[n], n);
-  },
-  Hs = (e, t) => {
-    for (let n = 0, r = e.length; n < r; n++) if (t(e[n], n)) return !0;
-    return !1;
-  },
-  Us = (e, t) => {
-    for (let n = 0, r = e.length; n < r; n++) if (!t(e[n], n)) return !1;
-    return !0;
-  },
-  Ws = (e, t) => {
-    let n = [];
-    for (let r = 0, i = e.length; r < i; r++) {
-      let i = e[r];
-      t(i, r) && n.push(i);
+    if (e.type === `button`) {
+      let t = document.createElement(`div`);
+      t.className = `sea-lookdev__row`;
+      let n = document.createElement(`button`);
+      return (
+        (n.type = `button`),
+        (n.textContent = e.label),
+        n.addEventListener(`click`, async () => {
+          try {
+            if ((await e.onClick?.(n), e.flashCopied)) {
+              let t = e.label;
+              ((n.textContent = `Copied!`),
+                window.setTimeout(() => {
+                  n.isConnected && (n.textContent = t);
+                }, 1200));
+            }
+          } catch (t) {
+            if (
+              (console.warn(`[SeaLookdevPanel] button action failed`, t),
+              e.flashCopied)
+            ) {
+              let t = e.label;
+              ((n.textContent = `Copy failed`),
+                window.setTimeout(() => {
+                  n.isConnected && (n.textContent = t);
+                }, 1600));
+            }
+          }
+        }),
+        t.appendChild(n),
+        t
+      );
     }
-    return n;
-  },
-  Gs = (e, t) => {
-    let n = e.length,
-      r = Array(n);
-    for (let i = 0; i < n; i++) r[i] = t(e[i], i);
-    return r;
-  };
-function Ks({ calcPoints: e, pos: t }) {
-  return Gs(e, ({ x: e, y: n }) => ({ x: e + t.x, y: n + t.y }));
-}
-function qs(e) {
-  return e.isConvex || e.typeGroup !== Y.Polygon ? [e] : e.convexPolygons;
-}
-function Js(e, t) {
-  return Us(Ks(e), (e) => q.pointInCircle(e, t));
-}
-function Ys(e, t) {
-  return Hs(qs(t), (t) => q.pointInPolygon(e, t));
-}
-function Xs(e, t) {
-  return Us(Ks(e), (e) => Ys(e, t));
-}
-function Zs(e, t) {
-  let n = e.pos.x,
-    r = e.pos.y,
-    i = t.pos.x,
-    a = t.pos.y,
-    o = e.r,
-    s = t.r,
-    c = Math.sqrt((n - i) * (n - i) + (r - a) * (r - a));
-  return c + s === o || c + s < o;
-}
-function Qs(e, t) {
-  if (e.r === 0 || !Ys(e.pos, t)) return !1;
-  let n = Ks(t);
-  return !(
-    Hs(n, (t) => q.pointInCircle(t, e)) ||
-    Hs(
-      n,
-      (t, r) =>
-        $s({ start: r ? n[r - 1] : n[n.length - 1], end: t }, e).length > 0,
-    )
-  );
-}
-function $s(e, { pos: t, r: n }) {
-  let r = { x: e.end.x - e.start.x, y: e.end.y - e.start.y },
-    i = { x: e.start.x - t.x, y: e.start.y - t.y },
-    a = (r.x * i.x + r.y * i.y) * -2,
-    o = (r.x * r.x + r.y * r.y) * 2,
-    s = Math.sqrt(a * a - (i.x * i.x + i.y * i.y - n * n) * o * 2);
-  if (isNaN(s)) return [];
-  let c = (a - s) / o,
-    l = (a + s) / o,
-    u = [];
-  return (
-    c <= 1 &&
-      c >= 0 &&
-      u.push({ x: e.start.x + r.x * c, y: e.start.y + r.y * c }),
-    l <= 1 &&
-      l >= 0 &&
-      u.push({ x: e.start.x + r.x * l, y: e.start.y + r.y * l }),
-    u
-  );
-}
-function ec(e, t) {
-  let n = e.end.x - e.start.x,
-    r = e.end.y - e.start.y,
-    i = n * (t.end.y - t.start.y) - (t.end.x - t.start.x) * r;
-  if (Math.abs(i) < 2 ** -52) return;
-  let a =
-      ((t.end.y - t.start.y) * (t.end.x - e.start.x) +
-        (t.start.x - t.end.x) * (t.end.y - e.start.y)) /
-      i,
-    o =
-      ((e.start.y - e.end.y) * (t.end.x - e.start.x) +
-        n * (t.end.y - e.start.y)) /
-      i;
-  if (!(a < 0 || a > 1 || o < 0 || o > 1))
-    return { x: e.start.x + a * n, y: e.start.y + a * r };
-}
-function tc(e, { calcPoints: t, pos: n }) {
-  let r = [];
-  return (
-    Vs(t, (i, a) => {
-      let o = a ? t[a - 1] : t[t.length - 1],
-        s = ec(e, {
-          start: { x: o.x + n.x, y: o.y + n.y },
-          end: { x: i.x + n.x, y: i.y + n.y },
-        });
-      s && r.push(s);
-    }),
-    r
-  );
-}
-function nc(e, t) {
-  let n = [],
-    r = e.pos.x,
-    i = e.pos.y,
-    a = e.r,
-    o = t.pos.x,
-    s = t.pos.y,
-    c = t.r,
-    l = o - r,
-    u = s - i,
-    d = Math.sqrt(l * l + u * u);
-  if (d > a + c || d < Math.abs(a - c) || d === 0) return n;
-  let f = (a * a - c * c + d * d) / (2 * d),
-    p = Math.sqrt(a * a - f * f),
-    m = r + (l * f) / d,
-    h = i + (u * f) / d,
-    g = { x: m + (p * u) / d, y: h - (p * l) / d };
-  n.push(g);
-  let _ = { x: m - (p * u) / d, y: h + (p * l) / d };
-  return (n.push(_), n);
-}
-var rc = {
-  satCircleCircle: q.testCircleCircle,
-  satCirclePolygon: q.testCirclePolygon,
-  satPolygonCircle: q.testPolygonCircle,
-  satPolygonPolygon: q.testPolygonPolygon,
-  inCircleCircle: Zs,
-  inCirclePolygon: Qs,
-  inPolygonCircle: Js,
-  inPolygonPolygon: Xs,
+    if (e.type === `checkbox`) {
+      let t = document.createElement(`label`);
+      t.className = `sea-lookdev__row sea-lookdev__row--check`;
+      let n = document.createElement(`span`);
+      n.textContent = e.label;
+      let r = document.createElement(`input`);
+      return (
+        (r.type = `checkbox`),
+        (r.checked = !!e.get()),
+        r.addEventListener(`change`, () => {
+          e.set(!!r.checked);
+        }),
+        t.append(n, r),
+        t
+      );
+    }
+    if (e.type === `select`) {
+      let t = document.createElement(`div`);
+      t.className = `sea-lookdev__row`;
+      let n = document.createElement(`label`);
+      n.textContent = e.label;
+      let r = document.createElement(`select`);
+      for (let t of e.options || []) {
+        let e = document.createElement(`option`);
+        (typeof t == `string`
+          ? ((e.value = t), (e.textContent = t))
+          : ((e.value = String(t.value)),
+            (e.textContent = t.label ?? String(t.value))),
+          r.appendChild(e));
+      }
+      return (
+        (r.value = String(e.get())),
+        r.addEventListener(`change`, () => {
+          let t = r.value,
+            n = Number(t);
+          e.set(Number.isFinite(n) && String(n) === t ? n : t);
+        }),
+        t.append(n, r),
+        t
+      );
+    }
+    if (e.type === `color`) {
+      let t = document.createElement(`div`);
+      t.className = `sea-lookdev__row`;
+      let n = document.createElement(`label`);
+      n.textContent = e.label;
+      let r = document.createElement(`span`);
+      r.className = `sea-lookdev__value`;
+      let i = document.createElement(`input`);
+      i.type = `color`;
+      let a = uc(e.get());
+      return (
+        (i.value = a),
+        (r.textContent = a),
+        i.addEventListener(`input`, () => {
+          (e.set(dc(i.value)), (r.textContent = i.value));
+        }),
+        t.append(n, r, i),
+        t
+      );
+    }
+    let t = document.createElement(`div`);
+    t.className = `sea-lookdev__row`;
+    let n = document.createElement(`label`);
+    n.textContent = e.label;
+    let r = document.createElement(`span`);
+    r.className = `sea-lookdev__value`;
+    let i = document.createElement(`input`);
+    ((i.type = `range`),
+      (i.min = String(e.min ?? 0)),
+      (i.max = String(e.max ?? 1)),
+      (i.step = String(e.step ?? 0.01)));
+    let a = Number(e.get());
+    return (
+      (i.value = String(a)),
+      (r.textContent = e.format ? e.format(a) : fc(a, e.step)),
+      i.addEventListener(`input`, () => {
+        let t = Number(i.value);
+        (e.set(t), (r.textContent = e.format ? e.format(t) : fc(t, e.step)));
+      }),
+      t.append(n, r, i),
+      t
+    );
+  }
 };
-function ic(e, t) {
-  let n = [];
-  return (
-    Vs(
-      Object.values(Y).filter((e) => typeof e == `number`),
-      (r) => {
-        n[r] = r === Y.Circle ? rc[`${t}${e}Circle`] : rc[`${t}${e}Polygon`];
+function hc(e) {
+  let t = e?.localGeoFeature?.getTransformState?.();
+  return t
+    ? {
+        localGeo: {
+          rotationX: t.rotationDegrees.x,
+          rotationY: t.rotationDegrees.y,
+          rotationZ: t.rotationDegrees.z,
+          scale: t.scale,
+          positionY: t.positionY,
+        },
+        localGeoActions: { resetTransform: () => {} },
+      }
+    : { localGeo: null, localGeoActions: null };
+}
+function gc(e, t) {
+  t?.localGeo &&
+    e?.localGeoFeature?.updateTransform?.({
+      rotationDegrees: {
+        x: t.localGeo.rotationX,
+        y: t.localGeo.rotationY,
+        z: t.localGeo.rotationZ,
       },
-    ),
-    n
-  );
+      scale: t.localGeo.scale,
+      positionY: t.localGeo.positionY,
+    });
 }
-var ac = ic(Bs.Circle, `sat`),
-  oc = ic(Bs.Circle, `in`),
-  sc = ic(Bs.Polygon, `sat`),
-  cc = ic(Bs.Polygon, `in`);
-(Math.PI / 180, 180 / Math.PI);
-var lc = 1e-9;
-function uc(e, t, n = lc) {
-  return Math.abs(e - t) < n;
+function _c(e, t) {
+  if (!t?.localGeo) return;
+  let n = e?.localGeoFeature?.getDefaultTransformState?.();
+  ((t.localGeo.rotationX = n?.rotationDegrees?.x ?? 0),
+    (t.localGeo.rotationY = n?.rotationDegrees?.y ?? 0),
+    (t.localGeo.rotationZ = n?.rotationDegrees?.z ?? 0),
+    (t.localGeo.scale = n?.scale ?? 1),
+    (t.localGeo.positionY = n?.positionY ?? 0),
+    gc(e, t));
 }
-function dc(e, t) {
-  return uc(e.x, t.x) && uc(e.y, t.y);
+var vc = Object.freeze({
+    Off: 0,
+    Path: 1,
+    Fresnel: 2,
+    Thickness: 3,
+    Transmit: 4,
+    ViewFade: 5,
+    FloorBleed: 6,
+  }),
+  yc = new Set([
+    `sunColor`,
+    `waterColor`,
+    `shallowColor`,
+    `deepColor`,
+    `foamColor`,
+    `floorColor`,
+    `sssColor`,
+    `ambientColor`,
+    `directionalColor`,
+    `pointColor`,
+    `color`,
+  ]);
+function K(e, t, n) {
+  return {
+    get: () => e[t],
+    set: (r) => {
+      ((e[t] = r), n?.());
+    },
+  };
 }

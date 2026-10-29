@@ -37,83 +37,75 @@
       "k": "readVersionState",
       "A": "writeVersionState",
       "se": "fetchBuildVersion",
-      "ce": "toCommitSha",
       "j": "RACE_SCENE_TYPES",
       "P": "supportsVersionProbe",
+      "ce": "toCommitSha",
       "B": "EVENT_GEO_ACCESS_GATE_ACTION",
-      "V": "EVENT_GEO_AUTH_GATE"
+      "V": "EVENT_GEO_AUTH_GATE",
+      "K": "BUILD_INFO"
     },
     "routes/game/game-02.js": {
-      "B": "EVENT_GEO_ACCESS_GATE_ACTION",
-      "K": "BUILD_INFO",
-      "q": "BUILD_VERSION_STORAGE_KEY",
       "J": "VERSION_MANIFEST_URL",
-      "Me": "VERSION_POLL_INTERVAL_MS",
+      "K": "BUILD_INFO",
       "Y": "UPDATE_NOTICE_STORAGE_KEY",
       "X": "STALE_ASSET_RELOAD_STORAGE_KEY",
+      "Q": "H5ADS_PREVIEW_OVERLAY_ID",
+      "Me": "VERSION_POLL_INTERVAL_MS",
       "Ne": "STALE_ASSET_RELOAD_MS",
       "Pe": "UPDATE_NOTICE_TITLE",
       "Fe": "RELOAD_REQUIRED_TITLE"
     },
     "routes/game/game-03.js": {
-      "K": "BUILD_INFO",
-      "Me": "VERSION_POLL_INTERVAL_MS",
-      "J": "VERSION_MANIFEST_URL",
+      "Y": "UPDATE_NOTICE_STORAGE_KEY",
       "qe": "H5ADS_PROVIDER_STORAGE_VALUE",
       "Je": "H5ADS_PROVIDER_GOOGLE",
       "Ye": "H5ADS_REWARD_MIN_MS",
       "Xe": "H5ADS_REWARD_MAX_MS",
-      "Q": "H5ADS_PREVIEW_OVERLAY_ID",
       "Ze": "H5ADS_PREVIEW_REWARD_WRAP_ID",
       "Qe": "H5ADS_READY_EVENTS",
-      "$e": "H5ADS_PREVIEW_TRUTHY_VALUES",
-      "P": "supportsVersionProbe"
+      "$e": "H5ADS_PREVIEW_TRUTHY_VALUES"
     },
     "routes/game/game-04.js": {
-      "ce": "toCommitSha"
+      "j": "RACE_SCENE_TYPES",
+      "ce": "toCommitSha",
+      "V": "EVENT_GEO_AUTH_GATE",
+      "z": "EVENT_LOCATION_AD_LINK_CLICKED"
+    },
+    "game/Game/Game-01.js": {
+      "Qt": "CloudSystem",
+      "en": "DEFAULT_WORLD_DEFINITION"
     },
     "game/Game/Game-02.js": {
-      "Vt": "SKY_NOISE_GLSL",
-      "Ht": "SKY_ATMOSPHERE_GLSL",
-      "Ut": "SkyDome",
-      "Wt": "WindTrails",
-      "Zt": "CloudLayer",
-      "Qt": "CloudSystem"
-    },
-    "game/Game/Game-03.js": {
+      "en": "DEFAULT_WORLD_DEFINITION",
       "Qt": "CloudSystem",
-      "en": "DEFAULT_WORLD_DEFINITION",
-      "V": "sceneLocationContext",
-      "nn": "hasPlaceHeight"
-    },
-    "game/Game/Game-04.js": {
-      "V": "sceneLocationContext",
-      "en": "DEFAULT_WORLD_DEFINITION",
       "cn": "isGeoScene",
       "ln": "getSceneType",
-      "B": "SCENE_TYPES",
+      "sn": "activeWorldDefinition",
       "un": "getScenePlace",
+      "nn": "hasPlaceHeight",
       "dn": "geoPlaceInfo",
       "fn": "isGeoPlacePending",
-      "nn": "hasPlaceHeight",
+      "pn": "DEFAULT_WATER_PARAMS",
+      "mn": "WATER_LOOK_PRESETS",
+      "Zt": "CloudLayer",
+      "hn": "WATER_PARAMS_BY_SCENE",
       "gn": "SUN_ANGLES_BY_SCENE",
       "_n": "CAMERA_SETTINGS_BY_SCENE"
     },
-    "game/Game/Game-06.js": {
+    "game/Game/Game-03.js": {
       "yn": "SkyTextureLoader",
       "xn": "EFFECT_SECTIONS",
       "Sn": "EFFECT_TOGGLE_IDS",
+      "_n": "CAMERA_SETTINGS_BY_SCENE",
       "Cn": "DEFAULT_EFFECT_STATE"
     },
-    "game/Game/Game-07.js": {
+    "game/Game/Game-04.js": {
       "Tn": "GRAPHICS_QUALITY_STORAGE_KEY",
       "On": "currentQualityKey",
       "kn": "QUALITY_PRESETS"
     },
-    "game/Game/Game-08.js": {
-      "zn": "SeabedRocks",
+    "game/Game/Game-06.js": {
       "Bn": "WaterSurface",
-      "Sn": "EFFECT_TOGGLE_IDS",
       "Vn": "WaveModel",
       "Hn": "TWO_PI",
       "Wn": "FLOAT_EPSILON",
@@ -121,210 +113,178 @@
       "Kn": "SKY_MODELS",
       "qn": "SKY_MODEL_IDS",
       "Jn": "SKY_PRESETS",
-      "Yn": "SKY_CONTROL_SECTIONS"
-    },
-    "game/Game/Game-09.js": {
-      "Kn": "SKY_MODELS",
-      "qn": "SKY_MODEL_IDS",
       "Yn": "SKY_CONTROL_SECTIONS",
+      "V": "sceneLocationContext"
+    },
+    "game/Game/Game-07.js": {
+      "V": "sceneLocationContext",
+      "B": "SCENE_TYPES",
       "sr": "GeoModelAsset",
       "cr": "GEO_API_BASE",
-      "lr": "GEO_LOCATION_PRESETS"
+      "lr": "GEO_LOCATION_PRESETS",
+      "pr": "CountryService"
     },
-    "game/Game/Game-10.js": {
-      "dr": "GeoModelRegistry",
-      "sr": "GeoModelAsset",
-      "fr": "WorldBuilder",
-      "Qt": "CloudSystem",
-      "B": "SCENE_TYPES",
-      "Gn": "GerstnerWaves",
-      "Bn": "WaterSurface",
-      "yn": "SkyTextureLoader",
-      "Ut": "SkyDome",
-      "Jn": "SKY_PRESETS",
-      "Wt": "WindTrails"
-    },
-    "game/Game/Game-11.js": {
-      "fr": "WorldBuilder"
-    },
-    "game/Game/Game-12.js": {
-      "pr": "CountryService",
+    "game/Game/Game-08.js": {
       "hr": "RaceOverlayBase",
-      "gr": "RaceTimerOverlay",
-      "_r": "RaceCountdownOverlay"
-    },
-    "game/Game/Game-14.js": {
-      "Cr": "NotificationCenter"
-    },
-    "game/Game/Game-15.js": {
-      "Cr": "NotificationCenter",
-      "Er": "RACE_LEADERBOARD_MODAL_ID",
-      "Dr": "ADVERTISE_ROUTE",
-      "Or": "RaceLeaderboardModal",
-      "hr": "RaceOverlayBase",
-      "kr": "MOBILE_USER_AGENT_PATTERN",
-      "Pr": "TRIAL_BOAT_IDS",
-      "Yr": "TRIAL_PROGRESS_STORAGE_KEY",
-      "Xr": "TRIAL_MEDALS"
-    },
-    "game/Game/Game-16.js": {
-      "Yr": "TRIAL_PROGRESS_STORAGE_KEY",
-      "Xr": "TRIAL_MEDALS"
-    },
-    "game/Game/Game-17.js": {
-      "ei": "RACE_ROUTE",
-      "ti": "DAILY_RACE_ROUTE",
-      "ii": "RACE_COMPLETE_MODAL_ID",
-      "ai": "RACE_INCOMPLETE_MODAL_ID",
-      "hr": "RaceOverlayBase",
-      "di": "RACE_START_COUNTDOWN_ID",
-      "fi": "RaceStartCountdown",
-      "pi": "RaceHud",
-      "mi": "SUBMISSION_ERROR_KINDS"
-    },
-    "game/Game/Game-18.js": {
-      "mi": "SUBMISSION_ERROR_KINDS"
-    },
-    "game/Game/Game-19.js": {
-      "xi": "RaceHudFacade",
       "gr": "RaceTimerOverlay",
       "_r": "RaceCountdownOverlay",
-      "Or": "RaceLeaderboardModal",
+      "un": "getScenePlace"
+    },
+    "game/Game/Game-09.js": {
+      "Cr": "NotificationCenter",
+      "Dr": "ADVERTISE_ROUTE",
+      "Or": "RaceLeaderboardModal"
+    },
+    "game/Game/Game-10.js": {
+      "Or": "RaceLeaderboardModal"
+    },
+    "game/Game/Game-11.js": {
+      "Yr": "TRIAL_PROGRESS_STORAGE_KEY"
+    },
+    "game/Game/Game-12.js": {
+      "Xr": "TRIAL_MEDALS"
+    },
+    "game/Game/Game-13.js": {
+      "Cr": "NotificationCenter",
+      "Yr": "TRIAL_PROGRESS_STORAGE_KEY",
+      "ii": "RACE_COMPLETE_MODAL_ID",
+      "ai": "RACE_INCOMPLETE_MODAL_ID",
       "ui": "RaceCompletionModal",
+      "di": "RACE_START_COUNTDOWN_ID"
+    },
+    "game/Game/Game-14.js": {
       "fi": "RaceStartCountdown",
       "pi": "RaceHud",
+      "mi": "SUBMISSION_ERROR_KINDS",
+      "di": "RACE_START_COUNTDOWN_ID",
+      "xi": "RaceHudFacade",
       "Ti": "GHOST_COUNT_STORAGE_KEY"
     },
-    "game/Game/Game-20.js": {
-      "Ti": "GHOST_COUNT_STORAGE_KEY",
+    "game/Game/Game-15.js": {
+      "fi": "RaceStartCountdown",
+      "B": "SCENE_TYPES",
+      "pi": "RaceHud",
+      "gr": "RaceTimerOverlay",
+      "Sn": "EFFECT_TOGGLE_IDS",
+      "ui": "RaceCompletionModal",
+      "On": "currentQualityKey",
+      "Cn": "DEFAULT_EFFECT_STATE"
+    },
+    "game/Game/Game-17.js": {
       "Ni": "WGS84_SEMI_MAJOR_M",
       "Pi": "WGS84_ECCENTRICITY_SQ"
     },
-    "game/Game/Game-21.js": {
+    "game/Game/Game-19.js": {
+      "Pi": "WGS84_ECCENTRICITY_SQ",
+      "Bi": "GeoProjection"
+    },
+    "game/Game/Game-20.js": {
       "Bi": "GeoProjection",
       "Hi": "GeoCourseBuilder",
-      "Ji": "RaceCheckpointTracker"
-    },
-    "game/Game/Game-22.js": {
-      "B": "SCENE_TYPES",
-      "Hi": "GeoCourseBuilder",
-      "Ji": "RaceCheckpointTracker"
-    },
-    "game/Game/Game-23.js": {
+      "Ji": "RaceCheckpointTracker",
       "Qi": "RaceFlowManager",
-      "xi": "RaceHudFacade",
-      "pr": "CountryService",
       "$i": "FreeSailFlow",
       "ea": "RegattaFlow",
-      "aa": "MapOverlay"
-    },
-    "game/Game/Game-25.js": {
-      "sa": "HudButtonFactory",
       "aa": "MapOverlay",
+      "sa": "HudButtonFactory",
       "ca": "SVG_NAMESPACE",
       "la": "SvgIcon",
       "da": "MissionStatusText",
-      "fa": "PhysicsTuningPanel",
-      "pa": "TUNING_SCHEMA",
-      "ma": "BoatUpgradeStore"
+      "fa": "PhysicsTuningPanel"
     },
-    "game/Game/Game-27.js": {
-      "La": "RemoteBoatInspector",
-      "Ra": "GameUi",
-      "fa": "PhysicsTuningPanel",
-      "da": "MissionStatusText",
+    "game/Game/Game-21.js": {
+      "pa": "TUNING_SCHEMA",
       "sa": "HudButtonFactory",
-      "ma": "BoatUpgradeStore",
+      "da": "MissionStatusText",
+      "fa": "PhysicsTuningPanel"
+    },
+    "game/Game/Game-22.js": {
+      "la": "SvgIcon",
+      "Ji": "RaceCheckpointTracker"
+    },
+    "game/Game/Game-24.js": {
+      "Ni": "WGS84_SEMI_MAJOR_M",
+      "Ra": "GameUi"
+    },
+    "game/Game/Game-25.js": {
+      "Ra": "GameUi"
+    },
+    "game/Game/Game-26.js": {
       "Ka": "TouchControls",
-      "qa": "GameAudio",
       "eo": "TWO_PI_RAD"
     },
+    "game/Game/Game-28.js": {
+      "B": "SCENE_TYPES"
+    },
     "game/Game/Game-29.js": {
-      "Ao": "CameraController",
-      "jo": "SEA_LOOKDEV_STYLES_ID",
-      "Mo": "LOOKDEV_OPEN_FOLDERS_KEY",
-      "No": "LOOKDEV_FOLDER_IDS",
-      "Po": "LOOKDEV_FOLDER_LABELS"
+      "Ka": "TouchControls",
+      "pa": "TUNING_SCHEMA",
+      "Ra": "GameUi",
+      "ca": "SVG_NAMESPACE",
+      "Ao": "CameraController"
     },
     "game/Game/Game-30.js": {
-      "Fo": "ensureLookdevPanelStyles",
-      "jo": "SEA_LOOKDEV_STYLES_ID",
-      "No": "LOOKDEV_FOLDER_IDS"
+      "jo": "SEA_LOOKDEV_STYLES_ID"
     },
     "game/Game/Game-31.js": {
-      "Bo": "LookdevPanel",
-      "Fo": "ensureLookdevPanelStyles",
       "Mo": "LOOKDEV_OPEN_FOLDERS_KEY",
+      "Ao": "CameraController",
+      "jo": "SEA_LOOKDEV_STYLES_ID",
+      "No": "LOOKDEV_FOLDER_IDS",
       "Po": "LOOKDEV_FOLDER_LABELS",
+      "Fo": "ensureLookdevPanelStyles",
       "Wo": "REFRACTION_DEBUG_LEVELS",
       "Go": "COLOR_PARAM_KEYS"
     },
     "game/Game/Game-32.js": {
-      "Go": "COLOR_PARAM_KEYS"
-    },
-    "game/Game/Game-33.js": {
       "Zo": "LookdevController",
-      "Bo": "LookdevPanel",
-      "Po": "LOOKDEV_FOLDER_LABELS",
-      "Wo": "REFRACTION_DEBUG_LEVELS",
       "$o": "AUDIO_PREFS_TTL_MS",
-      "ns": "saveAudioPreferences",
-      "es": "AUDIO_PREFS_STORAGE_KEY"
-    },
-    "game/Game/Game-34.js": {
       "es": "AUDIO_PREFS_STORAGE_KEY",
       "ns": "saveAudioPreferences",
-      "$o": "AUDIO_PREFS_TTL_MS",
+      "Wo": "REFRACTION_DEBUG_LEVELS",
       "rs": "gameRuntime"
     },
-    "game/Game/Game-41.js": {
-      "Vc": "COLLISION_RESPONSE_CONFIG",
-      "Uc": "COLLISION_DEBUG_COLORS",
-      "Wc": "CollisionManager",
-      "Gc": "YEAR_MS",
-      "qc": "DEFAULT_BOAT_PRESET_ID",
-      "Jc": "BOAT_STORE_CATALOG",
-      "Yc": "BoatCatalogIndex"
+    "game/Game/Game-33.js": {
+      "Go": "COLOR_PARAM_KEYS",
+      "Zo": "LookdevController",
+      "Mo": "LOOKDEV_OPEN_FOLDERS_KEY"
+    },
+    "game/Game/Game-39.js": {
+      "Dr": "ADVERTISE_ROUTE",
+      "fi": "RaceStartCountdown",
+      "mi": "SUBMISSION_ERROR_KINDS",
+      "pi": "RaceHud"
     },
     "game/Game/Game-42.js": {
       "Xc": "BoatCatalog",
+      "Vc": "COLLISION_RESPONSE_CONFIG",
+      "Jc": "BOAT_STORE_CATALOG",
+      "Uc": "COLLISION_DEBUG_COLORS",
       "Yc": "BoatCatalogIndex",
+      "Wc": "CollisionManager",
+      "Gc": "YEAR_MS",
       "qc": "DEFAULT_BOAT_PRESET_ID"
     },
     "game/Game/Game-43.js": {
       "tl": "BoatInventory",
-      "Xc": "BoatCatalog",
-      "Gc": "YEAR_MS",
       "nl": "GameplayLoadoutQueue",
       "rl": "BoatShopController",
       "il": "BoatShopPresenter",
       "al": "MINIMAP_ZOOM_CONFIG",
       "ol": "WorldMapController"
     },
-    "game/Game/Game-45.js": {
+    "game/Game/Game-48.js": {
       "Eu": "ANALYTICS_HOST_ALLOWLIST"
     },
-    "game/Game/Game-47.js": {
+    "game/Game/Game-50.js": {
       "yd": "AnalyticsClient",
       "bd": "PLAYTIME_STORAGE_KEY",
-      "xd": "PLAYTIME_TTL_MS"
-    },
-    "game/Game/Game-48.js": {
-      "wd": "CoinBalance",
-      "bd": "PLAYTIME_STORAGE_KEY",
       "xd": "PLAYTIME_TTL_MS",
-      "Td": "BALANCE_STORAGE_KEY",
-      "pa": "TUNING_SCHEMA",
-      "Jc": "BOAT_STORE_CATALOG"
-    },
-    "game/Game/Game-49.js": {
-      "Yd": "REPLAY_DEFAULTS"
-    },
-    "game/Game/Game-50.js": {
-      "Zd": "RaceReplay",
-      "Qd": "PROMPT_TUTORIAL_STORAGE_KEY"
+      "wd": "CoinBalance"
     },
     "game/Game/Game-51.js": {
+      "Yd": "REPLAY_DEFAULTS",
+      "Zd": "RaceReplay",
       "Qd": "PROMPT_TUTORIAL_STORAGE_KEY",
       "nf": "GRAPHICS_STRUGGLE_DECLINED_KEY",
       "rf": "GRAPHICS_STRUGGLE_BANNER_ID",
@@ -332,59 +292,45 @@
       "of": "QUALITY_LABELS",
       "hf": "FrameRateMonitor",
       "gf": "CameraIntroDirector",
-      "wf": "TUTORIAL_PROMPT_MODAL_ID",
-      "Af": "normalizeSessionOptions"
+      "vf": "DEFAULT_SESSION_OPTIONS",
+      "wf": "TUTORIAL_PROMPT_MODAL_ID"
     },
     "game/Game/Game-52.js": {
       "Af": "normalizeSessionOptions",
-      "wd": "CoinBalance",
-      "hf": "FrameRateMonitor",
-      "rl": "BoatShopController",
-      "il": "BoatShopPresenter",
-      "rs": "gameRuntime",
-      "fr": "WorldBuilder",
-      "qa": "GameAudio",
-      "pr": "CountryService",
-      "Ao": "CameraController",
-      "al": "MINIMAP_ZOOM_CONFIG",
-      "ol": "WorldMapController",
-      "gf": "CameraIntroDirector",
-      "Zo": "LookdevController",
-      "Ra": "GameUi",
-      "Zd": "RaceReplay",
-      "Ka": "TouchControls",
+      "nf": "GRAPHICS_STRUGGLE_DECLINED_KEY"
+    },
+    "game/Game/Game-53.js": {
       "wf": "TUTORIAL_PROMPT_MODAL_ID",
-      "Wc": "CollisionManager",
-      "ns": "saveAudioPreferences",
-      "yd": "AnalyticsClient",
-      "rf": "GRAPHICS_STRUGGLE_BANNER_ID"
+      "vf": "DEFAULT_SESSION_OPTIONS",
+      "rf": "GRAPHICS_STRUGGLE_BANNER_ID",
+      "Qd": "PROMPT_TUTORIAL_STORAGE_KEY",
+      "Zd": "RaceReplay",
+      "af": "QUALITY_LABEL_KEYS"
+    },
+    "game/Game/Game-57.js": {
+      "Ra": "GameUi"
+    },
+    "game/Game/Game-59.js": {
+      "Ra": "GameUi"
     },
     "game/BoatModel/BoatModel-02.js": {
-      "pe": "SailMesh"
+      "he": "SailRig",
+      "ge": "SailTextures"
     },
     "game/BoatModel/BoatModel-04.js": {
-      "he": "SailRig",
-      "pe": "SailMesh",
-      "ge": "SailTextures",
       "Ce": "ForceVectorDebug",
-      "we": "FLAG_COUNTRY_BASE_PATH",
-      "P": "FLAG_UNKNOWN_PATH",
-      "F": "FLAG_PIRATE_PATH",
-      "Te": "COUNTRY_CODE_ALIASES"
-    },
-    "game/BoatModel/BoatModel-05.js": {
-      "F": "FLAG_PIRATE_PATH",
       "we": "FLAG_COUNTRY_BASE_PATH",
       "Te": "COUNTRY_CODE_ALIASES",
       "P": "FLAG_UNKNOWN_PATH",
-      "R": "boatTextureSets",
+      "F": "FLAG_PIRATE_PATH"
+    },
+    "game/BoatModel/BoatModel-05.js": {
+      "P": "FLAG_UNKNOWN_PATH",
+      "F": "FLAG_PIRATE_PATH",
       "De": "WATER_BLOCKER_NAME_PATTERN"
     },
     "game/BoatModel/BoatModel-06.js": {
-      "R": "boatTextureSets",
-      "Ce": "ForceVectorDebug",
-      "ge": "SailTextures",
-      "he": "SailRig",
+      "Te": "COUNTRY_CODE_ALIASES",
       "De": "WATER_BLOCKER_NAME_PATTERN"
     },
     "game/GhostReplayModel/GhostReplayModel-02.js": {
@@ -412,9 +358,6 @@
       "z": "DEFAULT_BOAT_PRESET_ID",
       "Y": "ghostReplayCache"
     },
-    "game/BoatShop/BoatShop-01.js": {
-      "v": "BoatPreview"
-    },
     "game/Blimp/Blimp-02.js": {
       "_": "BLIMP_POPUP_CONTENT",
       "v": "BLIMP_POPUP_ID"
@@ -432,6 +375,9 @@
     },
     "game/CargoShip/CargoShip-02.js": {
       "v": "TWO_PI"
+    },
+    "game/FloatingWorldProp/FloatingWorldProp-01.js": {
+      "_": "FLOATING_PROP_SIZE_STEPS"
     },
     "game/GeoMath/GeoMath-01.js": {
       "a": "EARTH_RADIUS_M"
@@ -536,7 +482,6 @@
       "j": "MODE_STORAGE_KEY"
     },
     "game/HighSeaModeManager/HighSeaModeManager-01.js": {
-      "S": "HIGH_SEA_BUOY_POPUP_ID",
       "C": "HIGH_SEA_WARNING_BANNER_ID",
       "w": "HIGH_SEA_FAILURE_MODAL_ID",
       "T": "HIGH_SEA_CHALLENGE_VERSION",
@@ -553,22 +498,24 @@
       "N": "HIGH_SEA_TUNING_FLAG_KEYS"
     },
     "game/IslandGenerator/IslandGenerator-01.js": {
-      "L": "CASTLE_CONFIG",
       "R": "VOLCANO_CONFIG"
     },
-    "game/IslandGenerator/IslandGenerator-03.js": {
+    "game/IslandGenerator/IslandGenerator-02.js": {
       "me": "TERRAIN_PROFILES"
     },
-    "game/IslandGenerator/IslandGenerator-04.js": {
+    "game/IslandGenerator/IslandGenerator-03.js": {
       "ge": "IslandTerrain",
-      "J": "DOCK_CONFIG",
+      "_e": "Dock"
+    },
+    "game/IslandGenerator/IslandGenerator-04.js": {
       "_e": "Dock",
+      "J": "DOCK_CONFIG",
       "Y": "TREE_CONFIG",
       "X": "HUT_CONFIG",
       "Q": "HUT_PALETTES",
       "$": "HUT_PLACEMENT_CONFIG",
-      "O": "PerlinNoise",
-      "L": "CASTLE_CONFIG"
+      "L": "CASTLE_CONFIG",
+      "R": "VOLCANO_CONFIG"
     },
     "game/LogisticsManager/LogisticsManager-02.js": {
       "p": "MissionGenerator",
@@ -605,28 +552,31 @@
     "game/SharedTextureLoader/SharedTextureLoader-01.js": {
       "n": "textureCache"
     },
-    "game/GoogleTilesLoader/GoogleTilesLoader-02.js": {
+    "game/GoogleTilesLoader/GoogleTilesLoader-03.js": {
       "Bn": "BYTES_PER_MB",
       "Vn": "deviceMemoryGB",
       "Hn": "resolveTileCacheProfile",
-      "Q": "dracoLoader",
       "Wn": "SESSION_TTL_DAYS",
       "Gn": "TILES_SESSION_STORAGE_KEY",
       "Kn": "SESSION_REFRESH_MS",
       "qn": "TILE_CALIBRATION_KEYS",
-      "$": "TILE_FAILURE_MODES",
       "Jn": "getDracoLoader",
       "Yn": "isEditableTarget"
     },
-    "game/GoogleTilesLoader/GoogleTilesLoader-03.js": {
-      "Hn": "resolveTileCacheProfile",
-      "Gn": "TILES_SESSION_STORAGE_KEY",
-      "Kn": "SESSION_REFRESH_MS",
+    "game/GoogleTilesLoader/GoogleTilesLoader-04.js": {
+      "Q": "dracoLoader"
+    },
+    "game/GoogleTilesLoader/GoogleTilesLoader-05.js": {
+      "Q": "dracoLoader"
+    },
+    "game/GoogleTilesLoader/GoogleTilesLoader-06.js": {
+      "$": "TILE_FAILURE_MODES"
+    },
+    "game/GoogleTilesLoader/GoogleTilesLoader-07.js": {
       "$": "TILE_FAILURE_MODES",
-      "Yn": "isEditableTarget",
-      "qn": "TILE_CALIBRATION_KEYS",
-      "Jn": "getDracoLoader",
-      "Wn": "SESSION_TTL_DAYS"
+      "Wn": "SESSION_TTL_DAYS",
+      "Gn": "TILES_SESSION_STORAGE_KEY",
+      "qn": "TILE_CALIBRATION_KEYS"
     }
   },
   "scoped": {
@@ -723,16 +673,26 @@
     "routes/game/game-01.js": {
       "z": [
         [
-          2360,
+          1225,
           "EVENT_LOCATION_AD_LINK_CLICKED"
+        ]
+      ],
+      "q": [
+        [
+          2672,
+          "BUILD_VERSION_STORAGE_KEY"
         ],
         [
-          2855,
-          "EVENT_LOCATION_AD_LINK_CLICKED"
-        ],
+          2830,
+          "BUILD_VERSION_STORAGE_KEY"
+        ]
+      ]
+    },
+    "routes/game/game-02.js": {
+      "q": [
         [
-          2891,
-          "EVENT_LOCATION_AD_LINK_CLICKED"
+          722,
+          "BUILD_VERSION_STORAGE_KEY"
         ]
       ]
     },
@@ -744,281 +704,201 @@
         ]
       ]
     },
-    "game/Game/Game-03.js": {
-      "B": [
+    "game/Game/Game-01.js": {
+      "Zt": [
         [
-          84,
-          "SCENE_TYPES"
+          965,
+          "CloudLayer"
+        ]
+      ],
+      "nn": [
+        [
+          1360,
+          "hasPlaceHeight"
         ],
         [
-          112,
-          "SCENE_TYPES"
-        ],
-        [
-          116,
-          "SCENE_TYPES"
-        ],
-        [
-          120,
-          "SCENE_TYPES"
+          1628,
+          "hasPlaceHeight"
         ]
       ]
     },
-    "game/Game/Game-04.js": {
-      "sn": [
-        [
-          1,
-          "activeWorldDefinition"
-        ],
-        [
-          141,
-          "activeWorldDefinition"
-        ],
-        [
-          158,
-          "activeWorldDefinition"
-        ],
-        [
-          194,
-          "activeWorldDefinition"
-        ],
-        [
-          219,
-          "activeWorldDefinition"
-        ],
-        [
-          1523,
-          "activeWorldDefinition"
-        ],
-        [
-          1805,
-          "activeWorldDefinition"
-        ],
-        [
-          1823,
-          "activeWorldDefinition"
-        ]
-      ],
-      "pn": [
-        [
-          332,
-          "DEFAULT_WATER_PARAMS"
-        ],
-        [
-          1084,
-          "DEFAULT_WATER_PARAMS"
-        ],
-        [
-          1144,
-          "DEFAULT_WATER_PARAMS"
-        ],
-        [
-          1204,
-          "DEFAULT_WATER_PARAMS"
-        ]
-      ],
+    "game/Game/Game-03.js": {
       "mn": [
         [
-          547,
-          "WATER_LOOK_PRESETS"
-        ],
-        [
-          1209,
+          139,
           "WATER_LOOK_PRESETS"
         ]
-      ],
-      "hn": [
+      ]
+    },
+    "game/Game/Game-05.js": {
+      "mn": [
         [
-          1071,
-          "WATER_PARAMS_BY_SCENE"
+          7,
+          "WATER_LOOK_PRESETS"
+        ]
+      ]
+    },
+    "game/Game/Game-06.js": {
+      "B": [
+        [
+          2523,
+          "SCENE_TYPES"
         ],
         [
-          1813,
-          "WATER_PARAMS_BY_SCENE"
+          2551,
+          "SCENE_TYPES"
         ],
         [
-          1828,
-          "WATER_PARAMS_BY_SCENE"
+          2555,
+          "SCENE_TYPES"
         ],
         [
-          1836,
-          "WATER_PARAMS_BY_SCENE"
+          2559,
+          "SCENE_TYPES"
         ]
       ]
     },
     "game/Game/Game-07.js": {
-      "Cn": [
+      "dr": [
         [
-          14,
-          "DEFAULT_EFFECT_STATE"
+          547,
+          "GeoModelRegistry"
         ],
         [
-          68,
-          "DEFAULT_EFFECT_STATE"
+          1209,
+          "GeoModelRegistry"
         ]
-      ]
-    },
-    "game/Game/Game-08.js": {
-      "Cn": [
+      ],
+      "fr": [
         [
-          3055,
-          "DEFAULT_EFFECT_STATE"
+          1071,
+          "WorldBuilder"
+        ],
+        [
+          1785,
+          "WorldBuilder"
+        ],
+        [
+          1800,
+          "WorldBuilder"
+        ],
+        [
+          1808,
+          "WorldBuilder"
         ]
       ]
     },
     "game/Game/Game-09.js": {
-      "Jn": [
+      "Er": [
         [
-          49,
-          "SKY_PRESETS"
+          1708,
+          "RACE_LEADERBOARD_MODAL_ID"
+        ],
+        [
+          1784,
+          "RACE_LEADERBOARD_MODAL_ID"
+        ],
+        [
+          1838,
+          "RACE_LEADERBOARD_MODAL_ID"
         ]
       ]
     },
-    "game/Game/Game-17.js": {
+    "game/Game/Game-13.js": {
+      "Er": [
+        [
+          664,
+          "RACE_LEADERBOARD_MODAL_ID"
+        ]
+      ]
+    },
+    "game/Game/Game-14.js": {
       "ui": [
         [
-          600,
+          49,
           "RaceCompletionModal"
         ]
       ]
     },
-    "game/Game/Game-33.js": {
-      "mn": [
+    "game/Game/Game-39.js": {
+      "hr": [
         [
-          1182,
-          "WATER_LOOK_PRESETS"
+          726,
+          "RaceOverlayBase"
         ],
         [
-          1257,
-          "WATER_LOOK_PRESETS"
-        ],
-        [
-          1348,
-          "WATER_LOOK_PRESETS"
-        ],
-        [
-          1565,
-          "WATER_LOOK_PRESETS"
-        ],
-        [
-          1592,
-          "WATER_LOOK_PRESETS"
-        ],
-        [
-          1658,
-          "WATER_LOOK_PRESETS"
-        ],
-        [
-          2338,
-          "WATER_LOOK_PRESETS"
-        ],
-        [
-          3098,
-          "WATER_LOOK_PRESETS"
+          1786,
+          "RaceOverlayBase"
         ]
       ],
-      "Cn": [
+      "dr": [
         [
-          1823,
-          "DEFAULT_EFFECT_STATE"
+          1239,
+          "GeoModelRegistry"
+        ],
+        [
+          1340,
+          "GeoModelRegistry"
+        ],
+        [
+          1457,
+          "GeoModelRegistry"
+        ],
+        [
+          1700,
+          "GeoModelRegistry"
+        ],
+        [
+          1727,
+          "GeoModelRegistry"
+        ],
+        [
+          1793,
+          "GeoModelRegistry"
+        ],
+        [
+          2539,
+          "GeoModelRegistry"
+        ],
+        [
+          3299,
+          "GeoModelRegistry"
         ]
       ],
-      "qn": [
+      "Er": [
         [
-          6602,
-          "SKY_MODEL_IDS"
+          1979,
+          "RACE_LEADERBOARD_MODAL_ID"
         ]
       ]
     },
     "game/Game/Game-50.js": {
-      "Yd": [
+      "Td": [
         [
-          33,
-          "REPLAY_DEFAULTS"
+          2180,
+          "BALANCE_STORAGE_KEY"
         ],
         [
-          4129,
-          "REPLAY_DEFAULTS"
-        ],
-        [
-          4209,
-          "REPLAY_DEFAULTS"
-        ],
-        [
-          4235,
-          "REPLAY_DEFAULTS"
-        ],
-        [
-          6643,
-          "REPLAY_DEFAULTS"
-        ],
-        [
-          6666,
-          "REPLAY_DEFAULTS"
-        ],
-        [
-          6689,
-          "REPLAY_DEFAULTS"
-        ],
-        [
-          6862,
-          "REPLAY_DEFAULTS"
-        ],
-        [
-          6884,
-          "REPLAY_DEFAULTS"
-        ],
-        [
-          6907,
-          "REPLAY_DEFAULTS"
-        ],
-        [
-          6926,
-          "REPLAY_DEFAULTS"
-        ],
-        [
-          8493,
-          "REPLAY_DEFAULTS"
+          2422,
+          "BALANCE_STORAGE_KEY"
         ]
       ]
     },
-    "game/Game/Game-51.js": {
-      "vf": [
+    "game/Game/Game-53.js": {
+      "gf": [
         [
-          2021,
-          "DEFAULT_SESSION_OPTIONS"
-        ],
-        [
-          2550,
-          "DEFAULT_SESSION_OPTIONS"
+          623,
+          "CameraIntroDirector"
         ]
-      ]
-    },
-    "game/BoatModel/BoatModel-05.js": {
-      "z": [
+      ],
+      "hf": [
         [
-          163,
-          "pendingHullReload"
+          1810,
+          "FrameRateMonitor"
         ],
         [
-          362,
-          "pendingHullReload"
-        ],
-        [
-          367,
-          "pendingHullReload"
-        ],
-        [
-          375,
-          "pendingHullReload"
-        ],
-        [
-          387,
-          "pendingHullReload"
-        ],
-        [
-          401,
-          "pendingHullReload"
+          2168,
+          "FrameRateMonitor"
         ]
       ]
     },
@@ -1095,6 +975,12 @@
       ]
     },
     "game/BoatShop/BoatShop-01.js": {
+      "v": [
+        [
+          155,
+          "BoatPreview"
+        ]
+      ],
       "y": [
         [
           2126,
@@ -1131,43 +1017,43 @@
     "game/Birds/Birds-01.js": {
       "d": [
         [
-          51,
+          49,
           "BIRD_PALETTE_LIGHT"
         ],
         [
-          311,
+          309,
           "BIRD_PALETTE_LIGHT"
         ],
         [
-          335,
+          333,
           "BIRD_PALETTE_LIGHT"
         ],
         [
-          1869,
+          1867,
           "BIRD_PALETTE_LIGHT"
         ]
       ],
       "f": [
         [
-          77,
+          75,
           "BIRD_PALETTE_DARK"
         ],
         [
-          1913,
+          1911,
           "BIRD_PALETTE_DARK"
         ]
       ],
       "g": [
         [
-          300,
+          298,
           "BirdFlock"
         ],
         [
-          1855,
+          1853,
           "BirdFlock"
         ],
         [
-          1899,
+          1897,
           "BirdFlock"
         ]
       ]
@@ -1341,20 +1227,6 @@
         [
           1623,
           "FLOATING_PROP_DEFAULTS"
-        ]
-      ],
-      "_": [
-        [
-          259,
-          "FLOATING_PROP_SIZE_STEPS"
-        ],
-        [
-          700,
-          "FLOATING_PROP_SIZE_STEPS"
-        ],
-        [
-          714,
-          "FLOATING_PROP_SIZE_STEPS"
         ]
       ]
     },
@@ -1765,6 +1637,12 @@
           "HOLD_COURSE_HINT"
         ]
       ],
+      "S": [
+        [
+          129,
+          "HIGH_SEA_BUOY_POPUP_ID"
+        ]
+      ],
       "P": [
         [
           273,
@@ -1807,19 +1685,19 @@
           "HOLD_COURSE_HINT"
         ],
         [
-          10355,
+          10463,
           "HOLD_COURSE_HINT"
         ],
         [
-          10413,
+          10521,
           "HOLD_COURSE_HINT"
         ],
         [
-          10497,
+          10605,
           "HOLD_COURSE_HINT"
         ],
         [
-          10512,
+          10620,
           "HOLD_COURSE_HINT"
         ]
       ],
@@ -1829,16 +1707,16 @@
           "HIGH_SEA_VISUAL_STYLE"
         ],
         [
-          12554,
+          12662,
           "HIGH_SEA_VISUAL_STYLE"
         ]
       ]
     },
     "game/IslandGenerator/IslandGenerator-01.js": {
-      "O": [
+      "L": [
         [
-          144,
-          "PerlinNoise"
+          1880,
+          "CASTLE_CONFIG"
         ]
       ]
     },
@@ -2017,7 +1895,7 @@
           "SEND_FAILED_EVENT"
         ],
         [
-          3270,
+          3295,
           "SEND_FAILED_EVENT"
         ]
       ]

@@ -1,8 +1,8 @@
 // game 04 — location
-// Lines 943-1195 of readable/assets/game-DaugXgrE.pretty.js (statement-aligned).
+// Lines 947-1199 of readable/assets/game-wg-D5X70.pretty.js (statement-aligned).
 if (($ && window.location.replace($), !$)) {
-  oe(document, toCommitSha(window.location), {
-    sound: x().soundEnabled === !1 ? `off` : `on`,
+  oe(document, RACE_SCENE_TYPES(window.location), {
+    sound: S().soundEnabled === !1 ? `off` : `on`,
   });
   let n = () => {
       let e = document.createElement(`div`);
@@ -54,7 +54,7 @@ if (($ && window.location.replace($), !$)) {
           ));
     };
   document.addEventListener(`DOMContentLoaded`, async () => {
-    (m(), je(), Ke());
+    (m(), ke(), Ke());
     let {
         mode: a,
         autoJoinRace: o,
@@ -65,15 +65,15 @@ if (($ && window.location.replace($), !$)) {
         boatToolView: x,
         localGeoMeshId: S,
         sponsoredLocation: oe,
-      } = toCommitSha(window.location),
+      } = RACE_SCENE_TYPES(window.location),
       w = t(window.location),
       E = a === `tutorial`,
       D = a === `game` || E,
       O = a === `background`,
       k = a === `map`,
       A = l(a);
-    if (le(window.location)) {
-      let { session: t, failed: n } = await R();
+    if (toCommitSha(window.location)) {
+      let { session: t, failed: n } = await EVENT_GEO_AUTH_GATE();
       if (n || !t) {
         let t = _(window.location),
           r = e({
@@ -86,7 +86,7 @@ if (($ && window.location.replace($), !$)) {
             f(`geo_access_gate_action`, i(e, t));
           },
           o = (e) => p(`geo_access_gate_action`, i(e));
-        (ke({
+        (De({
           onGoogleSignIn: async () => {
             (await o(`google_clicked`), ee({ next: t }));
           },
@@ -98,32 +98,32 @@ if (($ && window.location.replace($), !$)) {
           },
           onContinue: async () => {
             (await o(`skip_clicked`),
-              window.location.replace(ue(window.location)));
+              window.location.replace(EVENT_LOCATION_AD_LINK_CLICKED(window.location)));
           },
         }),
           a(`shown`, { auth_lookup_failed: n || null }));
         return;
       }
-    } else R();
-    let j = document.getElementById(`game-root`) || document.body,
-      M = 0,
-      N = {
+    } else EVENT_GEO_AUTH_GATE();
+    let M = document.getElementById(`game-root`) || document.body,
+      N = 0,
+      P = {
         isAuthenticated: !1,
         profileDisplayName: null,
         getStatus: async () => {
           let e = await v().catch(() => null);
           return (
-            e ? N.profileDisplayName || (await F(e)) : P(),
+            e ? P.profileDisplayName || (await I(e)) : F(),
             { isAuthenticated: !!e, email: e?.user?.email || `` }
           );
         },
         getOfficialDisplayName: () =>
-          (N.isAuthenticated && String(N.profileDisplayName || ``).trim()) ||
+          (P.isAuthenticated && String(P.profileDisplayName || ``).trim()) ||
           null,
         refreshOfficialDisplayName: async () => {
-          if (!N.isAuthenticated) return null;
+          if (!P.isAuthenticated) return null;
           let e = await v().catch(() => null);
-          return e ? (await F(e), N.getOfficialDisplayName()) : (P(), null);
+          return e ? (await I(e), P.getOfficialDisplayName()) : (F(), null);
         },
         openAuth: () => {
           window.location.assign(
@@ -135,25 +135,25 @@ if (($ && window.location.replace($), !$)) {
         },
         signOut: async () => {
           let t = {
-            isAuthenticated: N.isAuthenticated,
-            profileDisplayName: N.profileDisplayName,
+            isAuthenticated: P.isAuthenticated,
+            profileDisplayName: P.profileDisplayName,
           };
-          P();
-          let n = M;
+          F();
+          let n = N;
           try {
             await h();
           } catch (e) {
             throw (
-              M === n &&
-                ((M += 1),
-                (N.isAuthenticated = t.isAuthenticated),
-                (N.profileDisplayName = t.profileDisplayName),
+              N === n &&
+                ((N += 1),
+                (P.isAuthenticated = t.isAuthenticated),
+                (P.profileDisplayName = t.profileDisplayName),
                 window.sail?.multiplayer?.syncPlayerName?.()),
               e
             );
           }
           if ((T(null), C(null), w.scene === c.GEO)) {
-            window.location.assign(ue(window.location));
+            window.location.assign(EVENT_LOCATION_AD_LINK_CLICKED(window.location));
             return;
           }
           window.location.assign(
@@ -171,49 +171,49 @@ if (($ && window.location.replace($), !$)) {
           );
         },
       };
-    function P() {
-      ((M += 1),
-        (N.isAuthenticated = !1),
-        (N.profileDisplayName = null),
+    function F() {
+      ((N += 1),
+        (P.isAuthenticated = !1),
+        (P.profileDisplayName = null),
         y(),
         window.sail?.multiplayer?.syncPlayerName?.());
     }
-    async function F(e) {
-      let t = ++M;
+    async function I(e) {
+      let t = ++N;
       if (!e)
         return (
-          (N.isAuthenticated = !1),
-          (N.profileDisplayName = null),
+          (P.isAuthenticated = !1),
+          (P.profileDisplayName = null),
           y(),
           window.sail?.multiplayer?.syncPlayerName?.(),
           { status: `signed_out` }
         );
-      ((N.isAuthenticated = !0), (N.profileDisplayName = null), y());
+      ((P.isAuthenticated = !0), (P.profileDisplayName = null), y());
       let n = String(e?.access_token || ``).trim();
       if (!n) return { status: `error` };
       try {
         let e = await re(n);
-        return t === M
+        return t === N
           ? ie(e)
             ? (window.location.replace(te({ next: _(window.location) })),
               { status: `needs_create` })
-            : ((N.profileDisplayName = e?.displayName || null),
+            : ((P.profileDisplayName = e?.displayName || null),
               window.sail?.multiplayer?.syncPlayerName?.(),
               { status: `ready` })
           : { status: `stale` };
       } catch {
-        return t === M
-          ? ((N.profileDisplayName = null),
+        return t === N
+          ? ((P.profileDisplayName = null),
             window.sail?.multiplayer?.syncPlayerName?.(),
             { status: `error` })
           : { status: `stale` };
       }
     }
-    let I = await v().catch(() => null);
-    if (((N.isAuthenticated = !!I), (await F(I)).status === `needs_create`))
+    let L = await v().catch(() => null);
+    if (((P.isAuthenticated = !!L), (await I(L)).status === `needs_create`))
       return;
     (ne((e, t) => {
-      (t ? F(t) : P(), T(t), C(t));
+      (t ? I(t) : F(), T(t), C(t));
     }),
       (D || O || k || A) &&
         i({
@@ -233,7 +233,7 @@ if (($ && window.location.replace($), !$)) {
       enableMultiplayer: (D || O || k) && !E && !A,
       enableLocalBoat: D || A,
       enableLandingOverlay: !1,
-      container: j,
+      container: M,
       boatPresetId: s,
       boatModelVariant: u,
       gameplayMode: d,
@@ -241,14 +241,14 @@ if (($ && window.location.replace($), !$)) {
       boatToolView: x,
       localGeoMeshId: S,
       ...fetchBuildVersion(oe),
-      ...ge(window.location),
-      ...he(window.location),
-      accountBridge: N,
-      accessTokenProvider: _e,
+      ...me(window.location),
+      ...pe(window.location),
+      accountBridge: P,
+      accessTokenProvider: he,
     });
-    let L = ft(window.sail);
+    let R = pt(window.sail);
     o &&
-      !L &&
+      !R &&
       window.sail?.ui?.race?.joinRace &&
       window.sail.ui.race.joinRace();
   });

@@ -1,5 +1,5 @@
 // CannonSystem 02 — mesh
-// Lines 20-493 of readable/assets/CannonSystem-8nVBpQ-O.pretty.js (statement-aligned).
+// Lines 20-493 of readable/assets/CannonSystem-BkU5r_SB.pretty.js (statement-aligned).
 var v = class {
   constructor(e, t, n, r, i = {}) {
     (g(this, `_onAction`, (e) => {
@@ -14,30 +14,30 @@ var v = class {
       (this.boat = t),
       (this.world = n),
       (this.audioManager = r));
-    let o = m.cannon,
-      s = m.prediction;
-    ((this.cooldownSeconds = i.cooldownSeconds ?? o.cooldownSeconds),
-      (this.muzzleSpeed = i.muzzleSpeed ?? o.muzzleSpeed),
-      (this.upwardAngleDeg = i.upwardAngleDeg ?? o.upwardAngleDeg),
-      (this.cannonLength = i.cannonLength ?? o.cannonLength),
-      (this.cannonRadius = i.cannonRadius ?? o.cannonRadius),
-      (this.cannonYOffset = i.cannonYOffset ?? o.cannonYOffset),
-      (this.cannonZOffset = i.cannonZOffset ?? o.cannonZOffset),
-      (this.muzzleExtra = i.muzzleExtra ?? o.muzzleExtra),
-      (this.ballRadius = i.ballRadius ?? o.ballRadius),
-      (this.maxBallLifetime = i.maxBallLifetime ?? o.maxBallLifetime),
-      (this.debugPredictionEnabled = i.debugPredictionEnabled ?? s.enabled),
-      (this.predictionTTL = i.predictionTTL ?? s.ttl),
+    let a = m.cannon,
+      o = m.prediction;
+    ((this.cooldownSeconds = i.cooldownSeconds ?? a.cooldownSeconds),
+      (this.muzzleSpeed = i.muzzleSpeed ?? a.muzzleSpeed),
+      (this.upwardAngleDeg = i.upwardAngleDeg ?? a.upwardAngleDeg),
+      (this.cannonLength = i.cannonLength ?? a.cannonLength),
+      (this.cannonRadius = i.cannonRadius ?? a.cannonRadius),
+      (this.cannonYOffset = i.cannonYOffset ?? a.cannonYOffset),
+      (this.cannonZOffset = i.cannonZOffset ?? a.cannonZOffset),
+      (this.muzzleExtra = i.muzzleExtra ?? a.muzzleExtra),
+      (this.ballRadius = i.ballRadius ?? a.ballRadius),
+      (this.maxBallLifetime = i.maxBallLifetime ?? a.maxBallLifetime),
+      (this.debugPredictionEnabled = i.debugPredictionEnabled ?? o.enabled),
+      (this.predictionTTL = i.predictionTTL ?? o.ttl),
       (this.debugLivePredictionEnabled =
-        i.debugLivePredictionEnabled ?? s.liveEnabled),
-      (this.livePredictionStep = i.livePredictionStep ?? s.liveStep),
-      (this.livePredictionMaxT = i.livePredictionMaxT ?? s.liveMaxT),
-      (this.lineRadius = i.lineRadius ?? s.lineRadius),
-      (this.liveLineRadius = i.liveLineRadius ?? s.liveLineRadius),
-      (this.useAnalyticPrediction = i.useAnalyticPrediction ?? s.useAnalytic),
-      (this.analyticSegments = i.analyticSegments ?? s.analyticSegments),
-      (this.predictionColor = i.predictionColor ?? s.color),
-      (this.gravity = new a(
+        i.debugLivePredictionEnabled ?? o.liveEnabled),
+      (this.livePredictionStep = i.livePredictionStep ?? o.liveStep),
+      (this.livePredictionMaxT = i.livePredictionMaxT ?? o.liveMaxT),
+      (this.lineRadius = i.lineRadius ?? o.lineRadius),
+      (this.liveLineRadius = i.liveLineRadius ?? o.liveLineRadius),
+      (this.useAnalyticPrediction = i.useAnalyticPrediction ?? o.useAnalytic),
+      (this.analyticSegments = i.analyticSegments ?? o.analyticSegments),
+      (this.predictionColor = i.predictionColor ?? o.color),
+      (this.gravity = new f(
         m.physics.gravity.x,
         m.physics.gravity.y,
         m.physics.gravity.z,
@@ -60,88 +60,88 @@ var v = class {
     return (typeof performance < `u` ? performance.now() : Date.now()) / 1e3;
   }
   _createCannons() {
-    let t = this.boat?.model?.boatGroup;
-    if (!t) return;
-    let n = (this.boat?.model?.hullWidth || 5) * 0.5,
-      i = new p(this.cannonRadius, this.cannonRadius, this.cannonLength, 12),
-      o = new r({ color: 2236962 }),
-      l = Math.tan(c.degToRad(this.upwardAngleDeg));
-    ((this.cannonRight = new s(i, o)),
+    let e = this.boat?.model?.boatGroup;
+    if (!e) return;
+    let t = (this.boat?.model?.hullWidth || 5) * 0.5,
+      o = new r(this.cannonRadius, this.cannonRadius, this.cannonLength, 12),
+      s = new u({ color: 2236962 }),
+      c = Math.tan(i.degToRad(this.upwardAngleDeg));
+    ((this.cannonRight = new a(o, s)),
       (this.cannonRight.castShadow = !1),
       (this.cannonRight.receiveShadow = !1));
     {
-      let t = new a(-1, l, 0).normalize(),
-        r = new e().setFromUnitVectors(new a(0, 1, 0), t);
+      let e = new f(-1, c, 0).normalize(),
+        r = new n().setFromUnitVectors(new f(0, 1, 0), e);
       this.cannonRight.quaternion.copy(r);
-      let i = new a(-n, this.cannonYOffset, this.cannonZOffset).add(
-        t.clone().multiplyScalar(this.cannonLength * 0.5),
+      let i = new f(-t, this.cannonYOffset, this.cannonZOffset).add(
+        e.clone().multiplyScalar(this.cannonLength * 0.5),
       );
       this.cannonRight.position.copy(i);
     }
-    (t.add(this.cannonRight),
-      (this.cannonLeft = new s(i, o)),
+    (e.add(this.cannonRight),
+      (this.cannonLeft = new a(o, s)),
       (this.cannonLeft.castShadow = !1),
       (this.cannonLeft.receiveShadow = !1));
     {
-      let t = new a(1, l, 0).normalize(),
-        r = new e().setFromUnitVectors(new a(0, 1, 0), t);
+      let e = new f(1, c, 0).normalize(),
+        r = new n().setFromUnitVectors(new f(0, 1, 0), e);
       this.cannonLeft.quaternion.copy(r);
-      let i = new a(+n, this.cannonYOffset, this.cannonZOffset).add(
-        t.clone().multiplyScalar(this.cannonLength * 0.5),
+      let i = new f(+t, this.cannonYOffset, this.cannonZOffset).add(
+        e.clone().multiplyScalar(this.cannonLength * 0.5),
       );
       this.cannonLeft.position.copy(i);
     }
-    t.add(this.cannonLeft);
+    e.add(this.cannonLeft);
   }
   _getMuzzleWorld(e) {
     let t = this.boat?.model?.boatGroup;
     if (!t) return null;
     let n = (this.boat?.model?.hullWidth || 5) * 0.5,
-      r = Math.tan(c.degToRad(this.upwardAngleDeg)),
-      i = e === `right` ? new a(-1, r, 0) : new a(1, r, 0);
-    i.normalize();
-    let o = new a(
+      r = Math.tan(i.degToRad(this.upwardAngleDeg)),
+      a = e === `right` ? new f(-1, r, 0) : new f(1, r, 0);
+    a.normalize();
+    let o = new f(
         e === `right` ? -n : +n,
         this.cannonYOffset,
         this.cannonZOffset,
       ).add(
-        i.clone().multiplyScalar(this.cannonLength * 0.5 + this.muzzleExtra),
+        a.clone().multiplyScalar(this.cannonLength * 0.5 + this.muzzleExtra),
       ),
-      s = new a();
+      s = new f();
     return (t.updateMatrixWorld(), s.copy(o).applyMatrix4(t.matrixWorld), s);
   }
   _getShotDirectionWorld(e) {
-    let t = Math.tan(c.degToRad(this.upwardAngleDeg)),
-      n = e === `right` ? new a(-1, t, 0) : new a(1, t, 0);
+    let t = Math.tan(i.degToRad(this.upwardAngleDeg)),
+      n = e === `right` ? new f(-1, t, 0) : new f(1, t, 0);
     n.normalize();
     let r = this.boat?.model?.boatGroup;
-    if (!r) return new a(1, 0, 0);
-    let i = n.clone(),
-      o = new u().setFromMatrix4(r.matrixWorld);
-    return (i.applyMatrix3(o).normalize(), i);
+    if (!r) return new f(1, 0, 0);
+    let a = n.clone(),
+      o = new c().setFromMatrix4(r.matrixWorld);
+    return (a.applyMatrix3(o).normalize(), a);
   }
   fire(e) {
-    let t = this._nowSec();
+    let n = this._nowSec();
     if (e === `left`) {
-      if (t - this.lastFireLeftSec < this.cooldownSeconds) return !1;
-      this.lastFireLeftSec = t;
+      if (n - this.lastFireLeftSec < this.cooldownSeconds) return !1;
+      this.lastFireLeftSec = n;
     } else {
-      if (t - this.lastFireRightSec < this.cooldownSeconds) return !1;
-      this.lastFireRightSec = t;
+      if (n - this.lastFireRightSec < this.cooldownSeconds) return !1;
+      this.lastFireRightSec = n;
     }
-    let i = this._getMuzzleWorld(e);
-    if (!i) return !1;
-    let a = this._getShotDirectionWorld(e),
-      o = new s(new n(this.ballRadius, 12, 12), new r({ color: 1118481 }));
-    (o.position.copy(i), this.scene.add(o));
-    let c = a.clone().multiplyScalar(this.muzzleSpeed);
+    let r = this._getMuzzleWorld(e);
+    if (!r) return !1;
+    let i = this._getShotDirectionWorld(e),
+      o = new a(new t(this.ballRadius, 12, 12), new u({ color: 1118481 }));
+    (o.position.copy(r), this.scene.add(o));
+    let s = i.clone().multiplyScalar(this.muzzleSpeed);
     return (
-      this.projectiles.push({ mesh: o, velocity: c, birthSec: t }),
+      this.projectiles.push({ mesh: o, velocity: s, birthSec: n }),
       this.audioManager &&
         this.audioManager.playCannonShot &&
         this.audioManager.playCannonShot(),
       this.debugPredictionEnabled &&
-        this._createPrediction(i.clone(), c.clone()),
+        this._createPrediction(r.clone(), s.clone()),
       this.events.emit(`cannon:fired`, { side: e }),
       !0
     );
@@ -240,18 +240,18 @@ var v = class {
     try {
       let r = [];
       for (let t = 0; t < e.length; t += 3)
-        r.push(new a(e[t], e[t + 1], e[t + 2]));
+        r.push(new f(e[t], e[t + 1], e[t + 2]));
       return r.length < 2
         ? null
-        : new s(
-            new i(
+        : new a(
+            new d(
               new l(r),
               Math.max(16, r.length * 3),
               Math.max(0.01, n),
               8,
               !1,
             ),
-            new f({ color: t, transparent: !0, opacity: 0.9 }),
+            new o({ color: t, transparent: !0, opacity: 0.9 }),
           );
     } catch {
       return null;
@@ -274,30 +274,30 @@ var v = class {
   }
   _sampleTrajectoryAnalytic(e, t, n, r) {
     let i = [],
-      o = this._solveImpactTimeToPlaneY(e.y, t.y, this.gravity.y, r),
-      s = Math.min(o ?? 3, this.maxBallLifetime),
-      c = Math.max(2, n | 0);
-    for (let n = 0; n <= c; n++) {
-      let o = (s * n) / c,
-        l = new a()
+      a = this._solveImpactTimeToPlaneY(e.y, t.y, this.gravity.y, r),
+      o = Math.min(a ?? 3, this.maxBallLifetime),
+      s = Math.max(2, n | 0);
+    for (let n = 0; n <= s; n++) {
+      let a = (o * n) / s,
+        c = new f()
           .copy(e)
-          .addScaledVector(t, o)
-          .addScaledVector(this.gravity, 0.5 * o * o);
-      (n === c && (l.y = Math.max(r, l.y)),
-        i.push(l.x, l.y + (n === c ? 0.02 : 0), l.z));
+          .addScaledVector(t, a)
+          .addScaledVector(this.gravity, 0.5 * a * a);
+      (n === s && (c.y = Math.max(r, c.y)),
+        i.push(c.x, c.y + (n === s ? 0.02 : 0), c.z));
     }
     return i;
   }
   _sampleTrajectory(e, t, n, r) {
     let i = [],
-      o = this.world?.water;
-    for (let s = 0; s <= r; s += n) {
-      let n = new a()
+      a = this.world?.water;
+    for (let o = 0; o <= r; o += n) {
+      let n = new f()
         .copy(e)
-        .addScaledVector(t, s)
-        .addScaledVector(this.gravity, 0.5 * s * s);
-      if (o && typeof o.getHeightAt == `function`) {
-        let e = o.getHeightAt(n.x, n.z) || 0;
+        .addScaledVector(t, o)
+        .addScaledVector(this.gravity, 0.5 * o * o);
+      if (a && typeof a.getHeightAt == `function`) {
+        let e = a.getHeightAt(n.x, n.z) || 0;
         if (n.y <= e) {
           ((n.y = e), i.push(n.x, n.y + 0.02, n.z));
           break;
@@ -351,30 +351,30 @@ var v = class {
     let r = e === `left` ? this._leftLiveLine : this._rightLiveLine;
     if (r) return r;
     let i = (t + 1) * (n + 1),
-      a = t * n * 6,
-      c = new d(),
-      l = new Float32Array(i * 3),
-      u = new Uint16Array(a),
-      p = 0;
+      c = t * n * 6,
+      l = new p(),
+      u = new Float32Array(i * 3),
+      d = new Uint16Array(c),
+      f = 0;
     for (let e = 0; e < t; e++)
       for (let t = 0; t < n; t++) {
         let r = e * (n + 1) + t,
           i = r + (n + 1),
           a = r + 1,
           o = i + 1;
-        ((u[p++] = r),
-          (u[p++] = i),
-          (u[p++] = a),
-          (u[p++] = a),
-          (u[p++] = i),
-          (u[p++] = o));
+        ((d[f++] = r),
+          (d[f++] = i),
+          (d[f++] = a),
+          (d[f++] = a),
+          (d[f++] = i),
+          (d[f++] = o));
       }
-    (c.setAttribute(`position`, new o(l, 3)),
-      c.setIndex(new o(u, 1)),
-      c.setDrawRange(0, 0));
-    let m = new s(
-      c,
-      new f({
+    (l.setAttribute(`position`, new s(u, 3)),
+      l.setIndex(new s(d, 1)),
+      l.setDrawRange(0, 0));
+    let m = new a(
+      l,
+      new o({
         color: this.predictionColor,
         transparent: !0,
         opacity: 0.8,
@@ -388,15 +388,15 @@ var v = class {
       m
     );
   }
-  _updatePredictionGeometry(e, n, r, i = 8) {
+  _updatePredictionGeometry(t, n, r, i = 8) {
     let a = Math.floor(n.length / 3);
     if (a < 2) {
-      e.geometry.setDrawRange(0, 0);
+      t.geometry.setDrawRange(0, 0);
       return;
     }
-    let o = e.geometry.attributes.position.count / (i + 1) - 1,
+    let o = t.geometry.attributes.position.count / (i + 1) - 1,
       s = Math.min(a, o),
-      c = e.geometry.attributes.position,
+      c = t.geometry.attributes.position,
       l = c.array,
       u,
       d,
@@ -451,10 +451,10 @@ var v = class {
     }
     c.needsUpdate = !0;
     let D = Math.max(0, s - 1) * i * 6;
-    (e.geometry.setDrawRange(0, D),
-      e.geometry.boundingSphere || (e.geometry.boundingSphere = new t()),
-      e.geometry.boundingSphere.center.set(n[0], n[1], n[2]),
-      (e.geometry.boundingSphere.radius = 1e3));
+    (t.geometry.setDrawRange(0, D),
+      t.geometry.boundingSphere || (t.geometry.boundingSphere = new e()),
+      t.geometry.boundingSphere.center.set(n[0], n[1], n[2]),
+      (t.geometry.boundingSphere.radius = 1e3));
   }
   dispose() {
     (_.removeActionListener?.(this._onAction),

@@ -1,7 +1,7 @@
 // DataModels 02 — math
-// Lines 18-1440 of readable/assets/DataModels-DjmBwyzI.pretty.js (statement-aligned).
+// Lines 18-1528 of readable/assets/DataModels-CogLxOKo.pretty.js (statement-aligned).
 var TWO_PI = Math.PI * 2,
-  UP_VECTOR = new a(0, 1, 0),
+  UP_VECTOR = new l(0, 1, 0),
   BoatPhysics = class {
     constructor(e, t = {}) {
       ((this.world = e),
@@ -9,8 +9,8 @@ var TWO_PI = Math.PI * 2,
         this.initState(t));
     }
     initState(e = {}) {
-      ((this.position = new a(0, 0, 0)),
-        (this.rotation = new a(0, Math.PI / 2, 0)),
+      ((this.position = new l(0, 0, 0)),
+        (this.rotation = new l(0, Math.PI / 2, 0)),
         (this.speed = 0),
         (this.sailAngle = 0),
         (this.sheetLimit = Math.PI / 4),
@@ -71,16 +71,16 @@ var TWO_PI = Math.PI * 2,
         (this.visualPressure = 0),
         (this.visualLuffing = 0),
         (this.forces = {
-          sail: { main: new a(), jib: new a(), total: new a() },
+          sail: { main: new l(), jib: new l(), total: new l() },
           components: {
-            mainLift: new a(),
-            mainPush: new a(),
-            jibLift: new a(),
-            jibPush: new a(),
+            mainLift: new l(),
+            mainPush: new l(),
+            jibLift: new l(),
+            jibPush: new l(),
           },
-          net: { forward: new a(), lateral: new a(), drag: new a() },
+          net: { forward: new l(), lateral: new l(), drag: new l() },
         }),
-        (this.apparentWindDirection = new a()),
+        (this.apparentWindDirection = new l()),
         (this.apparentWindSpeed = 0),
         (this.minWindSpeed = 0.01),
         (this.verticalVelocityY = 0),
@@ -112,11 +112,11 @@ var TWO_PI = Math.PI * 2,
           centerY: NaN,
           pitchSlope: 0,
           rollSlope: 0,
-          center: new a(),
-          front: new a(),
-          back: new a(),
-          left: new a(),
-          right: new a(),
+          center: new l(),
+          front: new l(),
+          back: new l(),
+          left: new l(),
+          right: new l(),
         }),
         (this.waveMoments = { pitch: 0, roll: 0, yaw: 0 }),
         (this.isTuningLocked = !1));
@@ -207,16 +207,16 @@ var TWO_PI = Math.PI * 2,
     }
     calculateSingleSailForce(e, t, n, r = 0) {
       let i = n.direction,
-        o = n.speed;
-      if (o <= this.minWindSpeed) return { lift: new a(), push: new a() };
-      let s = this.getDirectionVector(this.rotation.y + e),
-        c = this.getDirectionVector(this.rotation.y + e + Math.PI / 2),
-        l = p.cross(s, i),
+        a = n.speed;
+      if (a <= this.minWindSpeed) return { lift: new l(), push: new l() };
+      let o = this.getDirectionVector(this.rotation.y + e),
+        s = this.getDirectionVector(this.rotation.y + e + Math.PI / 2),
+        c = p.cross(o, i),
         u = Math.sign(e);
-      Math.abs(l.y) < 1e-4 ? u !== 0 && -u : Math.sign(l.y);
-      let d = u === 0 ? Math.abs(l.y) : -u * l.y,
+      Math.abs(c.y) < 1e-4 ? u !== 0 && -u : Math.sign(c.y);
+      let d = u === 0 ? Math.abs(c.y) : -u * c.y,
         f = Math.min(1, Math.max(0, d / 0.15)),
-        m = p.dot(i, s),
+        m = p.dot(i, o),
         h = Math.acos(Math.min(Math.max(m, -1), 1)),
         _ = Math.PI / 12 + r,
         v = Math.PI / 7,
@@ -228,12 +228,12 @@ var TWO_PI = Math.PI * 2,
         b = Math.sin(2 * v) * Math.exp((-(v - _) * (v - _)) / 0.2) * e;
       }
       let x = p.cross(i, UP_VECTOR).normalize();
-      l.y < 0 && x.negate();
-      let S = o * b * t * f,
+      c.y < 0 && x.negate();
+      let S = a * b * t * f,
         C = p.scale(x, S),
         w = Math.abs(Math.sin(h)),
-        T = l.y >= 0 ? c.clone() : c.clone().negate(),
-        E = o * w * t * 0.6 * f;
+        T = c.y >= 0 ? s.clone() : s.clone().negate(),
+        E = a * w * t * 0.6 * f;
       return { lift: C, push: p.scale(T, E) };
     }
     calculateSailForce() {
@@ -252,7 +252,7 @@ var TWO_PI = Math.PI * 2,
         );
       let e = this.calculateApparentWind(),
         t = this.isMainSailFurled
-          ? { lift: new a(), push: new a() }
+          ? { lift: new l(), push: new l() }
           : this.calculateSingleSailForce(
               this.sailAngle,
               this.sailEfficiency,
@@ -260,7 +260,7 @@ var TWO_PI = Math.PI * 2,
               0,
             ),
         n = this.isJibFurled
-          ? { lift: new a(), push: new a() }
+          ? { lift: new l(), push: new l() }
           : this.calculateSingleSailForce(
               this.jibAngle,
               this.jibEfficiency,
@@ -279,9 +279,9 @@ var TWO_PI = Math.PI * 2,
         )));
       let r = this.getDirectionVector(this.rotation.y),
         i = p.project(this.forces.sail.total, r),
-        o = p.dot(i, r);
+        a = p.dot(i, r);
       return (
-        (this.forces.net.forward = o > 0 ? i : new a()),
+        (this.forces.net.forward = a > 0 ? i : new l()),
         (this.forces.net.lateral = this.forces.sail.total
           .clone()
           .sub(this.forces.net.forward)),
@@ -300,7 +300,7 @@ var TWO_PI = Math.PI * 2,
       return ((this.forces.net.drag = p.scale(n, -t)), this.forces.net.drag);
     }
     updateHeelAngle(e) {
-      let t = new a(-Math.cos(this.rotation.y), 0, Math.sin(this.rotation.y)),
+      let t = new l(-Math.cos(this.rotation.y), 0, Math.sin(this.rotation.y)),
         n = p.dot(this.forces.net.lateral, t),
         r = Math.sign(n) * Math.sqrt(Math.abs(n)),
         i =
@@ -310,17 +310,17 @@ var TWO_PI = Math.PI * 2,
               1,
               Math.abs(this.sailAngle) / (this.maxSailAngle || Math.PI / 2),
             ),
-        o =
+        a =
           (this.heelFactor || 0.12) *
           (this.heelSensitivityMultiplier || 1) *
           r *
           i,
-        s = Math.abs(this.sailAngle) / (this.maxSailAngle || Math.PI / 2),
-        c = this.boomWeightHeelFactor * s * s * Math.sign(this.sailAngle);
-      this._boomWeightVector = t.clone().multiplyScalar(c);
-      let l = o + c,
+        o = Math.abs(this.sailAngle) / (this.maxSailAngle || Math.PI / 2),
+        s = this.boomWeightHeelFactor * o * o * Math.sign(this.sailAngle);
+      this._boomWeightVector = t.clone().multiplyScalar(s);
+      let c = a + s,
         u = Math.min(1, e * (this.heelRecoveryRate || 0.7));
-      this.heelAngle += (l - this.heelAngle) * u;
+      this.heelAngle += (c - this.heelAngle) * u;
     }
     _updateSailAngle(e) {
       if (this.isMainSailFurled && this.isJibFurled) {
@@ -331,41 +331,41 @@ var TWO_PI = Math.PI * 2,
         n = t.direction.clone().applyAxisAngle(UP_VECTOR, -this.rotation.y),
         r = Math.atan2(-n.x, -n.z),
         i = this.sheetLimit,
-        o = Math.abs(r),
-        s = Math.min(o, i),
-        c;
-      if (o <= i) c = Math.sign(r) || Math.sign(this.sailAngle) || 1;
+        a = Math.abs(r),
+        o = Math.min(a, i),
+        s;
+      if (a <= i) s = Math.sign(r) || Math.sign(this.sailAngle) || 1;
       else {
         let e = Math.sign(this.sailAngle);
         if (e !== 0) {
-          let t = new a(
+          let t = new l(
             -Math.sin(this.sailAngle),
             0,
             -Math.cos(this.sailAngle),
           );
-          c = p.cross(t, n).y * e < -0.1 ? -e : e;
+          s = p.cross(t, n).y * e < -0.1 ? -e : e;
         } else {
-          let e = new a(0, 0, -1);
-          c = p.cross(e, n).y >= 0 ? 1 : -1;
+          let e = new l(0, 0, -1);
+          s = p.cross(e, n).y >= 0 ? 1 : -1;
         }
       }
-      let l = c * s;
-      Math.abs(l) < this.minSailCenterOffset &&
-        (l =
+      let c = s * o;
+      Math.abs(c) < this.minSailCenterOffset &&
+        (c =
           this._getWindSideRelativeToBoat() > 0
             ? -this.minSailCenterOffset
             : this.minSailCenterOffset);
-      let u = Math.abs(l - this.sailAngle),
+      let u = Math.abs(c - this.sailAngle),
         d = 4 + 6 * Math.min(1, u / 0.5);
-      ((this.sailAngle += (l - this.sailAngle) * Math.min(1, d * e)),
+      ((this.sailAngle += (c - this.sailAngle) * Math.min(1, d * e)),
         (this.sailAngle = Math.max(-i, Math.min(i, this.sailAngle))),
         (this.jibAngle = this.sailAngle * this.jibRotationFactor));
-      let f = new a(Math.cos(this.sailAngle), 0, -Math.sin(this.sailAngle)),
+      let f = new l(Math.cos(this.sailAngle), 0, -Math.sin(this.sailAngle)),
         m = Math.abs(p.dot(n, f));
       this.visualPressure =
         -Math.sign(
           p.cross(
-            new a(-Math.sin(this.sailAngle), 0, -Math.cos(this.sailAngle)),
+            new l(-Math.sin(this.sailAngle), 0, -Math.cos(this.sailAngle)),
             n,
           ).y,
         ) * Math.min(1, m * t.speed * 0.15);
@@ -433,21 +433,21 @@ var TWO_PI = Math.PI * 2,
       }
       let n = this.rotation.y,
         r = this.getDirectionVector(n),
-        i = this._waveRightScratch || (this._waveRightScratch = new a());
+        i = this._waveRightScratch || (this._waveRightScratch = new l());
       i.set(Math.cos(n), 0, -Math.sin(n));
       let o = Math.max(0.5, (this.hullLength || 18) * 0.5),
         s = Math.max(0.25, (this.hullWidth || 5) * 0.5),
-        l = this.position.x,
+        c = this.position.x,
         u = this.position.z,
-        d = l + r.x * o,
+        d = c + r.x * o,
         f = u + r.z * o,
-        p = l - r.x * o,
+        p = c - r.x * o,
         m = u - r.z * o,
-        h = l + i.x * s,
+        h = c + i.x * s,
         g = u + i.z * s,
-        _ = l - i.x * s,
+        _ = c - i.x * s,
         v = u - i.z * s,
-        y = t.getHeightAt(l, u) || 0,
+        y = t.getHeightAt(c, u) || 0,
         b = t.getHeightAt(d, f) || 0,
         x = t.getHeightAt(p, m) || 0,
         S = t.getHeightAt(h, g) || 0,
@@ -458,15 +458,15 @@ var TWO_PI = Math.PI * 2,
         (this._lastWaterSample.pitchSlope = w),
         (this._lastWaterSample.rollSlope = T),
         (this._waveSlopeAcceleration = this._computeWaveSlopeAcceleration(w)),
-        this._lastWaterSample.center.set(l, y, u),
+        this._lastWaterSample.center.set(c, y, u),
         this._lastWaterSample.front.set(d, b, f),
         this._lastWaterSample.back.set(p, x, m),
         this._lastWaterSample.right.set(h, S, g),
         this._lastWaterSample.left.set(_, C, v));
-      let E = c.clamp(-Math.atan(w), -this.maxWavePitch, this.maxWavePitch),
+      let E = a.clamp(-Math.atan(w), -this.maxWavePitch, this.maxWavePitch),
         D = Math.atan(T),
         O = Math.max(0, Number(this.maxWaveRoll) || 0),
-        k = this.allowUnclampedWaveRoll ? D : c.clamp(D, -O, O),
+        k = this.allowUnclampedWaveRoll ? D : a.clamp(D, -O, O),
         A = Math.min(1, (this.wavePitchResponseRate || 3) * e),
         j = Math.min(1, (this.waveRollResponseRate || 3) * e);
       ((this.pitchAngle += (E - this.pitchAngle) * A),
@@ -479,7 +479,7 @@ var TWO_PI = Math.PI * 2,
       let I =
         Math.abs(w) * (this.waveDragGainAlongSlope || 1.5) +
         Math.abs(T) * (this.waveDragGainBeam || 0.7);
-      this._waveDragFactor = c.clamp(I, 0, 3);
+      this._waveDragFactor = a.clamp(I, 0, 3);
       let L = Math.max(0.001, this.inertia || 1);
       ((this.waveMoments.pitch = M * L),
         (this.waveMoments.roll = N * L),
@@ -503,11 +503,11 @@ var TWO_PI = Math.PI * 2,
             (n = t.getHeightAt(this.position.x, this.position.z));
         let r = Math.max(0.001, this.mass),
           i = Math.max(1e-4, Number(e) || 0),
-          a = Math.max(0.05, this.verticalResponseTimeSeconds),
-          o = n - this.position.y,
-          s = 0;
+          o = Math.max(0.05, this.verticalResponseTimeSeconds),
+          s = n - this.position.y,
+          c = 0;
         (this._hasLastTargetY
-          ? (s = (n - this._lastTargetY) / i)
+          ? (c = (n - this._lastTargetY) / i)
           : ((this._targetVerticalVelocityY = 0), (this._hasLastTargetY = !0)),
           (this._lastTargetY = n));
         let l = Math.max(
@@ -516,21 +516,21 @@ var TWO_PI = Math.PI * 2,
           ),
           u = l > 0 ? Math.min(1, 1 - Math.exp(-2 * Math.PI * l * i)) : 1;
         this._targetVerticalVelocityY +=
-          (s - this._targetVerticalVelocityY) * u;
+          (c - this._targetVerticalVelocityY) * u;
         let d =
             (Number(this.verticalTargetVelocityGain) || 0) *
             this._targetVerticalVelocityY,
           f =
-            o < 0
+            s < 0
               ? Math.max(0.1, Number(this.verticalFollowDownMultiplier) || 1)
               : Math.max(0.1, Number(this.verticalFollowUpMultiplier) || 1),
-          p = (4.6 / a) * f,
+          p = (4.6 / o) * f,
           m = p * p * r,
           h = 2 * p * r,
           g = d - this.verticalVelocityY,
-          _ = (m * o + h * g) / r,
+          _ = (m * s + h * g) / r,
           v = Number(this.maxVerticalAcceleration),
-          y = Number.isFinite(v) && v > 0 ? c.clamp(_, -v, v) : _;
+          y = Number.isFinite(v) && v > 0 ? a.clamp(_, -v, v) : _;
         ((this.verticalVelocityY += y * i),
           (this.position.y += this.verticalVelocityY * i));
       } catch (t) {
@@ -586,38 +586,38 @@ var TWO_PI = Math.PI * 2,
       return {
         sailForce: this.forces.sail.total
           ? this.forces.sail.total.clone()
-          : new a(),
-        jibForce: this.forces.sail.jib ? this.forces.sail.jib.clone() : new a(),
+          : new l(),
+        jibForce: this.forces.sail.jib ? this.forces.sail.jib.clone() : new l(),
         liftForce: this.forces.components.mainLift
           ? this.forces.components.mainLift.clone()
-          : new a(),
+          : new l(),
         jibLiftForce: this.forces.components.jibLift
           ? this.forces.components.jibLift.clone()
-          : new a(),
+          : new l(),
         pushForce: this.forces.components.mainPush
           ? this.forces.components.mainPush.clone()
-          : new a(),
+          : new l(),
         jibPushForce: this.forces.components.jibPush
           ? this.forces.components.jibPush.clone()
-          : new a(),
+          : new l(),
         forwardForce: this.forces.net.forward
           ? this.forces.net.forward.clone()
-          : new a(),
+          : new l(),
         lateralForce: this.forces.net.lateral
           ? this.forces.net.lateral.clone()
-          : new a(),
+          : new l(),
         dragForce: this.forces.net.drag
           ? this.forces.net.drag.clone()
-          : new a(),
+          : new l(),
         apparentWind:
           this.apparentWindDirection && this.apparentWindSpeed
             ? this.apparentWindDirection
                 .clone()
                 .multiplyScalar(this.apparentWindSpeed)
-            : new a(),
+            : new l(),
         boomWeight: this._boomWeightVector
           ? this._boomWeightVector.clone()
-          : new a(),
+          : new l(),
       };
     }
     _computeWaveSlopeAcceleration(e) {
@@ -628,7 +628,7 @@ var TWO_PI = Math.PI * 2,
           ? this.wavePotentialAccelGain
           : 0,
         i = -9.81 * n * r;
-      return c.clamp(i, -8, 8);
+      return a.clamp(i, -8, 8);
     }
     getWaveSlopeAcceleration() {
       return Number.isFinite(this._waveSlopeAcceleration)
@@ -834,9 +834,9 @@ var TWO_PI = Math.PI * 2,
     }
   },
   WaterlineTracker = class {
-    constructor(e, n, i = {}) {
+    constructor(e, r, i = {}) {
       ((this.scene = e),
-        (this.world = n),
+        (this.world = r),
         (this.enabled = !0),
         (this.maxSegments = i.maxSegments || 28),
         (this.segmentSpacing = i.segmentSpacing || 2.4),
@@ -853,19 +853,19 @@ var TWO_PI = Math.PI * 2,
         (this.colors = new Float32Array(a * 3)),
         (this.alphas = new Float32Array(a)),
         (this.geometry = new u()),
-        this.geometry.setAttribute(`position`, new o(this.positions, 3)),
-        this.geometry.setAttribute(`color`, new o(this.colors, 3)),
-        this.geometry.setAttribute(`alpha`, new o(this.alphas, 1)));
-      let c = [];
+        this.geometry.setAttribute(`position`, new c(this.positions, 3)),
+        this.geometry.setAttribute(`color`, new c(this.colors, 3)),
+        this.geometry.setAttribute(`alpha`, new c(this.alphas, 1)));
+      let s = [];
       for (let e = 0; e < this.maxSegments; e++) {
         let t = e * 2,
           n = t + 1,
           r = t + 2,
           i = t + 3;
-        c.push(t, n, i, t, i, r);
+        s.push(t, n, i, t, i, r);
       }
-      (this.geometry.setIndex(c),
-        (this.material = new r({
+      (this.geometry.setIndex(s),
+        (this.material = new n({
           transparent: !0,
           depthWrite: !1,
           depthTest: !0,
@@ -893,7 +893,7 @@ var TWO_PI = Math.PI * 2,
                 }
             `,
         })),
-        (this.mesh = new s(this.geometry, this.material)),
+        (this.mesh = new o(this.geometry, this.material)),
         (this.mesh.renderOrder = d.SURFACE_OVERLAY),
         this.mesh.layers.enable(0),
         (this.mesh.userData.reflectionOnlyWakeActive = !1),
@@ -930,10 +930,10 @@ var TWO_PI = Math.PI * 2,
     }
     stamp(e, t, n, r) {
       if (!this.enabled || n < this.minSpeedToShow) return;
-      let i = new a(e.x, e.y, e.z);
+      let i = new l(e.x, e.y, e.z);
       this.samples.unshift({ pos: i, dir: t, time: r, speed: n });
-      let o = this.maxSegments + 1;
-      this.samples.length > o && (this.samples.length = o);
+      let a = this.maxSegments + 1;
+      this.samples.length > a && (this.samples.length = a);
     }
     rebuild(e) {
       let t = Math.min(this.samples.length, this.maxSegments + 1);
@@ -946,23 +946,23 @@ var TWO_PI = Math.PI * 2,
       (this.mesh?.userData &&
         (this.mesh.userData.reflectionOnlyWakeActive = !0),
         (this.mesh.visible = !1));
-      let n = new a(0, 1, 0),
+      let n = new l(0, 1, 0),
         r = this.positions,
         i = this.colors,
         o = this.alphas;
       for (let s = 0; s < t; s++) {
         let t = this.samples[s],
-          l = Math.max(0, e - t.time),
-          u = Math.min(1, l / this.fadeSeconds),
+          c = Math.max(0, e - t.time),
+          u = Math.min(1, c / this.fadeSeconds),
           d = s / this.maxSegments,
           f =
-            c.lerp(this.baseWidth, this.tailWidth, d) *
+            a.lerp(this.baseWidth, this.tailWidth, d) *
             (0.9 + 0.1 * Math.min(1, t.speed / 12)),
           p = t.dir,
-          m = new a(Math.sin(p), 0, Math.cos(p)),
-          h = new a().crossVectors(n, m).normalize(),
-          g = new a().copy(t.pos).addScaledVector(h, f),
-          _ = new a().copy(t.pos).addScaledVector(h, -f),
+          m = new l(Math.sin(p), 0, Math.cos(p)),
+          h = new l().crossVectors(n, m).normalize(),
+          g = new l().copy(t.pos).addScaledVector(h, f),
+          _ = new l().copy(t.pos).addScaledVector(h, -f),
           v = Number.isFinite(this._reflectionAnchorY)
             ? this._reflectionAnchorY
             : 0;
@@ -1033,35 +1033,35 @@ var TWO_PI = Math.PI * 2,
         r = e.getPosition(),
         i = e.getRotation();
       this._reflectionAnchorY = this._sampleWaterlineY(r.x, r.z, 0);
-      let o = 0,
-        s =
+      let a = 0,
+        o =
           e.dynamics && typeof e.dynamics.speed == `number`
             ? e.dynamics.speed
             : 0,
-        c = this._lastBoatPos || (this._lastBoatPos = new a(r.x, r.y, r.z));
-      if (s > 0) o = s;
+        s = this._lastBoatPos || (this._lastBoatPos = new l(r.x, r.y, r.z));
+      if (o > 0) a = o;
       else if (t > 0) {
-        let e = r.x - c.x,
-          n = r.z - c.z;
-        o = Math.sqrt(e * e + n * n) / Math.max(0.001, t);
+        let e = r.x - s.x,
+          n = r.z - s.z;
+        a = Math.sqrt(e * e + n * n) / Math.max(0.001, t);
       }
-      let l = o * 1.94384;
-      if (l < this.minSpeedToShow) {
-        c.set(r.x, r.y, r.z);
+      let c = a * 1.94384;
+      if (c < this.minSpeedToShow) {
+        s.set(r.x, r.y, r.z);
         return;
       }
-      this._spacingAccumulator += o * Math.max(0, t);
+      this._spacingAccumulator += a * Math.max(0, t);
       let u = this.segmentSpacing || 2,
         d = i.y,
-        f = this._stampPosScratch || (this._stampPosScratch = new a());
+        f = this._stampPosScratch || (this._stampPosScratch = new l());
       for (; this._spacingAccumulator >= u;) {
         this._spacingAccumulator -= u;
         let e = Math.sin(d),
           t = Math.cos(d),
           i = 2.8;
-        (f.set(r.x - e * i, 0.01, r.z - t * i), this.stamp(f, d, l, n));
+        (f.set(r.x - e * i, 0.01, r.z - t * i), this.stamp(f, d, c, n));
       }
-      (this.rebuild(n), c.set(r.x, r.y, r.z));
+      (this.rebuild(n), s.set(r.x, r.y, r.z));
     }
   },
   C = class {
@@ -1327,6 +1327,94 @@ var TWO_PI = Math.PI * 2,
     }
     resetWake() {
       this.wake && this.wake.reset();
+    }
+    _readSimPose() {
+      let e = this.dynamics;
+      return {
+        position: e.position.clone(),
+        yaw: e.rotation.y,
+        pitch: e.pitchAngle || e.rotation.x || 0,
+        heel: e.getAttitude?.().roll ?? e.heelAngle ?? 0,
+        sailAngle: e.sailAngle,
+        jibAngle: e.jibAngle,
+        rudderAngle: e.rudderAngle,
+        visualPressure: e.visualPressure,
+        visualLuffing: e.visualLuffing,
+        apparentWindDirection: e.apparentWindDirection?.clone?.() || null,
+        windDirection: e.world?.getWindDirection?.()
+          ? e.world.getWindDirection().clone()
+          : null,
+        windSpeed: e.world?.getWindSpeed?.() || 0,
+      };
+    }
+    _ensureRenderPoses() {
+      if (this._posePrev && this._poseCurr) return;
+      let e = this._readSimPose();
+      ((this._posePrev = e), (this._poseCurr = this._readSimPose()));
+    }
+    stepSimulation(e) {
+      this.isRemoteBoat ||
+        (this._ensureRenderPoses(),
+        (this._posePrev = this._poseCurr),
+        this.dynamics.update(e),
+        this.controls.update(e),
+        (this._poseCurr = this._readSimPose()));
+    }
+    setRenderAlpha(e) {
+      let t = Number(e);
+      this._renderAlpha = Number.isFinite(t) ? Math.min(1, Math.max(0, t)) : 0;
+    }
+    _blendAngle(e, t, n) {
+      let r = t - e;
+      for (; r > Math.PI;) r -= Math.PI * 2;
+      for (; r < -Math.PI;) r += Math.PI * 2;
+      return e + r * n;
+    }
+    _blendPose(e) {
+      let t = this._posePrev,
+        n = this._poseCurr;
+      return {
+        position: t.position.clone().lerp(n.position, e),
+        rotation: this._blendAngle(t.yaw, n.yaw, e),
+        pitchAngle: t.pitch + (n.pitch - t.pitch) * e,
+        heelAngle: t.heel + (n.heel - t.heel) * e,
+        sailAngle: t.sailAngle + (n.sailAngle - t.sailAngle) * e,
+        jibAngle: t.jibAngle + (n.jibAngle - t.jibAngle) * e,
+        rudderAngle: t.rudderAngle + (n.rudderAngle - t.rudderAngle) * e,
+        visualPressure: n.visualPressure,
+        visualLuffing: n.visualLuffing,
+        apparentWindDirection: n.apparentWindDirection,
+        windDirection: n.windDirection,
+        windSpeed: n.windSpeed || 0,
+      };
+    }
+    getRenderPosition() {
+      if (!this._posePrev || !this._poseCurr) return null;
+      let e = this._renderAlpha || 0;
+      return (
+        (this._renderPosition = this._renderPosition || new l()),
+        this._renderPosition
+          .copy(this._posePrev.position)
+          .lerp(this._poseCurr.position, e)
+      );
+    }
+    getRenderYaw() {
+      return !this._posePrev || !this._poseCurr
+        ? null
+        : this._blendAngle(
+            this._posePrev.yaw,
+            this._poseCurr.yaw,
+            this._renderAlpha || 0,
+          );
+    }
+    present(e = this._renderAlpha || 0, t = 0) {
+      let n = Number.isFinite(e) ? Math.min(1, Math.max(0, e)) : 0,
+        r = Number.isFinite(t) && t > 0 ? t : 0;
+      (this.setRenderAlpha(n),
+        this._posePrev && this._poseCurr
+          ? this.model.update(this._blendPose(n), r, this.dynamics)
+          : this.model.update(this.dynamics, r),
+        this.wake && this.wake.updateFromBoat(this, r));
     }
     update(e) {
       (this.isRemoteBoat || (this.dynamics.update(e), this.controls.update(e)),

@@ -1,29 +1,10 @@
-// Game 16 — trials
-// Lines 6635-6661 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-function Zr(e, t, n, r = globalThis.localStorage) {
-  let i = Gr(e);
-  if (!i || !r?.setItem) return null;
-  let a = Math.round(Number(t) * 1e3);
-  if (!Number.isFinite(a) || a < 0) return null;
-  let o = Jr(a, n),
-    s = { trials: {} };
-  try {
-    let e = r.getItem(TRIAL_PROGRESS_STORAGE_KEY);
-    if (e) {
-      let t = JSON.parse(e);
-      t?.trials &&
-        typeof t.trials == `object` &&
-        (s = { trials: { ...t.trials } });
+// Game 16 — getdocks
+// Lines 6569-6576 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+(Xe(Oi, `showGrid`, !1),
+  (Oi.prototype.getDocks = function () {
+    try {
+      return this.islandGenerator?.getDocks?.() || [];
+    } catch {
+      return [];
     }
-  } catch {}
-  let c = s.trials[i] || {},
-    l = Number.isFinite(Number(c.bestMs)) ? Number(c.bestMs) : null,
-    u = l == null ? a : Math.min(l, a),
-    d = TRIAL_MEDALS[c.medal] ?? -1,
-    f = (TRIAL_MEDALS[o] ?? -1) >= d ? o || c.medal || null : c.medal;
-  s.trials[i] = { bestMs: u, medal: f || null };
-  try {
-    r.setItem(TRIAL_PROGRESS_STORAGE_KEY, JSON.stringify(s));
-  } catch {}
-  return s.trials[i];
-}
+  }));

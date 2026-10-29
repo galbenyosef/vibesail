@@ -1,18 +1,18 @@
 // LogisticsManager 02 — state
-// Lines 267-763 of readable/assets/LogisticsManager-DugCgbD8.pretty.js (statement-aligned).
+// Lines 267-763 of readable/assets/LogisticsManager-Bb1kkPAa.pretty.js (statement-aligned).
 var y = class {
-  constructor(e, t, r = {}) {
+  constructor(e, t, n = {}) {
     ((this.scene = e),
       (this.world = t),
-      (this.options = r),
-      (this._tmpDockCenter = new n()),
+      (this.options = n),
+      (this._tmpDockCenter = new r()),
       (this.state = {
         docking: {
           insideDockingZone: !1,
           canDock: !1,
           locked: !1,
           nearestDistance: 1 / 0,
-          nearestCenter: new n(),
+          nearestCenter: new r(),
         },
         mission: { activeMission: null, targetPosition: null },
         balance: 0,
@@ -49,29 +49,29 @@ var y = class {
       surfaceHeightSampler: i,
     })),
       (this.missionGenerator = new MissionGenerator(this.world, {
-        seed: r.missionSeed ?? v(),
+        seed: n.missionSeed ?? v(),
         missionsPerDock: 3,
         excludeSameIsland: !0,
       })));
   }
   update(e, t) {
     if (!e) return;
-    let n = e.getPosition(),
+    let r = e.getPosition(),
       i = (e.isDocked && e.isDocked()) || !1;
     if (this.state.mission.activeMission && this.state.mission.targetPosition) {
       let e = this.state.mission.targetPosition;
       (this.navigationPath.setVisible(!0),
-        this.navigationPath.update(n, e, t || 0.016));
+        this.navigationPath.update(r, e, t || 0.016));
     } else this.navigationPath.setVisible(!1);
-    (this._updateDockingState(e, n),
-      this._updateMissionRuntime(e, n, t || 0.016),
-      this._checkMissionCompletion(e, n, i),
-      this._updateDockingCircleVisibility(n),
+    (this._updateDockingState(e, r),
+      this._updateMissionRuntime(e, r, t || 0.016),
+      this._checkMissionCompletion(e, r, i),
+      this._updateDockingCircleVisibility(r),
       this._emitDockingChangedIfNeeded(i));
     let a = this.state.mission.activeMission,
       o = this.state.mission.targetPosition;
     if (a && o) {
-      let t = this._computeDistanceMeters(n, o),
+      let t = this._computeDistanceMeters(r, o),
         i = this._resolveMissionPayload(a),
         s = Number(e?.getHeelAngle?.()) || 0,
         c = Math.abs(s);
@@ -83,8 +83,8 @@ var y = class {
         contractLabel: a.contractLabel || null,
         payload: i,
         payloadDropped: this._missionRuntime?.payloadDropped === !0,
-        heelDegrees: r.radToDeg(c),
-        heelSignedDegrees: r.radToDeg(s),
+        heelDegrees: n.radToDeg(c),
+        heelSignedDegrees: n.radToDeg(s),
         heelThresholdDegrees: i?.heelDropDegrees ?? g,
         overHeelSeconds: this._missionRuntime?.overHeelSeconds || 0,
         heelDropSeconds: i?.heelDropSeconds ?? _,
@@ -152,10 +152,10 @@ var y = class {
   _updateDockingCircleVisibility(e) {
     let t = this.world?.getDocks?.() || [];
     if (!e || t.length === 0) return;
-    let r = i?.docking?.debugCircleFadeMaxDistance ?? 100,
-      a = new n();
-    for (let n of t) {
-      let t = n?.dockingCircle;
+    let n = i?.docking?.debugCircleFadeMaxDistance ?? 100,
+      a = new r();
+    for (let r of t) {
+      let t = r?.dockingCircle;
       if (!t || !t.getWorldPosition) continue;
       t.getWorldPosition(a);
       let i = (a.x || 0) - e.x,
@@ -164,7 +164,7 @@ var y = class {
         c = t.material,
         l = t.userData?.baseOpacity || 0.8;
       if (!c || typeof c.opacity != `number`) continue;
-      let u = 1 - Math.min(1, Math.max(0, s / r));
+      let u = 1 - Math.min(1, Math.max(0, s / n));
       ((t.visible = u > 0), (c.opacity = l * u));
     }
   }
@@ -332,17 +332,17 @@ var y = class {
   _clearBoatPayloadVisual() {
     this._getBoatReference()?.clearCargoPayload?.();
   }
-  _updateMissionRuntime(e, t, n) {
+  _updateMissionRuntime(e, t, r) {
     let i = this.state.mission.activeMission;
     if (!i || !this._missionRuntime) return;
-    let a = Math.max(0, Math.min(0.25, Number(n) || 0));
+    let a = Math.max(0, Math.min(0.25, Number(r) || 0));
     this._missionRuntime.elapsedSeconds += a;
     let o = this._resolveMissionPayload(i);
     !o?.visible ||
       !o.droppable ||
       this._missionRuntime.payloadDropped ||
       (Math.abs(Number(e?.getHeelAngle?.()) || 0) >=
-      r.degToRad(o.heelDropDegrees)
+      n.degToRad(o.heelDropDegrees)
         ? (this._missionRuntime.overHeelSeconds += a)
         : (this._missionRuntime.overHeelSeconds = Math.max(
             0,

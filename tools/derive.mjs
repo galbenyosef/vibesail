@@ -38,7 +38,7 @@
 //                            blog-post, daily-race-replay, 2025recap,
 //                            advertise, contact, feedback)
 //                          src/game/<Name>/<Name>-NN.js      (3D game modules —
-//                            reachable from three.module/Game-CrsSKcAK)
+//                            reachable from three.module/Game-BK-SaWAR)
 //                          src/site/<Name>/<Name>-NN.js      (shared site shell)
 //                          src/pwa/pwa-worker-NN.js          (service worker)
 //                        <Name> is the chunk basename with the Vite content
@@ -114,15 +114,15 @@ const baseNameOf = (capRel) => {
 
 // ── route evidence (the 108-page site; HTML <script type=module src> scan) ─
 const ROUTES = {
-  "assets/main-DT7pZ34g.js": { route: "home", evidence: "index.html + 14 lang/<code>/index.html localized homepages (the shared site shell + home entry)" },
-  "assets/game-DaugXgrE.js": { route: "game", evidence: "game/index.html (the same entry also serves highsea/, tutorial/ and daily-race/, whose documents list the identical module graph)" },
+  "assets/main-Dfkg0YAF.js": { route: "home", evidence: "index.html + 14 lang/<code>/index.html localized homepages (the shared site shell + home entry)" },
+  "assets/game-wg-D5X70.js": { route: "game", evidence: "game/index.html (the same entry also serves highsea/, tutorial/ and daily-race/, whose documents list the identical module graph)" },
   "assets/race-Cw13y8lA.js": { route: "race", evidence: "race/index.html" },
   "assets/leaderboard-DToF7Del.js": { route: "leaderboard", evidence: "leaderboard/index.html" },
   "assets/blog-DCA7h2-z.js": { route: "blog", evidence: "blog/index.html + changelog/index.html" },
   "assets/blog-post-M_rmHwEs.js": { route: "blog-post", evidence: "blog/changelog-*/index.html post pages" },
-  "assets/daily-race-replay-DM0sgZc-.js": { route: "daily-race-replay", evidence: "daily-race-replay/index.html" },
+  "assets/daily-race-replay-DCNw-lUz.js": { route: "daily-race-replay", evidence: "daily-race-replay/index.html" },
   "assets/2025recap-DlJ5wxnz.js": { route: "2025recap", evidence: "2025recap/index.html" },
-  "assets/advertise-BI8u_-IP.js": { route: "advertise", evidence: "advertise/index.html" },
+  "assets/advertise-JgD2U5Yf.js": { route: "advertise", evidence: "advertise/index.html" },
   "assets/contact-BXsOhA2a.js": { route: "contact", evidence: "contact/index.html" },
   "assets/feedback-t1cbygys.js": { route: "feedback", evidence: "feedback/index.html" },
 };
@@ -311,22 +311,22 @@ function scanBlocks(buf) {
 // Whole-file vendor/build-machinery JS: indexed in readable/, never sliced or
 // rewritten; no src/ file. Every guard asserts the recorded shape.
 const WHOLE_FILE = {
-  "assets/three.module-BgyKfsEV.js": {
+  "assets/three.module-CUNolavI.js": {
     what: "bundled three.js engine",
     desc: "the bundled three.js engine — the vendored `__THREE__` revision registration, WebGLRenderer, math/geometry/material/texture/animation/renderer machinery — third-party engine code, not app logic.",
     guard: (t) => t.includes("WebGLRenderer") && t.includes("__THREE__"),
   },
-  "assets/GLTFLoader-C2oC7w8g.js": {
+  "assets/GLTFLoader-Cf6urCJj.js": {
     what: "three.js GLTFLoader addon",
     desc: "the three.js examples/jsm GLTFLoader addon (glTF parsing, KHR_* extension callbacks, DRACO/KTX2/meshopt hooks) as served by the build — third-party loader code, not app logic.",
     guard: (t) => t.includes("GLTFLoader") && t.includes("KHR_"),
   },
-  "assets/DRACOLoader-XlKGmd74.js": {
+  "assets/DRACOLoader-DuamzO37.js": {
     what: "three.js DRACOLoader addon",
     desc: "the three.js examples/jsm DRACOLoader addon (worker pool, `draco_decoder.js`/`draco_wasm_wrapper.js` loading from the decoder path) as served by the build — third-party loader code, not app logic.",
     guard: (t) => t.includes("DRACOLoader") && t.includes("draco_decoder"),
   },
-  "assets/MTLLoader-Dw3w9IRM.js": {
+  "assets/MTLLoader-C86AYmNc.js": {
     what: "three.js MTLLoader addon",
     desc: "the three.js examples/jsm MTLLoader addon (Wavefront .mtl material parsing) as served by the build — third-party loader code, not app logic.",
     guard: (t) => t.includes("mtllib") && t.includes("usemtl") && t.includes("materialLibraries"),
@@ -351,7 +351,7 @@ const WHOLE_FILE = {
     desc: "the bundled MapLibre GL shared module (worker/geometry/dispatch helpers shared with the maplibre bundle) served from /maplibre/ — third-party map-engine code, not app logic.",
     guard: (t) => /maplibre/i.test(t),
   },
-  "assets/world-DPn3WgXw.js": {
+  "assets/world-DPMIL7l5.js": {
     what: "Leaflet + MapLibre world-map chunk",
     desc:
       "the /world page chunk: the minifier merged the bundled Leaflet 1.9.4 UMD and the bundled MapLibre GL engine into the same top-level declaration as the page's own constants (`var h = e(<leaflet>, 1), g = 'https://nominatim…', …`), so statement-aligned slicing cannot separate vendor from app code without violating the alignment rule. Vendor-dominated (Leaflet + MapLibre are the bulk of the 1.13 MB) — classified whole-file like the fleet's other bundled-engine chunks, with content guards asserting both engines and the app anchors are present.",
@@ -387,7 +387,7 @@ const WHOLE_FILE = {
 // statement matching `appAnchor` begins the app band; everything before it is
 // the vendor band, indexed whole-file (never sliced, never renamed).
 const VENDOR_BANDS = {
-  "assets/GoogleTilesLoader-Ba1pGT7V.js": {
+  "assets/GoogleTilesLoader-DfxqQWNC.js": {
     vendorWhat: "3d-tiles-renderer library",
     appWhat: "GoogleTilesLoader wrapper",
     appAnchor: /tileCacheProfile|1048576|1024 \* 1024/,
@@ -469,7 +469,7 @@ async function main() {
       if (capturedJs.has(m[1])) specs.push(m[1]);
     relImports.set(rel, [...new Set(specs)]);
   }
-  const GAME_SEEDS = ["assets/three.module-BgyKfsEV.js", "assets/Game-CrsSKcAK.js"];
+  const GAME_SEEDS = ["assets/three.module-CUNolavI.js", "assets/Game-BK-SaWAR.js"];
   const reachesGame = (cap) => {
     const seen = new Set();
     const stack = [cap];
@@ -482,7 +482,7 @@ async function main() {
     }
     return false;
   };
-  const importedByGame = new Set(relImports.get("assets/Game-CrsSKcAK.js") || []);
+  const importedByGame = new Set(relImports.get("assets/Game-BK-SaWAR.js") || []);
   const areaOf = (cap) => {
     if (cap === "pwa-worker.js") return { area: "pwa", srcDir: "pwa" };
     if (ROUTES[cap]) return { area: "routes/" + ROUTES[cap].route, srcDir: "routes/" + ROUTES[cap].route };
@@ -494,20 +494,24 @@ async function main() {
     return { area: "site", srcDir: `site/${base}` };
   };
 
-  // module-name collisions after hash stripping fail loudly (the tree must be unambiguous)
+  // module-name collisions after hash stripping fail loudly (the tree must be
+  // unambiguous — compared case-insensitively: the derived tree is also checked
+  // out on case-insensitive filesystems, where site/game and site/Game are one dir)
   const baseSeen = new Map();
   for (const cap of jsRelsAll) {
     const base = baseNameOf(cap);
     const area = areaOf(cap).area;
-    const key = `${area}/${base}`;
+    const key = `${area}/${base}`.toLowerCase();
     if (baseSeen.has(key) && baseSeen.get(key) !== cap)
       throw new Error(`module name collision: ${cap} and ${baseSeen.get(key)} both map to ${key}`);
     baseSeen.set(key, cap);
   }
 
-  // the game entry chunks first (reading order, not build order)
+  // the game entry chunks first (reading order, not build order). Keyed on the
+  // hash-stripped module name, so a rebuild that rehashes the chunks keeps the
+  // same reading order.
   const rank = (rel) =>
-    /\/main-DT7pZ34g\.js$/.test(rel) ? 0 : /\/game-DaugXgrE\.js$/.test(rel) ? 1 : /three\.module|maplibre|draco|world-/.test(rel) ? 3 : 2;
+    baseNameOf(rel) === "main" ? 0 : baseNameOf(rel) === "game" ? 1 : /three\.module|maplibre|draco|world/.test(baseNameOf(rel)) ? 3 : 2;
   const jsRels = jsRelsAll.slice().sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
 
   // ── 1) JS: vendor (+vendor bands) -> wholeFile; app -> statement slices ─
@@ -969,10 +973,10 @@ async function main() {
       "table(s) checked' and '19 export table(s) NOT covered (no derived text)' on this mirror; it now " +
       "prints '69 export table(s) checked' and '9 export table(s) NOT covered'. The ten tables that " +
       "moved are the SERVED CHUNKS this mirror keeps whole under the vendor rule (assets/auto-CBo2XcXh.js, " +
-      "assets/three.module-BgyKfsEV.js, assets/DRACOLoader-*.js, assets/GLTFLoader-*.js, " +
+      "assets/three.module-CUNolavI.js, assets/DRACOLoader-*.js, assets/GLTFLoader-*.js, " +
       "assets/MTLLoader-*.js, assets/chunk-QTnfLwEv.js, assets/defineProperty-*.js, " +
       "maplibre/maplibre-gl-shared.mjs, maplibre/maplibre-gl-worker.mjs and the vendor band of " +
-      "assets/GoogleTilesLoader-Ba1pGT7V.js). Each is a real ES module with a real public export table, " +
+      "assets/GoogleTilesLoader-DfxqQWNC.js). Each is a real ES module with a real public export table, " +
       "each already had a reading copy under readable/, and each had NO derived text to compare against: " +
       "the vendor rule keeps those chunks whole and unsliced, so they have no src/ slice, and the " +
       "section pointed at an index-only name ('vendor/...') that is not a file. Each vendor whole-file " +
@@ -1048,7 +1052,7 @@ async function main() {
       src: "routes/<route>/ = HTML-evidenced page entries; game/<Name>/ = modules reachable from three.module/Game; site/<Name>/ = shared site shell; pwa/ = service worker; vendor/, styles/, inline/, skipped/ = index-only section names (no src files)",
       rule:
         "area(chunk) = pwa | routes/<route> (HTML <script type=module src> evidence) | game (transitively imports " +
-        "three.module-BgyKfsEV.js or Game-CrsSKcAK.js, or is imported by the Game chunk and not on the recorded " +
+        "three.module-CUNolavI.js or Game-BK-SaWAR.js, or is imported by the Game chunk and not on the recorded " +
         "shared-shell exception list) | site otherwise",
       exceptionList: [...SHARED_SHELL].sort(),
     },

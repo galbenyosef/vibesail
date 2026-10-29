@@ -1,6 +1,6 @@
 // BoatModel 03 — isfinite
-// Lines 401-440 of readable/assets/BoatModel-Cf2RVdWT.pretty.js (statement-aligned).
-function A(e, t) {
+// Lines 401-440 of readable/assets/BoatModel-Z2nOAZAK.pretty.js (statement-aligned).
+function D(e, t) {
   if (typeof e != `number` || !Number.isFinite(e) || !Number.isInteger(e)) {
     let e = Error(`[SailRig] ${t}: must be an integer color`);
     throw ((e.name = `BoatAppearanceError`), e);
@@ -10,13 +10,13 @@ function A(e, t) {
     throw ((e.name = `BoatAppearanceError`), e);
   }
 }
-function j(e, t) {
+function O(e, t) {
   if (!Number.isFinite(e)) {
     let e = Error(`[SailRig] ${t}: must be a finite number`);
     throw ((e.name = `BoatGeometryError`), e);
   }
 }
-function M(e, t) {
+function k(e, t) {
   let n = e?.x,
     r = e?.y,
     i = e?.z;
@@ -25,18 +25,18 @@ function M(e, t) {
     throw ((e.name = `BoatGeometryError`), e);
   }
 }
-function me(e) {
+function A(e) {
   return e
     ? e.isVector3
       ? e
       : typeof e.x == `number` &&
           typeof e.y == `number` &&
           typeof e.z == `number`
-        ? new S(e.x, e.y, e.z)
+        ? new w(e.x, e.y, e.z)
         : null
     : null;
 }
-function N(e) {
-  let t = me(e);
+function j(e) {
+  let t = A(e);
   return t ? t.clone() : null;
 }

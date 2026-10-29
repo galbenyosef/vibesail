@@ -1,5 +1,5 @@
 // MultiplayerManager 02 — math
-// Lines 12-532 of readable/assets/MultiplayerManager-CgzUu3MG.pretty.js (statement-aligned).
+// Lines 12-541 of readable/assets/MultiplayerManager-DyxhSkD5.pretty.js (statement-aligned).
 var d = 4e3,
   SEND_FAILED_EVENT = `send_failed`,
   p = 2,
@@ -334,8 +334,10 @@ var d = 4e3,
     }
     sendBoatUpdate() {
       if (!this.connected || !this.playerBoat) return;
-      let e = c.fromBoat(this.playerBoat),
-        t = o.encodePosition(e);
+      let e = c.fromBoat(this.playerBoat);
+      Number.isInteger(this.playerBoat.simTick) &&
+        (e.tick = this.playerBoat.simTick);
+      let t = o.encodePosition(e);
       this._sendSocketMessage({ t: `u`, d: t }, `boat update`);
     }
     setFlagCode(e) {
@@ -398,16 +400,23 @@ var d = 4e3,
         (this.interpolationDisableTime = performance.now() / 1e3),
         (this.interpolationDisableDuration = e));
     }
+    noteSimTick(e) {
+      ((this._sendClockOnSim = !0), this._accumulateSendClock(e));
+    }
+    _accumulateSendClock(e) {
+      !this.connected ||
+        !this.playerBoat ||
+        ((this.lastUpdateTime += e),
+        this.lastUpdateTime >= this.updateInterval &&
+          (this.sendBoatUpdate(), (this.lastUpdateTime = 0)));
+    }
     update(e) {
       if (!this.connected) return;
       let t = performance.now() / 1e3;
       (this.disableInterpolation &&
         t - this.interpolationDisableTime > this.interpolationDisableDuration &&
         (this.disableInterpolation = !1),
-        this.playerBoat &&
-          ((this.lastUpdateTime += e),
-          this.lastUpdateTime >= this.updateInterval &&
-            (this.sendBoatUpdate(), (this.lastUpdateTime = 0))));
+        this._sendClockOnSim || this._accumulateSendClock(e));
       for (let r in this.remoteBoats) {
         let i = this.remoteBoats[r];
         if (!i.targetState || !i.currentState) {

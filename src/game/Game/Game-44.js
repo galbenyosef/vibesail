@@ -1,342 +1,138 @@
-// Game 44 — kind
-// Lines 21802-22141 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-function cl(e) {
-  let t = String(e || ``)
-    .trim()
-    .toLowerCase()
-    .replace(/[-\s]+/g, `_`);
-  return t
-    ? t === s.FREE_SAIL || t === `free`
-      ? s.FREE_SAIL
-      : t === s.DAILY_RACE || t === `race`
-        ? s.DAILY_RACE
-        : t === s.HIGH_SEA || t === `highsea`
-          ? s.HIGH_SEA
-          : t === s.TIME_TRIAL || t === `timetrial`
-            ? s.TIME_TRIAL
-            : null
-    : null;
-}
-async function ll(e, t, n = {}) {
-  let i = cl(t);
-  if (!i) return null;
-  if (i === s.HIGH_SEA) {
-    let { default: t } = await r(
-      async () => {
-        let { default: e } = await import(`./HighSeaModeManager-BEvC6iXw.js`);
-        return { default: e };
-      },
-      __vite__mapDeps([36, 27, 37, 38, 28, 1, 13, 14, 3, 8, 4, 5, 16, 35, 39]),
-    );
-    return new t(e, n);
+// Game 44 — math
+// Lines 21229-21364 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+function Bl(e, t = e, n = 1) {
+  let r = Math.PI * Math.hypot(e, t) * 2,
+    i = Math.max(8, Math.ceil(r / Math.max(1, n))),
+    a = [];
+  for (let n = 0; n < i; n++) {
+    let r = (n / i) * 2 * Math.PI,
+      o = Math.cos(r) * e,
+      s = Math.sin(r) * t;
+    a.push(new q.Vector(o, s));
   }
-  return null;
-}
-var ul = 80,
-  dl = 120,
-  fl = 40,
-  pl = 80,
-  ml = 80,
-  hl = 256,
-  gl = 65536,
-  _l = 256,
-  vl = 64,
-  yl = 4,
-  bl = 2e3,
-  xl = new Set([`webgl`, `webgpu`]),
-  Sl = new Set([`core`, `compatibility`]),
-  Cl = new Set([`bgra8unorm`, `rgba8unorm`]),
-  wl = new Set([`highp`, `mediump`, `lowp`]),
-  Tl = [
-    [`texture-compression-astc`, `astc`],
-    [`texture-compression-bc`, `bc`],
-    [`depth32float-stencil8`, `d32s8`],
-    [`texture-compression-etc2`, `etc2`],
-    [`shader-f16`, `f16`],
-    [`float32-filterable`, `float32`],
-  ],
-  El = (e = !1) => ({ kind: `bool`, person: e }),
-  Dl = (e, t = !1) => ({ kind: `text`, max: e, person: t }),
-  Ol = (e) => ({ kind: `int`, max: e }),
-  kl = (e, t = !1, n = null) => ({
-    kind: `enum`,
-    allowed: e,
-    person: t,
-    fallback: n,
-  }),
-  Al = {
-    webgl1_available: El(!0),
-    webgl2_available: El(!0),
-    webgpu_available: El(!0),
-    webgl_ext_anisotropic: El(),
-    webgl_ext_instanced_arrays: El(),
-    webgl_ext_vao: El(),
-    gpu_is_fallback_adapter: El(),
-    webgl_vendor: Dl(ul, !0),
-    webgl_renderer: Dl(dl),
-    gpu_vendor: Dl(ul, !0),
-    gpu_architecture: Dl(fl, !0),
-    gpu_device: Dl(pl),
-    gpu_description: Dl(ml),
-    preferred_renderer: kl(xl, !0, `webgl`),
-    webgl_fragment_precision: kl(wl),
-    webgpu_feature_level: kl(Sl),
-    preferred_canvas_format: kl(Cl),
-    webgpu_features_key: { kind: `features` },
-    max_texture_size: Ol(gl),
-    max_renderbuffer_size: Ol(gl),
-    webgpu_feature_count: Ol(hl),
-    hardware_concurrency: Ol(_l),
-    device_memory: { kind: `memory` },
-    device_pixel_ratio: { kind: `dpr` },
-  },
-  jl = new Set(Tl.map(([, e]) => e));
-function Ml(e, t = ul) {
-  if (e == null) return null;
-  let n = String(e)
-    .replace(/[\u0000-\u001f]/g, ` `)
-    .replace(/\s+/g, ` `)
-    .trim();
-  return n ? (n.length <= t ? n : `${n.slice(0, t)}...`) : null;
-}
-function Nl(e, t) {
-  let n = Ml(e, 32)?.toLowerCase() || null;
-  return n && t.has(n) ? n : null;
-}
-function Pl(e, t) {
-  let n = Number(e);
-  return Number.isFinite(n) ? Math.max(0, Math.min(t, Math.round(n))) : null;
-}
-function Fl(e) {
-  let t = Number(e);
-  return !Number.isFinite(t) || t <= 0
-    ? null
-    : Math.round(Math.min(yl, t) * 100) / 100;
-}
-function Il(e) {
-  let t = Number(e);
-  return !Number.isFinite(t) || t <= 0
-    ? null
-    : Math.round(Math.min(vl, t) * 100) / 100;
-}
-function Ll(e) {
-  try {
-    e?.getExtension?.(`WEBGL_lose_context`)?.loseContext?.();
-  } catch {}
-}
-function Rl(e, t) {
-  try {
-    return t.some((t) => !!e.getExtension?.(t));
-  } catch {
-    return !1;
-  }
-}
-function zl(e, t) {
-  let n = e?.[t];
-  if (!Number.isFinite(n)) return null;
-  try {
-    return Pl(e.getParameter?.(n), gl);
-  } catch {
-    return null;
-  }
-}
-function Bl(e, t, n, r) {
-  try {
-    let i = e.getExtension?.(`WEBGL_debug_renderer_info`),
-      a = i ? e.getParameter?.(i[t]) : null,
-      o = e.getParameter?.(e[n]);
-    return Ml(a, r) || Ml(o, r);
-  } catch {
-    return null;
-  }
+  return a;
 }
 function Vl(e, t) {
-  return t === !0
-    ? !0
-    : e
-      ? typeof WebGL2RenderingContext < `u` &&
-        e instanceof WebGL2RenderingContext
-        ? !0
-        : e.constructor?.name === `WebGL2RenderingContext`
-      : !1;
+  return [
+    new q.Vector(0, 0),
+    new q.Vector(e, 0),
+    new q.Vector(e, t),
+    new q.Vector(0, t),
+  ];
 }
-function Hl(e) {
-  try {
-    let t = e.getShaderPrecisionFormat?.(e.FRAGMENT_SHADER, e.HIGH_FLOAT),
-      n = Number(t?.precision);
-    return !Number.isFinite(n) || n <= 0
-      ? null
-      : n >= 23
-        ? `highp`
-        : n >= 10
-          ? `mediump`
-          : `lowp`;
-  } catch {
-    return null;
-  }
+function Hl(e = {}) {
+  return e instanceof q.Vector ? e : new q.Vector(e.x || 0, e.y || 0);
 }
-function Ul(e, { isWebGL2: t = !1 } = {}) {
-  let n = {
-    webgl1_available: !1,
-    webgl2_available: !1,
-    webgl_vendor: null,
-    webgl_renderer: null,
-    max_texture_size: null,
-    max_renderbuffer_size: null,
-    webgl_ext_anisotropic: !1,
-    webgl_ext_instanced_arrays: !1,
-    webgl_ext_vao: !1,
-    webgl_fragment_precision: null,
-  };
-  if (!e || typeof e.getParameter != `function`) return n;
-  let r = Vl(e, t);
-  return {
-    webgl1_available: !0,
-    webgl2_available: r,
-    webgl_vendor: Bl(e, `UNMASKED_VENDOR_WEBGL`, `VENDOR`, ul),
-    webgl_renderer: Bl(e, `UNMASKED_RENDERER_WEBGL`, `RENDERER`, dl),
-    max_texture_size: zl(e, `MAX_TEXTURE_SIZE`),
-    max_renderbuffer_size: zl(e, `MAX_RENDERBUFFER_SIZE`),
-    webgl_ext_anisotropic: Rl(e, [
-      `EXT_texture_filter_anisotropic`,
-      `WEBKIT_EXT_texture_filter_anisotropic`,
-      `MOZ_EXT_texture_filter_anisotropic`,
-    ]),
-    webgl_ext_instanced_arrays: r || Rl(e, [`ANGLE_instanced_arrays`]),
-    webgl_ext_vao: r || Rl(e, [`OES_vertex_array_object`]),
-    webgl_fragment_precision: Hl(e),
-  };
+function Ul(e = []) {
+  let t = yl(e, Hl);
+  return Gl(t) ? t.reverse() : t;
 }
-function Wl(e) {
-  let t = e?.defaultView?.navigator?.userAgent;
-  return typeof t == `string` && t.includes(`jsdom`);
+function Wl(e, t) {
+  let n = e.x - t.x,
+    r = e.y - t.y;
+  return Math.hypot(n, r);
 }
-function Gl(e = globalThis.document) {
-  let t = Ul(null);
-  if (!e || typeof e.createElement != `function` || Wl(e)) return t;
-  try {
-    let t = e.createElement(`canvas`),
-      n = t?.getContext?.(`webgl2`);
-    if (n) {
-      let e = Ul(n, { isWebGL2: !0 });
-      return (Ll(n), e);
-    }
-    let r = t?.getContext?.(`webgl`) || t?.getContext?.(`experimental-webgl`);
-    if (r) {
-      let e = Ul(r, { isWebGL2: !1 });
-      return (Ll(r), e);
-    }
-  } catch {}
-  return t;
+function Gl(e) {
+  let t = e.length,
+    n = 0;
+  return (
+    hl(e, (r, i) => {
+      let a = e[(i + 1) % t];
+      n += (a.x - r.x) * (a.y + r.y);
+    }),
+    n > 0
+  );
 }
-function Kl(e, t) {
-  return new Promise((n) => {
-    let r = !1,
-      i = (e) => {
-        r || ((r = !0), n(e));
-      },
-      a = setTimeout(() => i(void 0), t);
-    Promise.resolve(e).then(
-      (e) => {
-        (clearTimeout(a), i(e));
-      },
-      () => {
-        (clearTimeout(a), i(null));
-      },
-    );
-  });
+function Kl(e, t = {}) {
+  ((e.isStatic = !!t.isStatic),
+    (e.isTrigger = !!t.isTrigger),
+    (e.padding = t.padding || 0),
+    (e.group = t.group ?? 2147483647),
+    `userData` in t && (e.userData = t.userData),
+    t.isCentered && e.typeGroup !== Y.Circle && (e.isCentered = !0),
+    t.angle && e.setAngle(t.angle));
 }
 function ql(e) {
-  try {
-    let t = e?.info;
-    return t && typeof t == `object` ? t : {};
-  } catch {
-    return {};
-  }
+  let { bbox: t, minX: n, minY: r, maxX: i, maxY: a } = e;
+  return t.minX < n || t.minY < r || t.maxX > i || t.maxY > a;
 }
 function Jl(e, t) {
-  return Nl(e?.featureLevel ?? t?.featureLevel, Sl);
+  return (
+    t.minX > e.maxX || t.minY > e.maxY || t.maxX < e.minX || t.maxY < e.minY
+  );
 }
-function Yl(e) {
-  if (!e || typeof e.has != `function`)
-    return { webgpu_feature_count: null, webgpu_features_key: null };
-  let t = Tl.filter(([t]) => {
-    try {
-      return e.has(t) === !0;
-    } catch {
-      return !1;
-    }
-  }).map(([, e]) => e);
-  return {
-    webgpu_feature_count: Number.isFinite(e.size) ? Pl(e.size, hl) : null,
-    webgpu_features_key: t.length ? t.join(`,`) : null,
-  };
+function Yl({ group: e }, { group: t }) {
+  let n = e >> 16,
+    r = t >> 16,
+    i = e & 65535;
+  return (n & t & 65535) != 0 && (r & i) !== 0;
 }
-function Xl(e) {
-  try {
-    return Nl(e?.getPreferredCanvasFormat?.(), Cl);
-  } catch {
-    return null;
+function Xl(e, t) {
+  return (e.typeGroup === Y.Circle ? Pl : Il)[t.typeGroup](e, t);
+}
+function Zl(e) {
+  return yl(e, ({ x: e, y: t }) => ({ x: e, y: t }));
+}
+function Ql({ x: e, y: t } = { x: 0, y: 0 }) {
+  return [e, t];
+}
+function $l([e, t] = [0, 0]) {
+  return { x: e, y: t };
+}
+function eu(e, t) {
+  return (e.typeGroup === Y.Circle ? Nl : Fl)[t.typeGroup];
+}
+function tu(e, t, n, r, i, a = 2, o = 4) {
+  let s = r - t,
+    c = i - n,
+    l = Math.atan2(c, s),
+    u = Math.cos(l),
+    d = Math.sin(l),
+    f = t,
+    p = n,
+    m = Math.hypot(s, c);
+  for (; m > 0;) {
+    let t = Math.min(m, a);
+    (e.moveTo(f, p),
+      e.lineTo(f + u * t, p + d * t),
+      (f += u * (a + o)),
+      (p += d * (a + o)),
+      (m -= a + o));
   }
 }
-function Zl(e, t) {
-  return {
-    hardware_concurrency: Pl(e?.hardwareConcurrency, _l),
-    device_memory: Il(e?.deviceMemory),
-    device_pixel_ratio: Fl(t?.devicePixelRatio),
-  };
+function nu(e, { pos: t, calcPoints: n }, r = !1) {
+  let i = n[n.length - 1],
+    a = t.x + i.x,
+    o = t.y + i.y;
+  (n.length === 1 ? e.arc(a, o, 1, 0, Math.PI * 2) : e.moveTo(a, o),
+    hl(n, (a, o) => {
+      let s = t.x + a.x,
+        c = t.y + a.y;
+      if (r) {
+        let r = n[o - 1] || i;
+        tu(e, t.x + r.x, t.y + r.y, s, c);
+      } else e.lineTo(s, c);
+    }));
 }
-function Ql(e) {
-  let t = ql(e),
-    n = Yl(e?.features);
-  return {
-    webgpu_available: !0,
-    webgpu_feature_level: Jl(e, t),
-    webgpu_feature_count: n.webgpu_feature_count,
-    webgpu_features_key: n.webgpu_features_key,
-    gpu_vendor: Ml(t.vendor, ul),
-    gpu_architecture: Ml(t.architecture, fl),
-    gpu_device: Ml(t.device, pl),
-    gpu_description: Ml(t.description, ml),
-    gpu_is_fallback_adapter:
-      typeof e?.isFallbackAdapter == `boolean` ? e.isFallbackAdapter : null,
-  };
-}
-async function $l({
-  gl: e = null,
-  documentRef: t = globalThis.document,
-  navigatorRef: n = globalThis.navigator,
-  windowRef: r = globalThis,
-  timeoutMs: i = bl,
-} = {}) {
-  let a = {
-      ...(e && typeof e.getParameter == `function` ? Ul(e) : Gl(t)),
-      ...Zl(n, r),
-      webgpu_available: !1,
-      preferred_renderer: `webgl`,
+function ru(e, t, n = !0) {
+  nu(
+    e,
+    {
+      pos: { x: t.minX, y: t.minY },
+      calcPoints: Vl(t.maxX - t.minX, t.maxY - t.minY),
     },
-    o = n?.gpu;
-  if (!o || typeof o.requestAdapter != `function`) return a;
-  a.preferred_canvas_format = Xl(o);
-  let s = await Kl(
-    Promise.resolve().then(() => o.requestAdapter()),
-    i,
+    n,
   );
-  return s === void 0
-    ? { ...a, webgpu_available: null }
-    : s
-      ? { ...a, ...Ql(s) }
-      : a;
 }
-function eu(e) {
-  if (typeof e != `string`) return null;
-  let t = [
-    ...new Set(
-      e
-        .split(`,`)
-        .map((e) => e.trim().toLowerCase())
-        .filter((e) => jl.has(e)),
-    ),
-  ];
-  return t.length ? t.join(`,`) : null;
+function iu() {
+  return !0;
+}
+function au(e) {
+  return Math.max(0, Math.min(e, 2147483647));
+}
+function ou(e, t = 1, n = !0) {
+  if (!t) return;
+  let r = Math.cos(e.angle) * t,
+    i = Math.sin(e.angle) * t;
+  e.setPosition(e.x + r, e.y + i, n);
 }

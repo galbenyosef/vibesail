@@ -1,5 +1,5 @@
 // FloatingWorldProp 02 — float32array
-// Lines 173-461 of readable/assets/FloatingWorldProp--a8_muYf.pretty.js (statement-aligned).
+// Lines 173-461 of readable/assets/FloatingWorldProp-C5Dibl-5.pretty.js (statement-aligned).
 var S = class {
     constructor(e, t = {}) {
       ((this.parent = e),
@@ -26,9 +26,9 @@ var S = class {
         n = e.emitters,
         r = e.emitterJitter || FLOATING_PROP_DEFAULTS.emitterJitter,
         i = t * 4,
-        s = new Float32Array(i * 3),
-        u = new Float32Array(i * 2),
-        d = new Float32Array(i),
+        o = new Float32Array(i * 3),
+        l = new Float32Array(i * 2),
+        u = new Float32Array(i),
         p = new Float32Array(i),
         m = new Float32Array(i * 3),
         g = new Float32Array(i * 3),
@@ -49,7 +49,7 @@ var S = class {
           o = Math.random(),
           s = Number.isFinite(t.sizeScale) ? t.sizeScale : 1,
           c = Number.isFinite(t.onDuration) ? Math.max(0, t.onDuration) : 0,
-          l = Number.isFinite(t.offDuration) ? Math.max(0, t.offDuration) : 0,
+          d = Number.isFinite(t.offDuration) ? Math.max(0, t.offDuration) : 0,
           f = Number.isFinite(t.cyclePhase) ? t.cyclePhase : 0,
           h = t.direction || y(t, e.horizontalBias),
           w = (Math.random() - 0.5) * 2 * r.x,
@@ -61,13 +61,13 @@ var S = class {
           A = i * 4;
         for (let e = 0; e < 4; e++) {
           let t = A + e;
-          ((u[t * 2] = C[e][0]),
-            (u[t * 2 + 1] = C[e][1]),
-            (d[t] = a),
+          ((l[t * 2] = C[e][0]),
+            (l[t * 2 + 1] = C[e][1]),
+            (u[t] = a),
             (p[t] = o),
             (_[t] = s),
             (v[t] = c),
-            (b[t] = l),
+            (b[t] = d),
             (x[t] = f),
             (m[t * 3] = D),
             (m[t * 3 + 1] = O),
@@ -84,11 +84,11 @@ var S = class {
           (S[j + 4] = A + 3),
           (S[j + 5] = A + 2));
       }
-      let w = new f();
+      let w = new d();
       (w.setIndex(new c(S, 1)),
-        w.setAttribute(`position`, new c(s, 3)),
-        w.setAttribute(`aCorner`, new c(u, 2)),
-        w.setAttribute(`aSeed`, new c(d, 1)),
+        w.setAttribute(`position`, new c(o, 3)),
+        w.setAttribute(`aCorner`, new c(l, 2)),
+        w.setAttribute(`aSeed`, new c(u, 1)),
         w.setAttribute(`aPhase`, new c(p, 1)),
         w.setAttribute(`aEmitter`, new c(m, 3)),
         w.setAttribute(`aInitialDir`, new c(g, 3)),
@@ -99,7 +99,7 @@ var S = class {
       let T = new a({
           uniforms: {
             uTime: { value: 0 },
-            uColor: { value: new o(e.color) },
+            uColor: { value: new f(e.color) },
             uOpacity: { value: e.opacity },
             uSize: { value: e.size },
             uSizeGrowth: { value: e.sizeGrowth },
@@ -222,7 +222,7 @@ var S = class {
           blending: 1,
           fog: !1,
         }),
-        E = new l(w, T);
+        E = new s(w, T);
       ((E.name = `floating-world-prop-smoke`),
         (E.frustumCulled = !1),
         (E.renderOrder = 2),
@@ -264,7 +264,7 @@ function T() {
   return (e.setDRACOLoader(w()), e);
 }
 function E(e) {
-  return u.degToRad(Number.isFinite(e) ? e : 0);
+  return o.degToRad(Number.isFinite(e) ? e : 0);
 }
 var COLLISION_FOOTPRINT_DEFAULTS = {
   enabled: !0,

@@ -1,6 +1,6 @@
 // VectorUtils 01 — clone
-// Lines 1-27 of readable/assets/VectorUtils-ZPUW1jx-.pretty.js (statement-aligned).
-import { in as e } from "./three.module-BgyKfsEV.js";
+// Lines 1-27 of readable/assets/VectorUtils-Cra0vQSd.pretty.js (statement-aligned).
+import { sn as e } from "./three.module-CUNolavI.js";
 var t = class {
   static fromAngle(t) {
     return new e(Math.sin(t), 0, Math.cos(t));

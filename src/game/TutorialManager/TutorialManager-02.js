@@ -1,5 +1,5 @@
 // TutorialManager 02 — hints
-// Lines 5-1160 of readable/assets/TutorialManager-iD72X4OM.pretty.js (statement-aligned).
+// Lines 5-1160 of readable/assets/TutorialManager-DID0rjsE.pretty.js (statement-aligned).
 var c = Math.PI / 6,
   l = 42,
   STEP_RACE_RULES = `race_rules`,
@@ -25,15 +25,15 @@ var c = Math.PI / 6,
         (this.currentStepIndex = 0),
         (this.voiceEnabled = !0),
         (this.stepData = { greenTime: 0 }),
-        (this.events = new i(`Tutorial`)),
+        (this.events = new a(`Tutorial`)),
         (this.on = this.events.on.bind(this.events)),
         (this.off = this.events.off.bind(this.events)),
         (this.checkpointManager = null),
         (this.buoyIndicator = null),
         (this.currentAudio = null),
         (this.originalSailColor = this.boat.model.sailColor || 16777215),
-        (this.currentSailColor = new t(this.originalSailColor)),
-        (this.targetSailColor = new t(this.originalSailColor)),
+        (this.currentSailColor = new n(this.originalSailColor)),
+        (this.targetSailColor = new n(this.originalSailColor)),
         (this.ui = null),
         (this.progressDots = []),
         (this.hintContainer = null),
@@ -58,10 +58,10 @@ var c = Math.PI / 6,
           submissionSucceeded: !1,
         }),
         (this.originalTutorialRudderEfficiency = null));
-      let n = a.isMobile();
-      ((this.isMobile = n),
+      let t = o.isMobile();
+      ((this.isMobile = t),
         (this.raceConfig = this._getDefaultRaceConfig()),
-        (this.steps = this._getSteps(n)),
+        (this.steps = this._getSteps(t)),
         this.init());
     }
     _getDefaultRaceConfig() {
@@ -212,8 +212,8 @@ var c = Math.PI / 6,
           audioFile: `reaching`,
           onEnter: () => {
             let e = this.boat.getPosition(),
-              t = this.app.world.getWindDirection(),
-              r = new n(-t.z, 0, t.x).normalize(),
+              n = this.app.world.getWindDirection(),
+              r = new t(-n.z, 0, n.x).normalize(),
               i = {
                 x: e.x + r.x * 180 + Math.random() * 20,
                 z: e.z + r.z * 180 + Math.random() * 20,
@@ -324,8 +324,8 @@ var c = Math.PI / 6,
       ];
     }
     init() {
-      ((this.checkpointManager = new o(this.app.world.scene, this.raceConfig)),
-        (this.buoyIndicator = new r(this, this.boat)),
+      ((this.checkpointManager = new r(this.app.world.scene, this.raceConfig)),
+        (this.buoyIndicator = new i(this, this.boat)),
         (this.config = this.raceConfig),
         this.boat.dynamics && this.boat.dynamics.setWaveYawScale(0),
         this.setupUI(),
@@ -1108,16 +1108,16 @@ var c = Math.PI / 6,
           this.buoyIndicator?.hide()));
     }
     updateDynamicSailColor(e) {
-      let t = this.boat.dynamics;
-      if (!t) return;
-      let r = t.calculateApparentWind(),
-        i = t.rotation.y,
-        a = new n(-Math.sin(i + t.sailAngle), 0, -Math.cos(i + t.sailAngle)),
+      let n = this.boat.dynamics;
+      if (!n) return;
+      let r = n.calculateApparentWind(),
+        i = n.rotation.y,
+        a = new t(-Math.sin(i + n.sailAngle), 0, -Math.cos(i + n.sailAngle)),
         o = s.dot(r.direction, a),
         c = (Math.acos(Math.min(Math.max(o, -1), 1)) * 180) / Math.PI,
         l = Math.min(c, 180 - c),
         u;
-      (t.visualLuffing > 0.5
+      (n.visualLuffing > 0.5
         ? (u = 15680580)
         : l < 10
           ? (u = 16347926)

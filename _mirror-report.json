@@ -3,65 +3,65 @@
   "origin": "https://vibesail.com",
   "gated": false,
   "sessionRenewal": "none",
-  "requests": 1100,
-  "fetched": 410,
-  "bytes": 18687829,
+  "requests": 508,
+  "fetched": 411,
+  "bytes": 20836139,
   "paths": [
     "2025recap/index.html",
     "advertise/index.html",
     "assets/2025recap-5CI3Tc6z.css",
     "assets/2025recap-DlJ5wxnz.js",
-    "assets/Advertisement-D60LkU06.js",
+    "assets/Advertisement-XcWX0C3O.js",
     "assets/Bearing-Bz8gc2k9.js",
-    "assets/Birds-DHEcQo9w.js",
-    "assets/Blimp-CsqFvrq-.js",
-    "assets/BoatModel-Cf2RVdWT.js",
-    "assets/BoatShop-SaUBreAv.js",
+    "assets/Birds-C0RXzqnf.js",
+    "assets/Blimp-CBxX7-Aq.js",
+    "assets/BoatModel-Z2nOAZAK.js",
+    "assets/BoatShop-SpknYdP-.js",
     "assets/BoatVisualizerPanel-C8Vrfq5S.js",
-    "assets/CannonSystem-8nVBpQ-O.js",
-    "assets/CargoShip-DSMEqWta.js",
-    "assets/DRACOLoader-XlKGmd74.js",
-    "assets/DataModels-DjmBwyzI.js",
-    "assets/FloatingWorldProp--a8_muYf.js",
-    "assets/GLTFLoader-C2oC7w8g.js",
-    "assets/Game-CrsSKcAK.js",
+    "assets/CannonSystem-BkU5r_SB.js",
+    "assets/CargoShip-Da4OGSKb.js",
+    "assets/DRACOLoader-DuamzO37.js",
+    "assets/DataModels-CogLxOKo.js",
+    "assets/FloatingWorldProp-C5Dibl-5.js",
+    "assets/GLTFLoader-Cf6urCJj.js",
+    "assets/Game-BK-SaWAR.js",
     "assets/GeoMath-B_Iby49-.js",
-    "assets/GeometryGuards-BGRyriw5.js",
+    "assets/GeometryGuards-B5mb6RRe.js",
     "assets/GhostReplayModel-B8EqTWpz.js",
-    "assets/GoogleTilesLoader-Ba1pGT7V.js",
+    "assets/GoogleTilesLoader-DfxqQWNC.js",
     "assets/H5GamesAds-cgmFpTvU.js",
-    "assets/HighSeaModeManager-BEvC6iXw.js",
-    "assets/IslandGenerator-DZNI3CSt.js",
+    "assets/HighSeaModeManager-CSga6NhB.js",
+    "assets/IslandGenerator-CwFNo9L2.js",
     "assets/KeyboardManager-DVLZ3teY.js",
     "assets/LocalCache-DHomYmcY.js",
-    "assets/LogisticsManager-DugCgbD8.js",
-    "assets/LogisticsUI-DWG9W15h.js",
-    "assets/MTLLoader-Dw3w9IRM.js",
-    "assets/MultiplayerManager-CgzUu3MG.js",
+    "assets/LogisticsManager-Bb1kkPAa.js",
+    "assets/LogisticsUI-DK7Azuhh.js",
+    "assets/MTLLoader-C86AYmNc.js",
+    "assets/MultiplayerManager-DyxhSkD5.js",
     "assets/OneSignalPushNotifications-C5QrvXEE.js",
-    "assets/PerformanceMonitor-CwOrhyRP.js",
-    "assets/PirateHuntManager-B5ipnDt7.js",
+    "assets/PerformanceMonitor-Ckz1oJ3g.js",
+    "assets/PirateHuntManager-D-ZOVSO4.js",
     "assets/PlayerNameStorage-Q3p2umqg.js",
-    "assets/Portal-DAOSX3nf.js",
+    "assets/Portal-DsCBQ6-0.js",
     "assets/PostHogCapture-DUxqoMcu.js",
     "assets/RaceConfig-BiFwKzq8.js",
     "assets/RenderOrder-CTE7PEm0.js",
     "assets/RuntimeEnvironment-BAaLbeCv.js",
     "assets/SailorProfileLinks-CkEgGITb.js",
-    "assets/SeaCreatures-C5ijwC34.js",
-    "assets/SettingsMenu-DL9R7A1C.js",
-    "assets/SharedTextureLoader-BkelxMVX.js",
-    "assets/TargetColumn-DnYYEURe.js",
+    "assets/SeaCreatures-CaBHRx9G.js",
+    "assets/SettingsMenu-CsLMev6C.js",
+    "assets/SharedTextureLoader-D5Sv4mlJ.js",
+    "assets/TargetColumn-CpoF4J2y.js",
     "assets/TrackGenerator-CFnrWNiH.js",
-    "assets/TutorialManager-iD72X4OM.js",
-    "assets/VectorUtils-ZPUW1jx-.js",
+    "assets/TutorialManager-DID0rjsE.js",
+    "assets/VectorUtils-Cra0vQSd.js",
     "assets/WorldAdPopupManager-WzG-fNUY.js",
-    "assets/WorldDefinitionBuilder-CjRtTnhK.js",
+    "assets/WorldDefinitionBuilder-Bu5XtOsC.js",
     "assets/WorldInteractionEvents-L1ARfoSs.js",
     "assets/WorldSignAsset-yHPgCsa-.js",
-    "assets/Yacht-OEQr2DjX.js",
+    "assets/Yacht-DS-m91Pv.js",
     "assets/advertise--T9pWmIF.css",
-    "assets/advertise-BI8u_-IP.js",
+    "assets/advertise-JgD2U5Yf.js",
     "assets/advertise-world-map.png",
     "assets/advertisement.png",
     "assets/authClient-roTt0Fs9.js",
@@ -96,7 +96,7 @@
     "assets/contact-CuMqdxhS.css",
     "assets/countries-DfpOqyPC.js",
     "assets/daily-race-replay-CGY4aTnI.css",
-    "assets/daily-race-replay-DM0sgZc-.js",
+    "assets/daily-race-replay-DCNw-lUz.js",
     "assets/defineProperty-BbfpZ9Tg.js",
     "assets/displayFormat-DSwSTivx.js",
     "assets/draco/draco_decoder.js",
@@ -183,9 +183,10 @@
     "assets/fraunces-vietnamese-600-normal-DlAl5EAR.woff",
     "assets/fraunces-vietnamese-700-normal-DH94m5DZ.woff2",
     "assets/fraunces-vietnamese-700-normal-DxawQjq2.woff",
-    "assets/game-DaugXgrE.js",
-    "assets/game-DnL7bd1B.css",
-    "assets/game-TtaQJEzj.css",
+    "assets/game-BcEmz-ev.css",
+    "assets/game-b1wtmtds.css",
+    "assets/game-wg-D5X70.js",
+    "assets/geo/egm96-15.bin",
     "assets/header-C8hfIurP.css",
     "assets/icons/vibesail-icon-192.png",
     "assets/icons/vibesail-icon-512.png",
@@ -194,7 +195,7 @@
     "assets/leaderboard-DToF7Del.js",
     "assets/leaderboard-h5aFNhxu.css",
     "assets/main-BHhWfJLs.css",
-    "assets/main-DT7pZ34g.js",
+    "assets/main-Dfkg0YAF.js",
     "assets/models/boat_models/venice/model_lowpoly_optimized.glb",
     "assets/models/cargo_ships/low_poly_cargo_ship.glb",
     "assets/models/landmarks/starship_upper.glb",
@@ -210,7 +211,7 @@
     "assets/recap2025_trophy.png",
     "assets/routeContext-D1HYUwP9.js",
     "assets/scripts/site-header.js",
-    "assets/signConfigs-BxvGsz9k.js",
+    "assets/signConfigs-BUxGu07P.js",
     "assets/site-page-BCzZjifA.css",
     "assets/sora-latin-400-normal-CRt88UEn.woff2",
     "assets/sora-latin-400-normal-OW7qkl5a.woff",
@@ -240,10 +241,10 @@
     "assets/sponsored-locations/spacex-starship-flight-13.webp",
     "assets/sponsored-locations/spacex-x.png",
     "assets/sponsored-locations/the-sailing-academy.webp",
-    "assets/three.module-BgyKfsEV.js",
+    "assets/three.module-CUNolavI.js",
     "assets/thumbnail.webp",
-    "assets/world-B9kkcg8l.css",
-    "assets/world-DPn3WgXw.js",
+    "assets/world-DPMIL7l5.js",
+    "assets/world-VhpyhbeD.css",
     "assets/world-signs/aisuitup.webp",
     "assets/world-signs/aleria.webp",
     "assets/world-signs/atlantic.webp",
@@ -422,7 +423,32 @@
   "unreachable": [
     {
       "status": 404,
-      "path": "/assets/assets/Game-CrsSKcAK.js",
+      "path": "/draco_decoder.wasm",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/draco_decoder.wasm",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/maplibre/.mjs",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/.mjs",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/.mjs",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Game-BK-SaWAR.js",
       "probes": 1
     },
     {
@@ -452,12 +478,12 @@
     },
     {
       "status": 404,
-      "path": "/assets/assets/DataModels-DjmBwyzI.js",
+      "path": "/assets/assets/DataModels-CogLxOKo.js",
       "probes": 1
     },
     {
       "status": 404,
-      "path": "/assets/assets/BoatModel-Cf2RVdWT.js",
+      "path": "/assets/assets/BoatModel-Z2nOAZAK.js",
       "probes": 1
     },
     {
@@ -472,32 +498,32 @@
     },
     {
       "status": 404,
-      "path": "/assets/assets/GeometryGuards-BGRyriw5.js",
+      "path": "/assets/assets/GeometryGuards-B5mb6RRe.js",
       "probes": 1
     },
     {
       "status": 404,
-      "path": "/assets/assets/three.module-BgyKfsEV.js",
+      "path": "/assets/assets/three.module-CUNolavI.js",
       "probes": 1
     },
     {
       "status": 404,
-      "path": "/assets/assets/SharedTextureLoader-BkelxMVX.js",
+      "path": "/assets/assets/SharedTextureLoader-D5Sv4mlJ.js",
       "probes": 1
     },
     {
       "status": 404,
-      "path": "/assets/assets/DRACOLoader-XlKGmd74.js",
+      "path": "/assets/assets/DRACOLoader-DuamzO37.js",
       "probes": 1
     },
     {
       "status": 404,
-      "path": "/assets/assets/GLTFLoader-C2oC7w8g.js",
+      "path": "/assets/assets/GLTFLoader-Cf6urCJj.js",
       "probes": 1
     },
     {
       "status": 404,
-      "path": "/assets/assets/MTLLoader-Dw3w9IRM.js",
+      "path": "/assets/assets/MTLLoader-C86AYmNc.js",
       "probes": 1
     },
     {
@@ -507,7 +533,7 @@
     },
     {
       "status": 404,
-      "path": "/assets/assets/VectorUtils-ZPUW1jx-.js",
+      "path": "/assets/assets/VectorUtils-Cra0vQSd.js",
       "probes": 1
     },
     {
@@ -532,7 +558,7 @@
     },
     {
       "status": 404,
-      "path": "/assets/assets/WorldDefinitionBuilder-CjRtTnhK.js",
+      "path": "/assets/assets/WorldDefinitionBuilder-Bu5XtOsC.js",
       "probes": 1
     },
     {
@@ -547,7 +573,7 @@
     },
     {
       "status": 404,
-      "path": "/assets/assets/signConfigs-BxvGsz9k.js",
+      "path": "/assets/assets/signConfigs-BUxGu07P.js",
       "probes": 1
     },
     {
@@ -602,141 +628,6 @@
     },
     {
       "status": 404,
-      "path": "/assets/assets/GoogleTilesLoader-Ba1pGT7V.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/Advertisement-D60LkU06.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/WorldAdPopupManager-WzG-fNUY.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/WorldInteractionEvents-L1ARfoSs.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/IslandGenerator-DZNI3CSt.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/Yacht-OEQr2DjX.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/Blimp-CsqFvrq-.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/WorldSignAsset-yHPgCsa-.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/CargoShip-DSMEqWta.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/FloatingWorldProp--a8_muYf.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/Portal-DAOSX3nf.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/portalDefinitions-CAxa3Tbw.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/Birds-DHEcQo9w.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/SeaCreatures-C5ijwC34.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/BoatShop-SaUBreAv.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/SettingsMenu-DL9R7A1C.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/HighSeaModeManager-BEvC6iXw.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/CannonSystem-8nVBpQ-O.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/TutorialManager-iD72X4OM.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/LogisticsManager-DugCgbD8.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/LogisticsUI-DWG9W15h.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/TargetColumn-DnYYEURe.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/MultiplayerManager-CgzUu3MG.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/PirateHuntManager-B5ipnDt7.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/assets/BoatVisualizerPanel-C8Vrfq5S.js",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/leaflet.css",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/leaflet.css",
-      "probes": 1
-    },
-    {
-      "status": 404,
       "path": "/assets/draco_decoder.js",
       "probes": 1
     },
@@ -757,16 +648,6 @@
     },
     {
       "status": 404,
-      "path": "/assets/draco_decoder.wasm",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/draco_decoder.wasm",
-      "probes": 1
-    },
-    {
-      "status": 404,
       "path": "/assets/.glb",
       "probes": 1
     },
@@ -778,6 +659,131 @@
     {
       "status": 404,
       "path": "/assets/pwa-worker.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/GoogleTilesLoader-DfxqQWNC.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Advertisement-XcWX0C3O.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/WorldAdPopupManager-WzG-fNUY.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/WorldInteractionEvents-L1ARfoSs.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/IslandGenerator-CwFNo9L2.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Yacht-DS-m91Pv.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Blimp-CBxX7-Aq.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/WorldSignAsset-yHPgCsa-.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/CargoShip-Da4OGSKb.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/FloatingWorldProp-C5Dibl-5.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Portal-DsCBQ6-0.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/portalDefinitions-CAxa3Tbw.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/Birds-C0RXzqnf.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/SeaCreatures-CaBHRx9G.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/BoatShop-SpknYdP-.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/SettingsMenu-CsLMev6C.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/HighSeaModeManager-CSga6NhB.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/CannonSystem-BkU5r_SB.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/TutorialManager-DID0rjsE.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/LogisticsManager-Bb1kkPAa.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/LogisticsUI-DK7Azuhh.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/TargetColumn-CpoF4J2y.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/MultiplayerManager-DyxhSkD5.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/PirateHuntManager-D-ZOVSO4.js",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/assets/BoatVisualizerPanel-C8Vrfq5S.js",
       "probes": 1
     },
     {
@@ -832,41 +838,6 @@
     },
     {
       "status": 404,
-      "path": "/assets/path.gltf",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/path.gltf",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/path.glb",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/path.glb",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/maplibre/.mjs",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/.mjs",
-      "probes": 1
-    },
-    {
-      "status": 404,
-      "path": "/assets/.mjs",
-      "probes": 1
-    },
-    {
-      "status": 404,
       "path": "/assets/.json",
       "probes": 1
     },
@@ -913,6 +884,26 @@
     {
       "status": 404,
       "path": "/maplibre-gl-worker.mjs",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/path.gltf",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/path.gltf",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/assets/path.glb",
+      "probes": 1
+    },
+    {
+      "status": 404,
+      "path": "/path.glb",
       "probes": 1
     }
   ],

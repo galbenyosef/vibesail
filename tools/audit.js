@@ -627,22 +627,22 @@ for (const s of sections) {
   // `file`): it is the derived text the export-name gate compares the served
   // chunk against, and it is the file the content guard reads.
   const VENDOR_GUARDS = [
-    ["readable/assets/three.module-BgyKfsEV.pretty.js", /WebGLRenderer/, /__THREE__/],
-    ["readable/assets/GLTFLoader-C2oC7w8g.pretty.js", /GLTFLoader/, /KHR_/],
-    ["readable/assets/DRACOLoader-XlKGmd74.pretty.js", /DRACOLoader/, /draco_decoder/],
-    ["readable/assets/MTLLoader-Dw3w9IRM.pretty.js", /^import/m, /mtllib/],
-    ["readable/assets/MTLLoader-Dw3w9IRM.pretty.js", /usemtl/, /materialLibraries/],
+    ["readable/assets/three.module-CUNolavI.pretty.js", /WebGLRenderer/, /__THREE__/],
+    ["readable/assets/GLTFLoader-Cf6urCJj.pretty.js", /GLTFLoader/, /KHR_/],
+    ["readable/assets/DRACOLoader-DuamzO37.pretty.js", /DRACOLoader/, /draco_decoder/],
+    ["readable/assets/MTLLoader-C86AYmNc.pretty.js", /^import/m, /mtllib/],
+    ["readable/assets/MTLLoader-C86AYmNc.pretty.js", /usemtl/, /materialLibraries/],
     ["readable/assets/draco/draco_decoder.pretty.js", /DracoDecoder|DecoderBuffer/, /emscripten|_malloc|HEAP/],
     ["readable/assets/draco/draco_wasm_wrapper.pretty.js", /\$jscomp/, /DracoDecoderModule/],
     ["readable/maplibre/maplibre-gl-worker.pretty.js", /maplibre|MapLibre/i, /Worker|worker/],
     ["readable/maplibre/maplibre-gl-shared.pretty.js", /maplibre|MapLibre/i, /export/],
-    ["readable/assets/world-DPn3WgXw.pretty.js", /1\.9\.4/, /maplibregl/],
-    ["readable/assets/world-DPn3WgXw.pretty.js", /nominatim/, /_leaflet_id/],
+    ["readable/assets/world-DPMIL7l5.pretty.js", /1\.9\.4/, /maplibregl/],
+    ["readable/assets/world-DPMIL7l5.pretty.js", /nominatim/, /_leaflet_id/],
     ["readable/assets/auto-CBo2XcXh.pretty.js", /CategoryScale/, /TimeSeriesScale/],
     ["readable/assets/chunk-QTnfLwEv.pretty.js", /__esModule/, /Object\.create/],
     ["readable/assets/defineProperty-BbfpZ9Tg.pretty.js", /@babel\/helpers - typeof/, /Symbol\.toPrimitive/],
     ["readable/assets/modulepreload-polyfill-Dezn_h7o.pretty.js", /modulepreload/i, /MutationObserver|createElement/],
-    ["readable/assets/GoogleTilesLoader-Ba1pGT7V.pretty.js", /TilesRendererBase/, /unloadPriorityCallback/],
+    ["readable/assets/GoogleTilesLoader-DfxqQWNC.pretty.js", /TilesRendererBase/, /unloadPriorityCallback/],
   ];
   for (const [file, reA, reB] of VENDOR_GUARDS) {
     const sec = sections.find((s) => s.file === file);

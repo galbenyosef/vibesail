@@ -1,23 +1,23 @@
 // Portal 01 — portalgroup
-// Lines 1-213 of readable/assets/Portal-DAOSX3nf.pretty.js (statement-aligned).
+// Lines 1-213 of readable/assets/Portal-DsCBQ6-0.pretty.js (statement-aligned).
 import {
-  $t as e,
-  F as t,
-  Tt as n,
-  _ as r,
-  d as i,
-  in as a,
-  lt as o,
-  m as s,
-  mt as c,
-  ut as l,
-} from "./three.module-BgyKfsEV.js";
+  Dt as e,
+  L as t,
+  dt as n,
+  f as r,
+  ft as i,
+  gt as a,
+  h as o,
+  nn as s,
+  sn as c,
+  v as l,
+} from "./three.module-CUNolavI.js";
 import { t as u } from "./portalDefinitions-CAxa3Tbw.js";
 var d = class d {
   constructor(e, t, n, r = {}) {
     ((this.scene = e),
       (this.world = t),
-      (this.position = new a(n.x, n.y, n.z)),
+      (this.position = new c(n.x, n.y, n.z)),
       (this.radius = r.radius || 15),
       (this.active = r.active === void 0 ? !0 : r.active),
       (this.isReached = !1),
@@ -47,12 +47,12 @@ var d = class d {
     ((this.portalGroup = new t()),
       this.portalGroup.position.copy(this.position),
       (this.portalGroup.position.y = 5));
-    let n = new a(0, 0, 0).sub(this.position).normalize();
-    ((n.y = 0),
-      (this.portalGroup.rotation.y = Math.atan2(n.x, n.z)),
-      (this.portalRing = new o(
-        new e(this.radius, 1.2, 36, 36),
-        new c({
+    let e = new c(0, 0, 0).sub(this.position).normalize();
+    ((e.y = 0),
+      (this.portalGroup.rotation.y = Math.atan2(e.x, e.z)),
+      (this.portalRing = new n(
+        new s(this.radius, 1.2, 36, 36),
+        new a({
           color: this.color,
           emissive: this.color,
           emissiveIntensity: 0.8,
@@ -61,47 +61,47 @@ var d = class d {
         }),
       )),
       this.portalGroup.add(this.portalRing));
-    let i = new r(this.color).addScalar(0.3);
-    ((this.portalCore = new o(
-      new s(this.radius * 0.8, 32),
-      new l({ color: i, transparent: !0, opacity: 0.3, side: 2 }),
+    let r = new l(this.color).addScalar(0.3);
+    ((this.portalCore = new n(
+      new o(this.radius * 0.8, 32),
+      new i({ color: r, transparent: !0, opacity: 0.3, side: 2 }),
     )),
       this.portalGroup.add(this.portalCore),
       this.createTextLabel(),
       this.scene.add(this.portalGroup));
   }
   createTextLabel() {
-    let e = document.createElement(`canvas`),
-      t = e.getContext(`2d`);
+    let t = document.createElement(`canvas`),
+      a = t.getContext(`2d`);
     if (
-      ((e.width = 1024),
-      (e.height = 512),
-      (t.fillStyle = `rgba(0, 0, 0, 0)`),
-      t.fillRect(0, 0, e.width, e.height),
-      (t.font = `bold 96px Arial`),
-      (t.textAlign = `center`),
-      (t.textBaseline = `middle`),
-      (t.strokeStyle = `rgba(0, 0, 0, 0.9)`),
-      (t.lineWidth = 14),
-      (t.fillStyle = `white`),
-      (t.shadowColor = `white`),
-      (t.shadowBlur = 10),
-      (t.shadowOffsetX = 0),
-      (t.shadowOffsetY = 0),
+      ((t.width = 1024),
+      (t.height = 512),
+      (a.fillStyle = `rgba(0, 0, 0, 0)`),
+      a.fillRect(0, 0, t.width, t.height),
+      (a.font = `bold 96px Arial`),
+      (a.textAlign = `center`),
+      (a.textBaseline = `middle`),
+      (a.strokeStyle = `rgba(0, 0, 0, 0.9)`),
+      (a.lineWidth = 14),
+      (a.fillStyle = `white`),
+      (a.shadowColor = `white`),
+      (a.shadowBlur = 10),
+      (a.shadowOffsetX = 0),
+      (a.shadowOffsetY = 0),
       this.isReturnPortal && this.customLabel)
     ) {
-      let n = this.customLabel.replace(`Go back to `, ``);
-      (this.drawTextWithGlow(t, `Return back to`, e.width / 2, e.height / 3),
-        this.drawTextWithGlow(t, n, e.width / 2, (e.height * 2) / 3, !0));
+      let e = this.customLabel.replace(`Go back to `, ``);
+      (this.drawTextWithGlow(a, `Return back to`, t.width / 2, t.height / 3),
+        this.drawTextWithGlow(a, e, t.width / 2, (t.height * 2) / 3, !0));
     } else {
-      let n = this.isReturnPortal
+      let e = this.isReturnPortal
         ? this.customLabel || `Return Portal`
         : `Vibeverse Portal`;
-      this.drawTextWithGlow(t, n, e.width / 2, e.height / 2);
+      this.drawTextWithGlow(a, e, t.width / 2, t.height / 2);
     }
-    let r = new l({ map: new i(e), transparent: !0, side: 2 }),
-      a = new n(40, 20);
-    ((this.portalText = new o(a, r)),
+    let o = new i({ map: new r(t), transparent: !0, side: 2 }),
+      s = new e(40, 20);
+    ((this.portalText = new n(s, o)),
       (this.portalText.position.y = 20),
       this.portalGroup.add(this.portalText));
   }

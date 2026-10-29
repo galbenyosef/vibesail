@@ -1,5 +1,5 @@
 // advertise 01 — getelementbyid
-// Lines 1-341 of readable/assets/advertise-BI8u_-IP.pretty.js (statement-aligned).
+// Lines 1-341 of readable/assets/advertise-JgD2U5Yf.pretty.js (statement-aligned).
 import "./modulepreload-polyfill-Dezn_h7o.js";
 /* empty css               */ import "./init-CC0aACO2.js";
 import { a as e, d as t, g as n } from "./routeContext-D1HYUwP9.js";
@@ -11,8 +11,8 @@ import {
   o as s,
   r as c,
   t as l,
-} from "./WorldDefinitionBuilder-CjRtTnhK.js";
-import { t as u } from "./signConfigs-BxvGsz9k.js";
+} from "./WorldDefinitionBuilder-Bu5XtOsC.js";
+import { t as u } from "./signConfigs-BUxGu07P.js";
 import { n as d } from "./RaceConfig-BiFwKzq8.js";
 import { t as f } from "./WorldSignAsset-yHPgCsa-.js";
 var p = 6,

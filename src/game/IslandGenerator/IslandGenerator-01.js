@@ -1,36 +1,36 @@
 // IslandGenerator 01 — position
-// Lines 1-341 of readable/assets/IslandGenerator-DZNI3CSt.pretty.js (statement-aligned).
+// Lines 1-342 of readable/assets/IslandGenerator-CwFNo9L2.pretty.js (statement-aligned).
 import { r as e } from "./chunk-QTnfLwEv.js";
 import {
-  $t as t,
-  At as n,
-  B as r,
-  F as i,
-  J as a,
-  Nt as o,
-  O as s,
-  T as c,
-  Tt as l,
-  Ut as u,
-  Y as d,
-  _ as f,
+  A as t,
+  D as n,
+  Dt as r,
+  H as i,
+  It as a,
+  Kt as o,
+  L as s,
+  Mt as c,
+  S as l,
+  X as u,
+  Z as d,
+  b as f,
   c as p,
   ct as m,
   dt as h,
-  in as g,
+  ft as g,
   l as _,
-  lt as v,
-  ot as y,
-  u as b,
-  ut as x,
-  x as S,
-  y as C,
-} from "./three.module-BgyKfsEV.js";
-import { D as w } from "./Game-CrsSKcAK.js";
-import { t as T } from "./RenderOrder-CTE7PEm0.js";
-import { n as E } from "./WorldDefinitionBuilder-CjRtTnhK.js";
-import { t as D } from "./GeometryGuards-BGRyriw5.js";
-var PerlinNoise = class {
+  nn as v,
+  pt as y,
+  sn as b,
+  u as x,
+  ut as S,
+  v as C,
+} from "./three.module-CUNolavI.js";
+import { M as w, N as T, j as E } from "./Game-BK-SaWAR.js";
+import { t as D } from "./RenderOrder-CTE7PEm0.js";
+import { n as O } from "./WorldDefinitionBuilder-Bu5XtOsC.js";
+import { t as k } from "./GeometryGuards-B5mb6RRe.js";
+var A = class {
     constructor(e = 12345) {
       this.seed = e;
     }
@@ -58,57 +58,57 @@ var PerlinNoise = class {
       return e + n * (t - e);
     }
   },
-  k = e(E(), 1),
-  A = 0,
-  j = 350;
-function M(e = 1) {
-  let t = new i();
+  j = e(O(), 1),
+  M = 0,
+  N = 350;
+function P(e = 1) {
+  let t = new s();
   t.userData.kind = `island_castle`;
-  let n = new h({ color: 14205861 }),
-    r = new h({ color: 12559752 }),
-    a = new h({ color: 5909890 }),
-    o = new h({ color: 2959908 }),
-    s = new h({ color: 12926255 }),
+  let n = new y({ color: 14205861 }),
+    r = new y({ color: 12559752 }),
+    i = new y({ color: 5909890 }),
+    a = new y({ color: 2959908 }),
+    o = new y({ color: 12926255 }),
     c = 80 * e,
-    l = 6 * e,
-    u = 18 * e,
-    d = 8 * e,
-    f = 28 * e,
-    m = 12 * e,
-    g = new p(c, u, l),
-    _ = new p(l, u, c),
-    y = new v(g, n);
-  (y.position.set(0, u / 2, c / 2), (y.userData.extendDown = !0));
-  let b = new v(g, n);
-  (b.position.set(0, u / 2, -c / 2), (b.userData.extendDown = !0));
-  let x = new v(_, n);
-  (x.position.set(c / 2, u / 2, 0), (x.userData.extendDown = !0));
-  let w = new v(_, n);
-  (w.position.set(-c / 2, u / 2, 0),
+    u = 6 * e,
+    d = 18 * e,
+    m = 8 * e,
+    g = 28 * e,
+    _ = 12 * e,
+    v = new p(c, d, u),
+    b = new p(u, d, c),
+    x = new h(v, n);
+  (x.position.set(0, d / 2, c / 2), (x.userData.extendDown = !0));
+  let S = new h(v, n);
+  (S.position.set(0, d / 2, -c / 2), (S.userData.extendDown = !0));
+  let C = new h(b, n);
+  (C.position.set(c / 2, d / 2, 0), (C.userData.extendDown = !0));
+  let w = new h(b, n);
+  (w.position.set(-c / 2, d / 2, 0),
     (w.userData.extendDown = !0),
-    t.add(y, b, x, w));
-  function T(e, n) {
-    let i = new v(new S(d, d, f, 8), r);
-    (i.position.set(e, f / 2, n), (i.userData.extendDown = !0));
-    let o = new v(new C(d * 1.1, m, 8), a);
-    (o.position.set(e, f + m / 2, n), t.add(i, o));
+    t.add(x, S, C, w));
+  function E(e, n) {
+    let a = new h(new l(m, m, g, 8), r);
+    (a.position.set(e, g / 2, n), (a.userData.extendDown = !0));
+    let o = new h(new f(m * 1.1, _, 8), i);
+    (o.position.set(e, g + _ / 2, n), t.add(a, o));
   }
-  let E = c / 2;
-  (T(E, E), T(-E, E), T(E, -E), T(-E, -E));
-  let D = 36 * e,
-    O = 22 * e,
-    k = new v(new p(D, O, D), n);
-  k.position.y = O / 2;
-  let A = new v(new C(D * 0.7, O * 0.7, 8), a);
-  ((A.position.y = O + (O * 0.7) / 2), t.add(k, A));
-  let j = O + O * 0.7,
-    M = 18 * e,
-    N = new v(new S(0.7 * e, 0.7 * e, M, 6), o);
-  N.position.y = j + M * 0.5;
-  let P = new v(new p(11 * e, 5.2 * e, 0.45 * e), s);
-  return (P.position.set(5.6 * e, j + M * 0.78, 0), t.add(N, P), t);
+  let D = c / 2;
+  (E(D, D), E(-D, D), E(D, -D), E(-D, -D));
+  let O = 36 * e,
+    k = 22 * e,
+    A = new h(new p(O, k, O), n);
+  A.position.y = k / 2;
+  let j = new h(new f(O * 0.7, k * 0.7, 8), i);
+  ((j.position.y = k + (k * 0.7) / 2), t.add(A, j));
+  let M = k + k * 0.7,
+    N = 18 * e,
+    P = new h(new l(0.7 * e, 0.7 * e, N, 6), a);
+  P.position.y = M + N * 0.5;
+  let F = new h(new p(11 * e, 5.2 * e, 0.45 * e), o);
+  return (F.position.set(5.6 * e, M + N * 0.78, 0), t.add(P, F), T(t), t);
 }
-function N(e, t, n = 0) {
+function F(e, t, n = 0) {
   let r = Math.max(0, t - n);
   r <= 0.001 ||
     e.traverse((e) => {
@@ -129,7 +129,7 @@ function N(e, t, n = 0) {
         } else if (e.geometry.type === `CylinderGeometry`) {
           let t = e.geometry.parameters,
             n = t.height,
-            i = new S(t.radiusTop, t.radiusBottom, n + r, t.radialSegments);
+            i = new l(t.radiusTop, t.radiusBottom, n + r, t.radialSegments);
           (e.geometry.dispose(),
             (e.geometry = i),
             (e.position.y = (n - r) / 2));
@@ -137,15 +137,15 @@ function N(e, t, n = 0) {
       }
     });
 }
-function P(e) {
+function ee(e) {
   let t = e.parameters || {};
   return Math.max(t.width || 200, t.height || 200);
 }
-function F(e, t = {}) {
+function I(e, t = {}) {
   let n = Number.isFinite(t.scaleMultiplier) ? t.scaleMultiplier : 1;
-  return 0.34 * y.clamp(e / 500, 0.9, 1.75) * n;
+  return 0.34 * m.clamp(e / 500, 0.9, 1.75) * n;
 }
-function ee(e, t, n) {
+function te(e, t, n) {
   let r = t.attributes.position,
     i = t.index;
   if (!r || !i) return null;
@@ -167,52 +167,52 @@ function ee(e, t, n) {
     (l + u + d) / 3 >= a - c && s.push([t, n, o]);
   }
   if (s.length === 0) {
-    let t = new g().fromBufferAttribute(r, o),
+    let t = new b().fromBufferAttribute(r, o),
       n = e.localToWorld(t.clone());
     return (n.y < 0.5 && (n.y = 0.5), n);
   }
   let [l, u, d] = s[Math.floor(n() * s.length)],
-    f = new g().fromBufferAttribute(r, l),
-    p = new g().fromBufferAttribute(r, u),
-    m = new g().fromBufferAttribute(r, d),
-    h = new g(
+    f = new b().fromBufferAttribute(r, l),
+    p = new b().fromBufferAttribute(r, u),
+    m = new b().fromBufferAttribute(r, d),
+    h = new b(
       (f.x + p.x + m.x) / 3,
       (f.y + p.y + m.y) / 3,
       (f.z + p.z + m.z) / 3,
     ),
-    _ = e.localToWorld(h.clone());
-  return (_.y < 0.5 && (_.y = 0.5), _);
+    g = e.localToWorld(h.clone());
+  return (g.y < 0.5 && (g.y = 0.5), g);
 }
-function I(e, t, n, r, i = {}) {
-  let a = P(n);
-  if (a < j) return null;
-  let o = ee(t, n, r);
+function CASTLE_CONFIG(e, t, n, r, i = {}) {
+  let a = ee(n);
+  if (a < N) return null;
+  let o = te(t, n, r);
   if (!o || !Number.isFinite(o.y) || o.y < 1 || o.y > 900) return null;
-  let s = M(F(a, i));
+  let s = P(I(a, i));
   return (
     s.position.copy(o),
     (s.rotation.y = r() * Math.PI * 2),
-    N(s, s.position.y, A),
+    F(s, s.position.y, M),
     e.add(s),
     s
   );
 }
-function te(e, t, n = {}) {
+function ne(e, t, n = {}) {
   let r = e.size;
-  if (r < j) return null;
+  if (r < N) return null;
   let i = e.getHighestPoint();
   if (!i || !Number.isFinite(i.world.y) || i.world.y < 1 || i.world.y > 900)
     return null;
-  let a = M(F(r, n));
+  let a = P(I(r, n));
   return (
     a.position.copy(i.world),
     (a.rotation.y = t() * Math.PI * 2),
-    N(a, a.position.y, A),
+    F(a, a.position.y, M),
     e.scene.add(a),
     a
   );
 }
-var CASTLE_CONFIG = {
+var VOLCANO_CONFIG = {
     BASE_RADIUS: 4.5,
     BASE_HEIGHT: 22,
     FOUNDATION_RADIUS: 7.2,
@@ -231,7 +231,7 @@ var CASTLE_CONFIG = {
     PLACEMENT_HEIGHT_PERCENTILE: 0.44,
     PLACEMENT_MAX_SLOPE_DELTA: 3.2,
   },
-  VOLCANO_CONFIG = {
+  z = {
     RING_RADIUS: 6.4,
     RING_TUBE: 0.72,
     LAVA_RADIUS: 5,
@@ -243,101 +243,102 @@ var CASTLE_CONFIG = {
     LAVA_GLOW_COLOR: 16757575,
     SMOKE_COLOR: 10195852,
   };
-function z(e = 1) {
-  let t = new i();
+function re(e = 1) {
+  let t = new s();
   t.userData.kind = `island_beacon`;
-  let n = new h({ color: CASTLE_CONFIG.STONE_COLOR }),
-    r = new h({ color: CASTLE_CONFIG.STONE_SHADE_COLOR }),
-    a = new h({ color: CASTLE_CONFIG.ROOF_COLOR }),
-    o = new x({ color: CASTLE_CONFIG.LIGHT_COLOR }),
-    s = -CASTLE_CONFIG.BASE_EMBED_DEPTH * e,
-    c = CASTLE_CONFIG.BASE_HEIGHT * e,
-    l = new v(new S(CASTLE_CONFIG.BASE_RADIUS * e, CASTLE_CONFIG.BASE_RADIUS * 1.18 * e, c, 10), n);
-  ((l.position.y = s + c * 0.5), t.add(l));
-  let u = CASTLE_CONFIG.GALLERY_HEIGHT * e,
-    d = new v(new S(CASTLE_CONFIG.GALLERY_RADIUS * e, CASTLE_CONFIG.GALLERY_RADIUS * e, u, 12), r);
-  ((d.position.y = s + c + u * 0.5), t.add(d));
-  let f = CASTLE_CONFIG.LANTERN_HEIGHT * e,
-    m = new v(new S(CASTLE_CONFIG.LANTERN_RADIUS * e, CASTLE_CONFIG.LANTERN_RADIUS * e, f, 10), o);
-  ((m.position.y = s + c + u + f * 0.5), t.add(m));
-  let g = CASTLE_CONFIG.ROOF_HEIGHT * e,
-    _ = new v(new C(CASTLE_CONFIG.ROOF_RADIUS * e, g, 10), a);
-  ((_.position.y = s + c + u + f + g * 0.5), t.add(_));
+  let n = new y({ color: VOLCANO_CONFIG.STONE_COLOR }),
+    r = new y({ color: VOLCANO_CONFIG.STONE_SHADE_COLOR }),
+    i = new y({ color: VOLCANO_CONFIG.ROOF_COLOR }),
+    a = new g({ color: VOLCANO_CONFIG.LIGHT_COLOR }),
+    o = -VOLCANO_CONFIG.BASE_EMBED_DEPTH * e,
+    c = VOLCANO_CONFIG.BASE_HEIGHT * e,
+    u = new h(new l(VOLCANO_CONFIG.BASE_RADIUS * e, VOLCANO_CONFIG.BASE_RADIUS * 1.18 * e, c, 10), n);
+  ((u.position.y = o + c * 0.5), t.add(u));
+  let d = VOLCANO_CONFIG.GALLERY_HEIGHT * e,
+    m = new h(new l(VOLCANO_CONFIG.GALLERY_RADIUS * e, VOLCANO_CONFIG.GALLERY_RADIUS * e, d, 12), r);
+  ((m.position.y = o + c + d * 0.5), t.add(m));
+  let _ = VOLCANO_CONFIG.LANTERN_HEIGHT * e,
+    v = new h(new l(VOLCANO_CONFIG.LANTERN_RADIUS * e, VOLCANO_CONFIG.LANTERN_RADIUS * e, _, 10), a);
+  ((v.position.y = o + c + d + _ * 0.5), t.add(v));
+  let b = VOLCANO_CONFIG.ROOF_HEIGHT * e,
+    x = new h(new f(VOLCANO_CONFIG.ROOF_RADIUS * e, b, 10), i);
+  ((x.position.y = o + c + d + _ + b * 0.5), t.add(x));
   for (let n = 0; n < 4; n += 1) {
     let i = (n / 4) * Math.PI * 2,
-      a = new v(new p(0.35 * e, 2.2 * e, 0.35 * e), r);
+      a = new h(new p(0.35 * e, 2.2 * e, 0.35 * e), r);
     (a.position.set(
-      Math.cos(i) * CASTLE_CONFIG.GALLERY_RADIUS * 0.82 * e,
-      s + c + u + 1.1 * e,
-      Math.sin(i) * CASTLE_CONFIG.GALLERY_RADIUS * 0.82 * e,
+      Math.cos(i) * VOLCANO_CONFIG.GALLERY_RADIUS * 0.82 * e,
+      o + c + d + 1.1 * e,
+      Math.sin(i) * VOLCANO_CONFIG.GALLERY_RADIUS * 0.82 * e,
     ),
       t.add(a));
   }
-  return t;
+  return (T(t), t);
 }
-function ne(e = 1) {
-  let n = new i();
-  n.userData.kind = `island_volcano`;
-  let r = new h({ color: VOLCANO_CONFIG.ROCK_COLOR }),
-    a = new h({ color: VOLCANO_CONFIG.RIM_SHADE_COLOR }),
-    o = new x({ color: VOLCANO_CONFIG.LAVA_COLOR }),
-    s = new x({ color: VOLCANO_CONFIG.LAVA_GLOW_COLOR, transparent: !0, opacity: 0.5 }),
-    l = new h({ color: VOLCANO_CONFIG.SMOKE_COLOR, transparent: !0, opacity: 0.34 }),
-    d = new v(
-      new S(VOLCANO_CONFIG.RING_RADIUS * 0.9 * e, VOLCANO_CONFIG.RING_RADIUS * 1.04 * e, 0.55 * e, 18),
-      a,
+function ie(e = 1) {
+  let t = new s();
+  t.userData.kind = `island_volcano`;
+  let r = new y({ color: z.ROCK_COLOR }),
+    i = new y({ color: z.RIM_SHADE_COLOR }),
+    a = new g({ color: z.LAVA_COLOR }),
+    c = new g({ color: z.LAVA_GLOW_COLOR, transparent: !0, opacity: 0.5 }),
+    u = new y({ color: z.SMOKE_COLOR, transparent: !0, opacity: 0.34 }),
+    d = new h(
+      new l(z.RING_RADIUS * 0.9 * e, z.RING_RADIUS * 1.04 * e, 0.55 * e, 18),
+      i,
     );
-  ((d.position.y = -0.16 * e), n.add(d));
-  let f = new v(new t(VOLCANO_CONFIG.RING_RADIUS * e, VOLCANO_CONFIG.RING_TUBE * e, 10, 24), r);
-  ((f.rotation.x = Math.PI * 0.5), (f.position.y = 0.24 * e), n.add(f));
-  let p = new c(1, 0);
-  for (let t = 0; t < VOLCANO_CONFIG.RIM_ROCK_COUNT; t += 1) {
-    let i = (t / VOLCANO_CONFIG.RIM_ROCK_COUNT) * Math.PI * 2,
-      a = VOLCANO_CONFIG.RING_RADIUS * (0.86 + (t % 3) * 0.08) * e,
-      o = new v(p, r),
-      s = (1.1 + (t % 4) * 0.22) * e;
+  ((d.position.y = -0.16 * e), t.add(d));
+  let f = new h(new v(z.RING_RADIUS * e, z.RING_TUBE * e, 10, 24), r);
+  ((f.rotation.x = Math.PI * 0.5), (f.position.y = 0.24 * e), t.add(f));
+  let p = new n(1, 0);
+  for (let n = 0; n < z.RIM_ROCK_COUNT; n += 1) {
+    let i = (n / z.RIM_ROCK_COUNT) * Math.PI * 2,
+      a = z.RING_RADIUS * (0.86 + (n % 3) * 0.08) * e,
+      o = new h(p, r),
+      s = (1.1 + (n % 4) * 0.22) * e;
     (o.position.set(
       Math.cos(i) * a,
-      (0.64 + (t % 2) * 0.25) * e,
+      (0.64 + (n % 2) * 0.25) * e,
       Math.sin(i) * a,
     ),
-      o.rotation.set(t * 0.37, i, t * 0.21),
+      o.rotation.set(n * 0.37, i, n * 0.21),
       o.scale.set(s, s * 0.72, s * 0.88),
-      n.add(o));
+      t.add(o));
   }
-  let m = new v(
-    new S(VOLCANO_CONFIG.LAVA_RADIUS * e, VOLCANO_CONFIG.LAVA_RADIUS * e, VOLCANO_CONFIG.LAVA_HEIGHT * e, 14),
-    o,
+  let m = new h(
+    new l(z.LAVA_RADIUS * e, z.LAVA_RADIUS * e, z.LAVA_HEIGHT * e, 14),
+    a,
   );
-  ((m.position.y = 0.05 * e), n.add(m));
-  let g = new v(new u(VOLCANO_CONFIG.LAVA_RADIUS * 1.15 * e, 10, 6), s);
+  ((m.position.y = 0.05 * e), t.add(m));
+  let _ = new h(new o(z.LAVA_RADIUS * 1.15 * e, 10, 6), c);
   return (
-    (g.scale.y = 0.18),
-    (g.position.y = 0.24 * e),
-    n.add(g),
+    (_.scale.y = 0.18),
+    (_.position.y = 0.24 * e),
+    t.add(_),
     [
       { x: -1.1, y: 4.1, z: 0.5, radius: 1.25 },
       { x: 1, y: 6.3, z: -0.7, radius: 1.55 },
       { x: -0.3, y: 8.6, z: 0.9, radius: 1.85 },
       { x: 1.5, y: 11, z: 0.2, radius: 2.1 },
-    ].forEach((t, r) => {
-      let i = new v(new u(t.radius * e, 8, 6), l);
-      (i.position.set(t.x * e, t.y * e, t.z * e),
+    ].forEach((n, r) => {
+      let i = new h(new o(n.radius * e, 8, 6), u);
+      (i.position.set(n.x * e, n.y * e, n.z * e),
         i.scale.set(1.35 + r * 0.08, 0.72, 1),
-        n.add(i));
+        t.add(i));
     }),
-    n
+    T(t),
+    t
   );
 }
 var B = 1e-4;
-function re(e) {
+function V(e) {
   return Math.max(0, Math.min(1, e));
 }
-function V(e, t) {
+function H(e, t) {
   let n = e.x - t.x,
     r = e.z - t.z;
   return n * n + r * r;
 }
-function H(e, t) {
+function ae(e, t) {
   return `${Math.round(e.x / t)}:${Math.round(e.z / t)}`;
 }

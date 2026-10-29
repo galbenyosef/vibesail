@@ -1,362 +1,344 @@
-// Game 04 — geo
-// Lines 909-1268 of readable/assets/Game-CrsSKcAK.pretty.js (statement-aligned).
-var activeWorldDefinition = sceneLocationContext && sceneLocationContext.scene === l.GEO && sceneLocationContext.place && o[sceneLocationContext.place] ? o[sceneLocationContext.place] : DEFAULT_WORLD_DEFINITION,
-  isGeoScene = !!(sceneLocationContext && sceneLocationContext.scene === l.GEO && sceneLocationContext.place && o[sceneLocationContext.place]),
-  getSceneType = () =>
-    sceneLocationContext
-      ? sceneLocationContext.scene === l.GEO
-        ? SCENE_TYPES.GEO
-        : sceneLocationContext.scene === l.OCEAN
-          ? SCENE_TYPES.OCEAN
-          : (sceneLocationContext.scene, l.ISLANDS, SCENE_TYPES.ISLANDS)
-      : SCENE_TYPES.ISLANDS,
-  getScenePlace = () => {
-    if (typeof window > `u`) return activeWorldDefinition.defaultLocation;
-    let e = sceneLocationContext?.loc;
-    if (e && activeWorldDefinition.locations[e]) return e;
-    let t = window.location.pathname.toLowerCase();
-    for (let [e, n] of Object.entries(activeWorldDefinition.locations))
-      if (n.path && t.startsWith(n.path)) return e;
-    return activeWorldDefinition.defaultLocation;
+// Game 04 — miecoefficient
+// Lines 908-1249 of readable/assets/Game-BK-SaWAR.pretty.js (statement-aligned).
+wn.SkyShader = {
+  name: `SkyShader`,
+  uniforms: {
+    turbidity: { value: 2 },
+    rayleigh: { value: 1 },
+    mieCoefficient: { value: 0.005 },
+    mieDirectionalG: { value: 0.8 },
+    sunPosition: { value: new N() },
+    up: { value: new N(0, 1, 0) },
+    cloudScale: { value: 2e-4 },
+    cloudSpeed: { value: 1e-4 },
+    cloudCoverage: { value: 0.4 },
+    cloudDensity: { value: 0.4 },
+    cloudElevation: { value: 0.5 },
+    showSunDisc: { value: 1 },
+    time: { value: 0 },
   },
-  geoPlaceInfo =
-    !sceneLocationContext || sceneLocationContext.scene !== l.GEO
-      ? null
-      : tn
-        ? {
-            lat: tn.lat,
-            lon: tn.lon,
-            height: Number.isFinite(tn.height) ? tn.height : on(),
-          }
-        : !Number.isFinite(sceneLocationContext.lat) || !Number.isFinite(sceneLocationContext.lon)
-          ? null
-          : { lat: sceneLocationContext.lat, lon: sceneLocationContext.lon, height: on() },
-  isGeoPlacePending = !!geoPlaceInfo && !hasPlaceHeight,
-  DEFAULT_WATER_PARAMS = Object.freeze({
-    sunColor: 16765634,
-    alpha: 1,
-    reflectionStrength: 0.9,
-    specularStrength: 2,
-    fresnelBase: 0.02,
-    fresnelPower: 5,
-    scatterStrength: 0.85,
-    sssStrength: 0.35,
-    sssColor: 1731226,
-    roughness: 0.24,
-    sunGlitter: 0,
-    detailStrength: 0.14,
-    detailScale: 0.3,
-    rippleFade: 0.012,
-    shallowColor: 5159136,
-    deepColor: 412282,
-    foamColor: 16186879,
-    floorColor: 11842218,
-    foamCoverage: 0.85,
-    foamOpacity: 0.92,
-    foamThreshold: 0.22,
-    foamSoftness: 0.45,
-    crestFoamStart: 1.2,
-    crestFoamAmount: 1,
-    foamEdge: 0.22,
-    shoreFoamWidth: 5.5,
-    contactFoam: 1,
-    contactRadius: 4.5,
-    floorEnabled: 1,
-    floorY: -20,
-    clarity: 1.2,
-    depthFalloff: 0.16,
-    refractStrength: 0.05,
-    waveNormalMix: 0.65,
-    waterDepth: 12,
-    refractionEnabled: 1,
-    pathCap: 18,
-    slantSoft: 0.25,
-    floorBleed: 0.2,
-    floorHintAmt: 0.22,
-    floorHintNear: 6,
-    floorHintFar: 20,
-    fresCap: 0.95,
-    fresBlend: 1,
-    absorbScale: 1,
-    shoreLipFade: 3.5,
-    shoreLipMute: 0.75,
-    viewFadeStart: 900,
-    viewFadeEnd: 2800,
-    refractDebug: 0,
-    underFar: 8e3,
+  vertexShader: `
+		uniform vec3 sunPosition;
+		uniform float rayleigh;
+		uniform float turbidity;
+		uniform float mieCoefficient;
+		uniform vec3 up;
+
+		varying vec3 vWorldPosition;
+		varying vec3 vSunDirection;
+		varying float vSunfade;
+		varying vec3 vBetaR;
+		varying vec3 vBetaM;
+		varying float vSunE;
+
+		// constants for atmospheric scattering
+		const float e = 2.71828182845904523536028747135266249775724709369995957;
+		const float pi = 3.141592653589793238462643383279502884197169;
+
+		// wavelength of used primaries, according to preetham
+		const vec3 lambda = vec3( 680E-9, 550E-9, 450E-9 );
+		// this pre-calculation replaces older TotalRayleigh(vec3 lambda) function:
+		// (8.0 * pow(pi, 3.0) * pow(pow(n, 2.0) - 1.0, 2.0) * (6.0 + 3.0 * pn)) / (3.0 * N * pow(lambda, vec3(4.0)) * (6.0 - 7.0 * pn))
+		const vec3 totalRayleigh = vec3( 5.804542996261093E-6, 1.3562911419845635E-5, 3.0265902468824876E-5 );
+
+		// mie stuff
+		// K coefficient for the primaries
+		const float v = 4.0;
+		const vec3 K = vec3( 0.686, 0.678, 0.666 );
+		// MieConst = pi * pow( ( 2.0 * pi ) / lambda, vec3( v - 2.0 ) ) * K
+		const vec3 MieConst = vec3( 1.8399918514433978E14, 2.7798023919660528E14, 4.0790479543861094E14 );
+
+		// earth shadow hack
+		// cutoffAngle = pi / 1.95;
+		const float cutoffAngle = 1.6110731556870734;
+		const float steepness = 1.5;
+		const float EE = 1000.0;
+
+		float sunIntensity( float zenithAngleCos ) {
+			zenithAngleCos = clamp( zenithAngleCos, -1.0, 1.0 );
+			return EE * max( 0.0, 1.0 - pow( e, -( ( cutoffAngle - acos( zenithAngleCos ) ) / steepness ) ) );
+		}
+
+		vec3 totalMie( float T ) {
+			float c = ( 0.2 * T ) * 10E-18;
+			return 0.434 * c * MieConst;
+		}
+
+		void main() {
+
+			vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+			vWorldPosition = worldPosition.xyz;
+
+			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+			gl_Position.z = gl_Position.w; // set z to camera.far
+
+			vSunDirection = normalize( sunPosition );
+
+			vSunE = sunIntensity( dot( vSunDirection, up ) );
+
+			vSunfade = 1.0 - clamp( 1.0 - exp( ( sunPosition.y / 450000.0 ) ), 0.0, 1.0 );
+
+			float rayleighCoefficient = rayleigh - ( 1.0 * ( 1.0 - vSunfade ) );
+
+			// extinction (absorption + out scattering)
+			// rayleigh coefficients
+			vBetaR = totalRayleigh * rayleighCoefficient;
+
+			// mie coefficients
+			vBetaM = totalMie( turbidity ) * mieCoefficient;
+
+		}`,
+  fragmentShader: `
+		varying vec3 vWorldPosition;
+		varying vec3 vSunDirection;
+		varying vec3 vBetaR;
+		varying vec3 vBetaM;
+		varying float vSunE;
+
+		uniform float mieDirectionalG;
+		uniform vec3 up;
+		uniform float cloudScale;
+		uniform float cloudSpeed;
+		uniform float cloudCoverage;
+		uniform float cloudDensity;
+		uniform float cloudElevation;
+		uniform float showSunDisc;
+		uniform float time;
+
+		// Cloud noise functions
+		float hash( vec2 p ) {
+			return fract( sin( dot( p, vec2( 127.1, 311.7 ) ) ) * 43758.5453123 );
+		}
+
+		float noise( vec2 p ) {
+			vec2 i = floor( p );
+			vec2 f = fract( p );
+			f = f * f * ( 3.0 - 2.0 * f );
+			float a = hash( i );
+			float b = hash( i + vec2( 1.0, 0.0 ) );
+			float c = hash( i + vec2( 0.0, 1.0 ) );
+			float d = hash( i + vec2( 1.0, 1.0 ) );
+			return mix( mix( a, b, f.x ), mix( c, d, f.x ), f.y );
+		}
+
+		float fbm( vec2 p ) {
+			float value = 0.0;
+			float amplitude = 0.5;
+			for ( int i = 0; i < 5; i ++ ) {
+				value += amplitude * noise( p );
+				p *= 2.0;
+				amplitude *= 0.5;
+			}
+			return value;
+		}
+
+		// constants for atmospheric scattering
+		const float pi = 3.141592653589793238462643383279502884197169;
+
+		const float n = 1.0003; // refractive index of air
+		const float N = 2.545E25; // number of molecules per unit volume for air at 288.15K and 1013mb (sea level -45 celsius)
+
+		// optical length at zenith for molecules
+		const float rayleighZenithLength = 8.4E3;
+		const float mieZenithLength = 1.25E3;
+		// 66 arc seconds -> degrees, and the cosine of that
+		const float sunAngularDiameterCos = 0.999956676946448443553574619906976478926848692873900859324;
+
+		// 3.0 / ( 16.0 * pi )
+		const float THREE_OVER_SIXTEENPI = 0.05968310365946075;
+		// 1.0 / ( 4.0 * pi )
+		const float ONE_OVER_FOURPI = 0.07957747154594767;
+
+		float rayleighPhase( float cosTheta ) {
+			return THREE_OVER_SIXTEENPI * ( 1.0 + pow( cosTheta, 2.0 ) );
+		}
+
+		float hgPhase( float cosTheta, float g ) {
+			float g2 = pow( g, 2.0 );
+			float inverse = 1.0 / pow( 1.0 - 2.0 * g * cosTheta + g2, 1.5 );
+			return ONE_OVER_FOURPI * ( ( 1.0 - g2 ) * inverse );
+		}
+
+		void main() {
+
+			vec3 direction = normalize( vWorldPosition - cameraPosition );
+
+			// optical length
+			// cutoff angle at 90 to avoid singularity in next formula.
+			float zenithAngle = acos( max( 0.0, dot( up, direction ) ) );
+			float inverse = 1.0 / ( cos( zenithAngle ) + 0.15 * pow( 93.885 - ( ( zenithAngle * 180.0 ) / pi ), -1.253 ) );
+			float sR = rayleighZenithLength * inverse;
+			float sM = mieZenithLength * inverse;
+
+			// combined extinction factor
+			vec3 Fex = exp( -( vBetaR * sR + vBetaM * sM ) );
+
+			// in scattering
+			float cosTheta = dot( direction, vSunDirection );
+
+			float rPhase = rayleighPhase( cosTheta * 0.5 + 0.5 );
+			vec3 betaRTheta = vBetaR * rPhase;
+
+			float mPhase = hgPhase( cosTheta, mieDirectionalG );
+			vec3 betaMTheta = vBetaM * mPhase;
+
+			vec3 Lin = pow( vSunE * ( ( betaRTheta + betaMTheta ) / ( vBetaR + vBetaM ) ) * ( 1.0 - Fex ), vec3( 1.5 ) );
+			Lin *= mix( vec3( 1.0 ), pow( vSunE * ( ( betaRTheta + betaMTheta ) / ( vBetaR + vBetaM ) ) * Fex, vec3( 1.0 / 2.0 ) ), clamp( pow( 1.0 - dot( up, vSunDirection ), 5.0 ), 0.0, 1.0 ) );
+
+			// nightsky
+			float theta = acos( direction.y ); // elevation --> y-axis, [-pi/2, pi/2]
+			float phi = atan( direction.z, direction.x ); // azimuth --> x-axis [-pi/2, pi/2]
+			vec2 uv = vec2( phi, theta ) / vec2( 2.0 * pi, pi ) + vec2( 0.5, 0.0 );
+			vec3 L0 = vec3( 0.1 ) * Fex;
+
+			// composition + solar disc
+			float sundisc = smoothstep( sunAngularDiameterCos, sunAngularDiameterCos + 0.00002, cosTheta ) * showSunDisc;
+			L0 += ( vSunE * 19000.0 * Fex ) * sundisc;
+
+			vec3 texColor = ( Lin + L0 ) * 0.04 + vec3( 0.0, 0.0003, 0.00075 );
+
+			// Clouds
+			if ( direction.y > 0.0 && cloudCoverage > 0.0 ) {
+
+				// Project to cloud plane (higher elevation = clouds appear lower/closer)
+				float elevation = mix( 1.0, 0.1, cloudElevation );
+				vec2 cloudUV = direction.xz / ( direction.y * elevation );
+				cloudUV *= cloudScale;
+				cloudUV += time * cloudSpeed;
+
+				// Multi-octave noise for fluffy clouds
+				float cloudNoise = fbm( cloudUV * 1000.0 );
+				cloudNoise += 0.5 * fbm( cloudUV * 2000.0 + 3.7 );
+				cloudNoise = cloudNoise * 0.5 + 0.5;
+
+				// Apply coverage threshold
+				float cloudMask = smoothstep( 1.0 - cloudCoverage, 1.0 - cloudCoverage + 0.3, cloudNoise );
+
+				// Fade clouds near horizon (adjusted by elevation)
+				float horizonFade = smoothstep( 0.0, 0.1 + 0.2 * cloudElevation, direction.y );
+				cloudMask *= horizonFade;
+
+				// Cloud lighting based on sun position
+				float sunInfluence = dot( direction, vSunDirection ) * 0.5 + 0.5;
+				float daylight = max( 0.0, vSunDirection.y * 2.0 );
+
+				// Base cloud color affected by atmosphere
+				vec3 atmosphereColor = Lin * 0.04;
+				vec3 cloudColor = mix( vec3( 0.3 ), vec3( 1.0 ), daylight );
+				cloudColor = mix( cloudColor, atmosphereColor + vec3( 1.0 ), sunInfluence * 0.5 );
+				cloudColor *= vSunE * 0.00002;
+
+				// Blend clouds with sky
+				texColor = mix( texColor, cloudColor, cloudMask * cloudDensity );
+
+			}
+
+			gl_FragColor = vec4( texColor, 1.0 );
+
+			#include <tonemapping_fragment>
+			#include <colorspace_fragment>
+
+		}`,
+};
+var GRAPHICS_QUALITY_STORAGE_KEY = Object.freeze({
+    turbidity: 8,
+    rayleigh: 2,
+    mieCoefficient: 0.005,
+    mieDirectionalG: 0.75,
+    exposure: 2.5,
   }),
-  WATER_LOOK_PRESETS = Object.freeze({
-    Default: {
-      sunColor: 16765634,
-      waterColor: 1738436,
-      shallowColor: 5159136,
-      deepColor: 412282,
-      sssColor: 1731226,
-      foamColor: 16186879,
-      floorColor: 11842218,
-      foamCoverage: 0.85,
-      crestFoamStart: 0.55,
-      clarity: 1.25,
-      depthFalloff: 0.15,
-      refractStrength: 0.05,
-      waterDepth: 12,
-      reflectionStrength: 0.9,
-      specularStrength: 2,
-      fresnelBase: 0.02,
-      fresnelPower: 5,
-      fresCap: 0.95,
-      fresBlend: 1,
-      roughness: 0.24,
-      scatterStrength: 0.8,
-    },
-    AzureCrown: {
-      sunColor: 15267071,
-      waterColor: 1739472,
-      shallowColor: 5233899,
-      deepColor: 413834,
-      sssColor: 1735352,
-      foamColor: 16186879,
-      floorColor: 11973804,
-      foamCoverage: 0.85,
-      crestFoamStart: 0.55,
-      clarity: 1.4,
-      depthFalloff: 0.12,
-      refractStrength: 0.05,
-      waterDepth: 11,
-      reflectionStrength: 1,
-      specularStrength: 1.15,
-      fresnelBase: 0.02,
-      fresnelPower: 5,
-      fresCap: 0.95,
-      fresBlend: 1,
-      scatterStrength: 0.7,
-    },
-    TropicalNoon: {
-      sunColor: 16642770,
-      waterColor: 686762,
-      shallowColor: 6276824,
-      deepColor: 408154,
-      sssColor: 1734024,
-      foamColor: 16186879,
-      floorColor: 12104872,
-      foamCoverage: 0.9,
-      crestFoamStart: 0.7,
-      clarity: 1.35,
-      depthFalloff: 0.14,
-      refractStrength: 0.05,
-      waterDepth: 10,
-      reflectionStrength: 1.05,
-      specularStrength: 1.25,
-      fresnelBase: 0.02,
-      fresnelPower: 5,
-      fresCap: 0.95,
-      fresBlend: 1,
-      scatterStrength: 0.7,
-    },
-    GoldenReach: {
-      sunColor: 16757130,
-      waterColor: 1731194,
-      shallowColor: 4169626,
-      deepColor: 534587,
-      sssColor: 1738101,
-      foamColor: 16773599,
-      floorColor: 11577496,
-      foamCoverage: 0.8,
-      crestFoamStart: 0.65,
-      clarity: 1.05,
-      depthFalloff: 0.16,
-      refractStrength: 0.055,
-      waterDepth: 11,
-      reflectionStrength: 1.1,
-      specularStrength: 1.45,
-      fresnelBase: 0.03,
-      fresnelPower: 5.5,
-      fresCap: 0.95,
-      fresBlend: 1,
-      scatterStrength: 0.75,
-    },
-    TradeIsles: {
-      sunColor: 15267071,
-      waterColor: 883356,
-      shallowColor: 4044976,
-      deepColor: 274500,
-      sssColor: 1738101,
-      foamColor: 16055295,
-      floorColor: 11710632,
-      foamCoverage: 1,
-      crestFoamStart: 0.45,
-      clarity: 1.25,
-      depthFalloff: 0.12,
-      refractStrength: 0.05,
-      waterDepth: 10,
-      reflectionStrength: 0.95,
-      specularStrength: 1.15,
-      fresnelBase: 0.02,
-      fresnelPower: 5,
-      fresCap: 0.95,
-      fresBlend: 1,
-      scatterStrength: 0.8,
-    },
-    StormySeas: {
-      sunColor: 9544119,
-      waterColor: 1718858,
-      shallowColor: 2775650,
-      deepColor: 202784,
-      sssColor: 1722965,
-      foamColor: 15265522,
-      floorColor: 8026224,
-      foamCoverage: 1.25,
-      crestFoamStart: 0.35,
-      clarity: 0.9,
-      depthFalloff: 0.2,
-      refractStrength: 0.06,
-      waterDepth: 14,
-      reflectionStrength: 0.45,
-      specularStrength: 0.4,
-      fresnelBase: 0.04,
-      fresnelPower: 4,
-      fresCap: 0.9,
-      fresBlend: 1,
-      scatterStrength: 1,
-    },
-  }),
-  WATER_PARAMS_BY_SCENE = {
-    [SCENE_TYPES.GEO]: {
-      ...DEFAULT_WATER_PARAMS,
-      distortionScale: 5,
-      size: 10,
-      waterColor: 1738436,
-      waveSpeed: Ze,
-      tiling: { enabled: !0, tileSize: 2e3, tileSegments: 256, gridRadius: 1 },
-      waveConfig: { ...Ke },
-    },
-    [SCENE_TYPES.ISLANDS]: {
-      ...DEFAULT_WATER_PARAMS,
-      distortionScale: 5,
-      size: 10,
-      waterColor: 1738436,
-      waveSpeed: Ze,
-      tiling: { enabled: !0, tileSize: 2e3, tileSegments: 256, gridRadius: 1 },
-      waveConfig: { ...Ke },
-    },
-    [SCENE_TYPES.OCEAN]: {
-      ...DEFAULT_WATER_PARAMS,
-      ...WATER_LOOK_PRESETS.StormySeas,
-      distortionScale: 5,
-      size: 10,
-      waveSpeed: Ze,
-      floorEnabled: 0,
-      floorY: -400,
-      waterDepth: 120,
-      depthFalloff: 0.08,
-      clarity: 0.85,
-      tiling: { enabled: !0, tileSize: 2e3, tileSegments: 256, gridRadius: 1 },
-      waveConfig: {
-        windSpeed: 20,
-        windDirection: -135,
-        choppiness: 0.75,
-        waveScale: 0.7,
-      },
-    },
-  },
-  SUN_ANGLES_BY_SCENE = {
-    [SCENE_TYPES.GEO]: { elevation: 39.1, azimuth: 169 },
-    [SCENE_TYPES.ISLANDS]: { elevation: 4, azimuth: 90 },
-    [SCENE_TYPES.OCEAN]: { elevation: 3.5, azimuth: 128 },
-  },
-  CAMERA_SETTINGS_BY_SCENE = {
-    [SCENE_TYPES.GEO]: {
-      cameraFar: 3e4,
-      fog: { enabled: !1, near: 5e3, far: 25e3, color: 16762032 },
-      sun: SUN_ANGLES_BY_SCENE[SCENE_TYPES.GEO],
-    },
-    [SCENE_TYPES.ISLANDS]: {
-      cameraFar: 2e4,
-      fog: { enabled: !1, near: 400, far: 1900, color: 16762032 },
-      sun: SUN_ANGLES_BY_SCENE[SCENE_TYPES.ISLANDS],
-    },
-    [SCENE_TYPES.OCEAN]: {
-      cameraFar: 2e4,
-      fog: { enabled: !1, near: 400, far: 1900, color: 16762032 },
-      lighting: {
-        ambientIntensity: 0.42,
-        directionalIntensity: 0.32,
-        pointIntensity: 0.6,
-      },
-      sun: SUN_ANGLES_BY_SCENE[SCENE_TYPES.OCEAN],
-    },
-  },
-  H = {
-    sceneType: getSceneType(),
-    googleMaps: {
-      apiKey: `AIzaSyA70ViI4JOspeXGG69hDggwAHUmClSe6fo`,
-      tilesetUrl: `https://tile.googleapis.com/v1/3dtiles/root.json`,
-      locations: activeWorldDefinition.locations,
-      defaultLocation: getScenePlace(),
-      scale: 2.5,
-      get center() {
-        return (
-          geoPlaceInfo ||
-          this.locations[this.defaultLocation] ||
-          Object.values(this.locations)[0]
-        );
-      },
-      autoAlignCoordinateCenter: isGeoPlacePending,
-      refreshRate: 30,
-    },
-    get sky() {
-      let e = {
-        model: `analytic`,
-        cloudCover: 0.28,
-        cirrus: 1,
-        sunGlow: 1,
-        image: `tropical_day.jpg`,
-        rotation: 296,
-        exposure: 1,
-        billboardOpacity: 1,
-      };
-      if (this.sceneType === SCENE_TYPES.OCEAN) {
-        let t = tn?.lat ?? sceneLocationContext?.lat ?? this.googleMaps?.center?.lat;
-        return {
-          ...e,
-          model: `sky-image`,
-          rotation: $t(t),
-          billboardOpacity: 0.35,
-          cloudCover: 0.75,
-          cirrus: 0.9,
-          sunGlow: 0.7,
-        };
-      }
-      if (this.sceneType !== SCENE_TYPES.GEO) return e;
-      let t = this.googleMaps?.center?.lat;
-      return {
-        ...e,
-        model: `sky-image`,
-        rotation: $t(t),
-        billboardOpacity: 0.35,
-      };
-    },
-    get sun() {
-      return SUN_ANGLES_BY_SCENE[this.sceneType] || SUN_ANGLES_BY_SCENE[SCENE_TYPES.ISLANDS];
-    },
-    get water() {
-      return this.sceneType === SCENE_TYPES.GEO && isGeoScene && activeWorldDefinition.water
-        ? { ...WATER_PARAMS_BY_SCENE[SCENE_TYPES.GEO], ...activeWorldDefinition.water }
-        : WATER_PARAMS_BY_SCENE[this.sceneType] || WATER_PARAMS_BY_SCENE[SCENE_TYPES.ISLANDS];
-    },
-    get scene() {
-      return CAMERA_SETTINGS_BY_SCENE[this.sceneType] || CAMERA_SETTINGS_BY_SCENE[SCENE_TYPES.ISLANDS];
-    },
-    docking: {
-      minSpeedToDock: 9,
-      DOCKING_RADIUS: 10,
-      circleForwardOffset: 8,
-      debugCircleFadeMaxDistance: 100,
-      targetColumn: {
-        height: 1500,
-        color: 16711935,
-        radius: 1,
-        glowRadius: 12,
-      },
-    },
+  En = {
+    turbidity: { value: GRAPHICS_QUALITY_STORAGE_KEY.turbidity },
+    rayleigh: { value: GRAPHICS_QUALITY_STORAGE_KEY.rayleigh },
+    mieCoefficient: { value: GRAPHICS_QUALITY_STORAGE_KEY.mieCoefficient },
+    mieDirectionalG: { value: GRAPHICS_QUALITY_STORAGE_KEY.mieDirectionalG },
+    uPreethamExposure: { value: GRAPHICS_QUALITY_STORAGE_KEY.exposure },
+    sunPosition: { value: new N(0, 1, 0) },
+    up: { value: new N(0, 1, 0) },
   };
+function Dn(e = {}) {
+  let t = new wn();
+  (t.scale.setScalar(1e4),
+    (t.userData.kind = `sky`),
+    (t.userData.skyModel = `preetham`),
+    (t.frustumCulled = !1));
+  let n = t.material.uniforms;
+  currentQualityKey(e);
+  for (let e of Object.keys(En)) n[e] = En[e];
+  return (
+    (t.material.onBeforeCompile = (e) => {
+      ((e.uniforms.uPreethamExposure = En.uPreethamExposure),
+        (e.fragmentShader = e.fragmentShader
+          .replace(
+            `uniform float showSunDisc;`,
+            `uniform float showSunDisc;\n\t\tuniform float uPreethamExposure;\n${An}`,
+          )
+          .replace(`gl_FragColor = vec4( texColor, 1.0 );`, QUALITY_PRESETS)));
+    }),
+    (n.cloudCoverage.value = 0),
+    (n.cloudDensity.value = 0),
+    (n.showSunDisc.value = 0),
+    t
+  );
+}
+function currentQualityKey(e = {}) {
+  (Number.isFinite(e.turbidity) && (En.turbidity.value = e.turbidity),
+    Number.isFinite(e.rayleigh) && (En.rayleigh.value = e.rayleigh),
+    Number.isFinite(e.mieCoefficient) &&
+      (En.mieCoefficient.value = e.mieCoefficient),
+    Number.isFinite(e.mieDirectionalG) &&
+      (En.mieDirectionalG.value = e.mieDirectionalG),
+    Number.isFinite(e.exposure) && (En.uPreethamExposure.value = e.exposure));
+}
+var QUALITY_PRESETS = `
+vec3 graded = gradePreetham(texColor, vSunE);
+float sunDot = clamp(dot(normalize(vWorldPosition - cameraPosition), vSunDirection), 0.0, 1.0);
+graded += vec3(1.0, 0.97, 0.90) * pow(sunDot, 2400.0) * 1.8;
+graded += vec3(1.0, 0.58, 0.24) * pow(sunDot, 120.0) * 0.65;
+gl_FragColor = vec4(graded, 1.0);
+`,
+  An = `
+vec3 gradePreetham(vec3 color, float sunE) {
+    float hold = pow(40.0 / max(sunE, 1.0), 0.55);
+    vec3 graded = color * uPreethamExposure * clamp(hold, 0.18, 1.0);
+    float peak = max(graded.r, max(graded.g, graded.b));
+    if (peak > 0.78) graded *= (0.78 + (peak - 0.78) / (1.0 + (peak - 0.78) * 2.2)) / peak;
+    return graded;
+}
+`,
+  jn = `
+vec3 preethamSkyColor(vec3 direction) {
+    vec3 sunDir = normalize(sunPosition);
+    float zenithCos = clamp(dot(sunDir, up), -1.0, 1.0);
+    float sunE = 1000.0 * max(0.0, 1.0 - pow(2.718281828459045, -((1.6110731556870734 - acos(zenithCos)) / 1.5)));
+    float sunfade = 1.0 - clamp(1.0 - exp(sunPosition.y / 450000.0), 0.0, 1.0);
+    float rayleighCoefficient = rayleigh - (1.0 - sunfade);
+    vec3 betaR = vec3(5.804542996261093e-6, 1.3562911419845635e-5, 3.0265902468824876e-5) * rayleighCoefficient;
+    vec3 betaM = 0.434 * ((0.2 * turbidity) * 1.0e-17) * vec3(1.8399918514433978e14, 2.7798023919660528e14, 4.0790479543861094e14) * mieCoefficient;
+
+    direction = normalize(direction);
+    float zenithAngle = acos(max(0.0, dot(up, direction)));
+    float denom = cos(zenithAngle) + 0.15 * pow(93.885 - ((zenithAngle * 180.0) / 3.141592653589793), -1.253);
+    float inverse = 1.0 / max(denom, 1.0e-3);
+    float sR = 8400.0 * inverse;
+    float sM = 1250.0 * inverse;
+    vec3 Fex = exp(-(betaR * sR + betaM * sM));
+
+    float cosTheta = dot(direction, sunDir);
+    float rPhase = 0.05968310365946075 * (1.0 + pow(cosTheta * 0.5 + 0.5, 2.0));
+    vec3 betaRTheta = betaR * rPhase;
+    float g = mieDirectionalG;
+    float g2 = g * g;
+    float mPhase = 0.07957747154594767 * ((1.0 - g2) / pow(max(1.0 - 2.0 * g * cosTheta + g2, 1.0e-4), 1.5));
+    vec3 betaMTheta = betaM * mPhase;
+    vec3 scat = (betaRTheta + betaMTheta) / max(betaR + betaM, vec3(1.0e-8));
+    vec3 Lin = pow(max(sunE * scat * (1.0 - Fex), vec3(0.0)), vec3(1.5));
+    float sunset = clamp(pow(1.0 - dot(up, sunDir), 5.0), 0.0, 1.0);
+    Lin *= mix(vec3(1.0), pow(max(sunE * scat * Fex, vec3(0.0)), vec3(0.5)), sunset);
+    vec3 L0 = vec3(0.1) * Fex;
+    return gradePreetham((Lin + L0) * 0.04, sunE);
+}
+`,
+  Mn = 2600,
+  Nn = new w(new Uint8Array([210, 196, 176, 255]), 1, 1);
+((Nn.colorSpace = Ye), (Nn.needsUpdate = !0));

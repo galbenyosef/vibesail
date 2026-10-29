@@ -1,9 +1,9 @@
 // Birds 02 — math
-// Lines 270-1036 of readable/assets/Birds-DHEcQo9w.pretty.js (statement-aligned).
-var y = new r(),
-  b = new r(),
-  x = new r(),
-  S = new r(0, -1, 0),
+// Lines 270-1036 of readable/assets/Birds-C0RXzqnf.pretty.js (statement-aligned).
+var y = new l(),
+  b = new l(),
+  x = new l(),
+  S = new l(0, -1, 0),
   C = 500,
   w = 900,
   T = 480,
@@ -35,11 +35,11 @@ var y = new r(),
   Z = J * 1.3,
   Q = 0.9,
   $ = 2.1,
-  ee = class n {
-    constructor(e, n = new r(), i = new r(1, 0, 0), a = {}) {
+  ee = class e {
+    constructor(e, n = new l(), r = new l(1, 0, 0), i = {}) {
       ((this.scene = e),
         (this.position = n),
-        (this.direction = i.clone().normalize()),
+        (this.direction = r.clone().normalize()),
         (this.speed = P),
         (this.flocks = []),
         (this.height = 50),
@@ -56,15 +56,15 @@ var y = new r(),
         (this.scratchSeenBirdIds = new Set()),
         (this.birdSignsById = new Map()),
         (this.islandSurfaceActiveIds = new Set()),
-        (this.boatPosition = new r()),
+        (this.boatPosition = new l()),
         (this.hasBoatPosition = !1),
         (this.waterHeightSampler =
-          typeof a.waterHeightSampler == `function`
-            ? a.waterHeightSampler
+          typeof i.waterHeightSampler == `function`
+            ? i.waterHeightSampler
             : null),
         (this.raycaster = new t()),
         (this.billboardTime = 0),
-        a.boatPosition && this.setBoatPosition(a.boatPosition),
+        i.boatPosition && this.setBoatPosition(i.boatPosition),
         this.init());
     }
     setCenterTarget(e) {
@@ -171,15 +171,15 @@ var y = new r(),
         let t = this.billboardOrderedIds[e],
           n = this.birdSignsById.get(t);
         if (!n?.position) continue;
-        let i = this.billboardTargets[e];
-        (!i || i.id !== t) &&
-          ((i = { id: t, sign: n, point: new r(), rotationY: 0 }),
-          (this.billboardTargets[e] = i));
-        let a = n.children?.[0]?.geometry?.parameters?.height ?? 12;
-        ((i.sign = n),
-          i.point.copy(n.position),
-          (i.point.y += a * 0.5 + 0.8),
-          (i.rotationY = n.rotation?.y ?? 0));
+        let r = this.billboardTargets[e];
+        (!r || r.id !== t) &&
+          ((r = { id: t, sign: n, point: new l(), rotationY: 0 }),
+          (this.billboardTargets[e] = r));
+        let i = n.children?.[0]?.geometry?.parameters?.height ?? 12;
+        ((r.sign = n),
+          r.point.copy(n.position),
+          (r.point.y += i * 0.5 + 0.8),
+          (r.rotationY = n.rotation?.y ?? 0));
       }
     }
     setBillboardTargets(e = []) {
@@ -200,42 +200,42 @@ var y = new r(),
       return [
         {
           birdCount: 10,
-          startPosition: new r(300, this.height, 0),
+          startPosition: new l(300, this.height, 0),
           species: `black`,
         },
         {
           birdCount: 8,
-          startPosition: new r(-250, this.height, 250),
+          startPosition: new l(-250, this.height, 250),
           species: `black`,
         },
         {
           birdCount: 9,
-          startPosition: new r(250, this.height, 250),
+          startPosition: new l(250, this.height, 250),
           species: `black`,
         },
         {
           birdCount: 7,
-          startPosition: new r(-200, this.height, -300),
+          startPosition: new l(-200, this.height, -300),
           species: `seagull`,
         },
         {
           birdCount: 8,
-          startPosition: new r(0, this.height, -350),
+          startPosition: new l(0, this.height, -350),
           species: `seagull`,
         },
       ];
     }
     createWaterBirdSystem(e = E) {
-      let t = this.getPlayerAnchorPosition() || this.position || new r();
+      let t = this.getPlayerAnchorPosition() || this.position || new l();
       for (let n = 0; n < e; n++) {
         let e = this.createBird(this.models.seagull, `seagull`);
         this.models.seagull.setMode(e, BIRD_MODES.WATER);
         let n = Math.random() * Math.PI * 2,
-          i = M + Math.random() * (N - M),
-          a = t.x + Math.sin(n) * i,
-          o = t.z + Math.cos(n) * i,
-          s = this.sampleWaterHeight(a, o) + R;
-        (e.position.set(a, s, o),
+          r = M + Math.random() * (N - M),
+          i = t.x + Math.sin(n) * r,
+          a = t.z + Math.cos(n) * r,
+          o = this.sampleWaterHeight(i, a) + R;
+        (e.position.set(i, o, a),
           this.scene.add(e),
           this.waterBirds.push({
             bird: e,
@@ -244,9 +244,9 @@ var y = new r(),
             timer: 6 + Math.random() * 8,
             fleeTimer: 0,
             fleeStartPoint: e.position.clone(),
-            waterline: s,
+            waterline: o,
             startleRadius: D * (0.85 + Math.random() * 0.35),
-            velocity: new r(),
+            velocity: new l(),
             orbitDirection: Math.random() < 0.5 ? -1 : 1,
             phase: Math.random() * Math.PI * 2,
           }));
@@ -307,8 +307,8 @@ var y = new r(),
           progress: 0,
           duration: 0,
           arcHeight: 0,
-          startPoint: new r(),
-          endPoint: new r(),
+          startPoint: new l(),
+          endPoint: new l(),
         }
       );
     }
@@ -316,46 +316,46 @@ var y = new r(),
       let n = this.createBird(this.models.seagull, `seagull`);
       (n.scale.multiplyScalar(0.9 + Math.random() * 0.12),
         this.models.seagull.setMode(n, BIRD_MODES.PERCHED));
-      let i = this.computeIslandSurfacePerchPoint(e, t);
+      let r = this.computeIslandSurfacePerchPoint(e, t);
       return (
-        n.position.copy(i),
+        n.position.copy(r),
         (n.rotation.y = Math.random() * Math.PI * 2),
         this.scene.add(n),
         {
           bird: n,
           model: this.models.seagull,
           sign: e,
-          homePoint: i,
+          homePoint: r,
           state: BIRD_MODES.PERCHED,
           timer: 6 + Math.random() * 8,
           fleeTimer: 0,
-          fleeStartPoint: i.clone(),
+          fleeStartPoint: r.clone(),
           startleRadius: V * (0.85 + Math.random() * 0.35),
-          velocity: new r(),
+          velocity: new l(),
           orbitDirection: Math.random() < 0.5 ? -1 : 1,
           phase: Math.random() * Math.PI * 2,
         }
       );
     }
     sampleIslandSurfacePoint(e, t, n) {
-      let i = e?.userData?.islandRef;
-      if (i) {
-        let r = this.scene?.getObjectByProperty?.(`uuid`, i);
-        if (r) {
-          (r.updateWorldMatrix(!0, !1),
+      let r = e?.userData?.islandRef;
+      if (r) {
+        let i = this.scene?.getObjectByProperty?.(`uuid`, r);
+        if (i) {
+          (i.updateWorldMatrix(!0, !1),
             b.set(t, Math.max(e.position.y + 120, 80), n),
             this.raycaster.set(b, S));
-          let i = this.raycaster.intersectObject(r, !1);
-          if (i.length > 0 && i[0].point) {
-            let e = i[0].point.clone();
+          let r = this.raycaster.intersectObject(i, !1);
+          if (r.length > 0 && r[0].point) {
+            let e = r[0].point.clone();
             return ((e.y += U), e);
           }
         }
       }
-      return new r(t, this.sampleWaterHeight(t, n) + q, n);
+      return new l(t, this.sampleWaterHeight(t, n) + q, n);
     }
     computeIslandSurfacePerchPoint(e, t = 0) {
-      if (!e?.position) return new r(0, q, 0);
+      if (!e?.position) return new l(0, q, 0);
       let n = (t / B) * Math.PI * 2;
       for (let t = 0; t < K; t++) {
         let r = W + Math.random() * (G - W),
@@ -403,15 +403,15 @@ var y = new r(),
         });
       }
     }
-    createFlock({ birdCount: t, startPosition: n, species: r = `black` } = {}) {
+    createFlock({ birdCount: e, startPosition: t, species: r = `black` } = {}) {
       let i = this.models[r] || this.models.black,
         a = this.sampleAirSpeed(),
         o = {
-          group: new e(),
+          group: new n(),
           birds: [],
           species: r,
           model: i,
-          position: n.clone(),
+          position: t.clone(),
           direction: this.direction.clone(),
           angle: Math.random() * Math.PI * 2,
           speed: a,
@@ -423,15 +423,15 @@ var y = new r(),
           orbitRadius: 260 + Math.random() * 210,
         };
       o.targetSpeed = o.cruiseSpeed;
-      for (let e = 0; e < t; e++) {
-        let t = this.createBird(i, r);
-        if (e === 0) t.position.set(0, 0, 0);
+      for (let t = 0; t < e; t++) {
+        let e = this.createBird(i, r);
+        if (t === 0) e.position.set(0, 0, 0);
         else {
-          let n = e % 2 == 0 ? 1 : -1,
-            r = Math.ceil(e / 2);
-          t.position.set(n * r * 3, r * 0.5, -r * 5);
+          let n = t % 2 == 0 ? 1 : -1,
+            r = Math.ceil(t / 2);
+          e.position.set(n * r * 3, r * 0.5, -r * 5);
         }
-        (o.birds.push(t), o.group.add(t));
+        (o.birds.push(e), o.group.add(e));
       }
       (o.group.position.copy(o.position),
         this.rotateFlockToDirection(o),
@@ -509,68 +509,68 @@ var y = new r(),
       ((x.y = r), e.velocity.lerp(x, Math.min(1, n * 2)));
     }
     updateWaterBirds(e) {
-      let t = this.getPlayerAnchorPosition() || this.position || new r(),
+      let t = this.getPlayerAnchorPosition() || this.position || new l(),
         n = j * j,
-        i = A * A;
-      this.waterBirds.forEach((r) => {
-        let { bird: a } = r;
-        r.phase += e;
+        r = A * A;
+      this.waterBirds.forEach((i) => {
+        let { bird: a } = i;
+        i.phase += e;
         let o = a.position.x - t.x,
           s = a.position.z - t.z;
         if (
-          (o * o + s * s > i &&
-            r.state !== BIRD_MODES.FLYING &&
-            (this.respawnWaterBirdNearCenter(r, t),
-            (r.timer = 4 + Math.random() * 8)),
-          this.tryStartleBirdFromBoat(r, 3.2, 1.8),
-          r.state === BIRD_MODES.FLYING)
+          (o * o + s * s > r &&
+            i.state !== BIRD_MODES.FLYING &&
+            (this.respawnWaterBirdNearCenter(i, t),
+            (i.timer = 4 + Math.random() * 8)),
+          this.tryStartleBirdFromBoat(i, 3.2, 1.8),
+          i.state === BIRD_MODES.FLYING)
         ) {
-          ((r.fleeTimer += e),
-            this.updateEscapeVelocity(r, a, e, 3.6),
-            a.position.addScaledVector(r.velocity, e),
+          ((i.fleeTimer += e),
+            this.updateEscapeVelocity(i, a, e, 3.6),
+            a.position.addScaledVector(i.velocity, e),
             this.animateSingleBirdWings(a, e, 1.1),
-            b.set(r.velocity.x, 0, r.velocity.z),
+            b.set(i.velocity.x, 0, i.velocity.z),
             b.lengthSq() > 0.01 && (a.rotation.y = Math.atan2(b.x, b.z)));
-          let t = a.position.distanceTo(r.fleeStartPoint);
-          if (r.fleeTimer > O && t >= J) {
-            ((r.state = BIRD_MODES.WATER),
-              (r.timer = 5 + Math.random() * 8),
-              r.model.setMode(a, BIRD_MODES.WATER),
-              r.velocity.multiplyScalar(0.2),
+          let t = a.position.distanceTo(i.fleeStartPoint);
+          if (i.fleeTimer > O && t >= J) {
+            ((i.state = BIRD_MODES.WATER),
+              (i.timer = 5 + Math.random() * 8),
+              i.model.setMode(a, BIRD_MODES.WATER),
+              i.velocity.multiplyScalar(0.2),
               (a.rotation.y += (Math.random() - 0.5) * 0.6));
             let e = this.sampleWaterHeight(a.position.x, a.position.z) + R;
-            ((r.waterline = e), (a.position.y = e));
+            ((i.waterline = e), (a.position.y = e));
           }
         } else {
-          ((r.timer -= e),
-            r.timer <= 0 &&
-              ((r.timer = 4 + Math.random() * 8),
+          ((i.timer -= e),
+            i.timer <= 0 &&
+              ((i.timer = 4 + Math.random() * 8),
               b
                 .set(Math.random() - 0.5, 0, Math.random() - 0.5)
                 .normalize()
                 .multiplyScalar(1.6),
-              r.velocity.lerp(b, 0.5)),
-            r.velocity.multiplyScalar(Math.max(0, 1 - e * 0.6)),
-            a.position.addScaledVector(r.velocity, e));
+              i.velocity.lerp(b, 0.5)),
+            i.velocity.multiplyScalar(Math.max(0, 1 - e * 0.6)),
+            a.position.addScaledVector(i.velocity, e));
           let t = this.sampleWaterHeight(a.position.x, a.position.z) + R;
-          ((r.waterline = t),
-            (a.position.y = t + Math.sin(r.phase * 1.5) * z),
-            (a.rotation.z = Math.sin(r.phase * 1.2) * 0.03));
+          ((i.waterline = t),
+            (a.position.y = t + Math.sin(i.phase * 1.5) * z),
+            (a.rotation.z = Math.sin(i.phase * 1.2) * 0.03));
         }
         let c = a.position.x - t.x,
           l = a.position.z - t.z;
         if (c * c + l * l > n) {
-          if (r.state === BIRD_MODES.FLYING && r.fleeTimer < O) {
+          if (i.state === BIRD_MODES.FLYING && i.fleeTimer < O) {
             (b.set(c, 0, l).normalize(),
               a.position.set(
                 t.x + b.x * (j - 30),
-                Math.max(a.position.y, r.waterline + 6),
+                Math.max(a.position.y, i.waterline + 6),
                 t.z + b.z * (j - 30),
               ),
-              r.velocity.addScaledVector(b, -21.599999999999998));
+              i.velocity.addScaledVector(b, -21.599999999999998));
             return;
           }
-          this.respawnWaterBirdNearCenter(r, t);
+          this.respawnWaterBirdNearCenter(i, t);
         }
       });
     }
@@ -660,17 +660,17 @@ var y = new r(),
       e.group.rotation.y = t;
     }
     updateFlockDirection(e, t) {
-      let n = this.centerTarget?.position || this.position || new r();
+      let n = this.centerTarget?.position || this.position || new l();
       b.set(e.position.x - n.x, 0, e.position.z - n.z);
-      let i = b.length();
-      (i < 0.001 && (b.set(1, 0, 0), (i = 1)),
-        b.multiplyScalar(1 / i),
+      let r = b.length();
+      (r < 0.001 && (b.set(1, 0, 0), (r = 1)),
+        b.multiplyScalar(1 / r),
         x.set(-b.z * e.orbitDirection, 0, b.x * e.orbitDirection));
-      let a = o.clamp((e.orbitRadius - i) / Math.max(80, e.orbitRadius), -1, 1);
-      if ((x.addScaledVector(b, a * 0.9), i > C)) {
-        let t = o.clamp((i - C) / C, 0, 1.2);
+      let i = a.clamp((e.orbitRadius - r) / Math.max(80, e.orbitRadius), -1, 1);
+      if ((x.addScaledVector(b, i * 0.9), r > C)) {
+        let t = a.clamp((r - C) / C, 0, 1.2);
         (x.addScaledVector(b, -(1.1 + t * 2.4)),
-          i > C * 1.15 &&
+          r > C * 1.15 &&
             (y.set(-b.z * e.orbitDirection, 0, b.x * e.orbitDirection),
             x.copy(b).multiplyScalar(-1.7).addScaledVector(y, 0.35)));
       }
@@ -684,8 +684,8 @@ var y = new r(),
         this.flocks.forEach((t) => {
           (this.updateFlockDirection(t, e),
             this.rotateFlockToDirection(t),
-            (t.speed = o.lerp(t.speed, t.targetSpeed, Math.min(1, e * 1.8))),
-            (t.position.y = o.lerp(
+            (t.speed = a.lerp(t.speed, t.targetSpeed, Math.min(1, e * 1.8))),
+            (t.position.y = a.lerp(
               t.position.y,
               t.targetHeight,
               Math.min(1, e * 1.5),
@@ -718,10 +718,10 @@ var y = new r(),
     checkWorldBounds(e) {
       let t = this.centerTarget
           ? this.centerTarget.position
-          : this.position || new r(),
+          : this.position || new l(),
         n = e.position.x - t.x,
-        i = e.position.z - t.z;
-      if (n * n + i * i > w * w) {
+        r = e.position.z - t.z;
+      if (n * n + r * r > w * w) {
         let n = Math.random() * Math.PI * 2,
           r = Math.min(T, C * (0.8 + Math.random() * 0.2)),
           i = t.x + Math.sin(n) * r,
@@ -763,7 +763,7 @@ var y = new r(),
         Object.values(this.models).forEach((e) => e?.dispose?.()),
         (this.models = {}));
     }
-    static createBirds(e, t = new r(1, 0, 0), i = {}) {
-      return new n(e, new r(0, 0, 0), t, i);
+    static createBirds(t, n = new l(1, 0, 0), r = {}) {
+      return new e(t, new l(0, 0, 0), n, r);
     }
   };
